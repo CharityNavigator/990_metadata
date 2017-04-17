@@ -1,0 +1,31 @@
+The goal of this repository is to extract metadata from the IRS 990 schemas for
+the purpose of producing a 990 data dictionary.
+
+The three CSV files in the "reference" directory are from the IRS. They
+represent change logs for transition from the 2012v2.2 to the 2013v1.0
+encodings of the 990.  
+
+Unfortunately, the IRS provides neither the 2012v2.2 nor the 2013v1.0 schema on
+their website. Instead, we use the latest pre-2013 schema we have, which is
+2010v3.7, and the earliest 2013 schema we have, which is 2013v3.1. These
+schemas are distributed in zipped form within this repository.
+
+The files found in the "schemas" directory represent select .xsd files from the
+990 schema provided by the IRS.
+
+There are many challenges around using the IRS990 .xsd schemas. Chief among
+them is that certain parts of the schema are idiosyncratic and require manual
+examination. For example, Part III of the 990 PC is a list of programs offered
+by a nonprofit. If there is more than one program, the first one has a
+different data type from the second onward. Even more challenging, if there are
+more than _two_, then programs 3+ will be three distinct Xpath roots.
+
+With so much manual review required, we wish to limit the scope of work. As
+such, we are ignoring any data that does not come from the Form 990 and its
+associated schedules. This means that we can ignore all change log rows that do
+not contain the text "990," and which do not pertain to the .xsd files included
+here.
+
+The IRS schemas can be found at:
+
+    https://www.irs.gov/pub/irs-schema/
