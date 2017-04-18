@@ -1,6 +1,19 @@
 The goal of this repository is to extract metadata from the IRS 990 schemas for
 the purpose of producing a 990 data dictionary.
 
+The process is as follows:
+
+   (1) Extract xpath and metadata for leaf elements from any hierarchy of named
+       fields.
+
+   (2) Extract xpath and metadata for any complex types, which will become side
+       tables.
+
+   (3) Construct composite xpath of complex-typed named elements.
+
+   (4) Count how many times each xpath occurs in each observed version of the
+       990.
+
 The three CSV files in the "reference" directory are from the IRS. They
 represent change logs for transition from the 2012v2.2 to the 2013v1.0
 encodings of the 990.  
