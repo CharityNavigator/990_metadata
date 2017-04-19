@@ -4,6 +4,16 @@ import csv
 import glob
 import re
 
+# Returns root of etree for which default namespaces have been removed.
+# Adapted from Stack Overflow 34009992.
+def getRoot(fn):
+    with open(fn) as f:
+        xmlstring = f.read()
+
+    xmlstring = re.sub(r'\sxmlns="[^"]+"', '', xmlstring, count=1)
+    root = etree.fromstring(xmlstring) 
+    return root
+
 def abbreviate(node):
     ns = re.escape("{http://www.w3.org/2001/XMLSchema}")
     tag = re.sub(ns, "", node.tag)
@@ -33,14 +43,52 @@ def p2str(path):
     local.reverse()
     return("/".join(local))
 
-def extract(f, out):
-    tree = etree.parse(f)
-    root = tree.getroot()
+def getAttrib(elem, attr):
+    if attr in elem.attrib:
+        return elem.attrib[attr]
 
-    elems = root.xpath("//xsd:element[@name]", namespaces={'xsd':'http://www.w3.org/2001/XMLSchema'})
+    return None
+
+def getType(elem):
+    return getAttrib(elem, "type")
+
+def getMin(elem):
+    return getAttrib(elem, "minOccurs")
+
+def getMax(elem):
+    return getAttrib(elem, "maxOccurs")
+
+def getUniqueChildText(elem, cName):
+    xp = "xsd:annotation/xsd:documentation/%s" % cName
+    ns = {'xsd':'http://www.w3.org/2001/XMLSchema'}
+    ds = elem.xpath(xp, namespaces=ns)
+    if len(ds) == 0:
+        return None
+    elif len(ds) == 1:
+        return ds[0].text
+    else:
+        raise AssertionError("Expected %s to be unique" % cName)
+
+def getLineNumber(elem):
+    getUniqueChildText(elem, "LineNumber")
+
+def getDescription(elem):
+    getUniqueChildText(elem, "Description")
+
+def extract(f, out):
+    root = getRoot(f)
+
+    elems = root.xpath("//xsd:element[@name]",
+            namespaces={'xsd':'http://www.w3.org/2001/XMLSchema'})
     for elem in elems:
         path = ascend(elem)
-        out.writerow([p2str(path)])
+        eType = getType(elem)
+        eMin  = getMin(elem)
+        eMax  = getMax(elem)
+        eLine = getLineNumber(elem)
+        eDesc = getDescription(elem)
+        print eDesc
+        out.writerow([p2str(path), eType, eLine, eDesc, eMin, eMax])
 
 def process(year, f):
     name = f.split("/")[-1].split(".")[0]
