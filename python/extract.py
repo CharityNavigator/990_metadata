@@ -1,11 +1,9 @@
-import sys
 from lxml import etree
-import csv
-import glob
 import re
+import csv
 
-# Returns root of etree for which default namespaces have been removed.
-# Adapted from Stack Overflow 34009992.
+NAMESPACE = {'xsd':'http://www.w3.org/2001/XMLSchema'} 
+
 def getRoot(fn):
     with open(fn) as f:
         xmlstring = f.read()
@@ -13,6 +11,25 @@ def getRoot(fn):
     xmlstring = re.sub(r'\sxmlns="[^"]+"', '', xmlstring, count=1)
     root = etree.fromstring(xmlstring) 
     return root
+
+def getByXpath(elem, xp):
+    return elem.xpath(xp, namespaces=NAMESPACE)
+
+def getUniqueChildText(elem, cName):
+    xp = "xsd:annotation/xsd:documentation/%s" % cName
+    ds = getByXpath(elem, xp)
+    if len(ds) == 0:
+        return None
+    elif len(ds) == 1:
+        return ds[0].text
+    else:
+        raise AssertionError("Expected %s to be unique" % cName)
+
+def p2str(path):
+    local = path[:]
+    local.append("")
+    local.reverse()
+    return("/".join(local))
 
 def abbreviate(node):
     ns = re.escape("{http://www.w3.org/2001/XMLSchema}")
@@ -37,12 +54,6 @@ def ascend(node, path = []):
 
     return ascend(parent, local)
 
-def p2str(path):
-    local = path[:]
-    local.append("")
-    local.reverse()
-    return("/".join(local))
-
 def getAttrib(elem, attr):
     if attr in elem.attrib:
         return elem.attrib[attr]
@@ -58,28 +69,17 @@ def getMin(elem):
 def getMax(elem):
     return getAttrib(elem, "maxOccurs")
 
-def getUniqueChildText(elem, cName):
-    xp = "xsd:annotation/xsd:documentation/%s" % cName
-    ns = {'xsd':'http://www.w3.org/2001/XMLSchema'}
-    ds = elem.xpath(xp, namespaces=ns)
-    if len(ds) == 0:
-        return None
-    elif len(ds) == 1:
-        return ds[0].text
-    else:
-        raise AssertionError("Expected %s to be unique" % cName)
-
 def getLineNumber(elem):
-    getUniqueChildText(elem, "LineNumber")
+    return getUniqueChildText(elem, "LineNumber")
 
 def getDescription(elem):
-    getUniqueChildText(elem, "Description")
+    return getUniqueChildText(elem, "Description")
 
 def extract(f, out):
     root = getRoot(f)
+    xp = "//xsd:element[@name]"
+    elems = getByXpath(root, xp)
 
-    elems = root.xpath("//xsd:element[@name]",
-            namespaces={'xsd':'http://www.w3.org/2001/XMLSchema'})
     for elem in elems:
         path = ascend(elem)
         eType = getType(elem)
@@ -93,11 +93,8 @@ def extract(f, out):
 def process(year, f):
     name = f.split("/")[-1].split(".")[0]
 
-    with open("../output/%s_%s.csv" % (year, name), "wb") as outfile:
+    with open("../../output/%s_%s.csv" % (year, name), "wb") as outfile:
         out = csv.writer(outfile)
         extract(f, out)
 
-for year in ["2010", "2013"]:
-    files = glob.glob("../schema/%s/*.xsd" % year)
-    for f in files:
-        process(year, f)
+process(2010, "../../schema/2010/IRS990.xsd")
