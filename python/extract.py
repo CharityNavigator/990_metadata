@@ -1,9 +1,16 @@
 from lxml import etree
 import re
 import csv
+import sys
+import glob
+
+class BizarreElementException(Exception):
+    pass
 
 NAMESPACE = {'xsd':'http://www.w3.org/2001/XMLSchema'} 
 
+# Returns root of etree for which default namespaces have been removed.
+# Adapted from Stack Overflow 34009992.
 def getRoot(fn):
     with open(fn) as f:
         xmlstring = f.read()
@@ -29,6 +36,7 @@ def p2str(path):
     local = path[:]
     local.append("")
     local.reverse()
+
     return("/".join(local))
 
 def abbreviate(node):
@@ -45,7 +53,9 @@ def abbreviate(node):
 def ascend(node, path = []):
     local = path[:]
     abbr = abbreviate(node)
-    local.append(abbr)
+
+    if not abbr in ["sequence", "schema", "choice"]:
+        local.append(abbr)
 
     parent = node.getparent()
 
@@ -61,7 +71,20 @@ def getAttrib(elem, attr):
     return None
 
 def getType(elem):
-    return getAttrib(elem, "type")
+    # In-line type specifications
+    if "type" in elem.attrib:
+        return elem.attrib["type"]
+   
+    # Nested type specifications
+    extElems = getByXpath(elem, "xsd:complexType/*/xsd:extension[@base]")
+
+    if len(extElems) == 1:
+        return extElems[0].attrib["base"]
+
+    raise BizarreElementException(p2str(ascend(elem)))
+
+def getByXpath(elem, xp):
+    return elem.xpath(xp, namespaces=NAMESPACE)
 
 def getMin(elem):
     return getAttrib(elem, "minOccurs")
@@ -81,20 +104,26 @@ def extract(f, out):
     elems = getByXpath(root, xp)
 
     for elem in elems:
-        path = ascend(elem)
-        eType = getType(elem)
-        eMin  = getMin(elem)
-        eMax  = getMax(elem)
-        eLine = getLineNumber(elem)
-        eDesc = getDescription(elem)
-        print eDesc
-        out.writerow([p2str(path), eType, eLine, eDesc, eMin, eMax])
+        try:
+            path = ascend(elem)
+            eType = getType(elem)
+            eMin  = getMin(elem)
+            eMax  = getMax(elem)
+            eLine = getLineNumber(elem)
+            eDesc = getDescription(elem)
+            out.writerow([p2str(path), eType, eLine, eDesc, eMin, eMax])
+        except BizarreElementException, e:
+            print str(e)
+            continue
 
 def process(year, f):
     name = f.split("/")[-1].split(".")[0]
 
-    with open("../../output/%s_%s.csv" % (year, name), "wb") as outfile:
+    with open("../output/%s_%s.csv" % (year, name), "w") as outfile:
         out = csv.writer(outfile)
         extract(f, out)
 
-process(2010, "../../schema/2010/IRS990.xsd")
+for year in ["2010", "2013"]:
+    files = glob.glob("../schema/%s/*.xsd" % year)
+    for f in files:
+        process(year, f)
