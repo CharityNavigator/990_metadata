@@ -44,7 +44,7 @@ class Node:
             token = token.split(":")[-1]
             p.append(token)
 
-        p.insert(0, "")
+        p.insert(0, self.xpref)
         return "/".join(p)
 
     def getNamespace(self, token):
@@ -68,42 +68,73 @@ class Node:
         if "type" in self.elem.attrib:
             return self.elem.attrib["type"]
        
-        # Nested type specifications
-        extElems = getByXpath(self.elem,
+        # Nested type specifications -- complexType
+        cplxElems = getByXpath(self.elem,
                 "xsd:complexType/*/xsd:extension[@base]")
 
-        if len(extElems) == 1:
-            return extElems[0].attrib["base"]
+        if len(cplxElems) == 1:
+            return cplxElems[0].attrib["base"]
+
+        # Nested type specification -- simpleType
+        smplElems = getByXpath(self.elem,
+                "xsd:simpleType/xsd:restriction[@base]")
+
+        if len(smplElems) == 1:
+            return smplElems[0].attrib["base"]
 
         raise UnhandledElementException("/".join(self.ascend(elem)))
+
+    def getUniqueChildText(self, cName):
+        xp = "xsd:annotation/xsd:documentation/%s" % cName
+        ds = getByXpath(self.elem, xp)
+        if len(ds) == 0:
+            return None
+        elif len(ds) == 1:
+            return ds[0].text
+        else:
+            raise AssertionError("Expected %s to be unique" % cName)
+
+    def getMin(self):
+        return self.getAttrib("minOccurs")
+
+    def getMax(self):
+        return self.getAttrib("maxOccurs")
+
+    def getLineNumber(self):
+        return self.getUniqueChildText("LineNumber")
+
+    def getDescription(self):
+        return self.getUniqueChildText("Description")
 
     def process(self):
         self.eType = self.getType()
         self.xpath = self.getXpath()
+        self.desc = self.getDescription()
+        self.lineNum = self.getLineNumber()
+        self.minOccur = self.getMin()
+        self.maxOccur = self.getMax()
 
-    def __init__(self, elem):
+    def __init__(self, elem, year, xpref):
         # Raw fields
         self.elem      = elem
+        self.year      = year
+        self.xpref     = xpref
         self.apath     = self.ascend(elem)
         self.namespace = self.getNamespace(self.apath[-1])
         self.process()
 
         # Processed fields
         self.table     = None  # Name of table in which node occurs
-        self.desc      = None  # IRS description
-        self.minOccur  = None  # Minimum number of occurrences
-        self.maxOccur  = None  # Maximum number of occurrences
-        self.lineNum   = None  # Line number
 
     def examine(self):
         return [self.namespace, 
                 self.apath]
 
     def report(self):
-        return [self.xpath,
+        return [self.year,
+                self.xpath,
                 self.eType,
                 self.table,
-                self.xpath,
                 self.desc,
                 self.lineNum,
                 self.minOccur,
@@ -186,40 +217,49 @@ def remap(nodes, namespaces):
 
     return local 
 
-# Set of all element nodes.
-nodes = set()
 
-# Elements that exist as part of a type definition. This information will be
-# used in constructing composite xpaths and side tables.
-namespaces = {}
+def process(year, fn):
+    # Set of all element nodes.
+    nodes = set()
 
-root = getRoot("../../schema/2010/IRS990.xsd")
-xp = "//xsd:element[@name]"
-elems = getByXpath(root, xp)
+    # Elements that exist as part of a type definition. This information will
+    # be used in constructing composite xpaths and side tables.
+    namespaces = {}
 
-for elem in elems:
-    try:
-        node = Node(elem)
-    except UnhandledElementException, e:
-        print "!ERROR: %s" % str(e)
-        continue
+    tokens = fn.split(".")[0].split("_")[:-1]
+    tokens.insert(0, "")
+    xpref = "/".join(tokens)
+    root = getRoot(fn)
+    xp = "//xsd:element[@name]"
+    elems = getByXpath(root, xp)
 
-    ns = node.namespace 
+    for elem in elems:
+        try:
+            node = Node(elem, year, xpref)
+        except UnhandledElementException, e:
+            print "!SKIPPED: %s" % str(e)
+            continue
 
-    assert node != None
+        ns = node.namespace 
 
-    nsAdd(namespaces, ns, node)
-    nodes.add(node)
+        assert node != None
 
-nodes = remap(nodes, namespaces)
+        nsAdd(namespaces, ns, node)
+        nodes.add(node)
 
-print
-for k in namespaces.keys():
-    print "***%s***" % k
-    v = namespaces[k]
-    for n in v:
-        print [n.namespace, n.eType, n.xpath]
+    nodes = remap(nodes, namespaces)
 
-    print "\n\n"
+    lines = [n.report() for n in namespaces[None]]
 
-print "Done"
+lines = []
+for year in ["2010", "2013"]:
+    files = glob.glob("../schema/%s/*.xsd" % year)
+    for fn in files:
+        local = process(year, fn)
+        lines.extend(local)
+
+with open("../output/xpath_all.csv", "wb") as outfile:
+    out = csv.writer(outfile)
+    out.writelines(lines)
+
+print "\n\nDone"

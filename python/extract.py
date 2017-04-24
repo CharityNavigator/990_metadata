@@ -4,10 +4,144 @@ import csv
 import sys
 import glob
 
-class BizarreElementException(Exception):
+NAMESPACE = {'xsd':'http://www.w3.org/2001/XMLSchema'} 
+
+class UnhandledElementException(Exception):
     pass
 
-NAMESPACE = {'xsd':'http://www.w3.org/2001/XMLSchema'} 
+class Node:
+    def __init__(self, elem, year, xpref):
+        # Raw fields
+        self.elem      = elem
+        self.year      = year
+        self.xpref     = xpref
+        self.apath     = self.ascend(elem)
+        self.namespace = self.getNamespace(self.apath[-1])
+        self.process()
+
+    def compose(self, prefix, namespace):
+        composite = Node(self.elem, self.year, self.xpref)
+        composite.xpath = "/".join([prefix, self.xpath])
+        composite.namespace = namespace
+        return composite
+
+    def ascend(self, node, path = []):
+        local = path[:]
+        abbr = abbreviate(node)
+
+        if not abbr in ["schema"]:
+            local.append(abbr)
+
+        parent = node.getparent()
+
+        if parent == None:
+            return local
+
+        return self.ascend(parent, local)
+
+    # Xpath to this node (relative to namespace)
+    def getXpath(self):
+        p = []
+
+        for token in reversed(self.apath):
+            if (not self.namespace == None) and (":" in token) and\
+                    (token.endswith(self.namespace)):
+                continue
+            if token in ["sequence", "choice", "complexType"]:
+                continue
+
+            token = token.split(":")[-1]
+            p.append(token)
+        xp = "/".join(p)
+        return "/".join(p)
+
+    def getNamespace(self, token):
+        if token.startswith("group:"):
+            return token.split(":")[-1]
+
+        if token.startswith("complexType:"):
+            return token.split(":")[-1]
+
+        return None
+
+    def getAttrib(self, attr):
+        if attr in self.elem.attrib:
+            return self.elem.attrib[attr]
+
+        return None
+
+    # Type attribute from XML
+    def getType(self):
+        # In-line type specifications
+        if "type" in self.elem.attrib:
+            return self.elem.attrib["type"]
+       
+        # Nested type specifications -- complexType
+        cplxElems = getByXpath(self.elem,
+                "xsd:complexType/*/xsd:extension[@base]")
+
+        if len(cplxElems) == 1:
+            return cplxElems[0].attrib["base"]
+
+        # Nested type specification -- simpleType
+        smplElems = getByXpath(self.elem,
+                "xsd:simpleType/xsd:restriction[@base]")
+
+        if len(smplElems) == 1:
+            return smplElems[0].attrib["base"]
+
+        raise UnhandledElementException("/".join(self.ascend(self.elem)))
+
+    def getUniqueChildText(self, cName):
+        xp = "xsd:annotation/xsd:documentation/%s" % cName
+        ds = getByXpath(self.elem, xp)
+        if len(ds) == 0:
+            return None
+        elif len(ds) == 1:
+            return ds[0].text
+        else:
+            raise AssertionError("Expected %s to be unique" % cName)
+
+    def getMin(self):
+        return self.getAttrib("minOccurs")
+
+    def getMax(self):
+        return self.getAttrib("maxOccurs")
+
+    def getLineNumber(self):
+        return self.getUniqueChildText("LineNumber")
+
+    def getDescription(self):
+        return self.getUniqueChildText("Description")
+
+    def process(self):
+        self.eType = self.getType()
+        self.xpath = self.getXpath()
+        self.desc = self.getDescription()
+        self.lineNum = self.getLineNumber()
+        self.minOccur = self.getMin()
+        self.maxOccur = self.getMax()
+
+
+    def examine(self):
+        return [self.namespace, 
+                self.apath]
+
+    # Return the version of the node's data to be published in the data
+    # dictionary.
+    def report(self):
+
+        # By the time this code is called, the Xpath should reflect the prefix
+        # that was stripped for processing earlier.
+        pubXpath = "/".join([self.xpref, self.xpath])
+
+        return [self.year,
+                pubXpath,
+                self.eType,
+                self.desc,
+                self.lineNum,
+                self.minOccur,
+                self.maxOccur]
 
 # Returns root of etree for which default namespaces have been removed.
 # Adapted from Stack Overflow 34009992.
@@ -22,22 +156,28 @@ def getRoot(fn):
 def getByXpath(elem, xp):
     return elem.xpath(xp, namespaces=NAMESPACE)
 
-def getUniqueChildText(elem, cName):
-    xp = "xsd:annotation/xsd:documentation/%s" % cName
-    ds = getByXpath(elem, xp)
-    if len(ds) == 0:
-        return None
-    elif len(ds) == 1:
-        return ds[0].text
+
+def nsAdd(tbl, key, content):
+    if not key in tbl:
+        tbl[key] = set()
+
+    assert content != None
+
+    tbl[key].add(content)
+
+def concat(prefix, child):
+    path = ascend(child)
+    suffix = "/".join(path[1:])
+    units = [prefix, suffix]
+    return "/".join(units)
+
+def resolve(elem):
+    eType = getType(elem)
+
+    if eType in namespaces:
+        remap(elem, namespaces[eType])
     else:
-        raise AssertionError("Expected %s to be unique" % cName)
-
-def p2str(path):
-    local = path[:]
-    local.append("")
-    local.reverse()
-
-    return("/".join(local))
+        report(elem)
 
 def abbreviate(node):
     ns = re.escape("{http://www.w3.org/2001/XMLSchema}")
@@ -50,80 +190,79 @@ def abbreviate(node):
 
     return ":".join(ret)
 
-def ascend(node, path = []):
-    local = path[:]
-    abbr = abbreviate(node)
+def remap(nodes, namespaces):
+    local = nodes.copy()
 
-    if not abbr in ["sequence", "schema", "choice"]:
-        local.append(abbr)
+    while True:
+        current = local.copy()
 
-    parent = node.getparent()
+        for node in current:
+            t = node.eType
+            ns = node.namespace
+            if t != None and t in namespaces.keys():
+                prefix = node.xpath
 
-    if parent == None:
-        return local
+                local.remove(node)
+                namespaces[ns].remove(node)
 
-    return ascend(parent, local)
+                for child in namespaces[t]:
+                    composite = child.compose(prefix, ns)
+                    assert composite != None
+                    namespaces[ns].add(composite)
+                    local.add(composite)
 
-def getAttrib(elem, attr):
-    if attr in elem.attrib:
-        return elem.attrib[attr]
+        # Break if local is unchanged
+        if len(local.difference(current)) == 0:
+            break
 
-    return None
+        current = local
 
-def getType(elem):
-    # In-line type specifications
-    if "type" in elem.attrib:
-        return elem.attrib["type"]
-   
-    # Nested type specifications
-    extElems = getByXpath(elem, "xsd:complexType/*/xsd:extension[@base]")
+    return local 
 
-    if len(extElems) == 1:
-        return extElems[0].attrib["base"]
 
-    raise BizarreElementException(p2str(ascend(elem)))
+def process(year, fn):
+    # Set of all element nodes.
+    nodes = set()
 
-def getByXpath(elem, xp):
-    return elem.xpath(xp, namespaces=NAMESPACE)
-
-def getMin(elem):
-    return getAttrib(elem, "minOccurs")
-
-def getMax(elem):
-    return getAttrib(elem, "maxOccurs")
-
-def getLineNumber(elem):
-    return getUniqueChildText(elem, "LineNumber")
-
-def getDescription(elem):
-    return getUniqueChildText(elem, "Description")
-
-def extract(f, out):
-    root = getRoot(f)
+    # Elements that exist as part of a type definition. This information will
+    # be used in constructing composite xpaths and side tables.
+    namespaces = {}
+    tokens = fn.split("/")[-1].split(".")[0].split("_")[:-1]
+    tokens.insert(0, "")
+    xpref = "/".join(tokens)
+    root = getRoot(fn)
     xp = "//xsd:element[@name]"
     elems = getByXpath(root, xp)
 
     for elem in elems:
         try:
-            path = ascend(elem)
-            eType = getType(elem)
-            eMin  = getMin(elem)
-            eMax  = getMax(elem)
-            eLine = getLineNumber(elem)
-            eDesc = getDescription(elem)
-            out.writerow([p2str(path), eType, eLine, eDesc, eMin, eMax])
-        except BizarreElementException, e:
-            print str(e)
+            node = Node(elem, year, xpref)
+        except UnhandledElementException, e:
+            print "!SKIPPED: %s" % str(e)
             continue
 
-def process(year, f):
-    name = f.split("/")[-1].split(".")[0]
+        ns = node.namespace 
 
-    with open("../output/%s_%s.csv" % (year, name), "w") as outfile:
-        out = csv.writer(outfile)
-        extract(f, out)
+        assert node != None
 
+        nsAdd(namespaces, ns, node)
+        nodes.add(node)
+
+    nodes = remap(nodes, namespaces)
+
+    lines = [n.report() for n in namespaces[None]]
+    return lines
+
+lines = []
 for year in ["2010", "2013"]:
     files = glob.glob("../schema/%s/*.xsd" % year)
-    for f in files:
-        process(year, f)
+    for fn in files:
+        local = process(year, fn)
+        lines.extend(local)
+
+with open("../output/xpath_all.csv", "wb") as outfile:
+    out = csv.writer(outfile)
+    out.writerow(["Year","Xpath","Type","Description","Line","MinOccur","MaxOccur"])
+    out.writerows(lines)
+
+print "\nDone"
