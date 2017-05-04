@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8820</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>March 11, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8820 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8820">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8820</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8820Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8820">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8820Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8820</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Qualified Clinical Testing Expenses Paid or Incurred During the Tax Year-->
+			<xsd:element name="QualifiedClinicalTestExpnssPd" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified clinical testing expenses paid or incurred during the tax year</Description>
+							<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit. Multiply Line 1 by 50% -->
+			<xsd:element name="CurrentYearCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit. Multiply line 1 by 50%</Description>
+							<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Orphan Drug Credit(s) from an S Corporation, Partnership, Estate, or Trust-->
+			<xsd:element name="OrphanDrugCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Orphan drug credit(s) from an S corporation, partnership, estate, or trust</Description>
+							<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit and Orphan Drug Credit -->
+			<xsd:element name="SumCurrYrCrandOrphanDrugCr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 2 and 3</Description>
+							<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="indicatorPortion1041">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="1041 Portion"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+							<xsd:attribute name="portionAmount1041" type="USAmountType"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries -->
+			<xsd:element name="AmountAllocatedtoBeneficiaries" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries</Description>
+							<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Estates and Trusts Credit    -->
+			<xsd:element name="EstatesandTrustsCredit" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates and trusts credit</Description>
+							<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Assignee Railroad Track Miles Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ====================================================================== -->
+	<!-- ============  Assignee Railroad Track Miles Statement ================ -->
+	<!-- ====================================================================== -->
+
+
+	<xsd:element name="AssigneeRailroadTrackMilesStmt">
+		<xsd:annotation>
+			<xsd:documentation>Assignee railroad track miles statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AssigneeRailroadTrackMilesStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AssigneeRailroadTrackMilesStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="AssigneeRailroadTrackMilesStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for assignee railroad track miles statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Assignee Railroad Track Miles -->
+			<xsd:element name="AssigneeRailroadTrackMiles" type="AssigneeRailroadTrackMilesType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assignee railroad track miles statement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Assignee Railroad Track Miles -->
+	<xsd:complexType name="AssigneeRailroadTrackMilesType">
+		<xsd:sequence>
+
+			<!-- Name Of Each Assignee -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of each assignee</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identification Number Of Each Assignee-->
+			<xsd:element name="EIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Identification number of each assignee</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number Of Miles Of The Assignors Eligible Railroad Track -->
+			<xsd:element name="Mileage" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of miles of the assignors eligible railroad track</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number Of Miles Of The Assignors Eligible Railroad Track  -->
+			<xsd:element name="TotAssignorsEligibleRlrdTrack" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of miles of the assignors eligible railroad track</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number Of Miles Of Eligible Railroad Track Assigned By The Assignor  -->
+			<xsd:element name="TotRlrdTrackAssignedByAssignor" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of miles of eligible railroad track assigned by the assignor</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

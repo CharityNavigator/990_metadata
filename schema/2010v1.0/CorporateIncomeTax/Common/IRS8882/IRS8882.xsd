@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8882</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 15, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8882 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8882">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8882</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8882Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8882">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CreditFromPassThroughEntitiesStatement"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8882Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8882</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+
+
+			<!-- Qualified Child Care Facility Expenditures Paid Or Incurred -->
+			<xsd:element name="QlfyChildCareFacilityExpend" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified child care facility expenditures paid or incurred (see instructions)</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 25% Of Line 1 -->
+			<xsd:element name="TwentyFivePctOfFacilityExpend" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>25% of line 1</Description>
+						<LineNumber>Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Child Care Resource and Referral Expenditures Paid Or Incurred -->
+			<xsd:element name="QlfyChildCareResourceExpend" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified child care resource and referral expenditures paid or incurred</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 10% Of Line 3 -->
+			<xsd:element name="TenPctOfResourceExpend" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>10% of line 3</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		   	 <!--Credit For Employer Provided Childcare Facilities  And Services -->
+		    	 <xsd:element name="CrdForEmplyrChldcrFcltisandSrv" type="USAmountType" minOccurs="0">
+				 <xsd:annotation>
+	         			<xsd:documentation>
+	        		        	<Description>Credit for employer Provided childcare facilities and services</Description>
+					        <LineNumber>Line 5</LineNumber>
+				       </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Add Lines 2, 4, And 5 -->
+			<xsd:element name="SumOfCostsAndCrFromPassThruEnt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 2, 4, and 5</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter The Smaller of Line 6 or $150,000 -->
+			<xsd:element name="EnterSmallerOfLine6Or150000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 6 or $150,000</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ControlledGroupMemberStatement"/>
+							<xsd:attribute name="form1041PortionLiteral">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="1041 Portion"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+							<xsd:attribute name="portionAmount1041" type="USAmountType"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Amount Allocated To Beneficiaries -->
+			<xsd:element name="AmtAllocatedToBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount Allocated To Beneficiaries</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--Estates and Trusts Credit -->
+			<xsd:element name="EstatesAndTrustsCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates and trusts credit</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

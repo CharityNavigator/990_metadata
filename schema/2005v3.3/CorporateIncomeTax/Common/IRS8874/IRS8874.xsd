@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8874</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 17, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8874 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8874">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8874</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8874Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8874">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8874Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8874</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- =======================  Part I : Current Year Credit ============================ -->
+			
+			<xsd:element name="CurrentYearCreditInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name Of The Community Development Entity -->
+						<xsd:element name="NameOfCDE" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of the community development entity</Description>
+										<LineNumber>Part I Line 1(a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+						<!-- Address Of The Community Development Entity -->
+						<xsd:element name="AddressOfCDE" type="USAddressType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Address of the community development entity</Description>
+										<LineNumber>Part I Line 1(a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+						<!-- Identifying Number Of The Community Development Entity -->
+						<xsd:element name="IdentificationNumberOfCDE" type="EINType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Identifying number of the community development entity</Description>
+										<LineNumber>Part I Line 1(b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+						<!-- Date Of Initial Investment -->
+						<xsd:element name="DateOfInitialInvestment" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date of initial investment</Description>
+										<LineNumber>Part I Line 1(c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+						<!-- Amount Of Qualified Equity Investment -->
+						<xsd:element name="AmountOfQlfyEquityInvestment" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of qualified equity investment</Description>
+										<LineNumber>Part I Line 1(d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Credit Rate -->
+						<xsd:element name="CreditRate" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit rate</Description>
+									<LineNumber>Part I Line 1(e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerType">
+									<xsd:enumeration value="5"/>
+									<xsd:enumeration value="6"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						
+						<!-- Credit ((d) X (e)) -->
+						<xsd:element name="CreditByRatio" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit ((d) x (e))</Description>
+										<LineNumber>Part I Line 1(f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Choice between single Pass-Through Entity EIN and Credit Amount,
+				OR Total Credit Amount with attachment for more than one Pass-Through Entity credit info -->
+			<xsd:choice minOccurs="0">
+
+				<xsd:sequence>
+
+					<!-- EIN Of Pass-Through Entity -->
+					<xsd:element name="EINOfPassThroughEntity" type="EINType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Ein of pass-through entity</Description>
+									<LineNumber>Part I Line 2</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+			
+					<!-- Amount Of Credit From Pass-Through Entity -->
+					<xsd:element name="CreditFromPassThruEntity" type="USAmountType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Amount of credit from pass-through entity</Description>
+									<LineNumber>Part I Line 2</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+			
+				</xsd:sequence>
+
+				<!-- Total Amount Of Credit From Pass-Through Entities -->
+				<xsd:element name="TotCreditFromPassThruEntities">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total amount of credit from pass-through entities</Description>
+							<LineNumber>Part I Line 2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="USAmountType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PassThroughEntitiesCreditStatement" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Current Year Credit -->
+			<xsd:element name="CurrentYearCredit" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit</Description>
+							<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- =======================  Part II : Allowable Credit ============================ -->
+
+			<!-- Regular Tax Before Credits -->
+			<xsd:element name="RegularTaxBeforeCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular tax before credits</Description>
+							<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax -->
+			<xsd:element name="AlternativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax</Description>
+							<LineNumber>Part II Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Regular Tax Plus Alternative Minimum Tax -->
+			<xsd:element name="RegularTaxPlusAltMinTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 4 and 5</Description>
+							<LineNumber>Part II Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+							<LineNumber>Part II Line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Possessions Tax Credit -->
+			<xsd:element name="PossessionsTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Possessions tax credit (Form 5735, line 17 or 27)</Description>
+							<LineNumber>Part II Line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit For Fuel From A Nonconventional Source -->
+			<xsd:element name="CreditForFuelFromNnconvSource" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for fuel from a nonconventional source</Description>
+							<LineNumber>Part II Line 7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Specified Credits -->
+			<xsd:element name="OtherSpecifiedCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other specified credits</Description>
+							<LineNumber>Part II Line 7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 7a Through 7e -->
+			<xsd:element name="TotalCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 7a through 7e</Description>
+							<LineNumber>Part II Line 7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income Tax -->
+			<xsd:element name="NetIncomeTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income tax</Description>
+							<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Regular Tax -->
+			<xsd:element name="NetRegularTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net regular tax</Description>
+							<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter 25% Of Excess -->
+			<xsd:element name="TwentyFivePercentOfExcess" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% of excess. if any, of line 9 over $25,000 (see instructions)</Description>
+							<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative Minimum Tax -->
+			<xsd:element name="TentativeMinimumTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative minimum tax</Description>
+							<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Greater Of Line 10 Or Line 11 -->
+			<xsd:element name="GreaterOfTentMinTaxOrExcess" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Greater of line 10 or line 11</Description>
+							<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 12 From Line 8 -->
+			<xsd:element name="SubtractGreaterFromNetIncTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 12 from line 8. If zero or less, enter 0</Description>
+							<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- New Markets Credit Allowed -->
+			<xsd:element name="NewMarketsCreditAllowedForCY" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>New markets credit allowed. Enter the smaller of line 3 or line 13 here</Description>
+							<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

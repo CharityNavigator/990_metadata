@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+				<Description>IRS e-file Corporate Income Tax Schema - Deductible Loss Computation Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 14, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ==================================================================== -->
+	<!-- ============== Deductible Loss Computation Statement =============== -->
+	<!-- ==================================================================== -->
+
+	<xsd:element name="DeductibleLossComputationStmt">
+		<xsd:annotation>
+				<xsd:documentation>Deductible Loss Computation Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DeductibleLossCmptStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="DeductibleLossComputationStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Deductible Loss Computation Statement -->
+	<xsd:complexType name="DeductibleLossCmptStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Deductible Loss Computation Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="Explanation" type="ExplanationType" minOccurs="0" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

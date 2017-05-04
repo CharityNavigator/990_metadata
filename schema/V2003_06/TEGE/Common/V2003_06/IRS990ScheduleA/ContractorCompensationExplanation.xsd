@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Contractor Compensation Explanation</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../../Common/V2003_06/efileTypes.xsd"/>
+	
+	<!-- ============================================================== -->
+	<!-- ========== Contractor Compensation Explanation =============== -->
+	<!-- ============================================================== -->
+	
+	<xsd:element name="ContractorCompensationExpln">
+		<xsd:annotation>
+			<xsd:documentation>Contractor compensation explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ContractorCompExplnType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ContractorCompensationExplanation">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="ContractorCompExplnType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for contractor compensation explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence >
+		
+			<xsd:element name="ContractorCompExplanation" minOccurs="0" maxOccurs="5">
+				<xsd:complexType>
+					<xsd:sequence>
+									
+ 					 	<xsd:choice minOccurs="0">
+							<xsd:element name="ContractorNamePerson" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Contractor name - Person</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>			
+							<xsd:element name="ContractorNameBusiness" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Contractor name - Business</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>									
+						</xsd:choice>
+
+						<!-- Explanation -->	
+						<xsd:element name="Explanation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Explanation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+					</xsd:sequence>
+				</xsd:complexType>				
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

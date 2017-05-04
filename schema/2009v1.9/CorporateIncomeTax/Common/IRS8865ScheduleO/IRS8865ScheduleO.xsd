@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8865 Schedule O</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ============================================================================= -->
+	<!-- ======================  IRS Form 8865 Schedule O ============================ -->
+	<!-- ============================================================================= -->
+
+
+	<xsd:element name="IRS8865ScheduleO">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8865 Schedule O</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8865ScheduleOType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8865ScheduleO">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8865ScheduleOType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8865 Schedule O</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Name of Transferor -->
+			<xsd:element name="NameOfTransferor" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of transferor</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Filer's Identifying Number -->
+
+			<xsd:choice>
+
+				<xsd:element name="FilersEIN" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filer's EIN number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="FilersSSN" type="SSNType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filer's SSN number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="FilersMissingEINReason" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filer's missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Name of Foreign Partnership -->
+			<xsd:element name="NameOfForeignPartnership" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of foreign partnership</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I: Transfers Reportable Under Section 6038B -->
+
+			<!-- Cash Date of Transfer -->
+			<xsd:element name="CashDateOfTransfer" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash date of transfer</Description>
+						<LineNumber>Schedule O Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cash Fair Market Value -->
+			<xsd:element name="CashFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash fair market value</Description>
+						<LineNumber>Schedule O Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cash Interest in Partnership after Transfer -->
+			<xsd:element name="CashIntInPrtshpAfterTransfer" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash interest in partnership after transfer</Description>
+						<LineNumber>Schedule O Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Marketable Securities -->
+			<xsd:element name="MarketableSecurities" type="TransfersReportableType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Marketable Securities</Description>
+						<LineNumber>Schedule O Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inventory -->
+			<xsd:element name="Inventory" type="TransfersReportableType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventory</Description>
+						<LineNumber>Schedule O Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tangible Property Used in Trade or Business -->
+			<xsd:element name="TngblPropertyUsedInTradeOrBus" type="TransfersReportableType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tangible property used in trade or business</Description>
+						<LineNumber>Schedule O Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Intangible Property -->
+			<xsd:element name="IntangibleProperty" type="TransfersReportableType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Intangible property</Description>
+						<LineNumber>Schedule O Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Property -->
+			<xsd:element name="OtherProperty" type="TransfersReportableType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other property</Description>
+						<LineNumber>Schedule O Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Information Statement -->
+			<xsd:element name="SupplementalInfoStatement" type="ShortExplanationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental Information Statement</Description>
+						<LineNumber>Schedule O Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II - Dispositions Reportable Under Section 6038B -->
+
+			<!-- Dispositions Reportable -->
+			<xsd:element name="DispositionsReportable" type="DispositionsReportableType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dispositions Reportable</Description>
+						<LineNumber>Schedule O Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III -->
+
+			<!-- Transfer Subject To Gain -->
+			<xsd:element name="TransferSubjectToGain">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Transfer subject To gain</Description>
+						<LineNumber>Schedule O Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="TransferStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Transfers Reportable Recurring Type -->
+	<xsd:complexType name="TransfersReportableType">
+		<xsd:sequence>
+
+			<!-- Date of Transfer -->
+			<xsd:element name="DateOfTransfer" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of transfer</Description>
+						<LineNumber>Schedule O Part I Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Items Transferred -->
+			<xsd:element name="NumberOfItemsTransferred" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of items transferred</Description>
+						<LineNumber>Schedule O Part I Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+						<xsd:totalDigits value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Fair Market Value on Date of Transfer -->
+			<xsd:element name="FairMarketValueOnDateOfTrnsfr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value on date of transfer</Description>
+						<LineNumber>Schedule O Part I Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis -->
+			<xsd:element name="CostOrOtherBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis</Description>
+						<LineNumber>Schedule O Part I Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 704(c) Allocation Method -->
+			<xsd:element name="AllocationMethod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 704(c) allocation method</Description>
+						<LineNumber>Schedule O Part I Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="TRADITIONAL"/>
+						<xsd:enumeration value="CURATIVE"/>
+						<xsd:enumeration value="REMEDIAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Gain Recognized on Transfer -->
+			<xsd:element name="GainRecognizedOnTransfer" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Gain recognized on transfer</Description>
+						<LineNumber>Schedule O Part I Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage Interest in Partnership after Transfer -->
+			<xsd:element name="PctIntInPartnershipAfterTrnsfr" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percentage interest in partnership after transfer</Description>
+						<LineNumber>Schedule O Part I Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Dispositions Reportable Recurring Type -->
+	<xsd:complexType name="DispositionsReportableType">
+		<xsd:sequence>
+
+			<!-- Type of Property -->
+			<xsd:element name="TypeOfProperty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of property</Description>
+						<LineNumber>Schedule O Part II Column(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ShortExplanationType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ContributedPropertyStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Date of Original Transfer -->
+			<xsd:element name="DateOfOriginalTransfer" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of original transfer</Description>
+						<LineNumber>Schedule O Part II Column(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="DateType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DatesOfTransferStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Date of Disposition -->
+			<xsd:element name="DateOfDisposition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of disposition</Description>
+						<LineNumber>Schedule O Part II Column(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Manner of Disposition -->
+			<xsd:element name="MannerOfDisposition" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Manner of disposition</Description>
+						<LineNumber>Schedule O Part II Column(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Gain Recognized by Partnership -->
+			<xsd:element name="GainRecognizedByPartnership" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain recognized by partnership</Description>
+						<LineNumber>Schedule O Part II Column(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation Recapture Recognized by Partnership -->
+			<xsd:element name="DeprecRcptrRecognizedByPrtshp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation recapture recognized by partnership</Description>
+						<LineNumber>Schedule O Part II Column(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain Allocated to Partner -->
+			<xsd:element name="GainAllocatedToPartner" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain allocated to partner</Description>
+						<LineNumber>Schedule O Part II Column(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation Recapture Allocated to Partner -->
+			<xsd:element name="DeprecRecaptureAllocnToPartner" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation recapture allocated to partner</Description>
+						<LineNumber>Schedule O Part II Column(h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AmtOfRecaptureCalculationStmt" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

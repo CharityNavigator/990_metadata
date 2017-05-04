@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Investments - Other Schedule</Description>
+
+			<TaxYear>2007</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>April 22, 2008</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ============================================================== -->
+
+	<!-- ================= Investments - Other Schedule =============== -->
+
+	<!-- ============================================================== -->
+
+	
+
+	<xsd:element name="InvestmentsOtherSchedule">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Investments - other schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="InvestmentsOtherScheduleType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="InvestmentsOtherSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<xsd:complexType name="InvestmentsOtherScheduleType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for investments - other schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="InvestmentOther" type="InvestmentOtherType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="InvestmentOtherType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for investments - other</xsd:documentation>
+
+		</xsd:annotation>
+
+		
+
+		<xsd:sequence>
+
+
+
+			<!-- Description -->
+
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Description</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Book Value -->
+
+			<xsd:element name="BookValue" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Book value</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Cost/ FMV -->
+
+			<xsd:element name="CostOrFmv" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Cost/ FMV</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:simpleType>
+
+					<xsd:restriction base="StringType">
+
+						<xsd:enumeration value="C"/>				
+
+						<xsd:enumeration value="F"/>											
+
+					</xsd:restriction>
+
+				</xsd:simpleType>
+
+			</xsd:element>
+
+												
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+</xsd:schema>
+

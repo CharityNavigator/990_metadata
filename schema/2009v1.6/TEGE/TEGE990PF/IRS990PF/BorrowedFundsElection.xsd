@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Borrowed Funds Election</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 19, 2010</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================== -->
+	<!-- ================== Borrowed Funds Election =================== -->
+	<!-- ============================================================== -->
+	
+	<xsd:element name="BorrowedFundsElection">
+		<xsd:annotation>
+			<xsd:documentation>Borrowed Funds Election</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="BorrowedFundsElectionType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="BorrowedFundsElection">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="BorrowedFundsElectionType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Borrowed Funds Election</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="BorrowedFunds" minOccurs="0" maxOccurs="5">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Lender's Name - Either a Business or a Person -->
+						<xsd:choice minOccurs="0">
+
+							<xsd:element name="BusinessName" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Lender's Business Name</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							
+							<xsd:element name="PersonName" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Lender's Person Name</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+						
+						<!-- Lender's Address -  Either US or Foreign type -->
+						<xsd:choice minOccurs="0">
+
+							<xsd:element name="USAddress" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Lender's US Address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<xsd:element name="ForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Lender's Foreign Address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Amount Borrowed -->
+						<xsd:element name="AmountBorrowed" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount Borrowed</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Use of Borrowed Funds -->
+						<xsd:element name="UseOfBorrowedFunds" type="ShortExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Use of Borrowed Funds</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Election Statement -->
+						<xsd:element name="ElectionStatement" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Election Statement</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

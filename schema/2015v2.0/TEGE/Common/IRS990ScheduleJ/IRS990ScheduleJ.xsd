@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule J</Description>
+
+			<TaxYear>2015</TaxYear>
+
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ====================================================================== -->
+
+	<!-- ==================  IRS Form 990 Schedule J ================ -->
+
+	<!-- ====================================================================== -->
+
+	
+
+	<xsd:element name="IRS990ScheduleJ">
+
+		<xsd:annotation>
+
+			<xsd:documentation>IRS Form 990 Schedule J</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="IRS990ScheduleJType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleJ">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<!-- Schedule J (Form 990) Supplemental Compensation Information -->
+
+	<!-- For certain Officers, Directors, Trustees, Key Employees, and Highly Compensated Employees -->
+
+	<xsd:complexType name="IRS990ScheduleJType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for Form 990 Schedule J</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<!-- First Class or Charter Travel -->
+
+			<xsd:element name="FirstClassOrCharterTravelInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>First class or charter travel</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Travel for Companions -->
+
+			<xsd:element name="TravelForCompanionsInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Travel for companions</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Idemnification and Gross-Up Payments -->
+
+			<xsd:element name="IdemnificationGrossUpPmtsInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Idemnification and gross-up payments</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Discretionary Spending Account -->
+
+			<xsd:element name="DiscretionarySpendingAcctInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Discretionary spending account</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Housing Allowance or Residence -->
+
+			<xsd:element name="HousingAllowanceOrResidenceInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Housing allowance or residence</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Payments For Use of Residence -->
+
+			<xsd:element name="PaymentsForUseOfResidenceInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Payments for use of residence</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Club Dues or Fees -->
+
+			<xsd:element name="ClubDuesOrFeesInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Club dues or fees</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Personal Services -->
+
+			<xsd:element name="PersonalServicesInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Personal services</Description>
+
+						<LineNumber>Part I Line 1a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Written Policy Reference T and E Expenses? -->
+
+			<xsd:element name="WrittenPolicyRefTAndEExpnssInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Written policy reference T and E expenses?</Description>
+
+						<LineNumber>Part I Line 1b</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Substantiation Required? -->
+
+			<xsd:element name="SubstantiationRequiredInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Substantiation required?</Description>
+
+						<LineNumber>Part I Line 2</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Compensation Committee -->
+
+			<xsd:element name="CompensationCommitteeInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation committee</Description>
+
+						<LineNumber>Part I Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Independent Consultant -->
+
+			<xsd:element name="IndependentConsultantInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Independent consultant</Description>
+
+						<LineNumber>Part I Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Form 990 of Other Organizations -->
+
+			<xsd:element name="Form990OfOtherOrganizationsInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Form 990 of other organizations</Description>
+
+						<LineNumber>Part I Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Written Employment Contract -->
+
+			<xsd:element name="WrittenEmploymentContractInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Written employment contract</Description>
+
+						<LineNumber>Part I Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Compensation Survey -->
+
+			<xsd:element name="CompensationSurveyInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation survey</Description>
+
+						<LineNumber>Part I Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Board or Committee Approval -->
+
+			<xsd:element name="BoardOrCommitteeApprovalInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Board or committee approval</Description>
+
+						<LineNumber>Part I Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Severance Payment? -->
+
+			<xsd:element name="SeverancePaymentInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Severance payment?</Description>
+
+						<LineNumber>Part I Line 4a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Supplemental Nonqualified Retirement Plan? -->
+
+			<xsd:element name="SupplementalNonqualRtrPlanInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Supplemental nonqualified retirement plan?</Description>
+
+						<LineNumber>Part I Line 4b</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Equity Based Compensation Arrangement? -->
+
+			<xsd:element name="EquityBasedCompArrngmInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Equity based compensation arrangement?</Description>
+
+						<LineNumber>Part I Line 4c</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Compensation Based On Revenue of Filing Org? -->
+
+			<xsd:element name="CompBasedOnRevenueOfFlngOrgInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation based on revenue of filing org?</Description>
+
+						<LineNumber>Part I Line 5a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Compensation Based On Revenue of Related Orgs? -->
+
+			<xsd:element name="CompBsdOnRevRelatedOrgsInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation based on revenue of related orgs?</Description>
+
+						<LineNumber>Part I Line 5b</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Compensation Based On Net Earnings of Filing Org? -->
+
+			<xsd:element name="CompBsdNetEarnsFlngOrgInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation based on net earnings of filing org?</Description>
+
+						<LineNumber>Part I Line 6a</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Compensation Based On Net Earnings of Related Orgs? -->
+
+			<xsd:element name="CompBsdNetEarnsRltdOrgsInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation based on net earnings of related orgs?</Description>
+
+						<LineNumber>Part I Line 6b</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Any Non-Fixed Payments? -->
+
+			<xsd:element name="AnyNonFixedPaymentsInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Any non-fixed payments?</Description>
+
+						<LineNumber>Part I Line 7</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Initial Contract Exception? -->
+
+			<xsd:element name="InitialContractExceptionInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Initial contract exception?</Description>
+
+						<LineNumber>Part I Line 8</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Rebuttable Presumption Procedure? -->
+
+			<xsd:element name="RebuttablePresumptionProcInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Rebuttable presumption procedure?</Description>
+
+						<LineNumber>Part I Line 9</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<xsd:element name="RltdOrgOfficerTrstKeyEmplGrp" minOccurs="0" maxOccurs="unbounded">		
+
+				<xsd:annotation>
+
+					<xsd:documentation>Part II contents</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>		
+
+					<xsd:sequence>
+
+
+
+						<!-- Name of Officer -->
+
+						<xsd:choice minOccurs="0">
+
+							<xsd:element name="PersonNm" type="PersonNameType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Name of officer - person</Description>
+
+										<LineNumber>Part II Column (A)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<xsd:element name="BusinessName" type="BusinessNameType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Name of officer - business</Description>
+
+										<LineNumber>Part II Column (A)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+						</xsd:choice>
+
+
+
+						<!-- Title of Officer -->
+
+						<xsd:element name="TitleTxt" type="LineExplanationType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Title of Officer</Description>
+
+									<LineNumber>Part II Column (A)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Column (B) Breakdown of W-2 or 1099-MISC Compensation -->
+
+						<!-- Base Compensation from Filing Organization -->
+
+						<xsd:element name="BaseCompensationFilingOrgAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Base compensation ($) from filing organization</Description>
+
+									<LineNumber>Part II Column (B)(i)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Compensation Based on Related Organizations? -->
+
+						<xsd:element name="CompensationBasedOnRltdOrgsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Compensation based on related organizations?</Description>
+
+									<LineNumber>Part II Column (B)(i) </LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Bonus and Incentive Compensation from Filing Organization -->
+
+						<xsd:element name="BonusFilingOrganizationAmount" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Bonus and incentive compensation ($) from filing organization</Description>
+
+									<LineNumber>Part II Column (B)(ii)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Bonus from Related Organizations -->
+
+						<xsd:element name="BonusRelatedOrganizationsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Bonus and incentive compensation ($) from related organizations</Description>
+
+									<LineNumber>Part II Column (B)(ii) </LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Other Compensation from Filing Organization -->
+
+						<xsd:element name="OtherCompensationFilingOrgAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Other compensation ($) from filing organization</Description>
+
+									<LineNumber>Part II Column (B)(iii)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Other Compensation from Related Organizations -->
+
+						<xsd:element name="OtherCompensationRltdOrgsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Other compensation ($) from related organizations</Description>
+
+									<LineNumber>Part II Column (B)(iii)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Deferred Compensation from Filing Organization -->
+
+						<xsd:element name="DeferredCompensationFlngOrgAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Deferred compensation ($) from filing organization</Description>
+
+									<LineNumber>Part II Column (C)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Deferred Compensation from Related Organizations -->
+
+						<xsd:element name="DeferredCompRltdOrgsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Deferred compensation ($) from related organizations</Description>
+
+									<LineNumber>Part II Column (C)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Nontaxable Benefits from Filing Organization -->
+
+						<xsd:element name="NontaxableBenefitsFilingOrgAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Nontaxable benefits ($) from filing organization</Description>
+
+									<LineNumber>Part II Column (D)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Nontaxable Benefits from Related Organizations -->
+
+						<xsd:element name="NontaxableBenefitsRltdOrgsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Nontaxable benefits ($) from related organizations</Description>
+
+									<LineNumber>Part II Column (D)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Total of (B)(i) - (D), From Filing Organizations -->
+
+						<xsd:element name="TotalCompensationFilingOrgAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Total of (B)(i) - (D), from filing org</Description>
+
+									<LineNumber>Part II Column (E)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Total of (B)(i) - (D), From Related Organizations -->
+
+						<xsd:element name="TotalCompensationRltdOrgsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Total of (B)(i) - (D), from related orgs</Description>
+
+									<LineNumber>Part II Column (E)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Comp Reported Prior 990 - From Filing Organization -->
+
+						<xsd:element name="CompReportPrior990FilingOrgAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Comp reported prior 990 - from filing org</Description>
+
+									<LineNumber>Part II Column (F)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Comp Reported Prior 990 - From Related Organizations -->
+
+						<xsd:element name="CompReportPrior990RltdOrgsAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Comp reported prior 990 - from related orgs</Description>
+
+									<LineNumber>Part II Column (F)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+					</xsd:sequence>	
+
+				</xsd:complexType>		
+
+			</xsd:element>		
+
+
+
+			<xsd:element name="SupplementalInformationDetail" minOccurs="0" maxOccurs="10">		
+
+				<xsd:annotation>
+
+					<xsd:documentation>Part III contents</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>		
+
+					<xsd:sequence>
+
+
+						<!-- Form, Part and Line Number Reference -->
+
+						<xsd:element name="FormAndLineReferenceDesc" type="LineExplanationType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Form, Part and line number reference</Description>
+
+									<LineNumber>Part III</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Form, Part and Line Number Reference Explanation -->
+
+						<xsd:element name="ExplanationTxt" type="ExplanationType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Form, Part and line number reference explanation</Description>
+
+									<LineNumber>Part III</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+					</xsd:sequence>	
+
+				</xsd:complexType>		
+
+			</xsd:element>		
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+</xsd:schema>

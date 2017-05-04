@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - IRS Form 5884-A</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================ -->
+	<!-- ====================  IRS Form 5884-A ========================== -->
+	<!-- ================================================================ -->
+
+	<xsd:element name="IRS5884A">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5884-A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5884AType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5884A">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5884AType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5884-A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+		<!-- =============== Section A - Employee Retention Credit =============== -->
+
+		<!-- Qualified Wages Paid/Incurred after Disaster and before January 1, 2009 -->
+			<xsd:element name="QualifiedWgsPdIncurdAftrDsstr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Wages Paid/Incurred after Disaster and before January 1, 2009</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		<!-- Multiply Line 1 by 40% -->
+			<xsd:element name="MultiplyLine1By40Pct" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply Line 1 by 40% (.40)</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ControlledGroupMemberStatement DeductionDifferentiationStmt"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		<!-- Employee Retention Credit -->
+			<xsd:element name="EmployeeRetentionCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee Retention Credit</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		<!-- Current Year Credit -->
+			<xsd:element name="SectionACurrentYearCredit" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Credit (add lines 2 and 3)</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="F1041Portion">
+								<xsd:simpleType>
+									<xsd:restriction base="ShortExplanationType">
+									<xsd:enumeration value="1041 Portion Write In"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		
+		<!-- =============== Section B - Housing Credit =============== -->
+
+		<!-- Qualified Lodging -->
+			<xsd:element name="QualifiedLodging" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Lodging</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		<!-- Multiply Line 5 by 30%  -->
+			<xsd:element name="MultiplyLine5By30Pct" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply Line 5 By 30% (.30)</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ControlledGroupMemberStatement DeductionDifferentiationStmt"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		<!-- Employer Housing Credit from partnerships, S corporations, cooperatives, estates, and trusts -->
+			<xsd:element name="EmployerHousingCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer Housing Credit from Partnerships, S Corporations, Cooperatives, Estates, and Trusts</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		<!-- Current Year Credit (add lines 6 and 7) -->
+			<xsd:element name="SectionBCurrentYearCredit" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Credit (Add Lines 6 and 7)</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="F1041Portion">
+								<xsd:simpleType>
+									<xsd:restriction base="ShortExplanationType">
+									<xsd:enumeration value="1041 Portion Write In"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

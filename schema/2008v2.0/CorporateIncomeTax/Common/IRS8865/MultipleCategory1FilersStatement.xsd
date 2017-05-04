@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Multiple Category 1 Filers Statement</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>July 7, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+	<!-- Form 8865's Schedule A and Schedule N definitions (IRS8865ScheduleAType and IRS8865ScheduleNType) are needed for this statement -->
+	<xsd:include schemaLocation="IRS8865.xsd" />
+
+
+	<!-- ========================================================= -->
+	<!-- ========== Multiple Category 1 Filers Statement ========= -->
+	<!-- ========================================================= -->
+
+
+	<xsd:element name="MultipleCategory1FilersStmt">
+		<xsd:annotation>
+			<xsd:documentation>Multiple cateogry 1 filers statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="MultipleCategory1FilersStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="MultipleCategory1FilersStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="MultipleCategory1FilersStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for multiple category 1 filers statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Category 1 Filer Not Filing the Single 8865 (it is filed by another) -->
+			<xsd:element name="Cat1FilerNotFilingSingle8865" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer not filing the single Form 8865</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cat1FilerNotFilingSingle8865Type">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8865ScheduleK1" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type of Repeating element - "Cat1FilerNotFilingSingle8865" above -->
+	<xsd:complexType name="Cat1FilerNotFilingSingle8865Type">
+		<xsd:sequence>
+
+			<!-- Catetgory 1 Filer's Name -->
+			<xsd:element name="Category1FilerName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer's name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Category 1 Filer's EIN or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Category 1 Filer's EIN -->
+				<xsd:element name="Category1FilerEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Category 1 filer's EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Category 1 Filer's Tax Year Beginning -->
+			<xsd:element name="Category1FilerTaxYearBeginning" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer's tax year beginning</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Category 1 Filer's Tax Year Ending -->
+			<xsd:element name="Category1FilerTaxYearEnding" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer's tax year ending</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Category 1 Filer's Share of Liabilities - Nonrecourse -->
+			<xsd:element name="Cat1FilerShrOfLiabNonrecourse" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer's share of liabilities - Nonrecourse</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Category 1 Filer's Share of Liabilities - Qualified Nonrecourse Financing -->
+			<xsd:element name="QualifiedNonrecourseFinancing" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer's share of liabilities - Qualified nonrecourse financing</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Category 1 Filer's Share of Liabilities - Other -->
+			<xsd:element name="Cat1FilerShrOfLiabilitiesOther" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category 1 filer's share of liabilities - Other</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Parent Category 1 Filer's Name -->
+			<xsd:element name="ParentCategory1FilerName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent category 1 filer's name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Parent Category 1 Filer's EIN -->
+			<xsd:element name="ParentCategory1FilerEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent category 1 filer's EIN</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Parent Category 1 Filer's Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- Parent Category 1 Filer's US Address -->
+				<xsd:element name="ParentCat1FilerUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Parent Category 1 Filer's US Address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Parent Category 1 Filer's Foreign Address -->
+				<xsd:element name="ParentCat1FilerForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Parent category 1 filer's foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- IRS8865 Schedule A - Constructive Ownership of Partnership Interest -->
+			<xsd:element name="IRS8865ScheduleA" type="IRS8865ScheduleAType" minOccurs="0" />
+
+			<!-- IRS8865 Schedule N - Transactions Between Controlled Foreign Partnership and Partners or Other Related Entities -->
+			<xsd:element name="IRS8865ScheduleN" type="IRS8865ScheduleNType" minOccurs="0" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

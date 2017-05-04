@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Partner's Inversion Gain Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 2, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ========================================================= -->
+	<!-- ========== Partner's Inversion Gain Statement =========== -->
+	<!-- ========================================================= -->
+
+
+	<xsd:element name="PartnersInversionGainStmt">
+		<xsd:annotation>
+			<xsd:documentation>Partner's Inversion Gain Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PartnersInversionGainStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PartnersInversionGainStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="PartnersInversionGainStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for the Partner's Inversion Gain Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    			<!-- Partner's Inversion Gain Information -->
+			<xsd:element name="PartnersInversionGain" type="PartnersInversionGainType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner's Inversion Gain Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Partner's Inversion Gain Information -->
+	<xsd:complexType name="PartnersInversionGainType">
+		<xsd:sequence>
+			<!-- Type of Income/Gain -->
+			<xsd:element name="TypeOfIncomeGain" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of Income/Gain</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amount-->
+			<xsd:element name="Amount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

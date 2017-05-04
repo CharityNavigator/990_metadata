@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Investments Corporate Stock Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 15, 2008</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ======================================================== -->
+	<!-- ========= Investments Corporate Stock Schedule ========= -->
+	<!-- ======================================================== -->
+	
+	<xsd:element name="InvestmentsCorpStockSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Investments Corporate Stock Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="InvestmentsCorpStockScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="InvestmentsCorpStockSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="InvestmentsCorpStockScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Investments Corporate Stock Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="InvestmentsCorpStock" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name of Stock -->
+						<xsd:element name="NameOfStock" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of Stock</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- End of Year Book Value -->
+						<xsd:element name="EOYBookValue" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>End of Year Book Value</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- End of Year Fair Market Value -->
+						<xsd:element name="EOYFMV" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>End of Year Fair Market Value</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

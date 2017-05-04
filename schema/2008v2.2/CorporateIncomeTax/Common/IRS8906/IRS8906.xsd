@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8906</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 25, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================== -->
+	<!-- =======================	IRS Form 8906 ============================ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="IRS8906">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8906</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8906Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8906">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8906 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:complexType name="IRS8906Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8906</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Total Number Cases of Distilled Spirits -->
+			<xsd:element name="TotNumberCasesDistilledSpirits" type="DecimalType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number cases of distilled spirits</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Number of Cases by Cost Per Case -->
+			<xsd:element name="MultiplyNumCasesByCostPerCase" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply number of cases by cost per case</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Distilled Spirits Credit -->
+			<xsd:element name="DistilledSpiritsCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distilled spirits credit</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Total Tax-Financing Cost to Distilled Spirits Credit -->
+			<xsd:element name="AddTotTxFncCostToDistillSprtCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add total tax-financing cost to distilled spirits credit</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

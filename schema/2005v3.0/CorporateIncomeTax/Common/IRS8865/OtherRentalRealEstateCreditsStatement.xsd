@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Other Rental Real Estate Credits Statement</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>November 8, 2006</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- =======  Other Rental Real Estate Credits Statement   ======== -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="OtherRentalRealEstateCrStmt">
+		<xsd:annotation>
+			<xsd:documentation>Other Rental Real Estate Credits Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="OtherRentalRealEstateCrStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="OtherRentalRealEstateCreditsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="OtherRentalRealEstateCrStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for other rental real estate credits statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OtherRentalRealEstateCr" type="OtherRentalRealEstateCrType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="OtherRentalRealEstateCrType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for other rental real estate credit</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+
+			<!-- Type of Credit -->
+			<xsd:element name="TypeOfCredit" type="LineExplanationType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of Credit</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount -->
+			<xsd:element name="Amount" type="USAmountType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+	
+</xsd:schema>

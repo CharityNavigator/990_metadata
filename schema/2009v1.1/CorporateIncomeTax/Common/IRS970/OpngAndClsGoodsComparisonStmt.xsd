@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Opening and Closing Goods Comparison Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================================================== -->
+	<!-- ===============  Opening and Closing Goods Comparison Statement  ========================== -->
+	<!-- =========================================================================================== -->
+
+	<xsd:element name="OpngAndClsGoodsComparisonStmt">
+		<xsd:annotation>
+			<xsd:documentation>Opening and Closing Goods Comparison Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="OpngAndClsGoodsComparisonStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="OpngAndClsGoodsComparisonStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="OpngAndClsGoodsComparisonStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Opening and Closing Goods Comparison Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+      		<!-- Type/Category -->
+      		<xsd:element name="TypeCategoryUsed" type="TypeCategoryUsedType" minOccurs="0" maxOccurs="unbounded">
+        		<xsd:annotation>
+          			<xsd:documentation>
+            			<Description>Type Category Used</Description>
+          			</xsd:documentation>
+        		</xsd:annotation>
+      		</xsd:element>
+    	</xsd:sequence>
+  	</xsd:complexType>
+
+	  <!-- Type for Repeating Group - Type/Category Used -->
+  	<xsd:complexType name="TypeCategoryUsedType">
+    	<xsd:sequence>
+
+      		<!-- Type/Category -->
+      		<xsd:element name="TypeCategory" type="ShortDescriptionType" minOccurs="0">
+        		<xsd:annotation>
+          			<xsd:documentation>
+            			<Description>Type/Category</Description>
+          			</xsd:documentation>
+        		</xsd:annotation>
+      		</xsd:element>
+
+      		<!-- Description -->
+      		<xsd:element name="Description" type="ShortDescriptionType" minOccurs="0">
+        		<xsd:annotation>
+          			<xsd:documentation>
+            			<Description>Description</Description>
+          			</xsd:documentation>
+        		</xsd:annotation>
+      		</xsd:element>
+
+			<!-- Unit of Measure -->
+			<xsd:element name="UnitOfMeasure" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unit of Measure</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

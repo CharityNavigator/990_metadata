@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Facility Placed in Service Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>March 11, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================================= -->
+	<!-- ===============  Facility Placed in Service Statement  ========================== -->
+	<!-- ================================================================================= -->
+
+	<xsd:element name="FacilityPlacedServiceStatement">
+		<xsd:annotation>
+			<xsd:documentation>Facility placed in service statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="FacilityPlacedServiceStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="FacilityPlacedInServiceStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="FacilityPlacedServiceStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Facility placed in service statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Facility Placed Service -->
+			<xsd:element name="FacilityPlacedService" type="FacilityPlacedServiceType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility placed in service statement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for Repeating Group - Facility Placed Service -->
+	<xsd:complexType name="FacilityPlacedServiceType">
+		<xsd:sequence>
+
+			<!-- Facility -->
+			<xsd:element name="Facility" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Type Of Fuel -->
+			<xsd:element name="TypeOfFuel" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type Of fuel</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Date -->
+			<xsd:element name="Date" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+		
+</xsd:schema>

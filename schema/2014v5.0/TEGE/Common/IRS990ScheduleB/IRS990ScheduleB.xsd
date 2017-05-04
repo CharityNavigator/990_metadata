@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Nonprofit Income Tax Schema - IRS Form 990 Schedule B</Description>
+
+			<TaxYear>2014</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>TBD</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+	<!-- =============================================================== -->
+
+	<!-- ================  IRS Form 990 Schedule B ===================== -->
+
+	<!-- =============================================================== -->
+
+
+
+	<xsd:element name="IRS990ScheduleB">
+
+		<xsd:annotation>
+
+			<xsd:documentation>IRS Form 990 Schedule B</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="IRS990ScheduleBType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleB">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<xsd:complexType name="IRS990ScheduleBType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for Form 990 Schedule B</xsd:documentation>
+
+		</xsd:annotation>
+
+
+
+		<xsd:sequence>
+
+
+
+			<!-- Choice for Organization Type: -->
+
+			<xsd:choice>
+
+				<!-- Is it a 501(c) Organization? -->
+
+				<xsd:element name="Organization501cInd">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Indicates a 501(c) organization</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+					<xsd:complexType>
+
+						<xsd:simpleContent>
+
+							<xsd:extension base="CheckboxType">
+
+								<xsd:attribute name="organization501cTypeTxt">
+
+									<xsd:simpleType>
+
+										<xsd:restriction base="StringType">
+
+											<xsd:pattern value="[2-9]|1[0-9]|2[02-7]"/>
+
+										</xsd:restriction>
+
+									</xsd:simpleType>
+
+								</xsd:attribute>
+
+							</xsd:extension>
+
+						</xsd:simpleContent>
+
+					</xsd:complexType>					
+
+				</xsd:element>
+
+				
+
+				<!-- Is it a 4947(a)(1) Organization? -->
+
+				<xsd:element name="Organization4947a1NotPFInd" type="CheckboxType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Indicates a 4947(a)(1) organization not treated as a private foundation</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				
+
+				<!-- Is it a 527 Organization? -->
+
+				<xsd:element name="Organization527Ind" type="CheckboxType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Indicates a 527 organization</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				
+
+				<!-- Organization 501(c)(3) Exempt PF -->
+
+				<xsd:element name="Organization501c3ExemptPFInd" type="CheckboxType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Organization 501(c)(3) exempt PF</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				
+
+				<!-- Organization 4947(a)(1) Treated As PF -->
+
+				<xsd:element name="Organization4947a1TrtdPFInd" type="CheckboxType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Organization 4947(a)(1) treated as PF</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+
+
+				<!-- Is it a 501(c)(3) Taxable Private Foundation? -->				
+
+				<xsd:element name="Organization501c3TaxablePFInd" type="CheckboxType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Indicates a 501(c)(3) taxable private foundation</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+			</xsd:choice>
+
+
+
+			<!-- General Rule -->
+
+			<xsd:element name="GeneralRuleInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>For organizations filing Form 990, or 990-EZ that received, during the year, $5000 or more (in money or property) from any one contributor</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Special Rule - Met 33 1/3 % (one third) Support Test of the Regulations -->
+
+			<xsd:element name="SpclRuleMetOne3rdSuprtTestInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>For a section 501(c)(3) organization filing Form 990, or Form 990-EZ, that met the 33 1/3 % support test of the regulations under sections 509(a)(1)/170(b)(1)(A)(vi) and received from any one contributor, during the year, a contribution of the greater of $5,000 or 2% of the amount on line 1 of these forms</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Special Rule - Received Contributions Totaling > $1,000 -->
+
+			<xsd:element name="TotContriRcvdMore1000Ind" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>For a section 501(c)(7), (8), or (10) organization filing Form 990, or Form 990-EZ, that received from any one contributor, during the year, aggregate contributions or bequests of more than $1,000 for use exclusively for religious, charitable, scientific, literary, or educational purposes, or the prevention of cruelty to children or animals</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Special Rule - Received Contributions Totaling <= $1,000 -->
+
+			<xsd:element name="TotContriRcvdUpTo1000Ind" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>For a section 501(c)(7), (8), or (10) organization filing Form 990, or Form 990-EZ, that received from any one contributor, during the year, some contributions for use exclusively for religious, charitable, etc., purposes, but these contributions did not aggregate to more than $1,000</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:simpleContent>
+
+						<xsd:extension base="CheckboxType">
+
+							<xsd:attribute name="totalContributionsAmt" type="USAmountNNType"/>
+
+						</xsd:extension>
+
+					</xsd:simpleContent>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+			<!-- Part I - Contributors -->
+
+
+
+			<!-- Contributor Information -->
+
+			<xsd:element name="ContributorInformationGrp" type="ContributorInformationGrpType" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Contributor information</Description>
+
+						<LineNumber>Part I</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Part II - Noncash Property -->
+
+
+
+			<!-- Noncash Property Information -->
+
+			<xsd:element name="NonCashPropertyContributionGrp" type="NonCashPropertyContributionGrpType" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Noncash property information</Description>
+
+						<LineNumber>Part II</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Part III - Exclusively Religious, Charitable, etc., Individual Contributions to Section 501(c)(7), (8), 
+
+				or (10) Organizations Aggregating More Than $1,000 for the Year -->
+
+				
+
+			<!-- Total of Contributions of $1,000 or less -->
+
+			<xsd:element name="TotalUnder1000ContributionsAmt" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Total of contributions of $1,000 or less</Description>
+
+						<LineNumber>Part III</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>				
+
+			
+
+			<!-- Charitable Contributions -->
+
+			<xsd:element name="CharitableContributionsDetail" type="CharitableContributionsDetailType" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Charitable contributions</Description>
+
+						<LineNumber>Part III</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>			
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+	<!-- =========================================================================== -->
+
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+
+	<!-- =========================================================================== -->
+
+	
+
+	<!-- Type for Repeating Element "ContributorInformationGrp" -->
+
+	<xsd:complexType name="ContributorInformationGrpType">
+
+		<xsd:sequence>
+
+
+
+			<!-- Contributor Number -->
+
+			<xsd:element name="ContributorNum" type="IntegerNNType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Cotributor number</Description>
+
+						<LineNumber>Part I Column (a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>				
+
+			</xsd:element>
+
+
+
+			<!-- Contributor Name -->
+
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="ContributorBusinessName" type="BusinessNameType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Contributor name - Business</Description>
+
+							<LineNumber>Part I Column (b)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				
+
+				<xsd:element name="ContributorPersonNm" type="PersonNameType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Contributor name - Individual</Description>
+
+							<LineNumber>Part I Column (b)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>	
+
+							
+
+				<xsd:element name="Paid527j1Ind" type="CheckboxType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Pd. 527(j)(1)</Description>
+
+							<LineNumber>Part I Column (b)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>				
+
+		  </xsd:choice>			
+
+
+
+			<!-- Contributor Address -->
+
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="ContributorUSAddress" type="USAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Contributor address - US</Description>
+
+							<LineNumber>Part I Column (b)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+					
+
+				<xsd:element name="ContributorForeignAddress" type="ForeignAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Contributor address - Foreign</Description>
+
+							<LineNumber>Part I Column (b)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>					
+
+			</xsd:choice>
+
+
+
+			<!-- Aggregate Contributions -->
+
+			<xsd:element name="TotalContributionsAmt" type="USAmountNNType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Aggregate contributions</Description>
+
+						<LineNumber>Part I Column (c)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Type of Contribution - Person -->
+
+			<xsd:element name="PersonContributionInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Type of contribution - Person</Description>
+
+						<LineNumber>Part I Column (d)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Type of Contribution - Payroll -->
+
+			<xsd:element name="PayrollContributionInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Type of contribution - Payroll</Description>
+
+						<LineNumber>Part I Column (d)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+				
+
+			<!-- Type of Contribution - Noncash -->
+
+			<xsd:element name="NoncashContributionInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Type of contribution - Noncash</Description>
+
+						<LineNumber>Part I Column (d)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>				
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<!-- Type for Repeating Element "NonCashPropertyContributionGrp" -->
+
+	<xsd:complexType name="NonCashPropertyContributionGrpType">
+
+		<xsd:sequence>
+
+		
+
+			<!-- Contributor Number Part I -->
+
+			<xsd:element name="ContributorNum" type="IntegerNNType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Contributor number from Part I</Description>
+
+						<LineNumber>Part II Column (a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Description of Noncash Property Given -->
+
+			<xsd:element name="NoncashPropertyDesc" type="LineExplanationType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Description of noncash property given</Description>
+
+						<LineNumber>Part II Column (b)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Fair Market Value (or Estimate) -->
+
+			<xsd:element name="FairMarketValueAmt" type="USAmountNNType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>FMV (or estimate)</Description>
+
+						<LineNumber>Part II Column (c)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Date Received -->
+
+			<xsd:element name="ReceivedDt" type="DateType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Date received</Description>
+
+						<LineNumber>Part II Column (d)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<!-- Type for Element "CharitableContributionsDetail" -->
+
+	<xsd:complexType name="CharitableContributionsDetailType">
+
+		<xsd:sequence>
+
+		
+
+			<!-- Contributor Number Part I -->
+
+			<xsd:element name="ContributorNum" type="IntegerNNType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Contributor number from Part I</Description>
+
+						<LineNumber>Part III Column (a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Purpose of Gift -->
+
+			<xsd:element name="GiftPurposeTxt" type="LineExplanationType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Purpose of gift</Description>
+
+						<LineNumber>Part III Column (b)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Use of Gift -->
+
+			<xsd:element name="GiftUseTxt" type="LineExplanationType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Use of gift</Description>
+
+						<LineNumber>Part III Column (c)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Description of How Gift is Held -->
+
+			<xsd:element name="HowGiftIsHeldDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Description of how gift is held</Description>
+
+						<LineNumber>Part III Column (d)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Transferee Name -->
+
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="TransfereeNameBusiness" type="BusinessNameType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Transferee name - Business</Description>
+
+							<LineNumber>Part III Column (e)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				<xsd:element name="TransfereeNameIndividual" type="PersonNameType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Transferee name - Individual</Description>
+
+							<LineNumber>Part III Column (e)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+			</xsd:choice>			
+
+
+
+			<!-- Transferee Address -->
+
+			<xsd:choice minOccurs="0">			
+
+				<xsd:element name="TransfereeUSAddress" type="USAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Transferee address - US</Description>
+
+							<LineNumber>Part III Column (e)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				<xsd:element name="TransfereeForeignAddress" type="ForeignAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Transferee address - Foreign</Description>
+
+							<LineNumber>Part III Column (e)</LineNumber>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+			</xsd:choice>						
+
+
+
+			<!-- Relationship of Transferor to Transferee -->
+
+			<xsd:element name="RlnOfTransferorToTransfereeTxt" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Relationship of transferor to transferee</Description>
+
+						<LineNumber>Part III Column (e)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+</xsd:schema>

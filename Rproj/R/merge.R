@@ -2,6 +2,12 @@ library(tidyverse)
 # Read in inferred Xpaths (based on XSD).
 inferred <- read_csv("./data/xpath_all.csv")
 
+inferred <- inferred %>%
+  group_by(-Version) %>%
+  arrange(Version) %>%
+  summarise(Versions = paste(Version, collapse = "; ")) %>%
+  ungroup()
+
 # Read and prepare counts of actual Xpaths by version.
 actual <- read_csv("./data/counts.csv", col_names = FALSE) %>%
   setNames(c("Version", "Xpath", "Count"))
@@ -16,10 +22,10 @@ actual <- actual %>%
 
 # Inner join xpaths and counts.
 confirmed <- inner_join(inferred, actual, by = "Xpath")
+write_csv(confirmed, "./output/confirmed.csv")
 
 predicted <- anti_join(inferred, actual, by = "Xpath")
+write_csv(predicted, "./output/predicted.csv")
 
 observed <- anti_join(actual, inferred, by = "Xpath")
-# Identify observed-but-not-predicted.
-
-# Identify predicted-but-not-observed.
+write_csv(observed, "./output/observed.csv")

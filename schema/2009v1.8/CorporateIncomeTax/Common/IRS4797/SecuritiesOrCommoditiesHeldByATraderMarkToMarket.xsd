@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Securities or Commodities Held by a Trader – Mark-To-Market Election</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- ================================================================ -->
+	<!-- =========  Securities or Commodities Held by a Trader – Mark-To-Market Election ========= -->
+	<!-- ================================================================ -->
+	<xsd:element name="SecOrCommoditiesHeldByTrader">
+		<xsd:annotation>
+			<xsd:documentation>Securities or Commodities Held by a Trader – Mark-To-Market Election</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="SecOrCommoditiesHeldByTraderType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="SecuritiesOrCommoditiesHeldByATraderMarkToMarket">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="SecOrCommoditiesHeldByTraderType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Securities or Commodities Held by a Trader – Mark-To-Market Election</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Repeating for each security or commodity held -->
+			<xsd:element name="SecurityOrCommodityHeld" type="SecurityOrCommodityHeldType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityOrCommodityHeldType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for a security or commodity held and marked to market by the end of the year.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property for Security or Commodities held by a Trader who made a Mark-To-Market Election</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Date Acquired or Inherited -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Acquired -->
+				<xsd:element name="DateAcquired" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the date acquired. If you disposed of property acquired by inheritance, enter INHERITED in the DateAcquiredInherited field instead.</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Date Acquired Inherited -->
+				<xsd:element name="DateAcquiredInherited">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Use only if you disposed of property acquired by inheritance.</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="INHERITED"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Date Sold -->
+			<xsd:element name="DateSold" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date sold</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Depreciation Allowed or Allowable Since Acquisition -->
+			<xsd:element name="DepreciationAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation allowed or allowable since acquisition</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost or Other Basis -->
+			<xsd:element name="CostOrOtherBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis, plus improvements and expense of sale</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Gain or Loss -->
+			<xsd:element name="GainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or loss</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

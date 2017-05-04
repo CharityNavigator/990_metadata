@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8865 Schedule P</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 18, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================= -->
+	<!-- ======================  IRS Form 8865 Schedule P ====================== -->
+	<!-- ======================================================================= -->
+
+
+	<xsd:element name="IRS8865ScheduleP">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8865 Schedule P</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8865SchedulePType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8865ScheduleP">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8865SchedulePType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8865 Schedule P</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Foreign Partnership -->
+			<xsd:element name="NameOfForeignPartnership" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of foreign partnership</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Part I: Acquisitions -->
+
+			<!-- Acquisition Information -->
+			<xsd:element name="AcquisitionInfo" type="AcquisitionInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Acquisition information.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Part II: Dispositions -->
+
+			<!-- Disposition Information -->
+			<xsd:element name="DispositionInfo" type="DispositionInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disposition information.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Part III: Change in Proportional Interest -->
+
+			<!-- Change in Proportional Interest Information -->
+			<xsd:element name="ChangeInPropInterestInfo" type="ChgInProportionalIntInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Change in Proportional Interest information.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Part IV: Supplemental Information Required To Be Reported -->
+
+			<!-- Supplemental Information -->
+			<xsd:element name="SupplementalInfo" type="SupplementalInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental information statement.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Type for Repeating Table Rows in Part I:Acquisitions -->
+	<xsd:complexType name="AcquisitionInfoType">
+
+		<xsd:sequence>
+
+			<!-- Acquisitions Name -->
+			<xsd:element name="AcquisitionsName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of person from whom your interest was aquired.</Description>
+						<LineNumber>Schedule P Part I Column a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Acquisitions Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- Acquisitions US Address -->
+				<xsd:element name="AcquisitionsUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of person from whom your interest was aquired.</Description>
+							<LineNumber>Schedule P Part I Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Acquisitions Foreign Address -->
+				<xsd:element name="AcquisitionsForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of person from whom your interest was aquired.</Description>
+							<LineNumber>Schedule P Part I Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Acquisitions Identification Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Acquisitions Identification Number -->
+				<xsd:element name="AcquisitionsIDNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identification Number of person from whom your interest was aquired.</Description>
+							<LineNumber>Schedule P Part I Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						<LineNumber>Schedule P Part I Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Date of Acquisition -->
+			<xsd:element name="DateOfAcquisition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of acquisition.</Description>
+						<LineNumber>Schedule P Part I Column b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FMV of Interest Acquired -->
+			<xsd:element name="FMVOfInterestAcquired" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FMV of interest aquired.</Description>
+						<LineNumber>Schedule P Part I Column c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis in Interest Acquired -->
+			<xsd:element name="BasisInInterestAcquired" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis in interest aquired.</Description>
+						<LineNumber>Schedule P Part I Column d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Interest Before Acquisition -->
+			<xsd:element name="PercentIntBeforeAcquisition" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of interest before acquisition.</Description>
+						<LineNumber>Schedule P Part I Column e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Interest After Acquisition -->
+			<xsd:element name="PercentIntAfterAcquisition" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of interest after acquisition.</Description>
+						<LineNumber>Schedule P Part I Column f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Table Rows in Part II:Dispositions -->
+	<xsd:complexType name="DispositionInfoType">
+
+		<xsd:sequence>
+
+			<!-- Dispositions Name -->
+			<xsd:element name="DispositionsName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of person who acquired your interest.</Description>
+						<LineNumber>Schedule P Part II Column a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Dispositions Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- Dispositions US Address -->
+				<xsd:element name="DispositionsUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of person who acquired your interest.</Description>
+							<LineNumber>Schedule P Part II Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Dispositions Foreign Address -->
+				<xsd:element name="DispositionsForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of person who acquired your interest.</Description>
+							<LineNumber>Schedule P Part II Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Dispositions Identification Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Dispositions Identification Number -->
+				<xsd:element name="DispositionsIDNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identification Number of person who acquired your interest.</Description>
+							<LineNumber>Schedule P Part II Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason  -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>Schedule P Part II Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Date of Disposition -->
+			<xsd:element name="DateOfDisposition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of disposition.</Description>
+						<LineNumber>Schedule P Part II Column b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FMV of Interest Disposed -->
+			<xsd:element name="FMVOfInterestDisposed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FMV of interest disposed.</Description>
+						<LineNumber>Schedule P Part II Column c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis in Interest Disposed -->
+			<xsd:element name="BasisInInterestDisposed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis in interest disposed.</Description>
+						<LineNumber>Schedule P Part II Column d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Interest Before Disposition -->
+			<xsd:element name="PercentIntBeforeDisposition" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of interest before disposition.</Description>
+						<LineNumber>Schedule P Part II Column e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Interest After Disposition -->
+			<xsd:element name="PercentIntAfterDisposition" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of interest after disposition.</Description>
+						<LineNumber>Schedule P Part II Column f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Table Rows in Part III:Change in Proportional Interest -->
+	<xsd:complexType name="ChgInProportionalIntInfoType">
+
+		<xsd:sequence>
+
+			<!-- Description of Change -->
+			<xsd:element name="DescriptionOfChange" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of change.</Description>
+						<LineNumber>Schedule P Part III Column a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Date of Change -->
+			<xsd:element name="DateOfChange" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of change.</Description>
+						<LineNumber>Schedule P Part III Column b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FMV of Interest -->
+			<xsd:element name="FMVOfInterest" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FMV of interest.</Description>
+						<LineNumber>Schedule P Part III Column c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis in Interest -->
+			<xsd:element name="BasisInInterest" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis in interest.</Description>
+						<LineNumber>Schedule P Part III Column d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Interest Before Change -->
+			<xsd:element name="PercentIntBeforeChange" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of interest before change.</Description>
+						<LineNumber>Schedule P Part III Column e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Interest After Change -->
+			<xsd:element name="PercentIntAfterChange" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of interest after change.</Description>
+						<LineNumber>Schedule P Part III Column f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Table Rows in Part IV:Supplemental Information Required to be Reported -->
+	<xsd:complexType name="SupplementalInfoType">
+
+		<xsd:sequence>
+
+			<!-- Part Number and Column -->
+			<xsd:element name="PartNumAndColumn" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part number and column.</Description>
+						<LineNumber>Schedule P Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="11" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Description -->
+			<xsd:element name="Description" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description.</Description>
+						<LineNumber>Schedule P Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8864</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>March 3, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================== -->
+	<!-- =======================	IRS Form 8864 ============================ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="IRS8864">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8864</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8864Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8864">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" >
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>					
+					</xsd:attribute>						
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment EvidencePreviouslyFiledClaimForBiodieselSoldorUsedStatement" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- ============================================= -->
+	<!-- Biodiesel and Renewable Diesel Fuels Credit   -->
+	<!-- ============================================= -->
+
+	<!-- ======== Type of Fuel ======== -->
+	<xsd:complexType name="IRS8864Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8864</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Biodiesel - gallons-->
+			<xsd:element name="BiodieselGallons" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel (in gallons)</Description>
+						<LineNumber>Line 1 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Biodiesel - amount (Column (a) x Column (b)) -->
+			<xsd:element name="BiodieselAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel amount (Column (a) x Column (b))</Description>
+						<LineNumber>Line 1 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-biodiesel - gallons -->
+			<xsd:element name="AgriBiodieselGallons" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel (in gallons)</Description>
+						<LineNumber>Line 2 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-biodiesel - amount (Column (a) x Column (b)) -->
+			<xsd:element name="AgriBiodieselAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel amount (Column (a) x Column (b))</Description>
+						<LineNumber>Line 2 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Renewable diesel (in gallons) -->
+			<xsd:element name="RenewableDiesel" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel (in gallons)</Description>
+						<LineNumber>Line 3 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Renewable diesel (Column (a) x Column (b)) -->
+			<xsd:element name="RenewableDieselAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel amount (Column (a) x Column (b))</Description>
+						<LineNumber>Line 3 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Biodiesel included in a biodiesel mixture - gallons -->
+			<xsd:element name="BiodieselIncldGals" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel included in a biodiesel mixture (in gallons)</Description>
+						<LineNumber>Line 4 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Biodiesel included in a biodiesel mixture - amount -->
+			<xsd:element name="BiodieselIncldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel included in a biodiesel mixture - amount (Column (a) x Column (b))</Description>
+						<LineNumber>Line 4 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-biodiesel included in a biodiesel mixture -->
+			<xsd:element name="AgriBiodieselIncldGals" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel included in a biodiesel mixture (in gallons)</Description>
+						<LineNumber>Line 5 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-Biodiesel included in a biodiesel mixture - amount -->
+			<xsd:element name="AgriBiodieselIncldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-Biodiesel included in a biodiesel mixture - amount (Column (a) x Column (b))</Description>
+						<LineNumber>Line 5 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Renewable diesel included in renewable mixture (in gallons) -->
+			<xsd:element name="RenewableDieselIncludedMixture" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel included in renewable mixture (in gallons)</Description>
+						<LineNumber>Line 6 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Renewable diesel included in renewable mixture (Column (a) x Column (b)) -->
+			<xsd:element name="RenewableDieselInclMixtureAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel included in renewable mixture (Column (a) x Column (b))</Description>
+						<LineNumber>Line 6 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified agri-biodiesel production(in gallons) -->
+			<xsd:element name="QualifiedAgriBioDieselProd" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified agri-biodiesel production(in gallons)</Description>
+						<LineNumber>Line 7 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified agri-biodiesel production (Column (a) x Column (b)) -->
+			<xsd:element name="QualifiedAgriBioDieselProdAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified agri-biodiesel production (Column (a) x Column (b))</Description>
+						<LineNumber>Line 7 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 1 through 7 -->
+			<xsd:element name="BiodieselPlusAgriBiodiesel" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 7</Description>
+						<LineNumber>Line 8c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Biodiesel and renewable diesel fuels amount(s) -->
+			<xsd:element name="BiodieselRenewableFuelsAmounts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel and renewable diesel fuels amount(s)</Description>
+						<LineNumber>Line 9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Add Lines 8 and 9 -->
+			<xsd:element name="AddLines8and9" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 8 and 9</Description>
+						<LineNumber>Line 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries -->
+			<xsd:element name="AmountAllocatedtoBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates, Trusts and Coops Credit  -->
+			<xsd:element name="EstatesTrustsAndCoopsCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates, trusts and coops credit</Description>
+						<LineNumber>Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Computation of Section 481(a) Adjustment Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================== -->
+	<!-- ======= Computation of Section 481(a) Adjustment Statement ======= -->
+	<!-- ================================================================== -->
+
+	<xsd:element name="ComputationOfSect481aAdjStmt">
+		<xsd:annotation>
+			<xsd:documentation>Computation of Section 481(a) Adjustment Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ComputationOfSect481aAdjStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="ComputationOfSection481aAdjustmentStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Computation of Section 481(a) Adjustment Statement Type -->
+	<xsd:complexType name="ComputationOfSect481aAdjStmtType">
+		<xsd:sequence>
+			<xsd:element name="Computation" type="ExplanationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - IRS Form 5884-A</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>March 11, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================ -->
+	<!-- ====================  IRS Form 5884-A ========================== -->
+	<!-- ================================================================ -->
+	
+
+	<xsd:element name="IRS5884A">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5884-A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5884AType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5884A">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="EmployeeRetentionCreditSchedule HurricaneKatrinaHousingCreditSchedule"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5884AType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5884-A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+		<!-- =============== Section A - Employee Retention Credit =============== -->
+
+		<!-- Total Qualified Wages Paid/Incurred after August 28, 2005 and before January 1, 2006 -->
+		<xsd:element name="TotalQlfyWagesPaidIncurdKatrin" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total Qualified Wages Paid/Incurred after Hurricane Katrina</Description>
+						<LineNumber>1a</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Qualified Wages Paid/Incurred after September 23, 2005 and before January 1, 2006 -->
+		<xsd:element name="TotalQlfyWagesPaidIncurdRita" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total Qualified Wages Paid/Incurred after Hurricane Rita</Description>
+						<LineNumber>1b</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Qualified Wages Paid/Incurred after October 23, 2005 and before January 1, 2006 -->
+		<xsd:element name="TotalQlfyWagesPaidIncurdWilma" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total Qualified Wages Paid/Incurred after Hurricane Wilma</Description>
+						<LineNumber>1c</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Qualified Wages Paid/Incurred after August 28, 2005 and before January 1, 2006 -->
+		<xsd:element name="TotalQualifiedWagesPaidIncurd" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total Qualified Wages Paid/Incurred</Description>
+						<LineNumber>1d</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Enter 40% of Line 1d -->
+		<xsd:element name="Enter40PctOfLine1" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Enter 40% (.40) of Line 1d</Description>
+						<LineNumber>2</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Employee Retention Credit -->
+		<xsd:element name="EmployeeRetentionCredit" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Employee Retention Credit</Description>
+						<LineNumber>3</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Current Year Credit -->
+		<xsd:element name="CurrentYearCredit" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Current Year Credit</Description>
+						<LineNumber>4</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		
+		<!-- =============== Section B - Hurricane Katrina Housing Credit =============== -->
+
+		<!-- Qualified Lodging -->
+		<xsd:element name="QualifiedLodging" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Qualified Lodging</Description>
+						<LineNumber>5</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Enter 30% of Line 5 -->
+		<xsd:element name="Enter30PctOfLine5" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Enter 30% (.30) of Line 5</Description>
+						<LineNumber>6</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Hurricane Katrina Housing Credit -->
+		<xsd:element name="HurricaneKatrinaHousingCredit" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Hurricane Katrina Housing Credit</Description>
+						<LineNumber>7</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Current Year Credit -->
+		<xsd:element name="SectionBCurrentYearCredit" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Current Year Credit</Description>
+						<LineNumber>8</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

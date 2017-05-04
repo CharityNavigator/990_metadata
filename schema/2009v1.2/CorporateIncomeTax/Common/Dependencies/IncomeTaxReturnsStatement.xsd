@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Income Tax Returns Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 8, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ========================================================= -->
+	<!-- ====== Income Tax Returns Statement ======= -->
+	<!-- ========================================================= -->
+
+	<xsd:element name="IncomeTaxReturnsStatement">
+		<xsd:annotation>
+			<xsd:documentation>Income Tax Returns Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IncomeTaxReturnsStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IncomeTaxReturnsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Income Tax Returns Statement -->
+	<xsd:complexType name="IncomeTaxReturnsStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Income Tax Returns Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Income Tax Returns Stmt -->
+			<xsd:element name="IncomeTaxReturnsStmt" type="IncomeTaxReturnsStmtType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Tax Returns Statement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Income Tax Returns Stmt -->
+	<xsd:complexType name="IncomeTaxReturnsStmtType">
+		<xsd:sequence>
+
+			<!-- Filing Requirements Satisfied Statement -->
+			<xsd:element name="FilingRqrSatisfiedStatement" type="ExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>Filing Requirements Satisfied Statement</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Return Name -->
+			<xsd:element name="ReturnName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Return Name</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Return Address - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Return Address -->
+				<xsd:element name="USReturnAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>US ReturnAddress</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Return Address -->
+				<xsd:element name="ForeignReturnAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Return Address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Return Identifying Number: choice between EIN, or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Return EIN -->
+				<xsd:element name="ReturnEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Return EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing Return EIN Reason -->
+				<xsd:element name="MissingReturnEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing Return EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- IRS Service Center Where Filed -->
+			<xsd:element name="IRSServiceCenterWhereFiled" type="IRSServiceCenterType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>IRS Service Center Where Filed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

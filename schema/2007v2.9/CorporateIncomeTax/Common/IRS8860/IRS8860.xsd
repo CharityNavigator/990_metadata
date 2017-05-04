@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8860</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 13, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8860 =============================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8860">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8860</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8860Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8860">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8860Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8860</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+		<!-- ======================= Part I : Current Year Credit ============================ -->
+
+		<!-- Current Year Credit Infomation Repeating Group -->
+		<xsd:element name="CurrentYearCreditInfo" minOccurs="0" maxOccurs="unbounded">
+			<xsd:complexType>
+				<xsd:sequence>
+
+					<!-- Bond Issuer's Name -->
+					<xsd:element name="BondIssuerName" type="BusinessNameType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Bond issuer's name</Description>
+								<LineNumber>Part I Line 1(a)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- City -->
+					<xsd:element name="City" type="CityType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>City</Description>
+								<LineNumber>Part I Line 1(a)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- State -->
+					<xsd:element name="State" type="StateType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>State</Description>
+								<LineNumber>Part I Line 1(a)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- Month and Year Bond Issued -->
+					<xsd:element name="MonthYearBondIssued" type="YearMonthType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Month and year bond issued</Description>
+								<LineNumber>Part I Line 1(b)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Outstanding Principal Amount Of Bond -->
+					<xsd:element name="OutstandingPrincipalAmtOfBond" type="USAmountType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Outstanding principal amount of bond</Description>
+								<LineNumber>Part I Line 1(c)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- Credit Rate -->
+					<xsd:element name="CreditRate" type="RatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+							<Description>Credit rate</Description>
+								<LineNumber>Part I Line 1(d)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- Credit (c) X (d) -->
+					<xsd:element name="CreditForThisBond" type="USAmountType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Credit (c) x (d)</Description>
+								<LineNumber>Part I Line 1(e)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+				</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Qualified zone academy bond credit from Schedule K-1 (Form 1120S), line 13 -->
+			<xsd:element name="SchK1BondCredit" minOccurs="0">
+				<xsd:annotation>
+  				<xsd:documentation>
+					<Description>Qualified zone academy bond credit from Schedule K-1 (Form 1120S), line 13</Description>
+					<LineNumber>Part I Line 2a</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		<xsd:complexType>
+	<xsd:simpleContent>
+		<xsd:extension base="USAmountType">
+			<xsd:attribute name="referenceDocumentId" type="IdListType" />
+				<xsd:attribute name="referenceDocumentName" type="StringType" fixed="QZABCreditForShareholdersOfSCorpSchedule" />
+					</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Employer Identification Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Enter the S corporation's employer identification number (EIN)-->
+				<xsd:element name="SCorpEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the S corporation's employer identification number (EIN)</Description>
+							<LineNumber>Part I Line 2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason  -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>Part I Line 2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Current year qualified zone academy bond credit. Add line 2a and all amounts on line 1, column(e). -->
+			<xsd:element name="CYQlfyZoneAcademyBondCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description> Current year qualified zone academy bond credit. Add line 2a and all amounts on line 1, column(e).</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ======================= Part II : Allowable Credit ============================ -->
+
+			<!-- Regular Tax Before Credits -->
+			<xsd:element name="RegularTaxBeforeCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Regular tax before credits. Enter the amount from Form 1120, Schedule J, line 3, or the comparable line of the corporation's return</Description>
+							<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax -->
+			<xsd:element name="AlternativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax. Enter the amount from Form 4626, line 14</Description>
+							<LineNumber>Part II Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Of Line 4 And 5 -->
+			<xsd:element name="SumOfRegularTaxAndMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add of line 4 and 5</Description>
+							<LineNumber>Part II Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+							<LineNumber>Part II Line 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credits From Forms 5735 and 8834 -->
+			<xsd:element name="CreditsFrom5735And8834" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credits from Forms 5735 and 8834</Description>
+							<LineNumber>Part II Line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Motor Vehicle Credit -->
+			<xsd:element name="AlternativeMotorVehicleCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle credit (Form 8910)</Description>
+							<LineNumber>Part II Line 7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Fuel Vehicle Refueling Property Credit -->
+			<xsd:element name="AlternativeFuelVehicleCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative fuel vehicle refueling property credit (Form 8911)</Description>
+							<LineNumber>Part II Line 7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- General Business Credit -->
+			<xsd:element name="GeneralBusinessCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General business credit (see instructions)</Description>
+							<LineNumber>Part II Line 7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prior Year Minimum Tax Credit -->
+			<xsd:element name="PYMinimumTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prior year minimum tax credit. (Form 8827, line 8)</Description>
+							<LineNumber>Part II Line 7g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum Of Line 7a through 7g -->
+			<xsd:element name="TotalCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of line 7a through 7g</Description>
+						<LineNumber>Part II Line 7h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income Tax -->
+			<xsd:element name="NetIncomeTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income tax. Subtract line 7h from line 6</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Zone Academy Bond Credit -->
+			<xsd:element name="QualifiedZoneAcademyBondCredit" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified zone academy bond credit. Enter the smaller of line 3 or line 8 here and on Form 1120, Schedule J, line 6f, or the comparable line of the corporation's return</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

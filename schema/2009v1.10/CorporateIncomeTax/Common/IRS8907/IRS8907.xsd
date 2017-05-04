@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8907</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 13, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8907 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8907">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8907</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8907Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8907">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8907Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8907</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Date the facility was placed in service -->
+			<xsd:element name="DateFacilityPlacedInService" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the facility was placed in service</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="DateType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="FacilityPlacedInServiceStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Barrel Of Equivalents - CY Qualified Coke and Coke Gas Sold Type -->
+			<xsd:element name="CYQlfyCokeAndCokeGasSoldType1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Barrel-of-equivalents - CY qualified coke and coke gas sold type</Description>
+						<LineNumber>Line 2(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Barrel Of Equivalents - Next Year Qualified Coke and Coke Gas Sold Type -->
+			<xsd:element name="NYQlfyCokeAndCokeGasSoldType1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Barrel of equivalents - Next year qualified coke and coke gas sold Type</Description>
+						<LineNumber>Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply $3 By The Inflation Adjustment Factor - CY Qualified Coke and Coke Gas Sold Type -->
+			<xsd:element name="CYQlfyCokeAndCokeGasSoldType2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply $3 by the inflation adjustment factor - CY qualified coke and coke gas sold type</Description>
+						<LineNumber>Line 3(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply $3 By The Inflation Adjustment Factor - Next Year Qualified Coke and Coke Gas Sold Type -->
+			<xsd:element name="NYQlfyCokeAndCokeGasSoldType2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply $3 by the inflation adjustment factor - Next year qualified coke and coke gas sold Type</Description>
+						<LineNumber>Line 3(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 2 by Line 3 - CY Qualified Coke and Coke Gas Sold Type -->
+			<xsd:element name="CYQlfyCokeAndCokeGasSoldType3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 2 by line 3 - CY qualified coke and coke gas sold type</Description>
+						<LineNumber>Line 4(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 2 by Line 3 - Next Year Qualified Coke and Coke Gas Sold Type -->
+			<xsd:element name="NYQlfyCokeAndCokeGasSoldType3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 2 by line 3 - Next year qualified coke and coke gas sold type</Description>
+						<LineNumber>Line 4(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Columns (a) And (b) on Line 4 -->
+			<xsd:element name="TotalFuelsSold" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (a) and (b) on line 4</Description>
+						<LineNumber>Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction Due to Government Monies and Subsidized Financing -->
+			<xsd:element name="ReductionDueToGovernment" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction due to government monies and subsidized financing</Description>
+						<LineNumber>Line 6(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Additions to the Capital Account  -->
+			<xsd:element name="TotalAdditionsCapitalAccount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of additions to the capital account</Description>
+						<LineNumber>Line 6(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Divide Line 6a by Line 6b -->
+			<xsd:element name="DivideLine6aByLine6b" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 6a by line 6b</Description>
+						<LineNumber>Line 6(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 5 by Line 6c -->
+			<xsd:element name="MultiplyLine5ByLine6c" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 5 by line 6c</Description>
+						<LineNumber>Line 6(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 6d From Line 5 -->
+			<xsd:element name="SubtractLine6dFromLine5" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 6d from line 5</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction Due to Energy Credit -->
+			<xsd:element name="ReductionDueToEnergyCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction due to energy credit</Description>
+						<LineNumber>Line 8(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amount Recaptured on Line 8a -->
+			<xsd:element name="TotalAmountRecaptured" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amount recaptured on line 8a</Description>
+						<LineNumber>Line 8(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 8b From Line 8a -->
+			<xsd:element name="SubtractLine8bFromLine8a" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 8b from line 8a</Description>
+						<LineNumber>Line 8(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 8c From Line 7 -->
+			<xsd:element name="SubtractLine8cFromLine7" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 8c From Line 7</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction Due to Enhance Oil Recovery Credit (Form 8830) -->
+			<xsd:element name="ReductionEnhanceOilRecoveryCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction due to enhance oil recovery credit (Form 8830)</Description>
+						<LineNumber>Line 10(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amount of Enhanced Oil Recovery Credit -->
+			<xsd:element name="TotAmountEnhancedOilRecoveryCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amount of enhanced oil recovery credit</Description>
+						<LineNumber>Line 10(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 10b From Line 10a -->
+			<xsd:element name="SubtractLine10bFromLine10a" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 10b from line 10a</Description>
+						<LineNumber>Line 10(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 10c From Line 9 -->
+			<xsd:element name="SubtractLine10cFromLine9" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 10c from line 9</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nonconventional Source Fuel Credits -->
+			<xsd:element name="NonconventionalSourceFuelCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nonconventional source fuel credits</Description>
+						<LineNumber>Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 11 And 12 -->
+			<xsd:element name="AddLines11And12" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11 and 12</Description>
+						<LineNumber>Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries of Estates or Trusts -->
+			<xsd:element name="AmountAllocatedToBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries of Estates or trusts</Description>
+						<LineNumber>Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates and Trusts Credit:  Subtract Line 14 From 13 -->
+			<xsd:element name="EstatesAndTrustsCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates and trusts: subtract line 14 from 13</Description>
+						<LineNumber>Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

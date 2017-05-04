@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Multiple Building Project Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 22, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ============================================================= -->
+	<!-- ======== Multiple Building Project Schedule======= -->
+	<!-- ============================================================= -->
+
+	<xsd:element name="MultipleBuildingProjectSch">
+		<xsd:annotation>
+			<xsd:documentation>Multiple Building Project Schedule Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="MultipleBuildingProjectScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="MultipleBuildingProjectSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Multiple Building Project Schedule Type -->
+	<xsd:complexType name="MultipleBuildingProjectScheduleType">
+		<xsd:sequence>
+			<xsd:element name="Schedule" type="NameOfProjectAndBuildingType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="NameOfProjectAndBuildingType">
+		<xsd:sequence>
+
+			<!-- Name of Project and Each Building -->
+			<xsd:element name="NameOfProjectAndEachBuilding" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of project and each building</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Project and Each Building: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Project and Each Building -->
+				<xsd:element name="USAddressOfProjAndEachBldg" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of project and each building</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Project and Each Building -->
+				<xsd:element name="FRGNAddressOfProjAndEachBldg" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of project and each building</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Building Identification Number for Each Building in the Project -->
+			<xsd:element name="BuildingIdNumForEachBuilding" type="BINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Building identification number for each building in the project</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Aggregate Credit Dollar Amount for the Project -->
+			<xsd:element name="ProjectAggregateCrDollarAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Aggregate credit dollar amount for the project</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit Allocated to Each Building in the Project -->
+			<xsd:element name="CreditAllocatedToEachBuilding" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit allocated to each building in the project</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

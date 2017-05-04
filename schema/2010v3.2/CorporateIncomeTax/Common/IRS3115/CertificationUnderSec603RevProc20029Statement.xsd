@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Certification Statement Under Sec 6.03 of Rev Proc 2002-9</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- ==== Certification Statement Under Sec 6.03 of Rev Proc 2002-9 ==== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="CertUndSect603RevProc20029Stmt">
+		<xsd:annotation>
+			<xsd:documentation>Certification Statement Under Sec 6.03 of Rev Proc 2002-9</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="CertUndSect603RevProc20029StmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="CertificationUnderSec603RevProc20029Statement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Certification Statement Under Sec 6.03 of Rev Proc 2002-9 Type -->
+	<xsd:complexType name="CertUndSect603RevProc20029StmtType">
+		<xsd:sequence>
+			<xsd:element name="Statement" type="ExplanationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

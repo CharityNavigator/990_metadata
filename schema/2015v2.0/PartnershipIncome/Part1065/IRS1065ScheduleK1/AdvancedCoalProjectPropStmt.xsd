@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Advanced Coal Project Property Statement</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ======================================================= -->
+	<!-- ====== Advanced Coal Project Property Statement ======= -->
+	<!-- ======================================================= -->
+
+	<xsd:element name="AdvancedCoalProjectPropStmt">
+		<xsd:annotation>
+			<xsd:documentation>Advanced Coal Project Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AdvancedCoalProjectPropStmtTyp">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AdvancedCoalProjectPropStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="AdvancedCoalProjectPropStmtTyp">
+		<xsd:annotation>
+			<xsd:documentation>Content model for advanced coal project property statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    		<!-- Integrated Gasification Property Amount Basis -->
+			<xsd:element name="GasificationBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Integrated gasification property amount basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+    		<!-- Coal Project Property Amount Basis -->
+			<xsd:element name="CoalGasificationBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Coal project property amount basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

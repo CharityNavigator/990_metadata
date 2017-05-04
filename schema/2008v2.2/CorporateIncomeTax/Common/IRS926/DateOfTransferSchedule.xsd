@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Date of Transfer Schedule</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 25, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =================================== -->
+	<!-- ==== Date of Transfer Schedule ==== -->
+	<!-- =================================== -->
+
+
+	<xsd:element name="DateOfTransferSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Date of transfer schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DateOfTransferScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DateOfTransferSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="DateOfTransferScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Date of transfer schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Date Of Transfer -->
+			<xsd:element name="DateOfTransfer" type="DateOfTransferType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Anyone owned 50% or more voting stock of domestic corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Date Of Transfer -->
+	<xsd:complexType name="DateOfTransferType">
+		<xsd:sequence>		
+
+			<!-- Date -->
+			<xsd:element name="Date" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

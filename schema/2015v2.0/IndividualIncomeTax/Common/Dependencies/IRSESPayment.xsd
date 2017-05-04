@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Estimated Payment</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- =================== IRS Estimated Payment ===================== -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRSESPayment">
+		<xsd:annotation>
+			<xsd:documentation>IRS Estimated Payment</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRSESPaymentType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRSESPayment">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRSESPaymentType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Estimated Payment</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Routing Transit Number -->
+			<xsd:element name="RoutingTransitNum" type="RoutingTransitNumberType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Routing Transit Number</Description>
+			<ELFFieldNumber>0030</ELFFieldNumber>
+			</xsd:documentation>
+					</xsd:annotation>
+			</xsd:element>
+
+			<!-- Bank Account Number -->
+			<xsd:element name="BankAccountNum" type="BankAccountNumberType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Bank Account Number</Description>
+					<ELFFieldNumber>0040</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Bank Account Type Code -->
+			<xsd:element name="BankAccountTypeCd" type="BankAccountType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Bank Account Type Code</Description>
+					<ELFFieldNumber>0050</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Payment Amount -->
+			<xsd:element name="PaymentAmt">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Payment Amount in Whole Dollars</Description>
+					<ELFFieldNumber>0060</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerPosType">
+						<xsd:totalDigits value="11"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Estimated Payment Due Date -->
+			<xsd:element name="EstimatedPaymentDueDt">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Estimated Payment Due Date</Description>
+					<ELFFieldNumber>0080</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="DateType">
+						<xsd:enumeration value="2016-01-15"/>
+						<xsd:enumeration value="2016-02-16"/>
+						<xsd:enumeration value="2016-03-15"/>
+						<xsd:enumeration value="2016-04-15"/>
+						<xsd:enumeration value="2016-05-16"/>
+						<xsd:enumeration value="2016-06-15"/>
+						<xsd:enumeration value="2016-07-15"/>
+						<xsd:enumeration value="2016-08-15"/>
+						<xsd:enumeration value="2016-09-15"/>
+						<xsd:enumeration value="2016-10-17"/>
+						<xsd:enumeration value="2016-11-15"/>
+						<xsd:enumeration value="2016-12-15"/>
+						<xsd:enumeration value="2017-01-17"/>
+						<xsd:enumeration value="2017-02-15"/>
+						<xsd:enumeration value="2017-03-15"/>
+						<xsd:enumeration value="2017-04-17"/>
+						<xsd:enumeration value="2017-05-15"/>
+						<xsd:enumeration value="2017-06-15"/>
+						<xsd:enumeration value="2017-07-17"/>
+						<xsd:enumeration value="2017-08-15"/>
+						<xsd:enumeration value="2017-09-15"/>
+						<xsd:enumeration value="2017-10-16"/>
+						<xsd:enumeration value="2017-11-15"/>
+						<xsd:enumeration value="2017-12-15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Taxpayer Daytime Phone Number -->
+			<xsd:element name="TaxpayerDaytimePhoneNum" type="PhoneNumberType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<Description>Taxpayer's Daytime Phone Number</Description>
+					<ELFFieldNumber>0010</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

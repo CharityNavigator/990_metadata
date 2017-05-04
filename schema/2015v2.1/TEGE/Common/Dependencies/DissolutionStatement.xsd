@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Dissolution Statement</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 29, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ============================================================== -->
+	<!-- =================  Dissolution Statement ==================== -->
+	<!-- ============================================================== -->
+
+	<xsd:element name="DissolutionStmt">
+		<xsd:annotation>
+			<xsd:documentation>Dissolution Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DissolutionStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DissolutionStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="DissolutionStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Dissolution Statement</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+		<xsd:element name="DissolutionInformationGrp" minOccurs="0" maxOccurs="unbounded">
+			<xsd:complexType>
+			<xsd:sequence>
+		
+			<!-- Choice between a business name or a personal name -->
+      			<xsd:choice minOccurs="0">
+				<!-- Business Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dissolution business name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+
+				<!-- Person Name -->
+				<xsd:element name="PersonNm" type="PersonNameType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dissolution person name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+ 			</xsd:choice>
+
+			<!-- Address. Either US or foreign type -->
+      			<xsd:choice minOccurs="0">
+				<!-- Address US -->
+				<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dissolution US Address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+
+				<!-- Foreign Address -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dissolution foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+ 			</xsd:choice>
+
+			<!-- Explanation -->
+			<xsd:element name="ShortExplanationTxt" type="ShortExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Dissolution Amount -->
+			<xsd:element name="DissolutionAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dissolution Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			</xsd:sequence>
+			</xsd:complexType>
+		</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

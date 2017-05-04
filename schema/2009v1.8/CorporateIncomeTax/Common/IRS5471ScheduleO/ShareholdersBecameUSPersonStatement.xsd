@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Statement If Return Is Required Because Shareholders Became U.S. Person</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================================= -->
+	<!-- == Statement If Return Is Required Because Shareholders Became U.S. Person == -->
+	<!-- ============================================================================= -->
+
+
+	<xsd:element name="ShareholdersBecameUSPersonStmt">
+		<xsd:annotation>
+			<xsd:documentation>Statement if Return is required because shareholders became U.S. person</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ShBecameUSPersonStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ShareholdersBecameUSPersonStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="ShBecameUSPersonStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Statement if return is required because shareholders became U.S. person</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Shareholders Became U.S. Person -->
+			<xsd:element name="Shareholder" type="ShBecameUSPersonType" minOccurs="1" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder became U.S. person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Shareholder Became U.S. Person -->
+	<xsd:complexType name="ShBecameUSPersonType">
+		<xsd:sequence>		
+	
+			<!-- Shareholders Who Became U.S. Person -->
+			<xsd:element name="Name" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholders who became U.S. person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Date Became U.S. Person -->
+			<xsd:element name="Date" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date became U.S. person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

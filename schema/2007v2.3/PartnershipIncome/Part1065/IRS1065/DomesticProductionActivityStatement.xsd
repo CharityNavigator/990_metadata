@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      <Description>IRS e-file Partnership Income Return - Domestic Production Activity Statement</Description>
+      <TaxYear>2007</TaxYear>
+      <MaturityLevel>Final Release</MaturityLevel>
+      <ReleaseDate>March 11, 2008</ReleaseDate>
+    </xsd:documentation>
+  </xsd:annotation>
+  
+  <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+  
+  
+  <!-- ======================================================================== -->
+  <!-- ===============  Domestic Production Activity Statement  =============== -->
+  <!-- ======================================================================== -->
+  
+  
+  <xsd:element name="DomesticProductionActivityStmt">
+    <xsd:annotation>
+      <xsd:documentation>Domestic Production Activity Statement</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="DomesticProductionActivityStmtType">
+          <xsd:attributeGroup ref="DocumentAttributes">
+            <xsd:annotation>
+              <xsd:documentation>Common return document attributes</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attributeGroup>
+          <xsd:attribute name="documentName" type="xsd:string" fixed="DomesticProductionActivityStatement">
+            <xsd:annotation>
+              <xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:complexType name="DomesticProductionActivityStmtType">
+    <xsd:annotation>
+      <xsd:documentation>Content model for Domestic Production Activity Statement</xsd:documentation>
+    </xsd:annotation>
+ 
+    <xsd:sequence>
+    
+      <xsd:element name="Item" minOccurs="0" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+          
+            <!-- Domestic Production Gross Receipts -->          
+            <xsd:element name="DomesticProductionGrossRcpts" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Domestic production gross receipts</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Gross Receipts From All Sources -->            
+            <xsd:element name="GrossReceiptsFromAllSources" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Gross receipts from all sources</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Cost of goods sold allocable to DPGR -->            
+            <xsd:element name="CostGoodsSoldAllcblDPGR" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Cost of goods sold allocable to DPGR</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Cost of goods sold from all sources -->            
+            <xsd:element name="CostGoodsSoldFromAllSources" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Cost of goods sold from all sources</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total deductions, expenses, and losses directly allocable to DPGR -->            
+            <xsd:element name="TotalDedExpnssLossAllcblDPGR" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Total deductions, expenses, and losses directly allocable to DPGR</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total deductions, expenses and losses directly allocable to a non-DPGR class of income -->            
+            <xsd:element name="TotDedExpnssLossAllcblNonDPGR" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Total deductions, expenses and losses directly allocable to a non-DPGR class of income</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+
+            <!-- Other deductions, expenses and losses not directly allocable to DPGR or another class of income -->            
+            <xsd:element name="OthDedExpnssLossNotAllcblDPGR" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Other deductions, expenses and losses not directly allocable to DPGR or another class of income</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Form W-2 wages -->            
+            <xsd:element name="FormW2Wages" type="USAmountType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  <Description>Form W-2 wages</Description>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+    </xsd:sequence>
+  </xsd:complexType>
+  
+</xsd:schema>

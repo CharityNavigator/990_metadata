@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+				<Description>IRS e-file Schema - Original Or Amended Return Statement</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =================================================================== -->
+	<!-- ============== Original Or Amended Return Statement =============== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="OriginalOrAmendedRtnStmt">
+		<xsd:annotation>
+				<xsd:documentation>Original Or Amended Return Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="OriginalOrAmendedRtnStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="OriginalOrAmendedReturnStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+
+	<!-- Original Or Amended Return Statement -->
+	<xsd:complexType name="OriginalOrAmendedRtnStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Original Or Amended Return Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExplanationTxt" type="ExplanationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

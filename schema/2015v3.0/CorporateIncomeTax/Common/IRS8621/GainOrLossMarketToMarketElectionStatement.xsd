@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Gain Or Loss Market To Market Election Statemen </Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 27, 2016</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================= -->
+	<!-- ======== Gain Or Loss Market To Market Election Statement ======= -->
+	<!-- ================================================================= -->
+
+	<xsd:element name="GainOrLossMrktToMrktElectStmt">
+		<xsd:annotation>
+			<xsd:documentation>Gain Or Loss Market To Market Election Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="GainOrLossMrktToMrktElectStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="GainOrLossMarketToMarketElectionStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Gain Or Loss Market To Market Election Statement -->
+	<xsd:complexType name="GainOrLossMrktToMrktElectStmtType">
+		<xsd:sequence>
+		
+			<!-- Gain Or Loss Market To Market Election Group  -->
+			<xsd:element name="GainOrLossMrktToMrktElectGrp" type="GainOrLossMrktToMrktElectGrpType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain Or Loss Market To Market Election Group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+		
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<xsd:complexType name="GainOrLossMrktToMrktElectGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Gain Or Loss Market To Market Election Group</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>			
+
+			<!-- FMV Stock On Date Sale Or Dispose Amount -->
+			<xsd:element name="FMVStkOnDtSaleOrDisposAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FMV Stock On Date Sale Or Dispose Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Basis Stock On Date Sale Or Dispose Amount -->
+			<xsd:element name="AdjBasisStkOnDtSaleOrDisposAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted Basis Stock On Date Sale Or Dispose Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unreversed Inclusions Amount -->
+			<xsd:element name="UnreversedInclusionsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unreversed Inclusions Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

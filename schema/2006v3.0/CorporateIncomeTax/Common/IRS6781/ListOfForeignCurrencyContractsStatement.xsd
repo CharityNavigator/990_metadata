@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - List of Foreign Currency Contracts Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+	<!-- ============================================================== -->
+	<!-- ========= List of Foreign Currency Contracts Statement ======= -->
+	<!-- ============================================================== -->
+
+	<xsd:element name="ListOfForeignCurContractsStmt">
+		<xsd:annotation>
+			<xsd:documentation>List of foreign currency contracts statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ListOfForeignCurContractsStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ListOfForeignCurrencyContractsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="ListOfForeignCurContractsStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for list of foreign currency contracts statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Foreign Currency Contract Info -->
+			<xsd:element name="ForeignCurrencyContractInfo" type="ForeignCurrencyContractInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign currency contract info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - "ForeignCurrencyContractInfo" above -->
+	<xsd:complexType name="ForeignCurrencyContractInfoType">
+		<xsd:sequence>
+
+			<!-- Name of Contract(s) -->
+			<xsd:element name="NameOfContracts" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of contract(s)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Election Type -->
+			<xsd:element name="ElectionType" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Election type</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain or Loss -->
+			<xsd:element name="GainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or Loss</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reference to form ( Part#, Column #, Line #) -->
+			<xsd:element name="ReferenceToForm" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reference to form in the form of "Part#, Column #, Line #"</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

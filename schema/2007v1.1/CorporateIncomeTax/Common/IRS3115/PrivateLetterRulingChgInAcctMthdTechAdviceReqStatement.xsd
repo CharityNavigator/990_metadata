@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Private Letter Ruling, Change in Accounting Method or Period, Technical Advice Request Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================================================== -->
+	<!-- === Private Letter Ruling, Change in Accounting Method or Period, Technical Advice Request Statement === -->
+	<!-- ======================================================================================================== -->
+
+
+	<xsd:element name="PrvtLtrRlngAcctMthdChgTechStmt">
+		<xsd:annotation>
+			<xsd:documentation>Private Letter Ruling, Change in Accounting Method or Period, Technical Advice Request Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PrvtLtrRlngAcctMthdChgTechStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PrivateLetterRulingChgInAcctMthdTechAdviceReqStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="PrvtLtrRlngAcctMthdChgTechStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Private Letter Ruling, Change in Accounting Method or Period, Technical Advice Request Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Request Info -->
+			<xsd:element name="RequestInfo" type="RequestInfoType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Request Info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Request Info -->
+	<xsd:complexType name="RequestInfoType">
+		<xsd:sequence>		
+
+			<!-- Name (of Taxpayer): choice between Business Name or Person Name -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Business Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business Name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Person Name -->
+				<xsd:element name="PersonName" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person Name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Identification Number: choice between SSN(s) or EIN or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing SSN/EIN Reason -->
+				<xsd:element name="MissingSSNEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing identification number reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR" />
+							<xsd:enumeration value="FOREIGNUS"/>						
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Type of Request -->
+			<xsd:element name="TypeOfRequest" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of Request</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="Private Letter Ruling" />
+						<xsd:enumeration value="Request for Change in Accounting Method" />
+						<xsd:enumeration value="Request for Technical Advice" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Specific Issue -->
+			<xsd:element name="SpecificIssue" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specific Issue</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8844</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8844 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8844">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8844</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8844Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8844">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8844Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8844</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- ============ Part I: Current Year Credit ========= -->
+
+			<!-- Qualified Empowerment Zone Wages -->
+			<xsd:element name="QualifiedEmpowermentZoneWages" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Empowerment Zone Wages</Description>
+							<LineNumber>Part I Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Renewal Community Wages -->
+			<xsd:element name="QualifiedRenewalCommunityWages" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Renewal Community Wages</Description>
+							<LineNumber>Part I Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Qualified Empowerment Zone Wages -->
+			<xsd:element name="TotalQualifiedEmpwrZoneWages" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified Empowerment zone wages</Description>
+							<LineNumber>Part I Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Qualified Renewal Community Wages -->
+			<xsd:element name="TotalQlfyRnwlCommunityWages" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified renewal community wages</Description>
+							<LineNumber>Part I Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit -->
+			<xsd:element name="CurrentYearCredit1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit</Description>
+							<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credits From Flow-through Entities -->
+			<xsd:element name="CreditsFromFlowthruEntities" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credits from flow-through entities</Description>
+							<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Current Year EZRCE Credit -->
+			<xsd:element name="TotalCurrentYearEZRCECredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total current year EZRCE credit</Description>
+							<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EZRCE Credit From Passive Activities -->
+			<xsd:element name="EZRCECreditFromPassiveActy" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ezrce credit from passive activities</Description>
+							<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 5 From Line 4 -->
+			<xsd:element name="CreditWithoutPssvActyForPY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 5 from line 4</Description>
+							<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Passive Activity Credit Allowed for PY-->
+			<xsd:element name="PssvActivityCreditAllowedForPY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity credit allowed for PY</Description>
+							<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryforward Of EZE Credit To PY-->
+			<xsd:element name="CarryForwardOfEZECrToPY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryforward of eze credit to PY</Description>
+							<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryback of EZE and Renewal Community Employment Credits   -->
+			<xsd:element name="CarrybackEZECRAndRCECr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryback of EZE and renewal community employment credits</Description>
+							<LineNumber>Part I Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum of Lines 6 through 9  -->
+			<xsd:element name="SumOfLinesSixThroughNine" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of Lines 6 through 9</Description>
+							<LineNumber>Part I Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries -->
+			<xsd:element name="AmountAllocatedToBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries</Description>
+							<LineNumber>Part I Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cooperatives, Estates, and Trusts -->
+			<xsd:element name="EstatesTrustsCooperativeCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates, Trusts, Cooperatives credit</Description>
+							<LineNumber>Part I Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

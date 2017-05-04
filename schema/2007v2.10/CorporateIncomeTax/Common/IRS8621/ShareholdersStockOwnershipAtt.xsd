@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Shareholder's Stock Ownership Attachment</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 14, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ========================================================== -->
+	<!-- ======== Shareholder's Stock Ownership Attachment ======== -->
+	<!-- ========================================================== -->
+
+	<xsd:element name="ShareholdersStockOwnershipAtt">
+		<xsd:annotation>
+			<xsd:documentation>Shareholder's Stock Ownership Attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ShareholdersStockOwnershipAttType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="ShareholdersStockOwnershipAtt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Shareholder's Stock Ownership Attachment Type -->
+	<xsd:complexType name="ShareholdersStockOwnershipAttType">
+		<xsd:sequence>
+			<xsd:element name="StockOwnershipInfo" type="StockOwnershipInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Shareholder's Stock Ownership Info Type -->
+	<xsd:complexType name="StockOwnershipInfoType">
+		<xsd:sequence>
+
+			<!-- Class of Stock -->
+			<xsd:element name="ClassOfStock" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class of stock</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date -->
+			<xsd:element name="Date" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Shares -->
+			<xsd:element name="NumberOfShares" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

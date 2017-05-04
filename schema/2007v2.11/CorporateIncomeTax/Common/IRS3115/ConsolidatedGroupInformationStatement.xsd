@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Consolidated Group Information Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 26, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- ================ Consolidated Group Information Statement ============ -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="ConsolidatedGroupInfoStmt">
+		<xsd:annotation>
+			<xsd:documentation>Consolidated Group Information Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ConsolidatedGroupInfoStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="ConsolidatedGroupInformationStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="ConsolidatedGroupInfoStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Consolidated Group Information Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Consolidated Group Information -->
+			<xsd:element name="ConsolidatedGroupInfo" type="ConsolidatedGroupInfoType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Consolidated Group Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!--  Consolidated Group Information Type  -->
+	<xsd:complexType name="ConsolidatedGroupInfoType">
+		<xsd:sequence>
+					
+			<!-- Applicant’s Name -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Business Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Applicant's name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Person Name -->
+				<xsd:element name="PersonName" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Applicant's name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Applicant's identification number: choice between SSN(s) or EIN or Missing SSNEIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Applicant's identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Applicant's identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing SSN/EIN Reason -->
+				<xsd:element name="MissingSSNEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Applicant's missing identification number reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR" />
+							<xsd:enumeration value="FOREIGNUS"/>						
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Principal business activity code or Inactive -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Principal business activity code -->
+				<xsd:element name="PrincipalBusinessActivityCode" type="BusinessActivityCodeType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Principal business activity code</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Inactive principal business activity code -->
+				<xsd:element name="InactivePrincipalBusActyCode">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inactive Principal business activity code</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="Inactive"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			
+			</xsd:choice>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

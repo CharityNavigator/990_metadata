@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Deferred Section 1045 Rollover Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 19, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- ========== Deferred Section 1045 Rollover Statement ========== -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="DefrdSect1045RllvrStmt">
+		<xsd:annotation>
+			<xsd:documentation>Deferred Section 1045 Rollover Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DefrdSect1045RllvrStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DeferredSection1045RolloverStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="DefrdSect1045RllvrStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for the Deferred  Section 1045 Rollover Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Deferred  Section 1045 Rollover Information -->
+			<xsd:element name="DefrdSect1045Rllvr" type="DefrdSect1045RllvrType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferred  Section 1045 Rollover Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Deferred  Section 1045 Rollover Information -->
+	<xsd:complexType name="DefrdSect1045RllvrType">
+		<xsd:sequence>
+			<!-- Name of Corporation That Issued Stock -->
+			<xsd:element name="NameOfCorpThatIssuedStock" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of Corporation That Issued Stock</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Partner’s Share of Partnership’s Adjusted Basis -->
+			<xsd:element name="PartnersSharePrtshpsAdjBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner’s Share of Partnership’s Adjusted Basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales Price of Stock-->
+			<xsd:element name="SalesPriceOfStock" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales Price of Stock</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Date Stock Purchased -->
+			<xsd:element name="DateStockPurchased" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Stock Purchased</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Date Stock Sold-->
+			<xsd:element name="DateStockSold" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Stock Sold</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

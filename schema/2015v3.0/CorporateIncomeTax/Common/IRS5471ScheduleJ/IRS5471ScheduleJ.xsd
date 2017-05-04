@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 5471 Schedule J</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 27, 2016</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- =============================================================== -->
+	<!-- ===============  IRS Form 5471 Schedule J ===================== -->
+	<!-- =============================================================== -->
+	
+	<xsd:element name="IRS5471ScheduleJ">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5471 Schedule J</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5471ScheduleJType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5471ScheduleJ">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BalanceAtBeginningOfYearExplanationStatement"/>
+					
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS5471ScheduleJType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5471 Schedule J</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Choice between: Name of Person OR Business Filing Form 5471  -->
+			<xsd:choice minOccurs="0">
+				<!-- Name of Person Filing Form 5471  -->
+				<xsd:element name="PersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of person filing Form 5471</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Name of Business Filing Form 5471  -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of business filing Form 5471</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Identifying Number: choice between SSN, EIN, or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Missing SSN/EIN Reason -->
+				<xsd:element name="MissingSSNEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing SSN/EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Name of the Foreign Corporation -->
+			<xsd:element name="ForeignCorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of the foreign corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Choice between Foreign Corporation EIN or Missing Foreign Corporation EIN Reason "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+				<!-- Foreign Corporation EIN -->
+				<xsd:element name="ForeignCorporationEIN" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign corporation EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Missing Foreign Corporation EIN Reason -->
+				<xsd:element name="MissingEINReasonCd" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing foreign corporation EIN Reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Foreign Entity Identification Group -->
+			<xsd:element name="ForeignEntityIdentificationGrp" type="ForeignEntityIdentificationGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Entity Identification Group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at Beginning of Year - Post-1986 Undistributed Earnings -->
+			<xsd:element name="BalBOYPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Schedule J Line 1(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Current Year E&P - Post-1986 Undistributed Earnings -->
+			<xsd:element name="CYEPPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year E&amp;P</Description>
+						<LineNumber>Schedule J Line 2a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Current year deficit in E&P - Post-1986 Undistributed Earnings (post-86 section 959(c)(3) balance) -->
+			<xsd:element name="CYDfctEPPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year deficit in E&amp;P</Description>
+						<LineNumber>Schedule J Line 2b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total Current and Accumulated E&P not previously taxed - Post-1986 Undistributed Earnings (post-86 section 959(c)(3) balance) -->
+			<xsd:element name="Total1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total current and accumulated E&amp;P not previously taxed (line 1 plus line 2a, minus line 2b)</Description>
+						<LineNumber>Schedule J Line 3(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts included Under Section 951(a) or Reclassified Under Section 959(c) in Current Year - Post-1986 Undistributed Earnings (post-86 section 959(c)(3) balance) -->
+			<xsd:element name="IncldCYPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included under section 951(a) or reclassified under section 959(c) in current year</Description>
+						<LineNumber>Schedule J Line 4(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Actual Distributions of Nonpreviously Taxed E&P - Post-1986 Undistributed Earnings (post-86 section 959(c)(3) balance) -->
+			<xsd:element name="ActlDstrPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual distributions of nonpreviously taxed E&amp;P</Description>
+						<LineNumber>Schedule J Line 5b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance of E&P Not Previously Taxed at End of Year - Post-1986 Undistributed Earnings (post-86 section 959(c)(3) balance) -->
+			<xsd:element name="BalNoTxPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance of E&amp;P not previously taxed at end of year (line 3 minus line 4, minus line 5b)</Description>
+						<LineNumber>Schedule J Line 6b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at End of Year - Post-1986 Undistributed Earnings (post-86 section 959(c)(3) balance) -->
+			<xsd:element name="BalEOYPost1986UndistrEarnAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Schedule J Line 7(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at Beginning of Year - Pre-1987 E&P Not Previously Taxed (pre-87 section 959(c)(3) balance) -->
+			<xsd:element name="BalBOYPre1987EPNotPrevTxdAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Schedule J Line 1(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total Current and Accumulated E&P not previously taxed - Pre-1987 E&P Not Previously Taxed (pre-87 section 959(c)(3) balance) -->
+			<xsd:element name="TotalPre1987EPNotPrevTxdAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total current and accumulated E&amp;P not previously taxed (line 1 plus line 2a, minus line 2b)</Description>
+						<LineNumber>Schedule J Line 3(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts included Under Section 951(a) or Reclassified Under Section 959(c) in Current Year - Pre-1987 E&P Not Previously Taxed (pre-87 section 959(c)(3) balance) -->
+			<xsd:element name="IncldCYPre1987EPNotPrevTxdAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included under section 951(a) or reclassified under section 959(c) in current year</Description>
+						<LineNumber>Schedule J Line 4(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Actual Distributions of Nonpreviously Taxed E&P - Pre-1987 E&P Not Previously Taxed (pre-87 section 959(c)(3) balance) -->
+			<xsd:element name="ActlDstrPre1987EPNotPrevTxdAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual distributions of nonpreviously taxed E&amp;P</Description>
+						<LineNumber>Schedule J Line 5b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance of E&P Not Previously Taxed at End of Year - Pre-1987 E&P Not Previously Taxed (pre-87 section 959(c)(3) balance) -->
+			<xsd:element name="BalNoTxPre1987EPNotPrevTxdAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance of E&amp;P not previously taxed at end of year (line 3 minus line 4, minus line 5b)</Description>
+						<LineNumber>Schedule J Line 6b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at End of Year - Pre-1987 E&P Not Previously Taxed (pre-87 section 959(c)(3) balance) -->
+			<xsd:element name="BalEOYPre1987EPNotPrevTxdAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Schedule J Line 7(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at Beginning of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in US Property -->
+			<xsd:element name="BalBOYEarnInvstUSPropAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Schedule J Line 1(c)(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts included Under Section 951(a) or Reclassified Under Section 959(c) in Current Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in US Property -->
+			<xsd:element name="IncldCYEarnInvstUSPropAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included under section 951(a) or reclassified under section 959(c) in current year</Description>
+						<LineNumber>Schedule J Line 4(c)(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Actual Distributions or Reclassifications of Previously Taxed E&P -->
+			<xsd:element name="ActlDistrEarnInvstUSPropAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual distributions or reclassifications of previously taxed E&amp;P</Description>
+						<LineNumber>Schedule J Line 5a(c)(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance of Previously Taxed E&P at End of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in US Property -->
+			<xsd:element name="BalTxdEarnInvstUSPropAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance of previously taxed E&amp;P at end of year (line 1 plus line 4, minus line 5a)</Description>
+						<LineNumber>Schedule J Line 6a(c)(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at End of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in US Property -->
+			<xsd:element name="BalEOYEarnInvstUSPropAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Schedule J Line 7(c)(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at Beginning of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in Excess Passive Assets -->
+			<xsd:element name="BalBOYEarnInvstExPassiveAstAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Schedule J Line 1(c)(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts included Under Section 951(a) or Reclassified Under Section 959(c) in Current Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in Excess Passive Assets -->
+			<xsd:element name="IncldCYEarnInvstExPssvAstAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included under section 951(a) or reclassified under section 959(c) in current year</Description>
+						<LineNumber>Schedule J Line 4(c)(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Actual Distributions or Reclassifications of Previously Taxed E&P -->
+			<xsd:element name="ActlDistrEarnInvstExPssvAstAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual distributions or reclassifications of previously taxed E&amp;P</Description>
+						<LineNumber>Schedule J Line 5a(c)(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance of Previously Taxed E&P at End of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in Excess Passive Assets -->
+			<xsd:element name="BalTxdEarnInvstExPassiveAstAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance of previously taxed E&amp;P at end of year (line 1 plus line 4, minus line 5a)</Description>
+						<LineNumber>Schedule J Line 6a(c)(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at End of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Earnings Invested in Excess Passive Assets -->
+			<xsd:element name="BalEOYEarnInvstExPassiveAstAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Schedule J Line 7(c)(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at Beginning of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Subpart F Income -->
+			<xsd:element name="BalBOYSubpartFIncomeAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Schedule J Line 1(c)(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts included Under Section 951(a) or Reclassified Under Section 959(c) in Current Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Subpart F Income -->
+			<xsd:element name="IncldCYSubpartFIncomeAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included under section 951(a) or reclassified under section 959(c) in current year</Description>
+						<LineNumber>Schedule J Line 4(c)(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Actual Distributions or Reclassifications of Previously Taxed E&P -->
+			<xsd:element name="ActlDistrSubpartFIncomeAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual distributions or reclassifications of previously taxed E&amp;P</Description>
+						<LineNumber>Schedule J Line 5a(c)(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance of Previously Taxed E&P at End of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Subpart F Income -->
+			<xsd:element name="BalTxdSubpartFIncomeAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance of previously taxed E&amp;P at end of year (line 1 plus line 4, minus line 5a)</Description>
+						<LineNumber>Schedule J Line 6a(c)(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at End of Year - Previously Taxed E&P (section 959(c)(1) and (2) balances) - Subpart F Income -->
+			<xsd:element name="BalEOYSubpartFIncomeAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Schedule J Line 7(c)(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at Beginning of Year - Total Section 964(a) E&P (combine columns (a), (b), and (c)) -->
+			<xsd:element name="BalBOYTotalSection964aEPAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Schedule J Line 1(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Balance at End of Year - Total Section 964(a) E&P (combine columns (a), (b), and (c)) -->
+			<xsd:element name="BalEOYTotalSection964aEPAmt" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Schedule J Line 7(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

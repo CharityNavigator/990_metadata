@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Proposed Change in Pooling Inventories Statement</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================= -->
+	<!-- ======== Proposed Change in Pooling Inventories Statement ======= -->
+	<!-- ================================================================= -->
+
+
+	<xsd:element name="PrpsdChgPoolingInventoriesStmt">
+		<xsd:annotation>
+			<xsd:documentation>Proposed Change in Pooling Inventories Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PrpsdChgPoolingInventoriesStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ProposedChangeInPoolingInventoriesStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="PrpsdChgPoolingInventoriesStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Proposed Change in Pooling Inventories Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="PrpsdChgPoolingInventoriesInfo" type="PrpsdChgPoolingInventoriesInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Content model for Proposed Change in Pooling Inventories Info</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<xsd:complexType name="PrpsdChgPoolingInventoriesInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Proposed Change in Pooling Inventories Info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Present Use Description of the Contents of the Dollar-Value Pool Used -->
+			<xsd:element name="PresentUseDescDolVlPoolUsed" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Present Use Description of the Contents of the Dollar-Value Pool Used</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Present Use Base Year -->
+			<xsd:element name="PresentUseBaseYear" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Present Use Base Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Proposed Use Description of the Contents of the Dollar-Value Pool Used -->
+			<xsd:element name="ProposedUseDescDolVlPoolUsed" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Proposed Use Description of the Contents of the Dollar-Value Pool Used</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Proposed Use Base Year -->
+			<xsd:element name="ProposedUseBaseYear" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Proposed Use Base Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+</xsd:schema>

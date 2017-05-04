@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Individual Income Tax Schema - Basis Other Than Actual Cost of Property Statement</Description>
+			<Purpose>In general, the cost or other basis is the cost of the property plus purchase commissions and improvements, minus depreciation, amortization, and depletion. If you inherited the property, got it as a gift, or received it in a tax-free exchange or involuntary conversion or in connection with a "wash sale," you may not be able to use the actual cost as the basis. If you do not use the actual cost, attach an explanation of your basis.
+
+If you sold stock, adjust your basis by subtracting all the non dividend distributions you received before the sale. Also adjust your basis for any stock splits. See Pub. 550 for details.  If you elected to recognize gain on an asset held on January 1, 2001, your basis in the asset is its closing market price or fair market value, whichever applies, on the date of the deemed sale and reacquisition, whether the deemed sale resulted in a gain or an unallowed loss.  You can use the average basis method to determine the basis of shares of stock if the shares are identical to each other, you acquired them at different prices and left them in an account with a custodian or agent, and either they are shares in a mutual fund (or other regulated investment company (RIC)) or you acquired them after 2010 in connection with a dividend reinvestment plan (DRP).
+
+Shares are identical if they have the same CUSIP number, except that shares of stock in a DRP are not identical to shares of stock that are not in a DRP, even if they have the same CUSIP number. If you are using the average basis method and received a Form 1099-B (or substitute statement) that shows an incorrect basis, enter "B" in column (f), enter the basis shown on Form 1099-B (or substitute statement) in column (e), and see How To Complete Form 8949, Columns (f) and (g), later. For details on making the election and how to figure average basis, see Pub. 550 or Regulations section 1.1012-1(e).</Purpose>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 27, 2016</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================================== -->
+	<!-- ============ Basis Other Than Actual Cost of Property Statement =========== -->
+	<!-- =========================================================================== -->
+
+	<xsd:element name="BasisOthThanActlCostPropStmt">
+		<xsd:annotation>
+			<xsd:documentation>Basis Other Than Actual Cost of Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="BasisOthThanActlCostPropStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="BasisOtherThanActualCostOfPropertyStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="BasisOthThanActlCostPropStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Basis Other Than Actual Cost of Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExplanationTxt" type="ExplanationType" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Itemized Other Current Assets Schedule</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>March 11, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================= -->
+	<!-- =========  Itemized Other Current Assets Schedule =========== -->
+	<!-- ============================================================= -->
+	
+	<xsd:element name="ItemizedOtherCurrentAssetsSch">
+		<xsd:annotation>
+			<xsd:documentation>Itemized other current assets schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ItemizedOtherCurrentAssetsType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ItemizedOtherCurrentAssetsSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="ItemizedOtherCurrentAssetsType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for other current assets</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ItemizedOtherCurrentAsset" type="ItemizedOtherCurrentAssetType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ItemizedOtherCurrentAssetType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for other current asset</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+
+			<!-- Corporation Name -->
+			<xsd:element name="CorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporation Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Choice between Corporation EIN, or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Corporation EIN -->
+				<xsd:element name="CorporationEIN" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Corporation EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>	
+
+			<!-- Other Current Asset line item details -->
+			<xsd:element name="OtherCurrentAssetLineItem" type="OtherCurrentAssetLineItemType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Current Asset line item</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="OtherCurrentAssetLineItemType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for the line item of the Other Current Asset</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Current Asset Description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Beginning Amount -->
+			<xsd:element name="BeginningAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beginning Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ending Amount -->
+			<xsd:element name="EndingAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ending Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

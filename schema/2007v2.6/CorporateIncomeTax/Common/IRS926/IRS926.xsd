@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 926</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 21, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- =======================  IRS Form 926 ========================= -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS926">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 926</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS926Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS926">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS926Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 926</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Part I - U.S. Transferor Information -->
+
+			<!-- Name of Transferor -->
+			<xsd:element name="TransferorName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of transferor</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identitification Number of Transfer or Missing EIN Reason -->
+			<xsd:choice  minOccurs="0">
+
+				<!-- Identitification Number of Transferor -->
+				<xsd:element name="TransferorIdentificationNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identitification number of transferor</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Transferor Missing EIN Reason -->
+				<xsd:element name="TransferorMissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Transferor Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Was Transferor Controlled by 5 or Fewer Domestic Corp.? -->
+			<xsd:element name="CtrlBy5OrFewerDomesticCorp" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the transferor was controlled by 5 or fewer domestic corp.</Description>
+						<LineNumber>1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Did Transferor Remain in Existence After the Transfer? -->
+			<xsd:element name="ExistedAfterTransfer" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates transferor remained in existence after the transfer</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Controlling Shareholder -->
+			<xsd:element name="ControllingShareholder" type="ControllingShareholderType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Controlling shareholder</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If the Transferor was a Member of an Affiliated Group filing a Consolidated Return, Was It the Parent Corporation? -->
+			<xsd:element name="WasItParentCorporation" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates it was a parent corporation of an affiliated group filing a consolidated return</Description>
+						<LineNumber>1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Parent Corporation -->
+			<xsd:element name="NameOfParentCorporation" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of parent corporation</Description>
+						<LineNumber>1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EIN of Parent Corporation or Missing EIN Reason -->
+			<xsd:choice  minOccurs="0">
+
+				<!-- EIN of Parent Corporation -->
+				<xsd:element name="EINofParentCorporation" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of parent corporation</Description>
+							<LineNumber>1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Name of Partnership -->
+			<xsd:element name="NameOfPartnership" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of partnership</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EIN of Partnership or EIN Missing Reason -->
+			<xsd:choice  minOccurs="0">
+
+				<!-- EIN of Partnership -->
+				<xsd:element name="EINofPartnership" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of Partnership</Description>
+							<LineNumber>2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN of Partnership Missing Reason -->
+				<xsd:element name="EINofPartnershipMissingReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of Partnership missing reason</Description>
+							<LineNumber>2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Part II - Transferee Foreign Corporation Information -->
+
+			<!-- Name of Transferee -->
+			<xsd:element name="TransfereeName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of transferee</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identitification Number of Transferee or EIN Missing Reason -->
+			<xsd:choice  minOccurs="0">
+
+				<!-- Identitification Number of Transferee -->
+				<xsd:element name="TransfereeIdentificationNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identitification number of transferee</Description>
+							<LineNumber>4</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN Missing Reason -->
+				<xsd:element name="EINMissingReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN missing reason</Description>
+							<LineNumber>4</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Address of Transferee - US Address or Foreign Address -->
+			<xsd:choice  minOccurs="0">
+
+				<!-- US Address of Transferee -->
+				<xsd:element name="TransfereeUSAddress" type="USAddressType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of transferee</Description>
+							<LineNumber>5</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Transferee -->
+				<xsd:element name="TransfereeForeignAddress" type="ForeignAddressType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of transferee</Description>
+							<LineNumber>5</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Country of Incorporation or Organization of Transferee -->
+			<xsd:element name="TransfereeCountryOfIncorp" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Country of incorporation or organization</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Law Characterization of Transferee -->
+			<xsd:element name="ForeignLawCharacterization" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Law Characterization of transferee</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Is the Transferee Foreign Corp or a Controlled Foreign Corp? -->
+			<xsd:element name="IsTransfereeForeignCorp" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the transferee is foreign corp or a controlled foreign corp</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III - Information Regarding Transfer of Property -->
+
+			<!-- Date of Transfer -->
+			<xsd:element name="DateOfTransfer" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of transfer</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="DateType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DateOfTransferSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Type of Nonrecognition Transaction -->
+			<xsd:element name="NonrecognitionTransactionType" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of nonrecognition transaction</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Property Transferred -->
+			<xsd:element name="PropertyDescriptionTransferred" type="LineExplanationType" minOccurs="0" maxOccurs="unbounded">
+			<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property transferred</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Did Transfer Result from Change Classification? -->
+			<xsd:element name="ResultedInChangeClassification" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates transfer resulted from change classification</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Was Transfer Required to Recognize Income? -->
+			<xsd:element name="RequiredToRecognizeIncome" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates transfer required to recognize income</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="RecognizeIncomeUnderTempRegulationsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Was Intangible Property Transferred? -->
+			<xsd:element name="IntangiblePropertyTransferred" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates intangible property was transferred</Description>
+						<LineNumber>14a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Nature of the Rights to the Intangible Property -->
+			<xsd:element name="NatureRightsIntangibleProperty" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of nature of the rights to the intangible property</Description>
+						<LineNumber>14b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="100" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for repeating group in Part I - Controlling Shareholder -->
+	<xsd:complexType name="ControllingShareholderType">
+		<xsd:sequence>
+
+			<!-- Controlling Shareholder's Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Controlling shareholder name</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Controlling Shareholder's Identification Number or EIN Missing Reason -->
+			<xsd:choice  minOccurs="0">
+
+				<xsd:element name="ControllingShareholderEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of Controlling shareholder</Description>
+							<LineNumber>1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="ControllingShareholderSSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of Controlling shareholder</Description>
+							<LineNumber>1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN Missing Reason -->
+				<xsd:element name="EINMissingReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN missing reason</Description>
+							<LineNumber>1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

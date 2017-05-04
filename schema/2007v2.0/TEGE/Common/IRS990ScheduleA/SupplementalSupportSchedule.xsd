@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Supplemental Support Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>December 7, 2007</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================== -->
+	<!-- =============== Supplemental Support Schedule ================ -->
+	<!-- ============================================================== -->
+	
+	<xsd:element name="SupplementalSupportSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Supplemental support schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="SupplementalSupportScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="SupplementalSupportSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="SupplementalSupportScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for supplemental support schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence >
+		
+			<xsd:element name="SupplementalSupport" minOccurs="0" maxOccurs="10">
+				<xsd:complexType>
+					<xsd:sequence>
+		
+						<!-- Year -->
+						<xsd:element name="Year" type="YearType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Year</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>			
+						
+						<!-- Gifts, Grants and Contributions Received -->
+						<xsd:element name="GiftsGrantsContributionsRecd" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gifts, grants and contributions received</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+						<!-- Membership Fees Received -->
+						<xsd:element name="MembershipFeesReceived" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Membership fees received</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+						<!-- Gross Receipts from Admissions, etc. -->
+						<xsd:element name="GrossReceiptsFromAdmissionsEtc" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross receipts from admissions, etc.</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+						<!-- Gross Investment Income & Post 1975 UBI -->
+						<xsd:element name="GrossInvstIncomeAndPost1975UBI" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross Investment Income and Post 1975 UBI</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+						<!-- Net UBI – Pre 1975 -->
+						<xsd:element name="NetUBIPre1975" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net UBI – Pre 1975</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+						<!-- Tax Revenues Levied for Organization's Benefit -->
+						<xsd:element name="TaxRevenuesLeviedForOrgBenefit" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax revenues levied for organization's benefit</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+						<!-- Value of Services, Facilities Furnished by Government -->
+						<xsd:element name="ValueOfServicesEtcFurnByGovt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Value of services, facilities furnished by government</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						
+						<!-- Other Income -->
+						<xsd:element name="OtherIncome" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other income</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						
+						<!-- Total -->
+						<xsd:element name="Total" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>																			
+																																				
+					</xsd:sequence>
+				</xsd:complexType>				
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

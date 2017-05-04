@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Controlled Foreign Partnership Reporting Statement</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ============================================================== -->
+	<!-- ===  Controlled Foreign Partnership Reporting Statement ====== -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="ControlledForeignPrtshpStmt">
+		<xsd:annotation>
+			<xsd:documentation>Controlled foreign partnership reporting statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ControlledFrgnPrtshpStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ControlledForeignPartnershipReportingStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="ControlledFrgnPrtshpStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for controlled foreign partnership reporting statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Controlled Foreign Partnership -->
+			<xsd:element name="ControlledForeignPartnership" type="ControlledForeignPrtshpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Controlled foreign partnership</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Controlled foreign partnership -->
+	<xsd:complexType name="ControlledForeignPrtshpType">
+		<xsd:sequence>
+
+			<!-- Statement that the Person Qualified as a Category 1 Filer, but is not Submitting Form 8865 -->
+			<xsd:element name="Cat1FilerStatementTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Statement that the person qualified as a category 1 filer, but is not submitting Form 8865</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Corporation Name -->
+			<xsd:element name="CorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporation Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of Foreign Partnership -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of foreign partnership</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Foreign Partnership -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of foreign partnership</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>			
+			
+			<!-- Choice between Corporation EIN or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Corporation EIN -->
+				<xsd:element name="CorporationEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Corporation EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Foreign Partner Name -->
+			<xsd:element name="ForeignPartnershipName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Partner Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Partnership Address -->
+			<xsd:element name="ForeignPartnershipAddress" type="ForeignAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Partnership Address</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between Foreign Partnership EIN, or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Foreign Partnership EIN -->
+				<xsd:element name="ForeignPartnershipEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Partnership EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Partnership Missing EIN Reason -->
+				<xsd:element name="FrgnPrtshpMissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Partnership Missing SSN/EIN Reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- The Filing Requirement has been or Will be satisfied -->
+			<xsd:element name="FilingRequirementSatisfiedTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The filing requirement has been or will be satisfied</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name Of Filer -->
+			<xsd:element name="FilerBusinessName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of filer</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Person Name Of Filer -->
+			<xsd:element name="FilerPersonNm" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Person name of filer</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Address Of Person Filing 8865: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Person Filing 8865 -->
+				<xsd:element name="PersonFiling8865USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of person filing 8865</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Person Filing 8865 -->
+				<xsd:element name="PersonFiling8865ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of person filing 8865</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- IRS Center where Form 8865 must be Filed -->
+			<xsd:element name="IRSCenWhereFrm8865MustBeFldTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS center where form 8865 must be filed</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="12"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 2439</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 15, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 2439 ========================= -->
+	<!-- =============================================================== -->
+
+ 
+	<xsd:element name="IRS2439">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 2439</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS2439Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS2439">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS2439Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 2439</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Void Box Indicator -->
+			<xsd:element name="VoidBoxIndicator" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>VOID</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Corrected Box Indicator -->
+			<xsd:element name="CorrectedBoxIndicator" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>CORRECTED</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Period Begin Date -->
+			<xsd:element name="TaxPeriodBeginDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax period begin date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Period End Date -->
+			<xsd:element name="TaxPeriodEndDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax period end date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Regulated Investment Company or Real Estate Investment Trust's Name -->
+			<xsd:element name="RegInvstCoOrReInvstTrustName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regulated investment company or real estate investment trust's name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice: Regulated Investment Company or Real Estate Investment Trust's - US or Foreign Address -->
+			<xsd:choice minOccurs="0">				
+				
+				<!-- Regulated Investment Company or Real Estate Investment Trust's US Address -->
+				<xsd:element name="RegInvstCoOrReInvstTrUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Regulated investment company or real estate investment trust's US address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Regulated Investment Company or Real Estate Investment Trust's Foreign Address -->
+				<xsd:element name="RegInvstCoOrReInvstTrFrgnAdr" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Regulated investment company or real estate investment trust's foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>	
+				</xsd:element>
+							
+			</xsd:choice>		
+
+			<!-- Regulated Investment Company or Real Estate Investment Trust's Identification Number (EIN) or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">	
+				
+				<!-- Regulated Investment Company or Real Estate Investment Trust's Identification Number (EIN) -->
+				<xsd:element name="RegInvstCoOrReInvstTrustEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Regulated investment company or real estate investment trust's identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>			
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<!-- Shareholder's Identification Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+				
+				<!-- Shareholder's Identification Number (EIN) -->
+				<xsd:element name="ShareholderEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Shareholder's identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Shareholder's Missing EIN Reason -->
+				<xsd:element name="ShareholdersMissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Shareholder's missing EIN reason</Description>			
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<!-- Shareholder's Name -->
+			<xsd:element name="ShareholderName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder's name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice: Shareholder's US or Foreign Address -->
+			<xsd:choice minOccurs="0">			
+			
+				<!-- Shareholder's US Address -->
+				<xsd:element name="ShareholderUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Shareholder's US address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Shareholder's Foreign Address -->
+				<xsd:element name="ShareholderForeignAddress" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Shareholder's foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>	
+				</xsd:element>
+				
+			</xsd:choice>		
+
+			<!-- Total Undistributed Long-Term Capital Gains -->
+			<xsd:element name="TotUndistrLongTermCapitalGains" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total undistributed long-term capital gains</Description>
+						<LineNumber>1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unrecaptured Section 1250 Gain -->
+			<xsd:element name="UnrecapturedSection1250Gain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unrecaptured sec. 1250 gain</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1202 Gain -->
+			<xsd:element name="Section1202Gain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1202 gain</Description>
+						<LineNumber>1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Collectibles 28% Gain -->
+			<xsd:element name="Collectibles28PercentGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Collectibles 28% gain</Description>
+						<LineNumber>1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Paid by the Regulated Investment Company or Real Estate Investment Trust -->
+			<xsd:element name="TaxPaidByRegInvstCoOrReInvstTr" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax paid by the regulated investment company or real estate investment trust on the box 1a gains</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

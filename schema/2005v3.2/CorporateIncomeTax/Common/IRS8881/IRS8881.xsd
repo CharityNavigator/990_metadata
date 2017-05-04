@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8881</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>June 7, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8881============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8881">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form8881</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8881Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8881">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8881Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form8881</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- ======== Part I: Current Year Credit (Members of controlled groups or businesses under common control, see instructions.) ======= -->
+
+			<!-- Qualified Startup Costs Incurred during the tax year. Do not enter more than $1,000 -->
+			<xsd:element name="QualifiedStartupCostsIncurred" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified startup costs incurred during the tax year. Do not enter more than $1,000</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter One-half Of Line 1 -->
+			<xsd:element name="OnehalfOfQualifiedStartupCost" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter one-half of line 1</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ControlledGroupMemberStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>		
+			</xsd:element>
+
+			<!-- Form 8881 Credits From Pass-through Entities -->
+			<xsd:element name="CreditsFromPassthroughEntities" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 8881 credits from pass-through entities</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 2 And 3 -->
+			<xsd:element name="SumOfCostsAndCrFromPassThruEnt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 2 and 3</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit -->
+			<xsd:element name="CurrentYearCredit" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit. Enter the smaller of line 4 or $500</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ======== Part II: Allowable Credit (See Who must file Form 3800 to find out if you complete Part II or Form 3800.)======== -->
+
+			<!-- Regular Tax Before Credits -->
+			<xsd:element name="RegularTaxBeforeCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular tax before credits</Description>
+						<LineNumber>Part II Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax -->
+			<xsd:element name="AlternativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax</Description>
+						<LineNumber>Part II Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 6 And 7 -->
+			<xsd:element name="SumOfRegularTaxAndMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 6 and 7</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>Part II Line 9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Possessions Tax Credit (Form 5735,  Line 17 or 27)) -->
+			<xsd:element name="PossessionsTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Possessions tax credit (form 5735,  line 17 or 27))</Description>
+						<LineNumber>Part II Line 9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit For Fuel From A Nonconventional Source -->
+			<xsd:element name="CreditForFuelFromNnconvSource" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for fuel from a nonconventional source</Description>
+						<LineNumber>Part II Line 9d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Specified Credits -->
+			<xsd:element name="OtherSpecifiedCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other specified credits</Description>
+						<LineNumber>Part II Line 9e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 9a Through 9l -->
+			<xsd:element name="TotalCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 9a through 9e</Description>
+						<LineNumber>Part II Line 9f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income Tax -->
+			<xsd:element name="NetIncomeTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income tax</Description>
+						<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Regular Tax -->
+			<xsd:element name="NetRegularTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net regular tax</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter 25% Of Excess. If Any, of Line 11 Over $25,000 (See Instructions) -->
+			<xsd:element name="TwentyFivePercentOfExcess" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% of excess. if any, of line 11 over $25,000 (see instructions)</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative Minimum Tax -->
+			<xsd:element name="TentativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative minimum tax</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the larger of line 12 or line 13 -->
+			<xsd:element name="GreaterOfTentMinTaxOrExcess" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the larger of line 12 or line 13</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 14 From Line 10. If zero or less, enter -0- -->
+			<xsd:element name="SubtractGreaterFromNetIncTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 14 from line 10. If zero or less, enter -0-</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit Allowed For Current Year -->
+			<xsd:element name="CreditAllowedForCurrentYear" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit allowed for current year. Enter the smaller of line 5 or line 15 here</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

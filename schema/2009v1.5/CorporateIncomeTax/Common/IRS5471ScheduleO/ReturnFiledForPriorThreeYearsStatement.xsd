@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Statement If Return Filed For Prior Three Years</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 15, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- ====== Statement If Return Filed For Prior Three Years ======= -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="RetFiledForPrior3YearsStmt">
+		<xsd:annotation>
+			<xsd:documentation>Statement if return filed for prior three years</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="RetFiledForPrior3YearsStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ReturnFiledForPriorThreeYearsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="RetFiledForPrior3YearsStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for statement if return filed for prior three years</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Return Filed For Prior Year -->
+			<xsd:element name="RetFiledForPriorYear" type="RetFiledForPriorYearType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Return filed for prior year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Return Filed For Prior Year -->
+	<xsd:complexType name="RetFiledForPriorYearType">
+		<xsd:sequence>		
+	
+			<!-- Year For Which Return Was Filed -->
+			<xsd:element name="Year" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year For Which Return Was Filed</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Name of Corporation Filing Consolidated Return, If Applicable -->			
+			<xsd:element name="CorpNameFilingConsolidatedRet" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of corporation filing consolidated return, if applicable</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Taxable Income or Loss -->			
+			<xsd:element name="TaxableIncomeOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income or loss</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- U.S. income tax paid -->			
+			<xsd:element name="USIncomeTaxPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>U.S. income tax paid</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>					
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

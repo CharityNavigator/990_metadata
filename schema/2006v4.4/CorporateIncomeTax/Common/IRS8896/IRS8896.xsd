@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8896</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 13, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================== -->
+	<!-- =======================	IRS Form 8896 ============================ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="IRS8896">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8896</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8896Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8896">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- ========================================= -->
+	<!-- Low Sulphur Diesel Fuel Production Credit -->
+	<!-- ========================================= -->
+
+	<xsd:complexType name="IRS8896Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8896</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Low sulphur diesel fuel produced (in gallons) -->
+			<xsd:element name="LowSulphurDieselFuelProduced" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low sulphur diesel fuel produced (in gallons)</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply line 1 by $.05% -->
+			<xsd:element name="AdjDieselFuelProduced" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 1 by $.05%</Description>
+						<LineNumber>Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified capital costs limitation (see instructions) -->
+			<xsd:element name="QlfyCapitalCostsLimitation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified capital costs limitation (see instructions)</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total low sulphur diesel fuel production credits allowed for all prior tax years -->
+			<xsd:element name="TotFuelPrdCrAllPrTaxYrs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total low sulphur diesel fuel production credits allowed for all prior tax years</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract line 4 from Line 3 -->
+			<xsd:element name="TotPrdCrMnsQlfyCapCosts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 4 from Line 3</Description>
+						<LineNumber>Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the smaller of line 5 or line 2 -->
+			<xsd:element name="SmallerAdjDieselOrTotPrdCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 5 or line 2</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Low sulphur diesel fuel production credits from pass-through entities -->
+			<xsd:element name="CrFromPassthroughEntities" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low sulfur diesel fuel production credit from Partnerships, S Corps, and Coops</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 6 and 7 -->
+			<xsd:element name="SumOfLines6And7" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 6 and 7</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount allocated to patrons  -->
+			<xsd:element name="AmountAllocatedToPatrons" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to patrons</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cooperatives Subtract line 9 from line 8  -->
+			<xsd:element name="SubtractLine9FromLine8" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 9 from line 8</Description>
+						<LineNumber>Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

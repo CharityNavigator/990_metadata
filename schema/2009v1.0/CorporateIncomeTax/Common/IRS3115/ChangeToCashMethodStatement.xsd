@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Change to Cash Method Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 20, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================= -->
+	<!-- ================= Change to Cash Method Statement =============== -->
+	<!-- ================================================================= -->
+
+
+	<xsd:element name="ChangeToCashMethodStatement">
+		<xsd:annotation>
+			<xsd:documentation>Change to Cash Method Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ChangeToCashMethodStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ChangeToCashMethodStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="ChangeToCashMethodStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Change to Cash Method Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="ChangeToCashMethodInfo" type="ChangeToCashMethodInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Content model for Change to Cash Method Info</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<xsd:complexType name="ChangeToCashMethodInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Change to Cash Method Info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!--  A description of inventory items (items whose production, purchase, or sale is an income-producing factor) and materials and supplies used in carrying out the applicant's business -->
+			<xsd:element name="InvntryItemsAndMtrlSupDesc" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>A description of inventory items and materials and supplies used in carrying out the applicant's business</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- An explanation as to whether the applicant is required to use the accrual method under any section of the Code or regulations -->
+			<xsd:element name="RqrApplicantUesAccrMethodExpln" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>An explanation as to whether the applicant is required to use the accrual method under any section of the Code or regulations</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+</xsd:schema>

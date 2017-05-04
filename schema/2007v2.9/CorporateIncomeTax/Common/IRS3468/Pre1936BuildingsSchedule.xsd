@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Pre-1936 Buildings Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 13, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ========================================================= -->
+	<!-- ============== Pre-1936 Buildings Schedule ============== -->
+	<!-- ========================================================= -->
+
+	<xsd:element name="Pre1936BuildingsSchedule">
+		<xsd:annotation>
+				<xsd:documentation>Pre-1936 Buildings Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Pre1936BuildingsScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="Pre1936BuildingsSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="Pre1936BuildingsScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Pre-1936 Buildings Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>			
+		
+			<!-- Pre-1936 Buildings -->
+			<xsd:element name="Pre1936Building" type="Pre1936BuildingType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pre-1936 Buildings Schedule Type</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Pre-1936 Building Type -->
+	<xsd:complexType name="Pre1936BuildingType">
+		<xsd:annotation>
+			<xsd:documentation>Pre-1936 Building Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Credit -->
+			<xsd:element name="Credit" type="USAmountType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Rehabilitation Test Period Begin -->
+			<xsd:element name="RehabilitationTestPeriodBegin" type="DateType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation Test Period Begin</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Rehabilitation Test Period End -->
+			<xsd:element name="RehabilitationTestPeriodEnd" type="DateType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation Test Period End</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+		
+			<!-- Adjusted Basis of Building -->
+			<xsd:element name="AdjustedBasisOfBuilding" type="USAmountType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted Basis of Building</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Qualified Rehabilitation Expenditures -->
+			<xsd:element name="QualifiedRehabilitationExpend" type="USAmountType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Rehabilitation Expenditures</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

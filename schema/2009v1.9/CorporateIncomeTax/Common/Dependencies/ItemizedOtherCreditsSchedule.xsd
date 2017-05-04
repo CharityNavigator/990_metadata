@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Itemized Other Credits Schedule</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- ===========  Itemized Other Credits Schedule ================ -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="ItemizedOtherCreditsSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Itemized Other Credits Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ItemizedOtherCreditsScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ItemizedOtherCreditsSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="ItemizedOtherCreditsScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for itemized other credits schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Itemized Other Credits -->
+			<xsd:element name="OtherCredit" type="OtherCreditType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Itemized other credits</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Itemized Other Credits -->
+	<xsd:complexType name="OtherCreditType">
+		<xsd:sequence>		
+				
+			<!-- Trade or Business Activity or Inactive -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Trade or Business Activity -->
+				<xsd:element name="TradeOrBusinessActivity" type="BusinessActivityCodeType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Trade or Business Activity</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Inactive Trade or Business Activity -->
+				<xsd:element name="InactiveTradeOrBusinessActy">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inactive Trade or Business Activity</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="Inactive"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>
+	
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amount -->
+			<xsd:element name="Amount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Category -->
+			<xsd:element name="Category" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Category</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="Qualified rehabilitation expenditures (other than rental real estate)"/>
+						<xsd:enumeration value="Basis of energy property"/>
+						<xsd:enumeration value="Undistributed capital gains credit"/>
+						<xsd:enumeration value="Working opportunity credit"/>
+						<xsd:enumeration value="Welfare-to-work credit"/>
+						<xsd:enumeration value="Disabled access credit"/>
+						<xsd:enumeration value="Empowerment zone and renewal community employment credit"/>
+						<xsd:enumeration value="New markets credit"/>
+						<xsd:enumeration value="Credit for employer social security and Medicare taxes"/>
+						<xsd:enumeration value="Backup withholding"/>
+						<xsd:enumeration value="Recapture low-income housing credit"/>
+						<xsd:enumeration value="Recapture of investment credit"/>
+						<xsd:enumeration value="Other credits"/>
+						<xsd:enumeration value="Recapture of other credits"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

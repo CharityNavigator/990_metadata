@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 5713 Schedule C</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 15, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- ===============  IRS Form 5713 Schedule C ===================== -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS5713ScheduleC">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5713 Schedule C</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5713ScheduleCType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5713ScheduleC">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5713ScheduleCType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5713 Schedule C</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between Identifying Number (EIN), or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Identifying Number  -->
+				<xsd:element name="IdentifyingNumber" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>					
+
+			<!-- Choice between International Boycott Factor or Specifically Attributable Taxes and Income groups of elements -->
+			<xsd:choice>
+				<xsd:group ref="InternationalBoycottFactorGroup"/>
+				<xsd:group ref="SpecificallyAttributableTaxesAndIncomeGroup"/>
+			</xsd:choice>
+
+			<!-- Reduction of Foreign Trade Income Qualifying for the Extraterritorial Income Exclusion - Amount from line 49 of Form 8873 -->
+			<xsd:element name="AmountFromForm8873" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter amount from line 49 of Form 8873</Description>
+						<LineNumber>Schedule C 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Trade Income Qualifying for the Extraterritorial Income Exclusion - International Boycott Factor from Schedule A (Form 5713) -->
+			<xsd:element name="RedFrgnTrdIntntlBoycottFactor" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor from Schedule A (Form 5713), line 3</Description>
+						<LineNumber>Schedule C 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Trade Income Qualifying for the Extraterritorial Income Exclusion - Reduction of Qualifying Foreign Trade Income -->
+			<xsd:element name="RedOfQualifyingFrgnTradeIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction of qualifying foreign trade income. Multiply line 6a by 6b. Enter here and on Form 8873, line 50</Description>
+						<LineNumber>Schedule C 6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Group for International Boycott Factor related elements ===== -->
+
+	<xsd:group name="InternationalBoycottFactorGroup">
+		<xsd:sequence>
+
+			<!-- Checkbox for method: International Boycott Factor from Schedule A (Form 5713) -->
+			<xsd:element name="IntntlBoycottFactorMethod" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor from Schedule A (Form 5713)</Description>
+						<LineNumber>Schedule C 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Tax Credit (section 908(a)) - Foreign Tax Before Adjustment from Form 1116 or 1118 -->
+			<xsd:element name="FrgnTaxCrBefore1116Or1118Adj" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax before adjustment from Form 1116 or 1118</Description>
+						<LineNumber>Schedule C 2a(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Tax Credit (section 908(a)) - International Boycott Factor from Schedule A (Form 5713) -->
+			<xsd:element name="RedFrgnTxCrIntntlBoycottFactor" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor from Schedule A (Form 5713), line 3</Description>
+						<LineNumber>Schedule C 2a(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Tax Credit (section 908(a)) -->
+			<xsd:element name="ReductionOfForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction of foreign tax credit.  Multiply line 2a(1) by line 2a(2).  Enter here and on Form 1116 or 1118</Description>
+						<LineNumber>Schedule C 2a(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Tax Credit (section 908(a)) - Adjusted Foreign Tax Credit -->
+			<xsd:element name="AdjustedForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted foreign tax credit.  Subtract line 2a(3) from line 2a(1)</Description>
+						<LineNumber>Schedule C 2a(4)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Deferral Under Subpart F (Section 952(a)(3)) - Prorated Share of Total Income of Controlled Foreign Corporations -->
+			<xsd:element name="PrortShareOfTotIncmOfFrgnCorps" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prorated share of total income of controlled foreign corporations</Description>
+						<LineNumber>Schedule C 3a(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Deferral Under Subpart F (Section 952(a)(3)) - Prorated Share of Income Attributable to Earnings and Profits of Controlled Foreign Corporations -->
+			<xsd:element name="PrortShareEPIncomeOfFrgnCorps" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prorated share of income attributable to earnings and profits of controlled foreign corporations included in income under sections 951(a)(1)(A)(ii), 951(a)(1)(A)(iii), 951(a)(1)(B), 952(a)(1), 952(a)(2), 952(a)(4), 952(a)(5), and 952(b)</Description>
+						<LineNumber>Schedule C 3a(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Deferral Under Subpart F (Section 952(a)(3)) - Prorated Share of Income NOT Attributable to Earnings and Profits of Controlled Foreign Corporations -->
+			<xsd:element name="PrortShareNonEPIncomeFrgnCorps" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 3a(2) from line 3a(1)</Description>
+						<LineNumber>Schedule C 3a(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Deferral Under Subpart F (Section 952(a)(3)) - International Boycott Factor from Schedule A (Form 5713) -->
+			<xsd:element name="DfrlDenialIntntlBoycottFactor" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor from Schedule A (Form 5713), line 3</Description>
+						<LineNumber>Schedule C 3a(4)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Deferral Under Subpart F (Section 952(a)(3)) - Prorated Share of Subpart F International Boycott Income -->
+			<xsd:element name="PrortShrSubpartFIntntlByctIncm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prorated share of subpart F international boycott income. Multiply line 3a(3) by line 3a(4).</Description>
+						<LineNumber>Schedule C 3a(5)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of IC-DISC benefits (Section 995(b)(1)(F)(ii)) - Prorated Share of Section 995(b)(1)(F)(i) Amount -->
+			<xsd:element name="ProratedShareOfSect995b1FiAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prorated share of Section 995(b)(1)(F)(i) amount</Description>
+						<LineNumber>Schedule C 4a(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of IC-DISC benefits (Section 995(b)(1)(F)(ii)) - International Boycott Factor from Schedule A (Form 5713) -->
+			<xsd:element name="DenialOfICDISCIntntlByctFactor" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor from Schedule A (Form 5713), line 3</Description>
+						<LineNumber>Schedule C 4a(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Denial of IC-DISC benefits (Section 995(b)(1)(F)(ii)) - Prorated Share of IC-DISC International Boycott Income -->
+			<xsd:element name="PrortShareICDISCIntntlByctIncm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prorated Share of IC-DISC International Boycott Income</Description>
+						<LineNumber>Schedule C 4a(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Denial of Exemption of Foreign Trade Income (Section 927(e)(2)) - Exempt Foreign Trade Income from Form 1120-FSC Schedule B -->
+			<xsd:element name="ExmptFrgnTradeIncm1120FSCSchB" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exempt Foreign Trade Income from Form 1120-FSC Schedule B, line 10</Description>
+						<LineNumber>Schedule C 5a(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Exemption of Foreign Trade Income (Section 927(e)(2)) - International Boycott Factor from Schedule A -->
+			<xsd:element name="IntntlByctFactorFromScheduleA" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor from Schedule A (Form 5713), line 3</Description>
+						<LineNumber>Schedule C 5a(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Denial of Exemption of Foreign Trade Income (Section 927(e)(2)) - Exempt Foreign Trade Income -->
+			<xsd:element name="ExemptForeignTradeIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exempt Foreign Trade Income</Description>
+						<LineNumber>Schedule C 5a(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- ===== Group for Specifically Attributable Taxes and Income related elements ===== -->
+
+	<xsd:group name="SpecificallyAttributableTaxesAndIncomeGroup">
+		<xsd:sequence>
+
+			<!-- Checkbox for method: Identification of Specifically Attributable Taxes and Income from Schedule B (Form 5713) -->
+			<xsd:element name="SpcfcAttrblTaxesAndIncmMethod" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Identification of specifically attributable taxes and income from Schedule B (Form 5713)</Description>
+						<LineNumber>Schedule C 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reduction of Foreign Tax Credit (section 908(a)) - Specifically Attributable Taxes and Income -->
+			<xsd:element name="RedFrgnTaxCrSpcfcAttrblTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specifically attributable taxes and income</Description>
+						<LineNumber>Schedule C 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Denial of Deferral Under Subpart F (Section 952(a)(3)) - Specifically Attributable Taxes and Income -->
+			<xsd:element name="DfrlDenialSpcfcAttrblTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specifically attributable taxes and income</Description>
+						<LineNumber>Schedule C 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Denial of IC-DISC Benefits (Section 995(b)(1)(F)(ii)) - Specifically Attributable Taxes and Income -->
+			<xsd:element name="DenialOfICDISCBenefits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specifically attributable taxes and income</Description>
+						<LineNumber>Schedule C 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Denial of Exemption of Foreign Trade Income (Section 927(e)(2)) - Specifically Attributable Taxes and Income -->
+			<xsd:element name="DenialOfExemptForeignTradeIncm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specifically attributable taxes and income</Description>
+						<LineNumber>Schedule C 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+</xsd:schema>

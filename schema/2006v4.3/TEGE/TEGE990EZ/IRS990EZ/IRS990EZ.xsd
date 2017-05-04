@@ -1,0 +1,1335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990-EZ</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 14, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- =============================================================== -->
+	<!-- =======================  IRS Form 990-EZ ====================== -->
+	<!-- =============================================================== -->
+	
+	<xsd:element name="IRS990EZ">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990-EZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990EZType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990EZ">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ReasonableCauseExplanation GeneralExplanationAttachment TransfersPersonalBenefitsContractsDeclaration ExplanationOfNonUBI"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS990EZType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990-EZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Address Change Indicator -->
+			<xsd:element name="AddressChange" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates this return has an address change</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Name Change Indicator (Paper Filers Only Element) >
+			<xsd:element name="NameChange" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates this return has an name change</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Initial Return Indicator -->
+			<xsd:element name="InitialReturn" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates this is an initial return</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Final Return Indicator -->
+			<xsd:element name="FinalReturn" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Final return</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amended Return -->
+			<xsd:element name="AmendedReturn" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amended return</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Application Pending (Paper Filers Only Element) >
+			<xsd:element name="ApplicationPending" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Application pending</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Group Exempt Number (GEN) -->
+			<xsd:element name="GroupExemptionNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Group exempt number</Description>
+						<LineNumber>F</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:pattern value="[0-9]{4}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Method of Accounting -->
+			<xsd:choice>
+				<!-- Cash -->
+				<xsd:element name="MethodOfAccountingCash" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Method of accounting - Cash</Description>
+							<LineNumber>G</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Method of Accounting - Accrual -->
+				<xsd:element name="MethodOfAccountingAccrual" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Method of accounting - Accrual</Description>
+							<LineNumber>G</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Method of Accounting - Other -->
+				<xsd:element name="MethodOfAccountingOther" type="LineExplanationType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Method of accounting - Other</Description>
+							<LineNumber>G</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- Is Schedule B Not Required? -->
+			<xsd:element name="ScheduleBNotRequired" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates Schedule B is not required</Description>
+						<LineNumber>H</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Web Site -->
+			<xsd:element name="WebSite" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Web site</Description>
+						<LineNumber>I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Organization Type (Check Only One) -->
+			<xsd:choice>
+			
+				<!-- Is it a 501(c) Organization? -->
+				<xsd:element name="Organization501c">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Indicates a 501(c) organization</Description>
+							<LineNumber>J</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="typeOf501cOrganization">
+									<xsd:simpleType>
+										<xsd:restriction base="StringType">
+											<xsd:pattern value="[2-9]|1[0-9]|2[02-7]"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS990ScheduleA"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				
+				<!-- Is it a 4947(a)(1) Organization? -->
+				<xsd:element name="Organization4947a1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Indicates a 4947(a)(1) organization</Description>
+							<LineNumber>J</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS990ScheduleA"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				
+				<!-- Is it a 527 Organization? -->
+				<xsd:element name="Organization527" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Indicates a 527 organization</Description>
+							<LineNumber>J</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- Is Gross Receipts Less than $25,000? -->
+			<xsd:element name="GrossReceiptsLessThan25000" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates gross receipts less than $25,000</Description>
+						<LineNumber>K</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Receipts -->
+			<xsd:element name="GrossReceipts" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts</Description>
+						<LineNumber>L</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part I : Revenue, Expenses, and Changes in Net Assets or Fund Balances -->
+			<!-- Contributions, gifts, grants, and similar amounts received -->
+			<xsd:element name="ContributionsGiftsGrantsEtc" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contributions, gifts, grants, and similar amounts received</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Program Service Revenue -->
+			<xsd:element name="ProgramServiceRevenue" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>ProgramServiceRevenue</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Membership Dues and Assessments -->
+			<xsd:element name="MembershipDues" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Membership dues and assessments</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Investment Income -->
+			<xsd:element name="InvestmentIncome" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment income</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Amount from Sale of Assets Other Than Inventory -->
+			<xsd:element name="GrossAmountFromSaleOfAssets" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross amount from sale of assets other than inventory</Description>
+						<LineNumber>Part I Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Cost or Other Basis and Sales Expenses -->
+			<xsd:element name="CostOtherBasisAndSalesExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis and sales expenses</Description>
+						<LineNumber>Part I Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gain or (Loss) from Sale of Assets Other Than Inventory -->
+			<xsd:element name="GainOrLossFromSaleOfAssets" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or (loss) from sale of assets other than inventory</Description>
+						<LineNumber>Part I Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GainLossFromSalePublicSecuritiesSchedule GainLossFromSaleNonpublicSecuritiesSchedule GainLossFromSaleOtherAssetsSchedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Special Events Indicates Revenue from Gaming -->
+			<xsd:element name="IsAnyRevenueFromGaming" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Special events Indicates revenue from gaming</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Special Events Gross Revenue -->
+			<xsd:element name="SpecialEventsGrossRevenue" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Special events gross revenue</Description>
+						<LineNumber>Part I Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="contributionsReportedOnLine1a" type="USAmountNNType"/>
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="SpecialEventsSchedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Special Events Direct Expenses -->
+			<xsd:element name="SpecialEventsDirectExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Special events direct expenses</Description>
+						<LineNumber>Part I Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Special Events Net Income (or Loss) -->
+			<xsd:element name="SpecialEventsNetIncomeLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Special events net income (or loss)</Description>
+						<LineNumber>Part I Line 6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Sales of Inventory -->
+			<xsd:element name="GrossSalesOfInventory" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales of inventory</Description>
+						<LineNumber>Part I Line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Less: Cost of Goods Sold-->
+			<xsd:element name="CostOfGoodsSold" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Less: cost of goods sold</Description>
+						<LineNumber>Part I Line 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Profit/Loss from Sales of Inventory -->
+			<xsd:element name="GroProfitLossSalesOfInventory" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross profit (or loss) from sales of inventory</Description>
+						<LineNumber>Part I Line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Revenue - Total -->
+			<xsd:element name="OtherRevenueTotal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other revenue - total</Description>
+						<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherRevenuesSchedule2"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Total Revenue -->
+			<xsd:element name="TotalRevenue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total revenue</Description>
+						<LineNumber>Part I Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Grants and Similar Amounts Paid -->
+			<xsd:element name="GrantsAndSimilarAmountsPaid" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Grants and similar amounts paid</Description>
+						<LineNumber>Part I Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GrantsAndSimilarAmountsPaidSchedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Benefits Paid to or for Members -->
+			<xsd:element name="BenefitsPaidToOrForMembers" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Benefits paid to or for members</Description>
+						<LineNumber>Part I Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Salaries, Other Compensation, and Employee Benefits -->
+			<xsd:element name="SalariesOtherCompEmplBenefits" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Salaries, other compensation, and employee benefits</Description>
+						<LineNumber>Part I Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Professional Fees and Other Payments to Independent Contractors -->
+			<xsd:element name="FeesAndOthPymtToIndContractors" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Professional fees and other payments to independent contractors</Description>
+						<LineNumber>Part I Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Occupancy, Rent, Utilities, and Maintenance -->
+			<xsd:element name="OccupancyRentUtilitiesAndMaint" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Occupancy, rent, utilities, and maintenance</Description>
+						<LineNumber>Part I Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Printing, Publications, Postage, and Shipping -->
+			<xsd:element name="PrintingPublicationsPostage" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Printing, publications, postage, and shipping</Description>
+						<LineNumber>Part I Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Expenses - Total -->
+			<xsd:element name="OtherExpensesTotal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other expenses - total</Description>
+						<LineNumber>Part I Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherExpensesSchedule2"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Total Expenses -->
+			<xsd:element name="TotalExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total expenses</Description>
+						<LineNumber>Part I Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Excess or Deficit -->
+			<xsd:element name="ExcessOrDeficitForYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess or deficit</Description>
+						<LineNumber>Part I Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Net Assets BOY-->
+			<xsd:element name="NetAssetsOrFundBalancesBOY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net assets BOY</Description>
+						<LineNumber>Part I Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Changes in Net Assets -->
+			<xsd:element name="OtherChangesInNetAssets" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other changes in net assets</Description>
+						<LineNumber>Part I Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherChangesInNetAssetsSchedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Net Assets EOY -->
+			<xsd:element name="NetAssetsOrFundBalancesEOY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net assets EOY</Description>
+						<LineNumber>Part I Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part II : Balance Sheets -->
+			<!-- Cash, Savings, and Investments -->
+			<xsd:element name="CashSavingsAndInvestments" type="Form990EZPartIIType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash, savings, and investments</Description>
+						<LineNumber>Part II Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Land and Buildings -->
+			<xsd:element name="LandAndBuildings" type="Form990EZPartIIType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Land and buildings</Description>
+						<LineNumber>Part II Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Assets - Total -->
+			<xsd:element name="OtherAssetsTotal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other assets - total</Description>
+						<LineNumber>Part II Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Form990EZPartIIType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherAssetsSchedule3"/>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Total Assets -->
+			<xsd:element name="TotalAssets" type="Form990EZPartIIGroup2Type" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total assets</Description>
+						<LineNumber>Part II Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum of Total Liabilities -->
+			<xsd:element name="SumOfTotalLiabilities" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of total liabilities</Description>
+						<LineNumber>Part II Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Form990EZPartIIType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherLiabilitiesSchedule3"/>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Net Assets or Fund Balances -->
+			<xsd:element name="NetAssetsOrFundBalances" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net assets or fund balances</Description>
+						<LineNumber>Part II Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+					
+						<!-- Beginnning of Year -->
+						<xsd:element name="BOY" type="USAmountType" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Beginnning of year</Description>
+									<LineNumber>Part II Line 27 Column (A)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Ending of Year -->
+						<xsd:element name="EOY" type="USAmountType" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Ending of year</Description>
+									<LineNumber>Part II Line 27 Column (B)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Part III : Statement of Program Service Accomplishments -->
+			<!-- Primary Exempt Purpose -->
+			<xsd:element name="PrimaryExemptPurpose" type="ShortExplanationType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Primary exempt purpose</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Program Service Accomplishment  -->
+			<xsd:element name="ProgramServiceAccomplishment" type="Form990EZPartIIIType" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Program service accomplishment</Description>
+						<LineNumber>Part III Line (28-31)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total Program Service Expenses -->
+			<xsd:element name="TotalProgramServiceExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Program Service Expenses</Description>
+						<LineNumber>Part III Line 32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part IV : List of Officers, Directors, Trustees, and Key Employees -->
+			<!-- Officer, Director, Trustee, and Key Employees -->
+			<xsd:element name="OfficerDirectorTrusteeKeyEmpl" type="Form990EZPartIVType" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Officer, Director, Trustee, and Key Employees</Description>
+						<LineNumber>Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part V : Other Information -->
+			<!-- Did the Organization Engage in any Activity not Previously Reported to the IRS?  -->
+			<xsd:element name="ActivitiesNotPreviouslyRpt" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the organization engage in any activity not previously reported to the IRS?</Description>
+						<LineNumber>Part V Line 33</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ActivitiesNotPreviouslyReportedExplanation"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Were Any Changes Made in the Organizing or Governing Documents but not Reported to the IRS?  -->
+			<xsd:element name="MadeChangesToOrgnzngEtcDoc" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Were any changes made in the organizing or governing documents but not reported to the IRS?</Description>
+						<LineNumber>Part V Line 34</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Did the Organization Have Unrelated Business Gross Income of $1,000 or More During the Year Covered by this Return?  -->
+			<xsd:element name="OrganizationHadUBI" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the organization have unrelated business gross income of $1,000 or more during the year covered by this return?</Description>
+						<LineNumber>Part V Line 35a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ProxyTaxExplanation"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- If "Yes" for Line 35a, Has it Filed a Tax Return on Form 990-T for this Year?  -->
+			<xsd:element name="OrganizationFiled990T" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If "Yes" for Line 35a, has it filed a tax return on Form 990-T for this year?</Description>
+						<LineNumber>Part V Line 35b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Was There a Liquidation, Dissolution, Termination, or Substantial Contraction During the Year?  -->
+			<xsd:element name="OrganizationDissolvedEtc" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Was there a liquidation, dissolution, termination, or substantial contraction during the year?</Description>
+						<LineNumber>Part V Line 36</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DissolutionStatement LiquidationExplanationStatement BinaryAttachment"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Direct or Indirect Political Expenditures -->
+			<xsd:element name="DirectIndirectPoliticalExpend" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct or indirect political expenditures.</Description>
+						<LineNumber>Part V Line 37a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Did the Organization File Form 1120-POL for this Year? -->
+			<xsd:element name="DidOrgFileForm1120POLThisYear" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the organization file Form 1120-POL for this year?</Description>
+						<LineNumber>Part V Line 37b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Did the organization borrow from, or make any loans to, any officer, director, trustee, or key employee or were any such loans made in a prior year and still unpaid at the start of the period caovered by this return? -->
+			<xsd:element name="MadeLoansToFromOfficers" type="BooleanType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the organization borrow from, or make any loans to, any officer, director, trustee, or key employee or were any such loans made in a prior year and still unpaid at the start of the period caovered by this return?</Description>
+						<LineNumber>Part V Line 38a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Loans To/From Officers Amount -->
+			<xsd:element name="LoansToFromOfficers" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Loans to/from officers amount</Description>
+						<LineNumber>Part V Line 38b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LoansToFromOfficersSchedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- 501(c)(7) orgs: Initiation Fees and Capital Contributions Included on Line 9 -->
+			<xsd:element name="InitiationFeesAndCapitalContri" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>501(c)(7) orgs: Initiation fees and capital contributions included on line 9</Description>
+						<LineNumber>Part V Line 39a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- 501(c)(7) orgs: Gross Receipts, Included on Line 9, for Public Use of Club Facilities -->
+			<xsd:element name="GrossReceiptsForPublicUse" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>501(c)(7) orgs: Gross receipts, included on line 9, for public use of club facilities</Description>
+						<LineNumber>Part V Line 39b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- 501(c)(3) Organizations: Amount of Tax Imposed on the Organization During the Year Under Section 4911 -->
+			<xsd:element name="TaxImposedUnderIRC4911" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>501(c)(3) Organizations: Amount of tax imposed on the organization furing the year under section 4911</Description>
+						<LineNumber>Part V Line 40a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- 501(c)(3) Organizations: Amount of Tax Imposed on the Organization During the Year Under Section 4912 -->
+			<xsd:element name="TaxImposedUnderIRC4912" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>501(c)(3) Organizations: Amount of tax imposed on the organization furing the year under section 4912</Description>
+						<LineNumber>Part V Line 40a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- 501(c)(3) Organizations: Amount of Tax Imposed on the Organization During the Year Under Section 4955 -->
+			<xsd:element name="TaxImposedUnderIRC4955" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>501(c)(3) Organizations: Amount of tax imposed on the organization furing the year under section 4955</Description>
+						<LineNumber>Part V Line 40a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- 501(c)(3) and 501(c)(4) orgs: Did the Organization Engage in Any Section 4958 Excess Benefit Transaction
+During the Year, etc? -->
+			<xsd:element name="EngagedInExcessBenefitTrans" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>501(c)(3) and 501(c)(4) orgs: Did the organization engage in any section 4958 excess benefit transaction
+during the year, etc?</Description>
+						<LineNumber>Part V Line 40b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExcessBenefitTransactionsStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Amount of Tax Imposed on the Organization Managers etc during the Year Under Sections 4912, 4955, and 4958 -->
+			<xsd:element name="AmountOfTaxImposedOnOrgMgr" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of tax imposed on the organization managers etc during the year under sections 4912, 4955, and 4958</Description>
+						<LineNumber>Part V Line 40c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amount of Tax on Line 40c, Above, Reimbursed by the Organization -->
+			<xsd:element name="AmountOfTaxReimbursedByOrg" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of tax on line 40c, above, reimbursed by the organization</Description>
+						<LineNumber>Part V Line 40d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- At any time during the tax year, was the organization a party to a prohibited tax shelter transaction?  -->
+			<xsd:element name="ProhibitedTaxShelterTrans" type="BooleanType" minOccurs="0">
+			        <xsd:annotation>
+			                <xsd:documentation>
+			                        <Description>At any time during the tax year, was the organization a party to a prohibited tax shelter transaction?</Description>
+			                        <LineNumber>Part V Line 40e</LineNumber>
+			                </xsd:documentation>
+			        </xsd:annotation>
+			</xsd:element> 
+			   
+			<!-- States With Which a Copy of This Return is Filed -->
+			<xsd:element name="StatesWhereCopyOfReturnIsFiled" type="StateType" minOccurs="0" maxOccurs="50">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>States With Which a Copy of This Return is Filed</Description>
+						<LineNumber>Part V Line 41</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- The Books are in Care Of -->
+			<xsd:element name="TheBooksAreInCareOf" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The books are in care of</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+					
+						<!-- Name -->
+						<xsd:choice>
+							<xsd:element name="NamePerson" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Name - Person</Description>
+										<LineNumber>Part V Line 42a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							
+							<xsd:element name="NameBusiness" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Name - Business</Description>
+										<LineNumber>Part V Line 42a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						
+						<!-- Address. Either US or foreign type -->
+						<xsd:choice>
+							<xsd:element name="AddressUS" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Address - US</Description>
+										<LineNumber>Part V Line 42a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="AddressForeign" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Address - Foreign</Description>
+										<LineNumber>Part V Line 42a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						
+						<!-- Telephone Number -->
+						<xsd:element name="TelephoneNumber" type="PhoneNumberType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Telephone number</Description>
+									<LineNumber>Part V Line 42a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- At Any Time During the Calender Year, Did the Organization Have an Interest in or Authority over a Financial Account in a Foreign Country?  -->
+			<xsd:element name="ForeignFinancialAccount" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the organization have an interest in or authority over a financial account in a foreign country?</Description>
+						<LineNumber>Part V Line 42b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Name of Foreign Country  -->
+			<xsd:element name="ForeignFinancialAccountCountry" type="CountryType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of foreign country</Description>
+						<LineNumber>Part V Line 42b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+			
+			<!-- At Any Time During the Calender Year, Did the Organization Maintain an Office Outside of the U.S.? -->
+			<xsd:element name="ForeignOffice" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>At any time during the calender year, did the organization maintain an office outside of the U.S.?</Description>
+						<LineNumber>Part V Line 42c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Name of Foreign Country  -->
+			<xsd:element name="ForeignOfficeCountry" type="CountryType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of foreign country</Description>
+						<LineNumber>Part V Line 42c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+						
+			<!-- Section 4947(a)(1) nonexempt charitable trusts filing Form 990EZ in lieu of Form 1041? -->
+			<xsd:element name="NECTFilingForm990" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates section 4947(a)(1) nonexempt charitable trusts filing Form 990 in lieu of Form 1041</Description>
+						<LineNumber>Part V Line 43</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="amountOfInterest" type="USAmountNNType"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+	
+	<!-- Type for Part II, Repeating Group for Balance Sheet Items -->
+	<xsd:complexType name="Form990EZPartIIType">
+		<xsd:sequence>
+		
+			<!-- Beginnning of Year -->
+			<xsd:element name="BOY" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beginnning of year</Description>
+						<LineNumber>Part II - Column (A)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Ending of Year -->
+			<xsd:element name="EOY" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ending of year</Description>
+						<LineNumber>Part II - Column (B)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part II, Repeating Group for Balance Sheet Items -->
+	<!-- Total Assets -->
+	<xsd:complexType name="Form990EZPartIIGroup2Type">
+		<xsd:sequence>
+		
+			<!-- Beginnning of Year -->
+			<xsd:element name="BOY" type="USAmountNNType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beginnning of year</Description>
+						<LineNumber>Part II - Column (A)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Ending of Year -->
+			<xsd:element name="EOY" type="USAmountNNType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ending of year</Description>
+						<LineNumber>Part II - Column (B)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- Type for Part III, Program Service Accomplishments (lines 28 - 31)-->
+	<xsd:complexType name="Form990EZPartIIIType">
+		<xsd:sequence>
+			<!-- Description -->
+			<xsd:element name="DescriptionProgramServiceAccom" type="ExplanationType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of program service accomplishments</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Grants and Allocations -->
+			<xsd:element name="GrantsAndAllocations" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Grants and allocations</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Includes Foreign Grants? --> 
+			<xsd:element name="IncludesForeignGrants" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Includes foreign grants?</Description>
+						<LineNumber>Part III</LineNumber>						
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Program Service Expenses -->
+			<xsd:element name="ProgramServiceExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Program service expenses</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for Part IV, List of Officers, Directors, Trustees, and Key Employees -->
+	<xsd:complexType name="Form990EZPartIVType">
+		<xsd:sequence>
+
+			<xsd:choice>
+
+				<!-- Person Name -->
+				<xsd:element name="PersonName">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person Name</Description>
+							<LineNumber>Part IV - Column (A)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="PersonNameType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CompensationExplanation"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+
+				<!-- Business Name -->
+				<xsd:element name="BusinessName">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business Name</Description>
+							<LineNumber>Part IV - Column (A)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:complexContent>
+							<xsd:extension base="BusinessNameType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CompensationExplanation"/>
+							</xsd:extension>
+						</xsd:complexContent>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Address. Either US or foreign type -->
+			<xsd:choice>
+				<xsd:element name="AddressUS" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address - US</Description>
+							<LineNumber>Part IV - Column (A)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AddressForeign" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address - Foreign</Description>
+							<LineNumber>Part IV - Column (A)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- Title -->
+			<xsd:element name="Title" type="LineExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Title</Description>
+						<LineNumber>Part IV - Column (B)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Average Hours per Week Devoted to Position -->
+			<xsd:element name="AvgHoursPerWkDevotedToPosition">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Average Hours per week devoted to position</Description>
+						<LineNumber>Part IV - Column (B)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="5" />
+						<xsd:fractionDigits value="2" />
+						<xsd:minInclusive value="000.00" />
+						<xsd:maxInclusive value="168.00" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Compensation -->
+			<xsd:element name="Compensation" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation</Description>
+						<LineNumber>Part IV - Column (C)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Contributions to Employee Benefit Plans and Deferred Compensation -->
+			<xsd:element name="ContriToEmplBenefitPlansEtc" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contributions to employee benefit plans and deferred compensation</Description>
+						<LineNumber>Part IV - Column (D)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Expense Account and Other Allowances -->
+			<xsd:element name="ExpenseAccountOtherAllowances" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Expense account and other allowances</Description>
+						<LineNumber>Part IV - Column (E)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for a Structured Itemized Entry -->
+	<xsd:complexType name="ItemizedEntry2Type">
+		<xsd:sequence>
+			<xsd:element name="Description" type="LineExplanationType"/>
+			<xsd:element name="Amount" type="USAmountNNType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for a Structured Itemized Entry with BOY and EOY balance amounts -->
+	<xsd:complexType name="ItemizedEntryWithBOYAndEOYType">
+		<xsd:sequence>
+			<xsd:element name="Description" type="LineExplanationType"/>
+			<xsd:element name="BOY" type="USAmountNNType" minOccurs="0"/>
+			<xsd:element name="EOY" type="USAmountNNType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - E&amp;P or Taxable Income Adjustment Schedule  </Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================== -->
+	<!-- ============ E&P or Taxable Income Adjustment Schedule   ============ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="EPTaxableIncomeAdjustmentSch">
+		<xsd:annotation>
+			<xsd:documentation>E&amp;P or Taxable Income Adjustment Schedule  </xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="EPTaxableIncomeAdjustmentSchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="EPTaxableIncomeAdjustmentSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!--E&P or Taxable Income Adjustment Schedule-->
+	<xsd:complexType name="EPTaxableIncomeAdjustmentSchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for E&amp;P or taxable income adjustment schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- E&P or Taxable Income Adjustment -->
+			<xsd:element name="EPTaxableIncomeAdjustment" type="EPTaxableIncomeAdjustmentType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>E&amp;P or Taxable Income Adjustment</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for Repeating Group - E&P or Taxable Income Adjustment -->
+  	<xsd:complexType name="EPTaxableIncomeAdjustmentType">
+		<xsd:sequence>
+		
+			<!-- Adjustment Item  -->
+			<xsd:element name="AdjustmentItem" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment Item</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjustment Amount  -->
+			<xsd:element name="AdjustmentAmount" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Addition or Net Subtraction  -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="NetAddition" type="ForeignAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Net Addition</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="NetSubtraction" type="ForeignAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Net Subtraction</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Total Net Addition  -->
+			<xsd:element name="TotalNetAddition" type="ForeignAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Net Addition</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Net Subtraction  -->
+			<xsd:element name="TotalNetSubtraction" type="ForeignAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Net Subtraction</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

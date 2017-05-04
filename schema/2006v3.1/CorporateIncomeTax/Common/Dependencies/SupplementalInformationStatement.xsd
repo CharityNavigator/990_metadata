@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+  <xsd:annotation>
+    <xsd:documentation>
+      <Description>IRS e-file Corporate Income Tax Schema - Supplemental Information Statement</Description>
+      <TaxYear>2006</TaxYear>
+      <MaturityLevel>Final Release</MaturityLevel>
+      <ReleaseDate>April 18, 2007</ReleaseDate>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+  <!-- ============================================================== -->
+  <!-- ============ Supplemental Information Statement  ============= -->
+  <!-- ============================================================== -->
+  <xsd:element name="SupplementalInfoStatement">
+    <xsd:annotation>
+      <xsd:documentation>Supplemental Information Statement</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="SupplementalInfoStatementType">
+          <xsd:attributeGroup ref="DocumentAttributes">
+            <xsd:annotation>
+              <xsd:documentation>Common return document attributes</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attributeGroup>
+          <xsd:attribute name="documentName" type="xsd:string" fixed="SupplementalInformationStatement">
+            <xsd:annotation>
+              <xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="SupplementalInfoStatementType">
+    <xsd:annotation>
+      <xsd:documentation>Content model for Supplemental Information Statement</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <!-- Supplemental Information -->
+      <xsd:element name="SupplementalInfo" type="SupplementalInfoType2" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Supplemental information</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <!-- Type for Repeating Group - Supplemental Information -->
+  <xsd:complexType name="SupplementalInfoType2">
+    <xsd:sequence>
+      <!-- Title -->
+      <xsd:element name="Title" type="LineExplanationType">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Title</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <!-- Type -->
+      <xsd:element name="Type" type="LineExplanationType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Type</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <!-- Amount -->
+      <xsd:element name="Amount" type="USAmountType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Amount</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <!-- Description -->
+      <xsd:element name="Description" type="ShortExplanationType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Description</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <!-- Statement -->
+      <xsd:element name="Statement" type="ExplanationType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Statement</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <!-- Code -->
+      <xsd:element name="Code" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Code</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="StringType">
+            <xsd:pattern value="[A-Z]"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!-- Ratio -->
+      <xsd:element name="Ratio" type="RatioType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Ratio</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

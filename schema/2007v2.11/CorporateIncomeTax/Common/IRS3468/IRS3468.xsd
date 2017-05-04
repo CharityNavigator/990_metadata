@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 3468</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 26, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- ====================== IRS Form 3468 ============================ -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS3468">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 3468</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS3468Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS3468">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment Sect14812b2viiiAdjBasisOfBuildingStatement" />
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS3468Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 3468</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Check This Box if You are Electing Under Section 47(d)(5) to Take Your Qualified Rehabilitation Expenditures Into Account for the Tax Year in Which Paid. (or, for Self-Rehabilitated Property, When Capitalized) -->
+			<xsd:element name="RehabilitationExpendituresUsed" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Check This Box if You are Electing Under Section 47(d)(5) to Take Your Qualified Rehabilitation Expenditures Into Account for the Tax Year in Which Paid</Description>
+						<LineNumber>1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rehabilitation Test Period Beginning Date -->
+			<xsd:element name="RehbltTestPeriodBeginningDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation Test Period Beginning Date</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Rehabilitation Test Period End Date -->
+			<xsd:element name="RehbltTestPeriodEndDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation Test Period End Date</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Adjusted Basis of Building Amount -->
+			<xsd:element name="AdjustedBasisOfBuildingAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted Basis of Building Amount</Description>
+						<LineNumber>1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Rehabilitation Expenditures Amount -->
+			<xsd:element name="QlfyRehbltExpendituresAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Rehabilitation Expenditures Amount</Description>
+						<LineNumber>1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Qualified Rehabilitation Pre-1936 Buildings Credit -->
+			<xsd:element name="QlfyRehbltPre1936Buildings" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Rehabilitation Pre-1936 Buildings Credit</Description>
+						<LineNumber>1e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated Expenditures Pre-1936 Buildings -->
+			<xsd:element name="CalcExpendPre1936Buildings" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated Expenditures Pre-1936 Buildings</Description>
+						<LineNumber>1e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="Pre1936BuildingsSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>				
+			</xsd:element>
+
+			<!--Qualified Rehabilitation Other Pre-1936 Buildings Credit -->
+			<xsd:element name="QlfyRehbltOtherPre1936Blds" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Rehabilitation Other Pre-1936 Buildings Credit</Description>
+						<LineNumber>1f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated Expenditures OtherPre-1936 Buildings -->
+			<xsd:element name="CalcExpendOtherPre1936Blds" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated Expenditures OtherPre-1936 Buildings</Description>
+						<LineNumber>1f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>
+			
+			<!-- Certified Historic Structures -->
+			<xsd:element name="CertifiedHistoricStructures" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certified Historic Structures</Description>
+						<LineNumber>1g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="historicStructureCertOnFile" type="BooleanType"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Calculated Expenditures Certified Historic Structures -->
+			<xsd:element name="CalcExpendituresCertHistStrctr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated Expenditures Certified Historic Structures</Description>
+						<LineNumber>1g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>				
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CertifiedHistoricStructuresSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>				
+			</xsd:element>
+
+			<!-- Other Certified Historic Structures -->
+			<xsd:element name="OtherCertHistoricStructures" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Certified Historic Structures</Description>
+						<LineNumber>1h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Calculated Expenditures Other Certified Historic Structures -->
+			<xsd:element name="CalcExpendOtherCertHistStrctr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated Expenditures Other Certified Historic Structures</Description>
+						<LineNumber>1h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Qualified Rehabilitation NPS -->
+			<xsd:element name="QualifiedRehabilitationNPS" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Rehabilitation NPS</Description>
+						<LineNumber>1i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="18"/>
+						<xsd:pattern value="[A-Za-z0-9\-]*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Date of NPS Approval -->
+			<xsd:element name="DateOfNPSApproval" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of NPS Approval</Description>
+						<LineNumber>1j</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rehabilitation Credit -->
+			<xsd:element name="RehabilitationCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation credit from an electing large partnership (Schedule K-1 (Form 1065-B))</Description>
+						<LineNumber>1k</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Geothermal Energy Property Basis -->
+			<xsd:element name="GeothermalEnergyPropertyBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Geothermal energy property basis</Description>
+						<LineNumber>2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated Geothermal Energy Property Basis Credit -->
+			<xsd:element name="CalcGeothermalEnergyPropBssCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated Geothermal energy property basis credit</Description>
+						<LineNumber>2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar Illumination or Energy Property Basis Credit -->
+			<xsd:element name="SolarIllumOrEnergyPropBss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar Illumination or energy property basis</Description>
+						<LineNumber>2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Calculated Solar Illumination or Energy Property Basis Credit -->
+			<xsd:element name="CalcSolarIllumOrEngeryPropBss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated Solar Illumination or energy property credit</Description>
+						<LineNumber>2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Qualified Fuel Cell Property Basis -->
+			<xsd:element name="QualifiedFuelCellPropertyBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified fuel cell property basis</Description>
+						<LineNumber>2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Calculated Qualified Fuel Cell Property Basis -->
+			<xsd:element name="CalcQualifiedFuelCellPropBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated qualified fuel cell property basis</Description>
+						<LineNumber>2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Qualified Fuel Cell Property Kilowatt Capacity -->
+			<xsd:element name="QlfyFuelCellPropKwCapacity" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified fuel cell property kilowatt capacity</Description>
+						<LineNumber>2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Calculated Qualified Fuel Cell Property Kilowatt Capacity -->
+			<xsd:element name="CalcQlfyFuelCellPropKwCapacity" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated qualified fuel cell property kilowatt capacity</Description>
+						<LineNumber>2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Adjusted Qualified Fuel Cell Property Credit -->
+			<xsd:element name="AdjQlfyFuelCellPropertyCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted qualified fuel cell property credit</Description>
+						<LineNumber>2e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Qualified Microturbine Property Basis -->
+			<xsd:element name="QlfyMircroturbinePropBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified microturbine property basis</Description>
+						<LineNumber>2f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Calculated Qualified Microturbine Property Basis -->
+			<xsd:element name="CalcQlfyMircroturbinePropBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated qualified microturbine property basis</Description>
+						<LineNumber>2f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Qualified Microturbine Property Kilowatt Capacity -->
+			<xsd:element name="QlfyMicroturbinePropKwCapacity" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified microturbine property kilowatt capacity</Description>
+						<LineNumber>2g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Total Qualified Microturbine Property Kilowatt Capacity -->
+			<xsd:element name="TotQlfyMicroturbinePropKwCap" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified microturbine property kilowatt capacity</Description>
+						<LineNumber>2g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Adjusted Qualified Microturbine Property Credit -->
+			<xsd:element name="AdjQlfyMircroturbinePropBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted qualified microturbine property credit</Description>
+						<LineNumber>2h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Total Energy Credit -->
+			<xsd:element name="TotalEnergyCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total energy credit</Description>
+						<LineNumber>2i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Integrated Gasification Combined Cycle Property Investment Basis -->
+			<xsd:element name="IntgrtGasCombCycPropInvstBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Integrated gasification combined cycle property investment basis</Description>
+						<LineNumber>3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Calculated Integrated Gasification Combined Cycle Property Investment Credit -->
+			<xsd:element name="CalcGasCombinedCycPropInvstCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated integrated gasification combined cycle property investment credit</Description>
+						<LineNumber>3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Qualified Investment Property Basis -->
+			<xsd:element name="OtherQlfyInvstPropertyBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other qualified investment property basis</Description>
+						<LineNumber>3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated Other Qualified Investment Property Credit -->
+			<xsd:element name="CalcOtherQlfyInvstPropCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated other qualified investment property credit</Description>
+						<LineNumber>3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualifying Advanced Coal Project Credit -->
+			<xsd:element name="QlfyAdvancedCoalProjectCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualifying advanced coal project credit</Description>
+						<LineNumber>3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualifying Gasification Project Investment Property Basis -->
+			<xsd:element name="QlfyGasificationPropertyBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualifying gasification project investment property basis</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated Qualified Gasification Project Credit -->
+			<xsd:element name="CalcQlfyGasificationBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated qualified gasification project credit</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Credit from Cooperatives -->
+			<xsd:element name="CreditFromCooperatives" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit from Cooperatives</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit -->
+			<xsd:element name="CurrentYearCredit" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Credit</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>	
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

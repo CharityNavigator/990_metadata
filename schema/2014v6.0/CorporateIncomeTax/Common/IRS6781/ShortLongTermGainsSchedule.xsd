@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+				<Description>IRS e-file Schema - Short/Long Term Gains Schedule</Description>
+
+			<TaxYear>2014</TaxYear>
+
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+
+			<ReleaseDate>Sept.8, 2015</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+
+
+	<!-- ============================================================== -->
+
+	<!-- =============== Short/Long Term Gains Schedule ============== -->
+
+	<!-- ============================================================== -->
+
+
+
+
+
+	<xsd:element name="ShortLongTermGainsSchedule">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Short/long term gains schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="ShortLongTermGainsScheduleType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ShortLongTermGainsSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<xsd:complexType name="ShortLongTermGainsScheduleType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for short/long term gains schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="ShortLongTermGainInfo" type="ShortLongTermGainInfoType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+	<!-- Type for Repeating Group - Short/Long Term Gain Info -->
+
+	<xsd:complexType name="ShortLongTermGainInfoType">
+
+		<xsd:annotation>
+
+				<xsd:documentation>Content model for short/long term gain info</xsd:documentation>
+
+		</xsd:annotation>
+
+
+
+		<xsd:sequence>
+
+
+
+			<!-- Name of Contract(s) -->
+
+			<xsd:element name="ContractsNm" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name of Contract(s)</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Description -->
+
+			<xsd:element name="Desc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Description</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Holding Period -->
+
+			<xsd:element name="HoldingPeriodDesc" type="ShortDescriptionType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Holding Period</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Short Term Gains -->
+
+			<xsd:element name="ShortTermGainsAmt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Short Term Gains Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Long Term Gains -->
+
+			<xsd:element name="LongTermGainsAmt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Long Term Gains Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+</xsd:schema>

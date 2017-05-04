@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Schema - Contemporaneous Written Acknowledgment Statement</Description>
+
+			<TaxYear>2013</TaxYear>
+
+			<MaturityLevel>Draft Release</MaturityLevel>
+
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+	<!-- ================================================================= -->
+
+	<!-- ======== Contemporaneous Written Acknowledgment Statement ======= -->
+
+	<!-- ================================================================= -->
+
+
+
+	<xsd:element name="ContemporaneousWrittenAckStmt">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Contemporaneous Written Acknowledgment Statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="ContemporaneousWrittenAckStmtType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Transfer</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="StringType" fixed="ContemporaneousWrittenAcknowledgmentStatement">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<!-- Contemporaneous Written Acknowledgment Statement -->
+
+		<xsd:complexType name="ContemporaneousWrittenAckStmtType">
+
+		<xsd:sequence>
+
+
+
+			<!-- Qualified Vehicle Donation Information -->
+
+			<xsd:element name="QualifiedVehicleDonationDesc" type="MediumExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<xsd:Description>Qualified vehicle donation information</xsd:Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

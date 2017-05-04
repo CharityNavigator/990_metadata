@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8900</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 18, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================== -->
+	<!-- =======================	IRS Form 8900 ============================ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="IRS8900">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8900</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8900Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8900">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- ========================================= -->
+	<!-- Qualified Railroad Track Maintenance Credit -->
+	<!-- ========================================= -->
+
+	<xsd:complexType name="IRS8900Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8900</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Qualified Railroad Track Maintenance Expenditures  -->
+			<xsd:element name="QualifiedRlrdTrackMaintExpend" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified railroad track maintenance expenditures</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter 50% (.50) Of Line 1   -->
+			<xsd:element name="FiftyPctRlrdTrackMaintExpend" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 50% (.50) of line 1</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Miles of Railroad Track Owned or Leased  -->
+			<xsd:element name="MilesOfRlrdTrackOwnedorLeased" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of miles of railroad track owned or leased</Description>
+						<LineNumber>3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Less Number of Miles of Railroad Track Owned or Leased and Assigned   -->
+			<xsd:element name="LessNumMileRlrdTrackOwnLsdAsgn" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Less number of miles of railroad track owned or leased and assigned</Description>
+						<LineNumber>3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Number Of Miles Of Railroad Track Assigned By Owner Or Lessee -->
+			<xsd:element name="MileRlrdTrackAsgnByOwnrLessee" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of miles of railroad track assigned by owner or lessee</Description>
+						<LineNumber>3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total   -->
+			<xsd:element name="TotalRailroadTrack" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total</Description>
+						<LineNumber>3d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Multiply total by $3,500 -->
+			<xsd:element name="AdjustedTotalRlrdTrack" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply total by $3,500</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter smaller of line 2 or line 4 -->
+			<xsd:element name="QlfyPercentageOfRlrdTrack" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter smaller of line 2 or line 4</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified railroad track maintenance credit  -->
+			<xsd:element name="QualifiedRlrdTrackMaintCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified railroad track maintenance credit</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 5 and 6 -->
+			<xsd:element name="AddLines5and6" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 5 and 6</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Change in Overall Method Breakdown Statement</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>June 7, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================= -->
+	<!-- ========== Change in Overall Method Breakdown Statement ========= -->
+	<!-- ================================================================= -->
+
+
+	<xsd:element name="ChgInOverallMthdBreakdownStmt">
+		<xsd:annotation>
+			<xsd:documentation>Change in Overall Method Breakdown Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ChgInOverallMthdBreakdownStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ChangeInOverallMethodBreakdownStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="ChgInOverallMthdBreakdownStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Change in Overall Method Breakdown Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Income Accrued But Not Received -->
+			<xsd:element name="IncomeAccruedButNotReceived" type="USItemizedEntryType" minOccurs="0" maxOccurs="unbounded" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income accrued but not received</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Expenses Accrued But Not Paid -->
+			<xsd:element name="ExpensesAccruedButNotPaid" type="USItemizedEntryType" minOccurs="0" maxOccurs="unbounded" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Expenses accrued but not paid</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prepaid Expenses Previously Deducted -->
+			<xsd:element name="PrepaidExpnsPreviouslyDeducted" type="USItemizedEntryType" minOccurs="0" maxOccurs="unbounded" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prepaid expenses previously deducted</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplies On Hand Previously Deducted -->
+			<xsd:element name="SuppliesOnHandPrevDeducted" type="USItemizedEntryType" minOccurs="0" maxOccurs="unbounded" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplies on hand previously deducted</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inventory On Hand Previously Deducted -->
+			<xsd:element name="InventoryOnHandPrevDeducted" type="USItemizedEntryType" minOccurs="0" maxOccurs="unbounded" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventory on hand previously deducted</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+</xsd:schema>

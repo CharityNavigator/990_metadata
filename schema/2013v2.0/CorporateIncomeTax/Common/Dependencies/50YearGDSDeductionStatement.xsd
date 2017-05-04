@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - 50 Year GDS Deduction Statement</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================ -->
+	<!-- ===============  50 Year GDS Deduction Statement =============== -->
+	<!-- ================================================================ -->
+
+
+	<xsd:element name="GDS50YearDeductionStatement">
+		<xsd:annotation>
+			<xsd:documentation>50 year GDS deduction statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="GDS50YearDeductionStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="50YearGDSDeductionStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="GDS50YearDeductionStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for 50 year GDS deduction statement</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- 50 year GDS deduction information (repeating group) -->
+			<xsd:element name="GDS50YearDeductionInfo" type="GDS50YearDeductionInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>50 year GDS deduction information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="GDS50YearDeductionInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for 50 year GDS deduction info</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Month and Year Placed in Service -->
+			<xsd:element name="MonthAndYearPlacedInServiceDt" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Month and year placed in service</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis for Depreciation -->
+			<xsd:element name="BasisForDepreciationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis for depreciation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recovery Period -->
+			<xsd:element name="RecoveryPrd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recovery period</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="DecimalType">
+						<xsd:totalDigits value="3"/>
+						<xsd:fractionDigits value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Convention -->
+			<xsd:element name="DepreciationConventionCd" type="DepreciationConventionCodeType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Convention</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method -->
+			<xsd:element name="DepreciationMethodCd" type="DepreciationMethodCodeType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation Deduction -->
+			<xsd:element name="DepreciationDeductionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation deduction</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+		
+	</xsd:complexType>
+
+</xsd:schema>

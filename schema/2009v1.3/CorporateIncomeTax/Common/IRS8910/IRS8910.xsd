@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8910</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 23, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ===================================================================== -->
+	<!-- ========================  IRS Form 8910  ============================ -->
+	<!-- ===================================================================== -->
+
+
+	<xsd:element name="IRS8910">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8910</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8910Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8910">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8910Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8910</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Part I - Tentative Credit ===== -->
+			<xsd:element name="IRS8910PartI" type="IRS8910PartIType" minOccurs="0" maxOccurs="unbounded" />
+
+
+			<!-- ===== Part II - Credit for Business/Investment Use Part Of Vehicle ===== -->
+			<xsd:element name="BusinessInvestmentUse" type="BusinessInvestmentUseType" minOccurs="0" maxOccurs="unbounded" />
+
+			<!-- Add Columns (a) Through (c) On Line 12 -->
+			<xsd:element name="TotalBusinessInvestmentUseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (a) through (c) on line 12</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Motor Vehicle Credit From Partnership And S Corporations -->
+			<xsd:element name="AlternativeMotorVehicleCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative motor vehicle credit from partnership and S corporations</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Business/Investment Use Part Of Credit -->
+			<xsd:element name="BusInvestmentUsePartOfCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business/investment use part of credit</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- ===== Part III - Credit for Personal Use Part Of Vehicle ===== -->
+
+			<!-- If You Skipped Part II, Enter The Amount From Line 10. If You Completed Part II, Subtract Line 12 From Line 10 -->
+			<xsd:element name="TentativeCreditForPersonalUse" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you skipped Part II, enter the amount from line 10. If you completed Part II, subtract line 12 from line 10</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns (a) through (c) on Line 16 -->
+			<xsd:element name="TotTentCreditForPersonalUse" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (a) through (c) on Line 16</Description>
+						<LineNumber>Part III Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter The Amount From Form 1040, Line 46, Or Form 1040NR, Line 43 -->
+			<xsd:element name="TotalTxBeforeCrAndOtherTxsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the amount from Form 1040, line 46, or Form 1040NR, line 43</Description>
+						<LineNumber>Part III Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter The Total, If Any, Of Your Credits From Form 1040, Lines 47 Through 50; Form 5695, Line 11; Form 8834, Line 22; And Schedule R, Line 24; Or Form 1040NR, Lines 44 Through 46; Form 5695, Line 11; And Form 8834, Line 22 -->
+			<xsd:element name="AltMotorVehCreditFromFormsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total, if any, of your credits from Form 1040, lines 47 through 50; Form 5695, line 11; Form 8834, line 22; and Schedule R, line 24; or Form 1040NR, lines 44 through 46; Form 5695, line 11; and Form 8834, line 22</Description>
+						<LineNumber>Part III Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 19 From Line 18. If Zero Or Less, Stop. You Cannot Claim The Personal Use Part Of The Credit -->
+			<xsd:element name="AltMotorVehAdjustedCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 19 from line 18. If zero or less, stop. You cannot claim the personal use part of the credit</Description>
+						<LineNumber>Part III Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Personal Use Part Of Credit -->
+			<xsd:element name="PersonalUsePartOfCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal use part of credit</Description>
+						<LineNumber>Part III Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- =============================================================== -->
+	<!-- ==================  Part I - Tentative Credit  ================ -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="IRS8910PartIType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8910 Part I</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Year, Make, and Model of Vehicle ===== -->
+			<xsd:element name="VehicleDescription" type="VehicleDescriptionType" minOccurs="0" />
+
+
+			<!-- Date Vehicle Placed In Service -->
+			<xsd:element name="VehiclePlacedInServiceDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date vehicle placed in service</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Maximum Credit Allowable -->
+			<xsd:element name="MaximumAllowedCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Maximum credit allowable</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If You Are Not Claiming The Plug-in Conversion, Skip Lines 4 Through 8, Enter  -0-  On Line 9, And Go To Line 10 -->
+			<xsd:element name="AltMotorVehCostOfConversionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you are not claiming the plug-in conversion, skip lines 4 through 8, enter  -0-  on line 9, and go to line 10</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Expense Deduction -->
+			<xsd:element name="AltMotorVehSect179ExpDedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 expense deduction</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 5 From Line 4 -->
+			<xsd:element name="AltMotorVehNetCostOfCnvrtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 5 from line 4</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 6 By 10% (.10) -->
+			<xsd:element name="AltMotorVehConversionPctAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 6 by 10% (.10)</Description>
+						<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Maximum Plug-In Conversion Credit Amount Allowable -->
+			<xsd:element name="AltMotorVehMaxPlugInCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Maximum plug-in conversion credit amount allowable</Description>
+						<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter The Smaller Of Line 7 Or Line 8 -->
+			<xsd:element name="AltMotorVehAllowableCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 7 or line 8</Description>
+						<LineNumber>Part I Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative credit. Add lines 3 And 9 -->
+			<xsd:element name="AltMotorVehTentativeCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative credit.  Add lines 3 And 9</Description>
+						<LineNumber>Part I Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Part II - Lines 6 and 7 ===== -->
+
+	<xsd:complexType name="BusinessInvestmentUseType">
+		<xsd:sequence>
+			<!-- Business/Investment Use Percentage -->
+			<xsd:element name="BusinessInvestmentUsePct" type="RatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business/investment use percentage</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 10 By Line 11 -->
+			<xsd:element name="BusinessInvestmentUseAmount" type="USAmountType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 10 by line 11</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

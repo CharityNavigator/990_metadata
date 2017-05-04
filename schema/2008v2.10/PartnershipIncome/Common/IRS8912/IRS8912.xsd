@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - IRS Form 8912</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 8, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================ -->
+	<!-- =====================  IRS Form 8912 =========================== -->
+	<!-- ================================================================ -->
+	
+
+	<xsd:element name="IRS8912">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8912</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8912Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8912">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8912Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8912</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+		<!-- =============== Part I - Current Year Credit =============== -->
+		
+		<!-- Bond Issuer's Name -->
+		<xsd:element name="NameOfBondIssuer" type="BusinessNameType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Bond Issuer's Name</Description>
+					<LineNumber>Part I Line 1</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<!-- Bond Issuer's City -->
+		<xsd:element name="City" type="CityType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Bond Issuer's City</Description>
+					<LineNumber>Part I line 1</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<!-- Bond Issuer's State -->
+		<xsd:element name="State" type="StateType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Bond Issuer's State</Description>
+					<LineNumber>Part I line 1</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<!-- Date Bond Issued -->
+		<xsd:element name="DateBondIssued" type="DateType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Date acquired</Description>
+					<LineNumber>Part I line 2</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<!-- Date Bond Disposed Of-->
+		<xsd:element name="DateBondDisposedOf" type="DateType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Date Bond Disposed Of</Description>
+					<LineNumber>Part I line 3 </LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		
+	<!-- =============================================================================== -->
+	<!-- ====== Type for Repeating Tables in Part I ====== -->
+	<!-- =============================================================================== -->
+
+		<xsd:element name="BondCreditType" minOccurs="0" maxOccurs="50">
+      	<xsd:complexType>
+      		<xsd:sequence>
+				<!-- Principal Payment Dates -->
+				<xsd:element name="PrinPaymentDates" type="DateType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Principal Payment Dates</Description>
+							<LineNumber>Part I line 4a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Outstanding Bond Principal -->
+				<xsd:element name="OutstndingBondPrinAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Outstanding Bond Principal Amount</Description>
+							<LineNumber>Part I line 4b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Credit Rate -->
+				<xsd:element name="CreditRate" type="RatioType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Credit Rate</Description>
+							<LineNumber>Part I line 4c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Outstanding Bond Principal x Credit Rate Amount -->
+				<xsd:element name="OutstndgBondPrinCrdtRteAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Outstanding Bond Principal x Credit Rate Amount</Description>
+							<LineNumber>Part I line 4d</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Percent -->
+				<xsd:element name="Percent" type="RatioType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Percent</Description>
+							<LineNumber>Part I line 4e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+								<!-- Credit Amount -->
+				<xsd:element name="CreditAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Credit Amount</Description>
+							<LineNumber>Part I line 4f</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	 			</xsd:sequence>
+			</xsd:complexType>
+		</xsd:element>
+
+		<!-- Sum of Credit in Table -->
+		<xsd:element name="CreditSumAmt" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Sum of Credit in Table</Description>
+					<LineNumber>Part I line 5</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Percentage of Credit for Certain Bonds or Sum of Credits Amount -->
+		<xsd:element name="CrComputationOrCrSumAmt" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Percentage of Credit for Certain Bonds or Sum of Credits Amount</Description>
+					<LineNumber>Part I line 6</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Credits from Other Bonds -->
+		<xsd:element name="OtherBondCreditTotalAmt" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total Credits from Other Bonds</Description>
+					<LineNumber>Part I line 7</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:complexType>
+				<xsd:simpleContent>
+					<xsd:extension base="USAmountType">
+						<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+						<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdditionalBondCurrentYearCreditStatement"/>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+		</xsd:element>
+		
+		<!-- Bond Credits From S Corporations, Partnerships, Estates, or Trusts -->
+		<xsd:element name="BondCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Bond Credits From S Corporations, Partnerships, Estates, or Trusts</Description>
+					<LineNumber>Part I line 8</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Credit -->
+		<xsd:element name="TotalCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total Credit</Description>
+					<LineNumber>Part I line 9</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Amount Allocated to Beneficiaries of Estates and Trusts -->
+		<xsd:element name="AmtAllocatedBeneficiariesEstTr" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Amount Allocated to Beneficiaries of Estates and Trusts</Description>
+					<LineNumber>Part I line 10</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Estates and Trusts Current Year Bond Credit Amount -->
+		<xsd:element name="EstTrCYBondCrAmt" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Estates and Trusts Current Year Bond Credit Amount</Description>
+					<LineNumber>Part I line 11</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- =============== Part II - Allowable Credit =============== -->
+
+		<!-- Regular Tax Before Credit -->
+		<xsd:element name="RegularTaxBeforeCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Regular Tax Before Credit</Description>
+					<LineNumber>Part II line 12</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Alternative Minimum Tax -->
+		<xsd:element name="AlternativeMinimumTax" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Alternative Minimum Tax</Description>
+					<LineNumber>Part II line 13</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Sum of Regular Tax and Alternative Minimum Tax -->
+		<xsd:element name="SumRegularTaxAndAMT" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Sum of Regular Tax and Alternative Minimum Tax</Description>
+					<LineNumber>Part II line 14</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Foreign Tax Credit -->
+		<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Foreign Tax Credit</Description>
+					<LineNumber>Part II line 15a</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		
+		<!-- Credits From F1040 or Form 1040NR -->
+		<xsd:element name="CrFromF1040OrF1040NR" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Credits from Form 1040 or Form 1040NR</Description>
+					<LineNumber>Part II line 15b</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		
+		<!-- Credits from F8834 -->
+		<xsd:element name="CrFromF8834" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Credits from F8834</Description>
+					<LineNumber>Part II line 15c</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Alternative Motor Vehicle Credit -->
+		<xsd:element name="AlternativeMotorVehicleCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Alternative Motor Vehicle Credit</Description>
+					<LineNumber>Part II line 15d</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Alternative Fuel Vehicle -->
+		<xsd:element name="AlternativeFuelVehicleCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Alternative Fuel Vehicle Credit</Description>
+					<LineNumber>Part II line 15e</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- General Business Credit -->
+		<xsd:element name="GeneralBusinessCredit" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>General Business Credit</Description>
+					<LineNumber>Part II line 15f</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Credit for Prior Year Minimum Tax -->
+		<xsd:element name="CreditForPriorYearMinimumTax" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Credit for Prior Year Minimum Tax</Description>
+					<LineNumber>Part II line 15g</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total of Credits -->
+		<xsd:element name="TotalOfCredits" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total of Credits</Description>
+					<LineNumber>Part II line 15h</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Net Income Tax -->
+		<xsd:element name="NetIncomeTax" type="USAmountType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Net Income Tax</Description>
+					<LineNumber>Part II line 16</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Current Year Allowable Credit -->
+		<xsd:element name="CYAllowableCr" type="USAmountNNType" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Current Year Allowable Credit</Description>
+					<LineNumber>Part II line 17</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+ 		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

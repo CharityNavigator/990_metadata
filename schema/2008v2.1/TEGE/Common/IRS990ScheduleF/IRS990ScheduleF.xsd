@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule F</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 22, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule F ========================== -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleF">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule F</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleFType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleF">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule F (Form 990) Statement of Activities Outside the U.S. -->
+
+	<xsd:complexType name="IRS990ScheduleFType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule F</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I General Activities Outside the U.S. -->
+
+			<!-- Grant Records Maintained? -->
+			<xsd:element name="GrantRecordsMaintained" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For grantmakers: Does the organization maintain records to substantiate the amount of the grants or assistance, the grantees' eligibility for the grants or assistance, and the selection criteria used to award the grants or assistance?</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="AcctsActvsOutUSTable" type="Form990SchFPartIGroup1Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General Information on Accounts and Activities Outside the United States</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number of Accounts or Offices -->
+			<xsd:element name="TotalNumberOfOffices" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of offices</Description>
+						<LineNumber>Part I Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number of Employees -->
+			<xsd:element name="TotalNumberOfEmployees" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of employees</Description>
+						<LineNumber>Part I Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amount Spent -->
+			<xsd:element name="TotalAmountSpent" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amount spent</Description>
+						<LineNumber>Part I Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Part II Grants and Other Assistance to Organizations or Entities Outside the United States -->
+
+			<!-- No Recipient More Than $5,000? -->
+			<xsd:element name="NoRecipientOver5K" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Check this box if no one recipient received more than $5,000</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="GrantsToOrgsOutsideUS" type="Form990SchFPartIIGroup1Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Complete this table if the organization reported more than $5,000 on Form 990, Part IX, line 3, for any recipient who received more than $5,000</Description>
+						<LineNumber>Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number of 501(c)(3) Organizations -->
+			<xsd:element name="TotalNumberOf501c3Orgs" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of 501(c)(3) organizations</Description>
+						<LineNumber>Part II line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Number of Other Organizations -->
+			<xsd:element name="TotalNumberOfOtherOrgs" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of other organizations or entities</Description>
+						<LineNumber>Part II line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Part III Grants and Other Assistance to Individuals Outside the United States -->
+
+			<xsd:element name="GrantsToIndOutsideUS" type="Form990SchFPartIIIGroup1Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter information in this table for all grants and assistance reported on line 3 of Form 990, PartV, Statement of Expenses, that were made to individuals located outside the U.S.</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV  Supplemental Information -->
+			<xsd:element name="Form990ScheduleFPartIV" minOccurs="0" maxOccurs="5">		
+				<xsd:annotation>
+					<xsd:documentation>Part IV contents</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>		
+					<xsd:sequence>
+
+						<!-- Identifier -->
+						<xsd:element name="Identifier" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Identifier</Description>
+									<LineNumber>Part IV</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Return Reference -->
+						<xsd:element name="ReturnReference" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Return reference</Description>
+									<LineNumber>Part IV</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Explanation -->
+						<xsd:element name="Explanation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Explanation</Description>
+									<LineNumber>Part IV</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>	
+				</xsd:complexType>		
+			</xsd:element>		
+		
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+	<!-- Type for Part I, Columns (a) through (f) -->
+	<xsd:complexType name="Form990SchFPartIGroup1Type">
+		<xsd:sequence>
+	
+			<!-- Country -->
+			<xsd:element name="Region" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Region</Description>
+						<LineNumber>Part I Line 3 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Accounts -->
+			<xsd:element name="NumberOfOffices" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of offices in the region</Description>
+						<LineNumber>Part I Line 3 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Employees -->
+			<xsd:element name="NumberOfEmployees" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of employees or agents in region</Description>
+						<LineNumber>Part I Line 3 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Type of Activities Conducted -->
+			<xsd:element name="TypeOfActivitiesConducted" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Activities conducted in region (by type) (i.e., fundraising, program services, grants to recipients located in the region)</Description>
+						<LineNumber>Part I Line 3 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Specific Services Provided -->
+			<xsd:element name="SpecificServicesProvided" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If activity listed in (d) is a program service, describe specific type of service(s) in region</Description>
+						<LineNumber>Part I Line 3 Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Expenditures -->
+			<xsd:element name="TotalExpenditures" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total expenditures in region</Description>
+						<LineNumber>Part I Line 3 Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part II, Line 1, Columns (a) through (i) -->
+	<xsd:complexType name="Form990SchFPartIIGroup1Type">
+		<xsd:sequence>
+			
+			<!-- Name of Organization (Comment out for now) -->
+			<!-- xsd:element name="NameOfOrganization" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of organization</Description>
+						<LineNumber>Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element -->
+	
+			<!-- IRS Code and EIN (Comment out for now) -->
+			<!-- xsd:element name="IRCSubsection" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS code</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>EIN</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element -->
+
+			<!-- Region -->
+			<xsd:element name="Region" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Region</Description>
+						<LineNumber>Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purpose of Grant -->
+			<xsd:element name="PurposeOfGrant" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purpose of grant</Description>
+						<LineNumber>Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Amount of Cash Grant -->
+			<xsd:element name="AmountOfCashGrant" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of cash grant</Description>
+						<LineNumber>Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Manner of Cash Disbursement -->
+			<xsd:element name="MannerOfCashDisbursement" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Manner of cash disbursement</Description>
+						<LineNumber>Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Amount of Non-Cash Assistance -->
+			<xsd:element name="AmountOfNonCashAssistance" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of non-cash assistance</Description>
+						<LineNumber>Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Non-cash Assistance -->
+			<xsd:element name="DescriptionOfNonCashAssistance" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of non-cash assistance</Description>
+						<LineNumber>Column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method of Valuation -->
+			<xsd:element name="MethodOfValuation" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method of valuation</Description>
+						<LineNumber>Column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part III, Columns (a) through (h) -->
+	<xsd:complexType name="Form990SchFPartIIIGroup1Type">
+		<xsd:sequence>
+			
+			<!-- Type of Assistance -->
+			<xsd:element name="TypeOfAssistance" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of assistance</Description>
+						<LineNumber>Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Region -->
+			<xsd:element name="Region" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Region</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Recipients -->
+			<xsd:element name="NumberOfRecipients" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of recipients</Description>
+						<LineNumber>Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Amount of Cash Grant -->
+			<xsd:element name="AmountOfCashGrant" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of cash grant</Description>
+						<LineNumber>Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Manner of Cash Disbursement -->
+			<xsd:element name="MannerOfCashDisbursement" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Manner of cash disbursement</Description>
+						<LineNumber>Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Amount of Non-Cash Assistance -->
+			<xsd:element name="AmountOfNonCashAssistance" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of non-cash assistance</Description>
+						<LineNumber>Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Non-Cash Assistance -->
+			<xsd:element name="DescriptionOfNonCashAssistance" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of non-cash assistance</Description>
+						<LineNumber>Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method of Valuation -->
+			<xsd:element name="MethodOfValuation" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method of valuation</Description>
+						<LineNumber>Column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

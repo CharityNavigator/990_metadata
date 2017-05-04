@@ -1,0 +1,118 @@
+./Common/efileTypes.xsd:	<xsd:complexType name="USAddressType">
+./Common/efileTypes.xsd:	<xsd:complexType name="OtherUSAddressType">
+./Common/efileTypes.xsd:				<xsd:element name="AddressInUS" type="USAddressType"/>
+./TEGE/TEGE990/IRS990/IRS990.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990/IRS990/IRS990.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990/IRS990/IRS990.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleC/IRS990ScheduleC.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleC/AffiliatedGroupSchedule.xsd:						<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./TEGE/Common/IRS990ScheduleB/IRS990ScheduleB.xsd:				<xsd:element name="ContributorUSAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleB/IRS990ScheduleB.xsd:				<xsd:element name="TransfereeUSAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleN/IRS990ScheduleN.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleR/IRS990ScheduleR.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleR/IRS990ScheduleR.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleR/IRS990ScheduleR.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleR/IRS990ScheduleR.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleR/IRS990ScheduleR.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/Dependencies/DissolutionStatement.xsd:				<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./TEGE/Common/Dependencies/AffiliateListing.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/IRS990ScheduleG/IRS990ScheduleG.xsd:				<xsd:element name="PersonsWithBooksUSAddress" type="USAddressType">			
+./TEGE/Common/IRS990ScheduleG/IRS990ScheduleG.xsd:				<xsd:element name="ThirdPartyUSAddress" type="USAddressType">			
+./TEGE/Common/IRS990ScheduleG/IRS990ScheduleG.xsd:				<xsd:element name="USAddress" type="USAddressType">			
+./TEGE/Common/IRS990ScheduleH/IRS990ScheduleH.xsd:						<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./TEGE/Common/IRS990ScheduleH/IRS990ScheduleH.xsd:									<xsd:element name="USAddress" type="USAddressType">
+./TEGE/Common/ReturnHeader990x.xsd:							<xsd:element name="PreparerUSAddress" type="USAddressType"/>
+./TEGE/Common/ReturnHeader990x.xsd:							<xsd:element name="USAddress" type="USAddressType"/>
+./TEGE/Common/IRS990ScheduleI/IRS990ScheduleI.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/ExpenditureResponsibilityStatement.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/TransfersToControlledEntitiesSchedule.xsd:						<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/BorrowedFundsElection.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/IRS990PF.xsd:							<xsd:element name="LocationOfBooksUSAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/IRS990PF.xsd:										<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/IRS990PF.xsd:											<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/IRS990PF.xsd:											<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/IRS990PF.xsd:										<xsd:element name="RecipientUSAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/IRS990PF.xsd:				<xsd:element name="RecipientUSAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/TransfersFromControlledEntitiesSchedule.xsd:						<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990PF/IRS990PF/SubstantialContributorsSchedule.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990EZ/IRS990EZ/IRS990EZ.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./TEGE/TEGE990EZ/IRS990EZ/IRS990EZ.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS2439/IRS2439.xsd:				<xsd:element name="RICOrREITUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS2439/IRS2439.xsd:				<xsd:element name="ShareholderUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8594/IRS8594.xsd:				<xsd:element name="OtherPartyUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8275R/IRS8275R.xsd:			<xsd:element name="PassThroughEntityUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8883/IRS8883.xsd:				<xsd:element name="OtherPartyUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8883/IRS8883.xsd:				<xsd:element name="TargetCorporationUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS3468/IRS3468.xsd:				<xsd:element name="LessorUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS3468/MultipleLesseePropertyStatement.xsd:				<xsd:element name="LessorUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8621/DeemedDivElectSec1297ePFICStmt.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8621/QEFDistributionStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8621/IRS8621.xsd:				<xsd:element name="ShareholderUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8621/IRS8621.xsd:				<xsd:element name="PFICOrQEFUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8621/DeemedDividendElectionStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8621/DeemedDivElectRespectFormerPFICStmt.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS851/IRS851.xsd:							<xsd:element name="CorporationUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5713/IRS5713.xsd:			<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:                <xsd:element name="FilerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:		    <xsd:element name="FDEUSAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:            <xsd:element name="USAgentAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:				<xsd:element name="PersonsWithBooksUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:                            <xsd:element name="LocationOfBooksUSAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:                <xsd:element name="TaxOwnerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8858/IRS8858.xsd:				<xsd:element name="DirectOwnerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471ScheduleO/IRS5471ScheduleO.xsd:				<xsd:element name="ShareholderUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471ScheduleO/IRS5471ScheduleO.xsd:				<xsd:element name="ShareholderUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471ScheduleO/IRS5471ScheduleO.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471ScheduleO/IRS5471ScheduleO.xsd:				<xsd:element name="SharesAcquiredUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471ScheduleO/IRS5471ScheduleO.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471ScheduleO/IRS5471ScheduleO.xsd:				<xsd:element name="TransferorUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/Dependencies/ControlledForeignPartnershipReportingStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/Dependencies/ControlledForeignPartnershipReportingStatement.xsd:				<xsd:element name="PersonFiling8865USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/Dependencies/DispositionOfPropWithSect179DeductionsStatement.xsd:				<xsd:element name="RelatedPartyUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/Dependencies/IncomeTaxReturnsStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS926/IRS926.xsd:				<xsd:element name="TransfereeUSAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS926/IntangiblePropertyTransferredFromTransactionStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8824/IRS8824.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8833/IRS8833.xsd:			<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8833/IRS8833.xsd:				<xsd:element name="PayorUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865ScheduleP/IRS8865ScheduleP.xsd:				<xsd:element name="AcquisitionsUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865ScheduleP/IRS8865ScheduleP.xsd:				<xsd:element name="DispositionsUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8275/IRS8275.xsd:				<xsd:element name="PassThroughEntityUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8586/MultipleBuildingProjectSchedule.xsd:				<xsd:element name="BuildingUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/ItemizedOrdinaryIncomeLossStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="ParentFilerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="ForeignPartnershipUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:			<xsd:element name="USAgentAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="FrgnPartnershipAgentUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="PersonsWithBooksUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="LocationOfBooksUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="PartnerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="ConstructiveOwnerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="CertainPartnerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/IRS8865.xsd:				<xsd:element name="PartnershipUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865/MultipleCategory1FilersStatement.xsd:				<xsd:element name="ParentCat1FilerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8886/IRS8886.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8886/IRS8886.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS4684/IRS4684.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471/PersonMeetingFilingRequirementsStatement.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471/Category3FilerStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS5471/IRS5471.xsd:							<xsd:element name="USAddress" type="USAddressType"/>
+./CorporateIncomeTax/Common/IRS5471/IRS5471.xsd:							<xsd:element name="USAddress" type="USAddressType"/>
+./CorporateIncomeTax/Common/IRS5471/IRS5471.xsd:									<xsd:element name="LocationAddressInUS" type="USAddressType"/>
+./CorporateIncomeTax/Common/IRS8865ScheduleK1/IRS8865ScheduleK1.xsd:				<xsd:element name="PartnershipsUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8865ScheduleK1/IRS8865ScheduleK1.xsd:				<xsd:element name="PartnersUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS1040ScheduleF/Form1098RecipientsStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS1040ScheduleF/PostponementOfCropInsuranceAndDisasterPaymentsStatement.xsd:			<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8874/IRS8874.xsd:							<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8283/IRS8283.xsd:				<xsd:element name="AppraiserUSAddress" type="OtherUSAddressType">
+./CorporateIncomeTax/Common/IRS8283/IRS8283.xsd:				<xsd:element name="DoneeUSAddress" type="OtherUSAddressType">
+./CorporateIncomeTax/Common/IRS8283/IRS8283.xsd:				<xsd:element name="DoneeOrganizationUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8283/IRS8283.xsd:				<xsd:element name="OrganizatonUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8283/ContributionsOfMotorVehiclesBoatsAndAirplanesStatement.xsd:				<xsd:element name="DoneeUSAddress" type="OtherUSAddressType">
+./CorporateIncomeTax/Common/IRS8283/ContributionsOfMotorVehiclesBoatsAndAirplanesStatement.xsd:				<xsd:element name="DonorUSAddress" type="OtherUSAddressType">
+./CorporateIncomeTax/Common/IRS4797/SmallBusinessInvestmentCompanyStockStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRSFormT/IRSFormT.xsd:				<xsd:element name="SellerUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRSFormT/IRSFormT.xsd:				<xsd:element name="PurchaserUSAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS8697/IRS8697.xsd:			<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+./CorporateIncomeTax/Common/IRS8825/IRS8825.xsd:				<xsd:element name="USAddress" type="USAddressType">
+./CorporateIncomeTax/Common/IRS3115/ParentCorporationInformationStatement.xsd:				<xsd:element name="USAddress" type="USAddressType">

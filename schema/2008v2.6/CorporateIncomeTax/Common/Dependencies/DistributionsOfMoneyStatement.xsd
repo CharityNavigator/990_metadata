@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Distributions of Money Statement</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 26, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- =============  Distributions of Money Statement ============== -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="DistributionsOfMoneyStatement">
+		<xsd:annotation>
+			<xsd:documentation>Distributions of money statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DistributionsOfMoneyStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DistributionsOfMoneyStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="DistributionsOfMoneyStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for distributions of money statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+
+			<!-- Distribution of Money -->
+			<xsd:element name="DistributionOfMoney" type="DistributionOfMoneyType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distribution of money</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Distribution of Money -->
+	<xsd:complexType name="DistributionOfMoneyType">
+		<xsd:sequence>		
+
+			<!-- Adjusted Basis Immediately Before Distribution -->
+			<xsd:element name="AdjBasisImmediatelyBfrDistri" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basis immediately before distribution</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Fair Market Value on Date of Distribution -->
+			<xsd:element name="FairMarketValueOnDateOfDistri" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value on date of distribution</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

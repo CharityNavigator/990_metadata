@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Depreciation Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 22, 2008</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ================================================= -->
+	<!-- =============  Depreciation Schedule ============ -->
+	<!-- ================================================= -->
+	
+	<xsd:element name="DepreciationSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Depreciation Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DepreciationScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DepreciationSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="DepreciationScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Depreciation Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="Depreciation" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Description of Property -->
+						<xsd:element name="DescriptionOfProperty" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Description of Property</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Date Acquired -->
+						<xsd:element name="DateAcquired" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date Acquired</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cost or Other Basis -->
+						<xsd:element name="CostOrOtherBasis" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cost or Other Basis</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prior Years' Depreciation -->
+						<xsd:element name="PriorYearsDepreciation" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prior Years' Depreciation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Computation Method -->
+						<xsd:element name="ComputationMethod" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Computation Method</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Choice between: Rate OR Life (# of years) -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Rate -->
+							<xsd:element name="Rate" type="LargeRatioType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Rate</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Life (# of years) -->
+							<xsd:element name="Life" type="LargeRatioType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Life (# of years)</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>								
+
+						</xsd:choice>
+
+						<!-- Current Year's Expense -->
+						<xsd:element name="CurrentYearExpense" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Current Year's Depreciation Expense</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+				
+						<!-- Net Investment Income -->
+						<xsd:element name="NetInvestmentIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net Investment Income</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Adjusted Net Income -->
+						<xsd:element name="AdjustedNetIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjusted Net Income</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>			
+
+						<!-- Cost of Goods Sold Not Included -->
+						<xsd:element name="CostOfGoodsSoldNotIncluded" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cost of Goods Sold Not Included</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

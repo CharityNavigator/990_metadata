@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Small Business Investment Company Stock Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 2, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- ====================================================================== -->
+	<!-- =========  Small Business Investment Company Stock Statement ========= -->
+	<!-- ====================================================================== -->
+	<xsd:element name="SmallBusInvstCompanyStockStmt">
+		<xsd:annotation>
+			<xsd:documentation>Small Business Investment Company Stock Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="SmallBusInvstCompanyStockStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="SmallBusinessInvestmentCompanyStockStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="SmallBusInvstCompanyStockStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Small Business Investment Company Stock Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Type for Repeating Group - Small Business Investment Company Stock -->
+			<xsd:element name="SmallBusinessInvstCompanyStock" type="SmallBusinessInvstCompanyStockType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SmallBusinessInvstCompanyStockType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for a small business investment company stock statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Name of Small Business -->
+			<xsd:element name="NameOfSmallBusiness" type="BusinessNameLine1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of Small Business</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Address of Small Business - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">			
+			
+				<!-- US Address of Small Business -->
+				<xsd:element name="USAddressOfSmallBusiness" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address of Small Business</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+					
+				<!-- Foreign Address of Small Business -->
+				<xsd:element name="ForeignAddressOfSmallBusiness" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Address of Small Business</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+			</xsd:choice>	
+
+			<!-- Reason the Stock is Worthless -->
+			<xsd:element name="ReasonTheStockIsWorthless" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reason the Stock is Worthless</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Date Stock Became Worthless -->
+			<xsd:element name="DateStockBecameWorthless" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Stock Became Worthless</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

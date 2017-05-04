@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Return Header for Form 8868</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/V2003_06/efileTypes.xsd"/>
+	
+	<xsd:element name="ReturnHeader" type="ReturnHeaderType"/>
+	
+	<xsd:complexType name="ReturnHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Return Header - Form 8868</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Return ID (globally unique) -->
+			<xsd:element name="ReturnId" type="ReturnIdType">
+				<xsd:annotation>
+					<xsd:documentation>Must be globally unique. Same format as the ReturnID</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Date and Time Stamp -->
+			<xsd:element name="Timestamp" type="TimestampType">
+				<xsd:annotation>
+					<xsd:documentation>The date and time when the application for extension was created</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Tax Period End Date -->
+			<xsd:element name="TaxPeriodEndDate" type="DateType"/>
+
+			<!-- Intermediate Service Provider Number -->
+			<xsd:element name="ISPNumber" type="ISPType" minOccurs="0"/>
+			<!-- Software Identification -->
+			<xsd:element name="SoftwareId" type="SoftwareIdType"/>
+			
+			<!-- Software Version -->
+			<xsd:element name="SoftwareVersion" type="SoftwareVersionType" minOccurs="0"/>
+			
+			<!-- Originator -->
+			<xsd:element name="Originator">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EFIN" type="EFINType"/>
+						<xsd:element name="Type" type="OriginatorType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+						
+			<!-- Return Identifiers -->
+			<xsd:element name="ReturnType">
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="8868"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Tax Period Begin Date -->
+			<xsd:element name="TaxPeriodBeginDate" type="DateType"/>
+
+			<!-- Withdrawal -->
+			<xsd:element name="ElectronicFundsWithdrawal" type="CheckboxType" minOccurs="0"/>
+			
+			<!-- Filer -->
+			<xsd:element name="Filer">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EIN" type="EINType"/>
+						<xsd:element name="Name" type="BusinessNameType"/>
+						<xsd:element name="NameControl" type="BusinessNameControlType"/>
+						<xsd:choice>
+							<xsd:element name="USAddress" type="USAddressType"/>
+							<xsd:element name="ForeignAddress" type="ForeignAddressType"/>
+						</xsd:choice>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

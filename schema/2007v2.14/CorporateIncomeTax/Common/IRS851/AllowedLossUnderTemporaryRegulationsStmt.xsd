@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Allowed Loss Under Sections 1.1502-35T(c)5 and 1.337(d)-2(c) Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 8, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ====================================================================================== -->
+	<!-- === Allowed Loss Under Sections 1.1502-35T(c)5 and 1.337(d)-2(c) Statement === -->
+	<!-- ====================================================================================== -->
+
+
+	<xsd:element name="AllowedLossUnderTempRegsStmt">
+		<xsd:annotation>
+			<xsd:documentation>Allowed Loss Under Temporary Regulations Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AllowedLossUnderTempRegsStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AllowedLossUnderTemporaryRegulationsStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="AllowedLossUnderTempRegsStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Allowed Loss Under Temporary Regulations Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Repeating for each allowed loss -->
+			<xsd:element name="AllowedLoss" type="AllowedLossType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AllowedLossType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for an allowed loss</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Corporation Name -->	
+			<xsd:element name="CorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nameline(s) of the corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>
+			
+			<!-- Choice between Corporation EIN, or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+				
+				<!-- Corporation's EIN -->
+				<xsd:element name="CorporationEIN" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Corporation EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<!-- Loss Not Disallowed Under Paragraph (a)(1) of this section -->
+			<xsd:element name="LossNotDisallowedUnderA1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Loss not disallowed under paragraph (a)(1) of this section</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount of Basis Not Reduced Under Paragraph (b)(1) of this section -->
+			<xsd:element name="BasisNotReducedUnderB1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis not reduced under paragraph (b)(1) of this section</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Corporate Income Tax Schema - Gain Recognized Under Sec 904(f)(5)(F) on Transfer Statement</Description>
+
+			<TaxYear>2015</TaxYear>
+
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+
+
+	<!-- ============================================================================ -->
+
+	<!-- =====  Gain Recognized Under Sec 904(f)(5)(F) on Transfer Statement   ====== -->
+
+	<!-- ============================================================================ -->
+
+
+
+
+
+	<xsd:element name="GainRcgnzSect904f5FTrnsfrStmt">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Gain recognized under sec 904(f)(5)(F) on transfer statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="GainRcgnzSect904f5FTrnsfrStmtType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="GainRecognizedUnderSection904f5FOnTransferStatement">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<xsd:complexType name="GainRcgnzSect904f5FTrnsfrStmtType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for gain recognized under sec 904(f)(5)(F) on transfer statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<!-- Gain Recognized Under Sec 904(f)(5)(F) on Transfer Info -->
+
+			<xsd:element name="GainRcgnzSect904f5FTrnsfrInfo" type="GainRcgnzSect904f5FTrnsfrInfoType" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Gain recognized under sec 904(f)(5)(F) on transfer info</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+	<!-- Type for Repeating Group - Gain Recognized Under Sec 904(f)(5)(F) on Transfer -->
+
+	<xsd:complexType name="GainRcgnzSect904f5FTrnsfrInfoType">
+
+		<xsd:sequence>
+
+
+
+			<!-- Description of Property Transferred -->
+
+			<xsd:element name="PropertyTransferredDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Description of property transferred</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Amount of Gain Recognized -->
+
+			<xsd:element name="GainRecognizedOnTransferAmt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Amount of gain recognized</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+</xsd:schema>

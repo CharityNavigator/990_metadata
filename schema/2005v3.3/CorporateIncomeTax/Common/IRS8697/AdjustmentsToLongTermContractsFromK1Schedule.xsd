@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Schedule of Adjustments to Long-Term Contracts from Schedules  K-1</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 17, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ==================================================================================== -->
+	<!-- ==================== Schedule of Adjustments to Long-Term Contracts from Schedules  K-1 ====== -->
+	<!-- ==================================================================================== -->
+
+	<xsd:element name="AdjLongTermContractsFromK1Sch">
+		<xsd:annotation>
+			<xsd:documentation>Schedule of Adjustments to Long-Term Contracts from Schedules  K-1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AdjLongTermContractsFromK1SchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AdjustmentsToLongTermContractsFromK1Schedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="AdjLongTermContractsFromK1SchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Schedule of Adjustments to Long-Term Contracts from Schedules  K-1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Schedule" type="AdjLongTermContractsK1Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AdjLongTermContractsK1Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Schedule of Adjustments to Long-Term Contracts from Schedules  K-1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- 1. Entity Name -->
+			<xsd:element name="EntityName" type="BusinessNameType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>1. Entity name </Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  PYLongTermContractsFromK1Type  -->
+			<xsd:element name="PYLongTermContractsFromK1" type="PYLongTermContractsFromK1Type"  minOccurs="0" maxOccurs="3">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long-term contract income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="PYLongTermContractsFromK1Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Adjustments to Long-Term Contracts Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+	
+			<!-- ==== 2. Long-term contract income === -->
+			
+			<!--1. Year Identifier  -->
+			<xsd:element name="Year" type="YearType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>1. Year identifier</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 2. Adjustment from K-1-->
+			<xsd:element name="PriorYearAdjustmentFromK1" type="USAmountType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>2. Adjustment from K-1</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 3. Net Adjustment to Income from Long-Term Contracts -->
+			<xsd:element name="PYNetAdjustmentToIncome" type="USAmountType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>3. Net adjustment to income from long-term contracts</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

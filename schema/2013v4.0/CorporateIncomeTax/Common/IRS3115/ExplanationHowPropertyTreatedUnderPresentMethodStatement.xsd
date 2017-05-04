@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Schema - Explanation of How Property is Treated Under Present Method Statement</Description>
+
+			<TaxYear>2013</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>July 18, 2014</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+	<!-- ============================================================================= -->
+
+	<!-- === Explanation of How Property is Treated Under Present Method Statement === -->
+
+	<!-- ============================================================================= -->
+
+
+
+	<xsd:element name="ExplnPropTrtdUndPresMthdStmt">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Explanation of How Property is Treated Under Present Method Statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="ExplnPropUndPresentMethodStmtType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="StringType" fixed="ExplanationHowPropertyTreatedUnderPresentMethodStatement">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<!-- Explanation of How Property is Treated Under Present Method Statement -->
+
+	<xsd:complexType name="ExplnPropUndPresentMethodStmtType">
+
+		<xsd:sequence>
+
+			<xsd:element name="ShortExplanationTxt" type="ShortExplanationType" minOccurs="0"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+</xsd:schema>

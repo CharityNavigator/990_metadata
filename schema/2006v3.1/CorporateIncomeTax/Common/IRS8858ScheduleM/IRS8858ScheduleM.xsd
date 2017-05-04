@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8858 Schedule M</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 18, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ====================== IRS Form 8858 Schedule M ================== -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS8858ScheduleM">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8858 Schedule M</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8858ScheduleMType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8858ScheduleM">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8858ScheduleMType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Schedule M (Form 8858)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Name of person filing Form 8858 -->
+			<xsd:element name="NameOfPersonFilingForm8858" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of person filing Form 8858</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying number -->
+			<xsd:choice minOccurs="0">
+
+		                <xsd:element name="IdentifyingNumber" type="SSNType">
+					<xsd:annotation>
+			                        <xsd:documentation>
+							<Description>Identifying number, SSN</Description>
+			                        </xsd:documentation>
+					</xsd:annotation>
+		                </xsd:element>            
+
+				<xsd:element name="IdentifyingNumberEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number, EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Name of foreign disregarded entity -->
+			<xsd:element name="NameOfForeignDisregardedEntity" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of foreign disregarded entity</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Tax Owner -->
+			<xsd:element name="NameOfTaxOwner" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of Tax Owner</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Relevant functional currency -->
+			<xsd:element name="RelevantFunctionalCurrency" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Relevant functional currency</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Exchange Rate Used -->
+			<xsd:element name="ExchangeRateUsed" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exchange Rate Used</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice of Controlled Foreign Partnership or Corporation, two sequences -->
+			<xsd:choice minOccurs="0">
+
+		    	<!-- sequence for Controlled Foreign Partnership -->
+        		<xsd:sequence>
+
+		    		<!-- Controlled Foreign Partnership -->
+            		<xsd:element name="ControlledForeignPartnership" type="CheckboxType">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Transactions of foreign disregarded entity</Description>
+		            			<LineNumber>Column (a)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- U.S. person filing this return -->
+            		<xsd:element name="USFiler" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>U.S. person filing this return</Description>
+		            			<LineNumber>Column (b)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- Any domestic corporation or partnership controlling or controlled by the filer -->
+            		<xsd:element name="DomesticCorpOrPartnership" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Any domestic corporation or partnership controlling or controlled by the filer</Description>
+		            			<LineNumber>Column (c)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- Any foreign corporation or partnership controlling or controlled by the filer (other than the tax owner) -->
+            		<xsd:element name="ForeignCorpOrPartnership" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Any foreign corporation or partnership controlled by the filer (other than the tax owner)</Description>
+		            			<LineNumber>Column (d)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- Any U.S. person with a 10% or more direct interest in the controlled foreign partnership (other than the filer) -->
+            		<xsd:element name="TenPercentForeignPrtshpOrUSShr" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Any U.S. person with a 10% or more direct interest in the controlled foreign partnership (other than the filer)</Description>
+		            			<LineNumber>Column (e)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+        		</xsd:sequence>
+
+		    	<!-- sequence for Controlled Foreign Corporation -->
+        		<xsd:sequence>
+
+		    		<!-- Controlled Foreign Corporation -->
+            		<xsd:element name="ControlledForeignCorporation" type="CheckboxType">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Transactions of foreign disregarded entity</Description>
+		            			<LineNumber>Column (a)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- U.S. person filing this return -->
+            		<xsd:element name="USFiler" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>U.S. person filing this return</Description>
+		            			<LineNumber>Column (b)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- Any domestic corporation or partnership controlled by the filer -->
+            		<xsd:element name="DomesticCorpOrPartnership" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Any domestic corporation or partnership controlled by the filer</Description>
+		            			<LineNumber>Column (c)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- Any foreign corporation or partnership controlled by the filer (other than the tax owner) -->
+            		<xsd:element name="ForeignCorpOrPartnership" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>Any foreign corporation or partnership controlling or controlled by the filer (other than the tax owner)</Description>
+		            			<LineNumber>Column (d)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- 10% or more U.S. shareholder of any corporation controlling the tax owner -->
+            		<xsd:element name="TenPercentForeignPrtshpOrUSShr" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>10% or more U.S. shareholder of any corporation controlling the tax owner</Description>
+		            			<LineNumber>Column (e)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+		    		<!-- 10% or more U.S. shareholder, or other owner, of any entity controlling the tax owner -->
+            		<xsd:element name="TenPercentUSShrOrOtherOwner" type="Form8858SchMTransactionsType" minOccurs="0">
+	        			<xsd:annotation>
+		        			<xsd:documentation>
+		        				<Description>10% or more U.S.  shareholder, or other owner, of any entity controlling the tax owner</Description>
+		            			<LineNumber>Column (f)</LineNumber>
+		    	        	</xsd:documentation>
+            			</xsd:annotation>
+	        		</xsd:element>
+
+        		</xsd:sequence>
+
+			</xsd:choice>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Transactions of foreign disregarded entity.
+         Fields in lines 1-19 are defined for columns (b)-(f) using names in column (a) -->
+	<xsd:complexType name="Form8858SchMTransactionsType">
+		<xsd:annotation>
+			<xsd:documentation>Transactions of foreign disregarded entity</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Sales of inventory -->
+			<xsd:element name="SalesOfInventory" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of inventory</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sales of property rights -->
+			<xsd:element name="SalesOfPropertyRights" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of property rights</Description>
+						<LineNumber>Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Compensation received for certain services -->
+			<xsd:element name="CompReceivedForCertainServices" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation received for certain services</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Commissions received -->
+			<xsd:element name="CommissionsReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rents, royalties, and license fees received  -->
+			<xsd:element name="RentsRoyaltiesLicenseFeesRcvd" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and license fees received</Description>
+						<LineNumber>Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Dividends/Distributions received -->
+			<xsd:element name="DividendsDistributionsReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends/Distributions received</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest received -->
+			<xsd:element name="InterestReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest received</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other -->
+			<xsd:element name="OtherTransactionsReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other transactions received</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 1 through 8 -->
+			<xsd:element name="TotalTransactionsReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total transactions received</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchases of inventory -->
+			<xsd:element name="PurchasesOfInventory" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of inventory</Description>
+						<LineNumber>Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchases of tangible property other than inventory -->
+			<xsd:element name="PurchasesOfTangibleProperty" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of tangible property other than inventory</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchases of property rights -->
+			<xsd:element name="PurchasesOfPropertyRights" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of property rights</Description>
+						<LineNumber>Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Compensation paid for certain services -->
+			<xsd:element name="CompPaidForCertainServices" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation paid for certain services</Description>
+						<LineNumber>Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Commissions paid -->
+			<xsd:element name="CommissionsPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions paid</Description>
+						<LineNumber>Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rents, royalties, and license fees paid -->
+			<xsd:element name="RentsRoyaltiesLicenseFeesPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and license fees paid</Description>
+						<LineNumber>Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest paid -->
+			<xsd:element name="InterestPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid</Description>
+						<LineNumber>Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total transactions paid -->
+			<xsd:element name="TotalTransactionsPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total transactions paid</Description>
+						<LineNumber>Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts borrowed -->
+			<xsd:element name="AmountsBorrowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts borrowed</Description>
+						<LineNumber>Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts loaned -->
+			<xsd:element name="AmountsLoaned" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts loaned</Description>
+						<LineNumber>Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

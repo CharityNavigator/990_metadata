@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Deemed Dividend Election Statement</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 25, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================== -->
+	<!-- ======== Deemed Dividend Election Statement ======= -->
+	<!-- =================================================== -->
+
+	<xsd:element name="DeemedDividendElectionStmt">
+		<xsd:annotation>
+			<xsd:documentation>Deemed Dividend Election Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DeemedDividendElectionStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="DeemedDividendElectionStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Deemed Dividend Election Statement Type -->
+	<xsd:complexType name="DeemedDividendElectionStatementType">
+		<xsd:sequence>
+
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Identifying Number or Missing EIN Reason Choice -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Social Security Number -->
+				<xsd:element name="SocialSecurityNumber" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Social Security Number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Employer Identification Number -->
+				<xsd:element name="EmployerIdentificationNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Amount Included in Income -->
+			<xsd:element name="AmountIncludedInIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount included in income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Year in  which the Amount was Previously Included in Income -->
+			<xsd:element name="TaxYearAmountIncludedInIncome" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year in which the amount was previously included in income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The Law under which the Amount was Previously Included in Income -->
+			<xsd:element name="LawUnderWhichAmountWasIncluded" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The law under which the amount was previously included in income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Transaction in which the Shareholder Acquired the Stock of the PFIC from the Other US Person -->
+			<xsd:element name="DescriptionOfTransaction" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of transaction in which the shareholder acquired the stock of the PFIC from the other US person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The Law under which the Shareholder's Holding Period Includes the Holding Period of the Other US Person -->
+			<xsd:element name="ShareholdersHoldingPeriodLaw" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The law under which the shareholder's holding period includes the holding period of the other US person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

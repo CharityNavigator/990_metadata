@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Return Header for 990/990-EZ/990-PF Returns</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 18, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+	<xsd:element name="ReturnHeader" type="ReturnHeaderType"/>
+	
+	<xsd:complexType name="ReturnHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for the 990/990-EZ/990-PF Return Header </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Return ID (globally unique) -->
+			<xsd:element name="ReturnId" type="ReturnIdType">
+				<xsd:annotation>
+					<xsd:documentation>Must be globally unique.  Format is: EFIN (6 digits) -> Year(4 digits) -> Julian Day(3 digits) -> Sequence Number (7 alphanumeric)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Date and Time Stamp -->
+			<xsd:element name="Timestamp" type="TimestampType">
+				<xsd:annotation>
+					<xsd:documentation>The date and time when the return was created</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Tax Period End Date -->
+			<xsd:element name="TaxPeriodEndDate" type="DateType"/>
+			<!-- Disaster Relief -->
+			<xsd:element name="DisasterRelief" type="LineExplanationType" minOccurs="0"/>
+			<!-- Intermediate Service Provider Number -->
+			<xsd:element name="ISPNumber" type="ISPType" minOccurs="0"/>
+			
+			<!-- PreparerFirm -->
+			<xsd:element name="PreparerFirm" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EIN" type="EINType" minOccurs="0"/>
+						<xsd:element name="PreparerFirmBusinessName" type="BusinessNameType"/>
+						<xsd:choice>
+							<xsd:element name="PreparerFirmUSAddress" type="USAddressType" />
+							<xsd:element name="PreparerFirmForeignAddress" type="ForeignAddressType" />
+						</xsd:choice>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Software Identification -->
+			<xsd:element name="SoftwareId" type="SoftwareIdType"/>
+			<!-- Software Version -->
+			<xsd:element name="SoftwareVersion" type="SoftwareVersionType" minOccurs="0"/>
+			<!-- Multiple Software Packages Used ? -->
+			<xsd:element name="MultipleSoftwarePackagesUsed" type="BooleanType"/>
+			
+			<!-- Originator -->
+			<xsd:element name="Originator">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EFIN" type="EFINType"/>
+						<xsd:element name="Type" type="OriginatorType"/>
+						<!-- Practitioner PIN -->
+						<xsd:element name="PractitionerPIN"  minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="EFIN" type="EFINType"/>
+									<xsd:element name="PIN" type="PINType"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- PIN entered by -->
+			<xsd:element name="PINEnteredBy" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="Taxpayer" />
+						<xsd:enumeration value="ERO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Signature Option -->
+			<xsd:element name="SignatureOption" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="PIN Number" />
+						<xsd:enumeration value="Binary Attachment 8453 Signature Document" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Return Identifiers -->
+			<xsd:element name="ReturnType">
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="990"/>
+						<xsd:enumeration value="990EZ"/>
+						<xsd:enumeration value="990PF"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Tax Period Begin Date -->
+			<xsd:element name="TaxPeriodBeginDate" type="DateType"/>
+			
+			<!-- Filer -->
+			<xsd:element name="Filer">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EIN" type="EINType"/>
+						<xsd:element name="Name" type="BusinessNameType"/>
+						<xsd:element name="InCareOfName" type="InCareOfNameType" minOccurs="0" />
+						<xsd:element name="NameControl" type="BusinessNameControlType"/>
+						<xsd:element name="Phone" type="PhoneNumberType" minOccurs="0"/>
+						<xsd:choice>
+							<xsd:element name="USAddress" type="USAddressType" />
+							<xsd:element name="ForeignAddress" type="ForeignAddressType" />
+						</xsd:choice>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Officer -->
+			<xsd:element name="Officer">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Name" type="PersonNameType"/>
+						<xsd:element name="Title" type="PersonTitleType"/>			
+						<xsd:element name="Phone" type="PhoneNumberType" minOccurs="0"/>
+						<xsd:element name="EmailAddress" type="EmailAddressType" minOccurs="0"/>
+						<xsd:element name="DateSigned" type="DateType"/>
+						<xsd:element name="TaxpayerPIN" type="PINType" minOccurs="0" />
+						<xsd:element name="AuthorizeThirdParty" type="BooleanType" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Preparer -->
+			<xsd:element name="Preparer" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Name" type="PersonNameType" minOccurs="0"/>
+						<xsd:choice minOccurs="0">
+							<xsd:element name="SSN" type="SSNType"/>
+							<xsd:element name="PTIN" type="PTINType"/>
+						</xsd:choice>
+						<xsd:element name="Phone" type="PhoneNumberType" minOccurs="0"/>
+						<xsd:element name="EmailAddress" type="EmailAddressType" minOccurs="0"/>
+						<xsd:element name="DatePrepared" type="DateType" minOccurs="0"/>
+						<xsd:element name="SelfEmployed" type="CheckboxType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Tax Year -->
+			<xsd:element name="TaxYear" type="YearType" />
+
+		</xsd:sequence>
+			
+		<!-- Binary Attachment Count -->
+		<xsd:attribute name="binaryAttachmentCount" type="IntegerNNType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The number of binary attachments in the return</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+</xsd:schema>

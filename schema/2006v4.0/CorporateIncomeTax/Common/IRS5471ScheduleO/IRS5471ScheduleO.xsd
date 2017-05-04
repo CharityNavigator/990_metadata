@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 5471 Schedule O</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =========================================================== -->
+	<!-- ================  IRS Form 5471 Schedule O ================ -->
+	<!-- =========================================================== -->
+
+
+	<xsd:element name="IRS5471ScheduleO">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5471 Schedule O</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent> 
+				<xsd:extension base="IRS5471ScheduleOType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5471ScheduleO">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ShareholdersBecameUSPersonStatement ReturnFiledForPriorThreeYearsStatement BinaryAttachment" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5471ScheduleOType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5471 Schedule O</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Person Filing Form 5471: choice between Person or Business Name -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Name of Person Filing Form 5471 -->
+				<xsd:element name="NameOfPersonFilingForm5471" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of Person Filing Form 5471</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Name of Business Filing Form 5471 -->
+				<xsd:element name="NameOfBusinessFilingForm5471" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of Business Filing Form 5471</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Filer's Identifying Number: choice between EIN or SSN or Missing EIN/SSN -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Filer's EIN -->
+				<xsd:element name="FilerEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filer's EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>				
+
+				<!-- Filer's SSN -->
+				<xsd:element name="FilerSSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filer's SSN</Description>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+				
+				<!-- Missing EIN/SSN Reason of Shareholder -->
+				<xsd:element name="MissingEINSSNReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN/SSN reason of shareholder</Description>
+							<LineNumber>Schedule O Part I Column (c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+		
+			</xsd:choice>
+
+			<!-- Name of Foreign Corporation -->
+			<xsd:element name="NameOfForeignCorporation" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of Foreign Corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>				
+
+			<!-- Part I - Completed by U.S. Officers and Directors -->
+			<xsd:element name="USOfficersDirectorsPartI" type="USOfficersDirectorsPartIType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Part II - Completed by U.S. Shareholders -->
+
+			<!-- Part II Section A - General Shareholder Information -->					
+			<xsd:element name="USShareholdersPartIISectA" type="USShareholdersPartIISectAType" minOccurs="0" maxOccurs="unbounded"/>
+						
+			<!-- Part II Section B - U.S. Persons Who Are Officers or Directors of the Foreign Corporation -->						
+			<xsd:element name="USShareholdersPartIISectB" type="USShareholdersPartIISectBType" minOccurs="0" maxOccurs="unbounded"/>
+			
+			<!-- Part II Section C - Acquisition of Stock -->														
+			<xsd:element name="USShareholdersPartIISectC" type="USShareholdersPartIISectCType" minOccurs="0" maxOccurs="unbounded"/>
+			
+			<!-- Part II Section D - Disposition of Stock -->																
+			<xsd:element name="USShareholdersPartIISectD" type="USShareholdersPartIISectDType" minOccurs="0" maxOccurs="unbounded"/>
+					
+			<!-- Part II Section E - Organization or Reorganization of Foreign Corporation -->	
+			<xsd:element name="USShareholdersPartIISectE" type="USShareholdersPartIISectEType" minOccurs="0" maxOccurs="unbounded"/>			
+			
+			<!-- Part II Section F - Additional Information -->				
+		
+			<!-- Date of Reorganization If Any, in the Last 4 Years -->
+			<xsd:element name="DateOfReorganization" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of Reorganization If Any, in the Last 4 Years</Description>
+						<LineNumber>Schedule O Part II Section F Line (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>				
+			
+		</xsd:sequence>
+	</xsd:complexType> 
+		
+	
+	<!-- Type for Repeating Table Rows in Part I -->
+	<xsd:complexType name="USOfficersDirectorsPartIType">
+		<xsd:sequence>
+
+			<!-- Choice: Person or Business Name of Shareholder for Whom Acquisition Information is Reported -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name of Shareholder for Whom Acquisition Information is Reported -->
+				<xsd:element name="PersonNameOfShareholder" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of shareholder for whom acquisition information is reported</Description>
+							<LineNumber>Schedule O Part I Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name of Shareholder for Whom Acquisition Information is Reported -->
+				<xsd:element name="BusinessNameOfShareholder" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of shareholder for whom acquisition information is reported</Description>
+							<LineNumber>Schedule O Part I Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Choice: US or Foreign Address of Shareholder -->
+			<xsd:choice minOccurs="0">
+		
+				<!-- US Address of the Shareholder -->
+				<xsd:element name="AddressOfShareholderUS" type="USAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address of the shareholder</Description>
+							<LineNumber>Schedule O Part I Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+					
+				<!-- Foreign Address of the Shareholder -->
+				<xsd:element name="AddressOfShareholderForeign" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address of the shareholder</Description>
+							<LineNumber>Schedule O Part I Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN of Shareholder -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of shareholder</Description>
+							<LineNumber>Schedule O Part I Column (c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN of Shareholder -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of shareholder</Description>
+							<LineNumber>Schedule O Part I Column (c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing SSN/EIN Reason of Shareholder -->
+				<xsd:element name="MissingSSNEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing SSN/EIN reason of shareholder</Description>
+							<LineNumber>Schedule O Part I Column (c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="FOREIGNUS"/>
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Date of Original 10% Acquisition -->
+			<xsd:element name="DateOriginal10PcntAcquisition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of original 10% acquisition</Description>
+						<LineNumber>Schedule O Part I Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>		
+			
+			<!-- Date of Additional 10% Acquisition -->
+			<xsd:element name="DateAddnl10PcntAcquisition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of additional 10% acquisition</Description>
+						<LineNumber>Schedule O Part I Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>					
+
+		</xsd:sequence>			
+	</xsd:complexType>
+	
+	<!-- Type for Repeating Table Rows in Part II Section A -->
+	<xsd:complexType name="USShareholdersPartIISectAType">
+		<xsd:sequence>			
+
+			<!-- Choice: Person or Business Name of Shareholder for Whom Acquisition Information is Reported -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name of Shareholder for Whom Acquisition Information is Reported -->
+				<xsd:element name="PersonNameOfShareholder" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of shareholder for whom acquisition information is reported</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name of Shareholder for Whom Acquisition Information is Reported -->
+				<xsd:element name="BusinessNameOfShareholder" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of shareholder for whom acquisition information is reported</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Choice: US or Foreign Address of Shareholder -->
+			<xsd:choice minOccurs="0">
+					
+				<!-- US Address of the Shareholder -->
+				<xsd:element name="AddressOfShareholderUS" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address of the shareholder</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+													
+				<!-- Foreign Address of the Shareholder -->
+				<xsd:element name="AddressOfShareholderForeign" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address of the shareholder</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>		
+				</xsd:element>
+				
+			</xsd:choice>		
+
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN of Shareholder -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of shareholder</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN of Shareholder -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of shareholder</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing SSN/EIN Reason of Shareholder -->
+				<xsd:element name="MissingSSNEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing SSN/EIN reason of shareholder</Description>
+							<LineNumber>Schedule O Part II Section A Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="FOREIGNUS"/>
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+		
+			<!-- Type of Return (Form Number) -->			
+			<xsd:element name="TypeOfReturn" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of return (form number)</Description>
+						<LineNumber>Schedule O Part II Section A Column (b)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>		
+			
+			<!-- Date Return Filed -->
+			<xsd:element name="DateReturnFiled" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date return filed</Description>
+						<LineNumber>Schedule O Part II Section A Column (b)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>					
+			
+			<!-- Internal Revenue Service Center Where Filed -->
+			<xsd:element name="IRSServiceCenterWhereFiled" type="IRSServiceCenterType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>				
+						<Description>Internal revenue service center where filed</Description>
+						<LineNumber>Schedule O Part II Section A Column (b)(3)</LineNumber>					
+					</xsd:documentation>						
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date (if any) Shareholder Last Filed Information Return Under Section 6046 for the Foreign Corporation -->
+			<xsd:element name="LastFiledReturnUnderSect6046" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date (if any) shareholder last filed information return under section 6046 for the foreign corporation</Description>
+						<LineNumber>Schedule O Part II Section A Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>		
+			</xsd:element>					
+			
+		</xsd:sequence>			
+	</xsd:complexType>	
+	
+			
+	<!-- Type for Repeating Table Rows in Part II Section B -->
+	<xsd:complexType name="USShareholdersPartIISectBType">
+		<xsd:sequence>			
+			
+			<!-- Name of U.S. Officer or Director -->
+			<xsd:element name="NameOfUSOfficerOrDirector" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of U.S. officer or director</Description>
+						<LineNumber>Schedule O Part II Section B Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>										
+			
+			<!-- Name of U.S. Officer or Director - Line 2 -->
+			<xsd:element name="NameOfUSOfficerOrDirector2" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of U.S. officer or director- Line 2</Description>
+						<LineNumber>Schedule O Part II Section B Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>						
+			
+			<!-- Choice: US or Foreign Address of the U.S. Officer or Director -->
+			<xsd:choice minOccurs="0">
+					
+				<!-- US Address of the U.S. Officer or Director -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address of the U.S. officer or director</Description>
+							<LineNumber>Schedule O Part II Section B Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>	
+												
+				<!-- Foreingn Address of the U.S. Officer or Director -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address of the U.S. officer or director</Description>
+							<LineNumber>Schedule O Part II Section B Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>	
+				</xsd:element>
+				
+			</xsd:choice>		
+			
+			<!-- Social Security Number of the U.S. Officer or Director -->
+			<xsd:element name="SocialSecurityNumber" type="SSNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social security number of the U.S. officer or director</Description>
+						<LineNumber>Schedule O Part II Section B Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>							
+			
+			<!-- U.S. Officer -->
+			<xsd:element name="USOfficer" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the person is a U.S. officer</Description>
+						<LineNumber>Schedule O Part II Section B Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>										
+			
+			<!-- U.S. Director -->
+			<xsd:element name="USDirector" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the person is a U.S. director</Description>
+						<LineNumber>Schedule O Part II Section B Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>			
+			
+		</xsd:sequence>			
+	</xsd:complexType>	
+	
+	<!-- Type for Repeating Table Rows in Part II Section C -->
+	<xsd:complexType name="USShareholdersPartIISectCType">
+		<xsd:sequence>			
+
+			<!-- Choice: Person or Business Name of Shareholder(s) Filing This Schedule -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name of Shareholder(s) Filing This Schedule -->
+				<xsd:element name="PrsnNameOfShFilingThisSchedule" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of shareholder(s) filing this schedule</Description>
+							<LineNumber>Schedule O Part II Section C Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name of Shareholder(s) Filing This Schedule -->
+				<xsd:element name="BusNameOfShFilingThisSchedule" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of shareholder(s) filing this schedule</Description>
+							<LineNumber>Schedule O Part II Section C Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Class of Stock Acquired -->
+			<xsd:element name="ClassOfStockAcquired" type="StockDescription5471SchOType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class of stock acquired</Description>
+						<LineNumber>Schedule O Part II Section C Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>									
+			
+			<!-- Date of Acquisition -->
+			<xsd:element name="DateOfAcquisition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of acquisition</Description>
+						<LineNumber>Schedule O Part II Section C Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>												
+			
+			<!-- Method of Acquisition -->		
+			<xsd:element name="MethodOfAcquisition" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method of acquisition</Description>
+						<LineNumber>Schedule O Part II Section C Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>												
+			
+			<!-- Number of Shares Acquired Directly -->
+			<xsd:element name="NumberOfSharesAcquiredDirectly" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares acquired directly</Description>
+						<LineNumber>Schedule O Part II Section C Column (e)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>															
+			
+			<!-- Number of Shares Acquired Indirectly -->
+			<xsd:element name="NumberOfSharesAcqIndirectly" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares acquired indirectly</Description>
+						<LineNumber>Schedule O Part II Section C Column (e)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>								
+			</xsd:element>				
+			
+			<!-- Number of Shares Acquired Constructively -->
+			<xsd:element name="NumOfSharesAcqConstructively" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares acquired constructively</Description>
+						<LineNumber>Schedule O Part II Section C Column (e)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>							
+			</xsd:element>							
+			
+			<!-- Amount Paid or Value Given -->
+			<xsd:element name="AmountPaidOrValueGiven" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid or value given</Description>
+						<LineNumber>Schedule O Part II Section C Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>				
+
+			<!-- Choice: Person or Business Name From Whom Shares were Acquired -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name From Whom Shares were Acquired -->
+				<xsd:element name="PrsnFromWhomSharesAcquired" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name from whom shares were acquired</Description>
+							<LineNumber>Schedule O Part II Section C Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name From Whom Shares were Acquired -->
+				<xsd:element name="BusFromWhomSharesAcquired" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name from whom shares were acquired</Description>
+							<LineNumber>Schedule O Part II Section C Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Choice: US or Foreign Address of Person from Whom Shares were Acquired -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of Person from Whom Shares were Acquired -->
+				<xsd:element name="USAddressFromWhomSharesWereAcq" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of person from whom shares were acquired</Description>
+							<LineNumber>Schedule O Part II Section C Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>						
+
+				<!-- Foreign Address of Person from Whom Shares were Acquired -->
+				<xsd:element name="FrgnAddressFrWhomSharesWereAcq" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of person from whom shares were acquired</Description>
+							<LineNumber>Schedule O Part II Section C Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>						
+
+			</xsd:choice>
+			
+		</xsd:sequence>			
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Table Rows in Part II Section D -->
+	<xsd:complexType name="USShareholdersPartIISectDType">
+		<xsd:sequence>			
+
+			<!-- Choice: Person or Business Name of Shareholder Disposing of Stock -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name of Shareholder Disposing of Stock -->
+				<xsd:element name="PersonNameOfShDisposingOfStock" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of shareholder disposing of stock</Description>
+							<LineNumber>Schedule O Part II Section D Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name of Shareholder Disposing of Stock -->
+				<xsd:element name="BusNameOfShDisposingOfStock" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of shareholder disposing of stock</Description>
+							<LineNumber>Schedule O Part II Section D Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Class of Stock Disposed -->
+			<xsd:element name="ClassOfStockDisposed" type="StockDescription5471SchOType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class of stock disposed</Description>
+						<LineNumber>Schedule O Part II Section D Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>							
+			</xsd:element>									
+			
+			<!-- Date of Disposition -->
+			<xsd:element name="DateOfDisposition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of disposition</Description>
+						<LineNumber>Schedule O Part II Section D Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>												
+			
+			<!-- Method of Disposition -->		
+			<xsd:element name="MethodOfDisposition" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method of disposition</Description>
+						<LineNumber>Schedule O Part II Section D Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>												
+			
+			<!-- Number of Shares Disposed Directly -->
+			<xsd:element name="NumberOfSharesDisposedDirectly" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares disposed directly</Description>
+						<LineNumber>Schedule O Part II Section D Column (e)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>															
+			
+			<!-- Number of Shares Disposed Indirectly -->
+			<xsd:element name="NumberOfSharesDisposIndirectly" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares disposed indirectly</Description>
+						<LineNumber>Schedule O Part II Section D Column (e)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>								
+			</xsd:element>				
+			
+			<!-- Number of Shares Disposed Constructively -->
+			<xsd:element name="NumSharesDisposConstructively" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares disposed constructively</Description>
+						<LineNumber>Schedule O Part II Section D Column (e)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>							
+			</xsd:element>							
+			
+			<!-- Amount Received -->
+			<xsd:element name="AmountReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount received</Description>
+						<LineNumber>Schedule O Part II Section D Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>				
+
+			<!-- Choice: Person or Business Name To Whom Disposition of Stock was Made -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name To Whom Disposition of Stock was Made -->
+				<xsd:element name="PrsnToWhomShrWereDisposed" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name to whom disposition of stock was made</Description>
+							<LineNumber>Schedule O Part II Section D Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name To Whom Disposition of Stock was Made -->
+				<xsd:element name="BusToWhomShrWereDisposed" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name to whom disposition of stock was made</Description>
+							<LineNumber>Schedule O Part II Section D Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Choice: US or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address Person to Whom Disposition of Stock was Made -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address of person to whom disposition of stock was made</Description>
+							<LineNumber>Schedule O Part II Section D Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>	
+									
+				<!-- Foreign Address Person to Whom Disposition of Stock was Made -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Address of person to whom disposition of stock was made</Description>
+							<LineNumber>Schedule O Part II Section D Column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+	
+			</xsd:choice>
+
+		</xsd:sequence>			
+	</xsd:complexType>		
+	
+	<!-- Type for Repeating Table Rows in Part II Section E -->
+	<xsd:complexType name="USShareholdersPartIISectEType">
+		<xsd:sequence>			
+		
+
+			<!-- Choice: Person or Business Name of Transferor -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name of Transferor -->
+				<xsd:element name="PersonNameOfTransferor" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>			
+
+				<!-- Business Name of Transferor -->
+				<xsd:element name="BusinessNameOfTransferor" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Choice: US or Foreign Address  -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Address of the Transferor -->
+				<xsd:element name="USAddressOfTransferor" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address of the transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+			
+				<!-- Foreign Address of the Shareholder -->
+				<xsd:element name="ForeignAddressOfTransferor" type="ForeignAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Address of the transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>				
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN of Transferor -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN of Transferor -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing SSN/EIN Reason of Transferor -->
+				<xsd:element name="MissingSSNEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing SSN/EIN reason of transferor</Description>
+							<LineNumber>Schedule O Part II Section E Column (b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="FOREIGNUS"/>
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Date of Transfer -->
+			<xsd:element name="DateOfTransfer" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of transfer</Description>
+						<LineNumber>Schedule O Part II Section E Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>				
+			</xsd:element>					
+
+			<!-- Description of Assets Transferred to Foreign Corporation -->
+			<xsd:element name="DescOfAssetsTrnsfrToFrgnCorp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of assets</Description>
+						<LineNumber>Schedule O Part II Section E Column (d)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>			
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="40"/>											
+					</xsd:restriction>
+				</xsd:simpleType>								
+			</xsd:element>	
+			
+			<!-- Fair Market Value of Assets Transferred to Foreign Corporation -->
+			<xsd:element name="FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value</Description>
+						<LineNumber>Schedule O Part II Section E Column (d)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>			
+			</xsd:element>	
+			
+			<!-- Adjusted Basis (If Transferor was U.S. Person) of Assets Transferred to Foreign Corporation-->
+			<xsd:element name="AdjustedBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basis (if transferor was U.S. person) of assets transferred to foreign corporation</Description>
+						<LineNumber>Schedule O Part II Section E Column (d)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>			
+			</xsd:element>
+			
+			<!-- Description of Assets Transferred by, or Notes or Securities Issued by, Foreign Corporation -->
+			<xsd:element name="DescOfAssetsTrnsfrByNotesSec" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of assets transferred by, or notes or securities issued by, foreign corporation</Description>
+						<LineNumber>Schedule O Part II Section E Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>			
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>								
+			</xsd:element>					
+			
+		</xsd:sequence>			
+	</xsd:complexType>		
+
+	<!-- Recurring Stock Description Type -->
+	<xsd:simpleType name="StockDescription5471SchOType">
+		<xsd:annotation>
+			<xsd:documentation>Recurring Stock Description Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="StringType">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+</xsd:schema>

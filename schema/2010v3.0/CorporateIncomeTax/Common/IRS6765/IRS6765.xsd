@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 6765</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 29, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 6765 ============================ -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS6765">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 6765</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS6765Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS6765">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" >
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall" />
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS6765Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 6765</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Current Year Credit -->
+
+			<!-- Section A: Regular Credit-->
+
+			<!-- Paid or Incurred to Energy consortia -->
+			<xsd:element name="EnergyConsortiaAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Paid or incurred to energy consortia</Description>
+						<LineNumber>Section A Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basic Research Payments to Qualified Organizations -->
+			<xsd:element name="BasicResearchPayment" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basic research payments to qualified organizations</Description>
+						<LineNumber>Section A Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Organization Base Period Amount -->
+			<xsd:element name="BasePeriodAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified organization base period amount</Description>
+						<LineNumber>Section A Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 3 from line 2 -->
+			<xsd:element name="ResearchPymtMinusBasePeriodAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 3 from line 2</Description>
+						<LineNumber>Section A Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wages for Qualified Services -->
+			<xsd:element name="WagesForQualifiedServices" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wages for qualified services</Description>
+						<LineNumber>Section A Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost of Supplies -->
+			<xsd:element name="CostOfSupplies" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost of supplies</Description>
+						<LineNumber>Section A Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rental or Lease Costs of Computers -->
+			<xsd:element name="RentalOrLeaseCostsOfComputers" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rental or lease costs of computers</Description>
+						<LineNumber>Section A Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Applicable Percentage of Contract Research Expenses -->
+			<xsd:element name="PctOfContractResearchExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the applicable percentage of contract research expenses</Description>
+						<LineNumber>Section A Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Qualified Research Expenses -->
+			<xsd:element name="TotalQualifedResearchExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified research expenses</Description>
+						<LineNumber>Section A Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Fixed-base Percentage, but Not More Than 16% -->
+			<xsd:element name="FixedBasePercentage" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter fixed-base percentage, but not more than 16%</Description>
+						<LineNumber>Section A Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Average Annual Gross Receipts -->
+			<xsd:element name="AverageAnnualGrossReceipts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter average annual gross receipts</Description>
+						<LineNumber>Section A Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 11 by the Percentage on Line 10 -->
+			<xsd:element name="FixedBasePctTimesGrossReceipts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 11 by the percentage on line 10</Description>
+						<LineNumber>Section A Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 12 from Line 9 -->
+			<xsd:element name="AdjTotQualifedResearchExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 12 from line 9</Description>
+						<LineNumber>Section A Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 9 by 50% -->
+			<xsd:element name="HalfAdjTotQlfyResearchExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 9 by 50%</Description>
+						<LineNumber>Section A Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Smaller of Line 13 or Line 14 -->
+			<xsd:element name="SmallestQlfyResearchExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 13 or line 14</Description>
+						<LineNumber>Section A Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 1, 4 and 15 -->
+			<xsd:element name="RsrchExpensesPlusRsrchPayments" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1, 4 and 15</Description>
+						<LineNumber>Section A Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Electing the reduced credit under section 280C -->
+
+			<!-- Current Year Credit -->
+			<xsd:element name="CurrentYearCredit" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Credit</Description>
+						<LineNumber>Section A Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CapExpensesDedAmountsSchedule MembersOfControlledGroupStmt" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Reduced Section 280C Credit Election -->
+			<xsd:element name="ReducedSection280CCrElection" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduced section 280C credit election</Description>
+						<LineNumber>Section A Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section B: Alternative Simplified Credit -->
+
+			<!-- Certain Amounts Paid Or Incurred To Energy Consortia -->
+			<xsd:element name="AmtPaidOrIncurredToEnergyCnsrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certain amounts paid or incurred to energy consortia</Description>
+						<LineNumber>Section B Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basic Research Payments To Qualified Organizations -->
+			<xsd:element name="BasicResearchPymtToQlfyOrg" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basic research payments to qualified organizations</Description>
+						<LineNumber>Section B Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Organization Base Period Amount -->
+			<xsd:element name="QualifiedOrgBasePeriodAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified organization base period amount</Description>
+						<LineNumber>Section B Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Basic Research Payment to Qualifying Organization -->
+			<xsd:element name="AdjBasicResearchPymtToQlfyOrg" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basic research payment to qualifying organization</Description>
+						<LineNumber>Section B Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum of Amount Paid and Adjusted Basic Research Payment -->
+			<xsd:element name="SumOfAmtPdAndAdjBscRsrchPymt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of amount paid and adjusted basic research payment</Description>
+						<LineNumber>Section B Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply line 22 by 20% (.20) -->
+			<xsd:element name="TwentyPctOfLine22" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 22 by 20% (.20)</Description>
+						<LineNumber>Section B Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wages For Qualified Services -->
+			<xsd:element name="WagesForQualifiedServicesSectB" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wages for qualified services (do not include wages used in figuring the work opportunity credit)</Description>
+						<LineNumber>Section B Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost Of Supplies -->
+			<xsd:element name="CostOfSuppliesSectB" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost of supplies</Description>
+						<LineNumber>Section B Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rental Or Lease Costs Of Computers -->
+			<xsd:element name="RntlOrLsCostsOfComputers" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rental or lease costs of computers (see the line 7 instructions)</Description>
+						<LineNumber>Section B Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter The Applicable Percentage Of Contract Research Expenses -->
+			<xsd:element name="ApplcblPctOfCntrctRsrchExpnss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the applicable percentage of contract research expenses (see the line 8 instructions)</Description>
+						<LineNumber>Section B Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Qualified Research Expenses -->
+			<xsd:element name="TotalQualifiedResearchExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified research expenses</Description>
+						<LineNumber>Section B Line 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Qualified Research Expenses for the Prior 3 Tax Years. -->
+			<xsd:element name="TotQlfyRsrchExpnssForPrior3TYs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified research expenses for the prior 3 tax years</Description>
+						<LineNumber>Section B Line 29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Partial Research Expenses -->
+			<xsd:element name="PartialResearchExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partial research expenses</Description>
+						<LineNumber>Section B Line 30</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Difference of Total and Partial Research Expenses -->
+			<xsd:element name="DiffOfTotalAndPartialRsrchExp" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Difference of total and partial research expenses</Description>
+						<LineNumber>Section B Line 31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Difference of Total and Partial Research Expenses by Applicable Percent -->
+			<xsd:element name="MultiplyDiffRsrchExpByPct" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply difference of total and partial research expenses by applicable percent</Description>
+						<LineNumber>Section B Line 32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 23 And 32 -->
+			<xsd:element name="SumOfLn23AndLn32" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 23 and 32</Description>
+						<LineNumber>Section B Line 33</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Yes, Reduce Section B Credit by Percent -->
+			<xsd:element name="SectionBReducedCr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If yes, reduce Section B credit by percent</Description>
+						<LineNumber>Section B Line 34</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CapExpensesDedAmountsSchedule MembersOfControlledGroupStmt" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section B Reduced Section 280C Credit Election -->
+			<xsd:element name="SectBReducedSect280CCrElection" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section B Reduced section 280C credit election</Description>
+						<LineNumber>Section B Line 34</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section C: Total Current Year Credit for Increasing Research Activites -->
+
+			<!-- Credit for Employer Differential Wage Payments -->
+			<xsd:element name="CrForEmployerDiffWagePymt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for employer differential wage payments</Description>
+						<LineNumber>Section C Line 35</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Current Year Credit  -->
+			<xsd:element name="AdjCurrentYearCredit" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted current year credit</Description>
+						<LineNumber>Section C Line 36</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit for Increasing Research Activities  -->
+			<xsd:element name="ResearchActivitiesIncreaseCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for increasing research activities</Description>
+						<LineNumber>Section C Line 37</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit Plus Research Activities Increase Credit -->
+			<xsd:element name="CurrentYearCreditPlusIncrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit plus Research Activities Increase Credit</Description>
+						<LineNumber>Section C Line 38</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allowable Credit -->
+
+			<!-- Amount Allocated to Beneficiaries  -->
+			<xsd:element name="BeneficiariesAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries</Description>
+						<LineNumber>Line 39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates and Trusts Credit -->
+			<xsd:element name="EstatesAndTrustsNetTotal" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates and trusts credit</Description>
+						<LineNumber>Line 40</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

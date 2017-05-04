@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Functional Currency and Exchange Rate QBU Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 22, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- ===== Functional Currency and Exchange Rate QBU Statement ==== -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="FuncCurAndExchangeRateQBUStmt">
+		<xsd:annotation>
+			<xsd:documentation>Functional currency and exchange rate QBU statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="FuncCurAndExchangeRateQBUStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="FunctionalCurrencyAndExchangeRateQBUStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="FuncCurAndExchangeRateQBUStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for functional currency and exchange rate QBU statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Functional Currency and Exchange Rate QBU -->
+			<xsd:element name="FuncCurAndExchangeRateQBU" type="FuncCurAndExchangeRateQBUType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Functional currency and exchange rate QBU info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - "FuncCurAndExchangeRateQBUInfo" above -->
+	<xsd:complexType name="FuncCurAndExchangeRateQBUType">
+		<xsd:sequence>
+
+			<!-- QBU ID -->
+			<xsd:element name="QBUId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>QBU ID</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Country of Operation -->
+			<xsd:element name="CountryOfOperation" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Country of operation</Description>
+					</xsd:documentation>
+				</xsd:annotation>			
+			</xsd:element>				
+			
+			<!-- Functional Currency -->
+			<xsd:element name="FunctionalCurrency" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Functional currency</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

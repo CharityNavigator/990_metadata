@@ -1,0 +1,2394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 3115</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 21, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 3115 ========================= -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS3115">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 3115</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS3115Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS3115">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OverallMethodOfAccountingAttachment TradeOrBusinessStatement LegalBasisForChangeStatement  ApplicantsReasonForProposedChangeStatement ParentCorporationInformationStatement ChangeInOverallMethodOfAccountingStatement ChangeInOverallMethodBreakdownStatement ChangeToCashMethodStatement ChangeToIPICMethodStatement IRS970 LongTermContractsStatement MfrGoodsSoldOrDistributedStatement ApplicantsContractsStatement DescriptionOfInventoryGoodsBeingChangedStatement DescriptionOfInventoryGoodsNotBeingChangedStatement ChangeFromLIFOToNonLIFOMethodStatement ChangeInValuingInventoriesAdditionalInformationStatement UnableToFurnishCopyOfForm970Statement AllocationAndCapitalizationMethodsStatement MthdOfCostAllocationCostsNotFullyUnderSect263Aor460Stmt RequestToDeferAdvancePaymentUnderRevProc7121Stmt RequestToDeferAdvancePaymentUnderRegSect14515Stmt LIFOInventoryOtherThanCostStatement ManufacturingProposedPoolStatement PresentAndProposedLIFOMethodsStatment PresentMethodDifferenceExplanationStatement ProposedChangeInPoolingInventoriesStatement ProposedChangeNotForLIFOInventoryStatement ProposedChangeNotForLIFOPoolsStatement ProposedNaturalBusinessUnitStatement WholesaleOrRetailGoodsProposedNumOfPoolsStatement BinaryAttachment" />
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS3115Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 3115</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name: choice between Business Name or Person Name -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Business Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of applicant(s) (if different than filer) and identification number(s) (see instructions)</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Person Name -->
+				<xsd:element name="PersonName" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of applicant(s) (if different than filer) and identification number(s) (see instructions)</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Identification Number: choice between SSN(s) or EIN or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN  -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing SSN/EIN Reason -->
+				<xsd:element name="MissingSSNEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing identification number reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR" />
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Principal business activity code or Inactive -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Principal Business Activity Code -->
+				<xsd:element name="PrincipalBusinessActivityCode" type="BusinessActivityCodeType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Principal business activity code</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Inactive principal business activity code -->
+				<xsd:element name="InactivePrincipalBusActyCode">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inactive Principal business activity code</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="Inactive"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Tax Year Beginnining -->
+			<xsd:element name="TaxYearBeginning" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year beginnining</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Year Ending -->
+			<xsd:element name="TaxYearEnding" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year ending</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Person to Contact -->
+			<xsd:element name="NameOfPersonToContact" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of person to contact (if not the applicant, a power of attorney must be submitted)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Contact Person's Phone Number -->
+			<xsd:element name="ContactPersonPhoneNumber" type="PhoneNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contact person's telephone number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is Applicant Member of Consolidated Group? -->
+			<xsd:element name="IsMemberOfConsolidatedGroup" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is applicant member of consolidated group?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ConsolidatedGroupInformationStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Has Applicant Attached Form 2848? -->
+			<xsd:element name="HasApplicantAttachedForm2848" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has the applicant attached Form 2848, Power of Attorney and Declaration of Representative?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Who is Filing Form -->
+			<xsd:element name="WhoIsFilingForm" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Choice between the following: -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Indiviual -->
+							<xsd:element name="Individual" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Individual</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Corporation -->
+							<xsd:element name="Corporation" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Corporation</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Controlled Foreign Corporation (Sec. 957) -->
+							<xsd:element name="ControlledForeignCorporation" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Controlled foreign corporation (Sec. 957)</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- 10/50 corporation (Sec. 904(d)(2)(E)) -->
+							<xsd:element name="Corporation1050" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>10/50 corporation (Sec. 904(d)(2)(E))</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Qualified Personal Service Corporation -->
+							<xsd:element name="QualifiedPersonalServiceCorp" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Qualified Personal Service Corporation (Sec. 448(d)(2))</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Exempt Organization -->
+							<xsd:element name="ExemptOrganization">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Exempt Organization</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="CheckboxType">
+											<xsd:attribute name="codeSection">
+												<xsd:simpleType>
+													<xsd:restriction base="AlphaNumericAndParenthesesType">
+														<xsd:maxLength value="20" />
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+
+							<!-- Cooperative -->
+							<xsd:element name="Cooperative" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Cooperative (Sec. 1381)</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Partnership -->
+							<xsd:element name="Partnership" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Partnership</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- S Corporation -->
+							<xsd:element name="SCorporation" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>S Corporation</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Insurance Company (Sec. 816(a)) -->
+							<xsd:element name="InsuranceCompanySect816a" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Insurance Co. (Sec. 8126(a))</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Insurance Company (Sec. 831) -->
+							<xsd:element name="InsuranceCompanySect831" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Insurance Co. (Sec. 831)</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Other -->
+							<xsd:element name="Other">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Other (specify)</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="CheckboxType">
+											<xsd:attribute name="description">
+												<xsd:simpleType>
+													<xsd:restriction base="AlphaNumericAndSpaceType">
+														<xsd:maxLength value="20" />
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Type of Accounting Method -->
+			<xsd:element name="TypeOfAccountingMethod" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Choice between the following: -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Depreciation or Amortization -->
+							<xsd:element name="DepreciationOrAmortization" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Depreciation or Amortization</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Financial Products and/or Financial Activities of Financial Institutions -->
+							<xsd:element name="FinancialProductsAndActivities" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Financial Products and/or Financial Activities of Financial Institutions</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Other -->
+							<xsd:element name="Other">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Other (specify)</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="CheckboxType">
+											<xsd:attribute name="description">
+												<xsd:simpleType>
+													<xsd:restriction base="AlphaNumericAndSpaceType">
+														<xsd:maxLength value="20" />
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part I - Information For Automatic Change Request ===== -->
+
+			<!-- Designated Accounting Method Change Number -->
+			<xsd:element name="DesignatedAcctMthdChangeNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Designated accounting method change number</Description>
+						<LineNumber>Part I Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+						<xsd:totalDigits value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Other Accounting Method -->
+			<xsd:element name="OtherAccountingMethod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other accounting method</Description>
+						<LineNumber>Part I Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="description">
+								<xsd:simpleType>
+									<xsd:restriction base="LineExplanationType">
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Do Any Of The Scope Limitations Described In Section 4.02 Rev Proc 2008-52 Cause Automatic Consent To Be Unavailable For The Applicants Requested Change? -->
+			<xsd:element name="ScopeLmtCsAutoCnsntUnavailable" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do any of the scope limitations described in section 4.02 rev proc 2008-52 cause automatic consent to be unavailable for the applicants requested change?</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BusDisqualifiesAutoCnsntStmt" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part II - Information For All Requests ===== -->
+
+			<!-- Did Or Will The Applicant Cease To Engage In The Trade Or Business To Which The Requested Change Relates, Or Terminate Its Existence, In The Tax Year Of Change? -->
+			<xsd:element name="ApplcntCsTradeBusReqChgRelates" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did or will the applicant cease to engage in the trade or business to which the requested change relates, or terminate its existence, in the tax year of change?</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is Any Federal Returns Under Examination? -->
+			<xsd:element name="IsAnyFederalReturnsUnderExam" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is any federal returns under examination?</Description>
+						<LineNumber>Part II Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Any Federal Returns Under Examination Repeating Group -->
+			<xsd:element name="ReturnsUnderExaminationInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Examination Period Beginning Date -->
+						<xsd:element name="ExaminationPeriodBeginningDate" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Examination period beginning date</Description>
+									<LineNumber>Part II Line 4a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Examination Period Ending Date -->
+						<xsd:element name="ExaminationPeriodEndingDate" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Examination period ending date</Description>
+									<LineNumber>Part II Line 4a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Is Method of Change an Issue Under Consideration or Placed in Suspense? -->
+			<xsd:element name="IsMethodOfChangeIssueSuspense" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is method of change an issue under consideration or placed in suspense?</Description>
+						<LineNumber>Part II Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method of Change Issue Under Consideration or Placed in Suspense Repeating Group -->
+			<xsd:element name="ConsiderationOrSuspenseInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Consideration or Suspense Beginning Date -->
+						<xsd:element name="CnsdrOrSuspBeginningDate" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Consideration or suspense beginning date</Description>
+									<LineNumber>Part II Line 4b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Consideration or suspense ending date -->
+						<xsd:element name="CnsdrOrSuspEndingDate" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Consideration or suspense ending date</Description>
+									<LineNumber>Part II Line 4b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Name of Individual Preparing Application if Other Than Filer/Applicant -->
+			<xsd:element name="NameOfPreparerOtherThanFiler" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of individual preparing application if other than filer/applicant</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Firm Preparing Application if Other Than Filer/Applicant -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Business Name -->
+				<xsd:element name="PreparingFirmBusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of firm preparing application if other than filer/applicant</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Person Name -->
+				<xsd:element name="PreparingFirmPersonName" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of firm preparing application if other than filer/applicant</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Is Method of Accounting an Issue Pending for Any Tax Year Under Examination? -->
+			<xsd:element name="IsMethodOfAcctIssuePending" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is method of accounting an issue pending for any tax year under examination?</Description>
+						<LineNumber>Part II Line 4c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method of Accounting Issue Pending for Any Tax Year Under Examination Repeating Group -->
+			<xsd:element name="IssuePendingExaminationInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Issue Pending Examination Beginning Date -->
+						<xsd:element name="IssuePendingExamBeginningDate" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Issue pending examination beginning date</Description>
+									<LineNumber>Part II Line 4c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Issue Pending Examination Ending Date -->
+						<xsd:element name="IssuePendingExamEndingDate" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Issue pending examination ending date</Description>
+									<LineNumber>Part II Line 4c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Does Request Require Consent of Operating Division Director? -->
+			<xsd:element name="DoesRequestRequireConsent" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does request require consent of operating division director?</Description>
+						<LineNumber>Part II Line 4d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OperatingDivisionDirectorStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Is Request Filed Under 90-Day or 120-Day Window Period? -->
+			<xsd:element name="IsReqFiledUnderWindowPeriod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is request filed under 90-day or 120-day window period?</Description>
+						<LineNumber>Part II Line 4e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CertificationUnderSec603RevProc20029Statement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- If yes to line 4e, Check Applicable Window Period -->
+			<xsd:choice minOccurs="0">
+
+				<!-- 90-Day -->
+				<xsd:element name="NinetyDaysPeriod" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>90-day</Description>
+							<LineNumber>Part II Line 4e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- 120-Day -->
+				<xsd:element name="OneHundredTwentyDaysPeriod" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>120-day</Description>
+							<LineNumber>Part II Line 4e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- 120-Day Window Ending Date of Examination -->
+			<xsd:element name="EndingDayOfExamination" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>120-day window ending date of examination</Description>
+						<LineNumber>Part II Line 4e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name and Phone Numbers of Examining Agents and Tax Year(s) -->
+			<xsd:element name="ContactInfoOfExaminingAgents" type="ContactAndTaxYearInfoType"  minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name and phone numbers of examining agents and tax year(s)</Description>
+						<LineNumber>Part II Line 4f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has a copy of this Form 3115 been provided to the examining agent identified on line 4f? -->
+			<xsd:element name="CopyProvidedToExaminingAgent" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has a copy of this Form 3115 been provided to the examining agent identified on line 4f?</Description>
+						<LineNumber>Part II Line 4g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is Applicant a Number Before an Appeals Office and/or Federal Court? -->
+			<xsd:element name="IsApplicantMemBeforeAppeals" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is applicant a number before an appeals office and/or Federal Court?</Description>
+						<LineNumber>Part II Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If yes to line 5a, Check Applicable Box: Appeals officer and/or Counsel for the Government -->
+			<xsd:element name="AppealsOfficer" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Appeals officer</Description>
+						<LineNumber>Part II Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If yes to line 5a, Check Applicable Box: Appeals officer and/or Counsel for the Government -->
+			<xsd:element name="CounselForTheGovernment" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>counsel for the government</Description>
+						<LineNumber>Part II Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Government Council Contact Info -->
+			<xsd:element name="GovtCouncilContactInfo" type="ContactAndTaxYearInfoType" minOccurs="0"  maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the name and telephone number of the council for the government</Description>
+						<LineNumber>Part II Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has a Copy of this Form 3115 been Provided to the Appeals Officer and/or Counsel for the Government Identified on Line 5a? -->
+			<xsd:element name="CopyProvidedToGovtCounsel" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has a copy of this Form 3115 been provided to the Appeals officer and/or counsel for the government identified on line 5a?</Description>
+						<LineNumber>Part II Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is the Method of Accounting the Applicant is Requesting to Change an Issue Under Consideration by the Federal Court? -->
+			<xsd:element name="AcctMthdUnderCnsdrByFedCourt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the method of accounting the applicant is requesting to change an issue under consideration by the Federal court?</Description>
+						<LineNumber>Part II Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AppealsFederalCourtExplanationStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- If Partnership or S Corporation, Accounting Method Under Examination Before an Appeals Office or Federal Court? -->
+			<xsd:element name="AcctMthdOfPrtshpOrSCorpUndExam" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If, for federal income tax purposes, the applicant is an entity (including a limited liability company) treated as a partnership, S corporation, or a foreign corporation, is it requesting a change from a method of accounting that is an issue under consideration in an examination, before Appeals, or before a Federal court, with respect to a Federal income tax return of a partner, member, or shareholder of that entity?  If Yes, the applicant is not eligible to make the change.</Description>
+						<LineNumber>Part II Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does The Applicable Revenue Procedure (Advance Consent or Automatic Consent) State That The Applicant Will Not Receive Audit Protection For The Requested Change (See Instructions)? -->
+			<xsd:element name="ApplcblRevProcNotAudProtection" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the applicable revenue procedure (advance consent or automatic consent) state that the applicant will not receive audit protection for the requested change (see instructions)?</Description>
+						<LineNumber>Part II Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ApplcntNotRcvAudProtectionStmt" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Has Change in Accounting Method Been Made in Past 5 Years? -->
+			<xsd:element name="ChangeInMthdAcctMadeInPast5Yrs" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has the applicant, its predecessor, or a related party requested or made (either an automatic change procedure or a procedure requiring advance consent) a change in method of accounting within the past 5 years?</Description>
+						<LineNumber>Part II Line 9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AppWithdrwNotPerfDndCnsntStmt ChangeInAccountingMethodOrPeriodForPast5YearsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Any Pending Private Letter Ruling, Technical Advice, or Accounting Method or Period Change? -->
+			<xsd:element name="PrvtLtrRlngTechAdviceOrAcctChg" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the applicant, its predecessor, or a related party currently have pending any request for a private letter ruling, a request for change in accounting method or accounting period, or a request for technical advice?</Description>
+						<LineNumber>Part II Line 10a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PrivateLetterRulingChgInAcctMthdTechAdviceReqStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Requesting Change to Overall Accounting? -->
+			<xsd:element name="RequestingChangeToOverallAcct" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the applicant requesting to change its overall method of accounting?</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Present Method -->
+			<xsd:element name="PresentMethod" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Choice between Cash, Accrual, or Hybrid -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Cash -->
+							<xsd:element name="Cash" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Cash</Description>
+										<LineNumber>Part II Line 11</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Accrual -->
+							<xsd:element name="Accrual" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Accrual</Description>
+										<LineNumber>Part II Line 11</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Hybrid -->
+							<xsd:element name="Hybrid">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Hybrid (attach description)</Description>
+										<LineNumber>Part II Line 11</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="CheckboxType">
+											<xsd:attribute name="referenceDocumentId" type="IdListType" />
+											<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PresentHybridMethodOfAccountingAttachment" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Proposed Method -->
+			<xsd:element name="ProposedMethod" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Choice between Cash, Accrual, or Hybrid -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Cash -->
+							<xsd:element name="Cash" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Cash</Description>
+										<LineNumber>Part II Line 11</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Accrual -->
+							<xsd:element name="Accrual" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Accrual</Description>
+										<LineNumber>Part II Line 11</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Hybrid -->
+							<xsd:element name="Hybrid">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Hybrid (attach description)</Description>
+										<LineNumber>Part II Line 11</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="CheckboxType">
+											<xsd:attribute name="referenceDocumentId" type="IdListType" />
+											<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ProposedHybridMethodOfAccountingAttachment" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Will proposed method be used for books and records and financial statements? -->
+			<xsd:element name="IsProposedMethodUsedForBooks" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Will proposed method be used for books and records and financial statements?</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="UseOfProposedMethodOfAccountingStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Did or will Applicant Engage in Reorganization, Merger, or Liquidation During Tax Year Under Sec 381(a)? -->
+			<xsd:element name="ApplcntEngageInReorganization" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did or will applicant engage in reorganization,merger, or liquidation during tax year under Sec 381(a)?</Description>
+						<LineNumber>Part II Line 15a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ReorganizationOrMergerDuringTaxYearOfChangeStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Conference of Right Requested? -->
+			<xsd:element name="ConferenceOfRightRequested" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the applicant request a conference of right at the IRS National Office if the IRS proposes an adverse response?</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts for 3 Years Preceding the Year of Change (repeats for each member of group, if applicable) -->
+			<xsd:element name="GrossReceipts3YrsPreceding" type="GrossReceipts3YrsPrecedingType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts for the 3 tax years preceding the year of change</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part III - Information For Advance Consent Request ===== -->
+
+			<!-- Is Change Request Allowed Under Automatic Change? -->
+			<xsd:element name="IsChangeRequestAllwUnderAuto" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is change request allowed under automatic change?</Description>
+						<LineNumber>Part III Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdvanceConsentRequestProceduresStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- All Members of Consolidated Group Use Proposed Method? -->
+			<xsd:element name="AllGroupMembersUseProposedMthd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the applicant is a member of a consolidated group for the year of change, do all other members of the consolidated group use the proposed method of accounting for the item being changed?</Description>
+						<LineNumber>Part III Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AffiliatedGroupFilingConsolidatedReturnStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Qualified for Reduced User Fee, Required Information Attached? -->
+			<xsd:element name="QlfyReducedUserFeeRqrInfoAtt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the applicant qualifies for a reduced user fee, attach the necessary information or certification required by Rev.Proc. 2003-1 (or its successor) (see instructions)</Description>
+						<LineNumber>Part III Line 23b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ReducedUserFeeStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part IV - Section 481(a) Adjustment ===== -->
+
+			<!-- Does Change Require Use of Cut-Off Method? -->
+			<xsd:element name="DoesChangeRequireUseCutOffMthd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does change require use of cut-off method?</Description>
+						<LineNumber>Part IV Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Section 481(a) Adjustment -->
+			<xsd:element name="NetSection481aAdjustment" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the net section 481(a) adjustment for the year of change</Description>
+						<LineNumber>Part IV Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="increaseOrDecreaseIndicator">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="+" />
+										<xsd:enumeration value="-" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ComputationOfSection481aAdjustmentStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Entire Net Section 481(a) Adjustment Into Account ? -->
+			<xsd:element name="TakingEntire481aAdjIntoAccount" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the section 481(a) adjustment is less than $25,000 (positive or negative), does the applicant elect to take the entire amount of the adjustment into account in the year of change?</Description>
+						<LineNumber>Part IV Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Any Part of Adjustment Attributable to Transactions Between Members of Affiliated Group? -->
+			<xsd:element name="PartOfAdjFromTransBtwnMembers" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is any part of the section 481(a) adjustment attributable to transactions between members of an affiliated group, a controlled group, or other related parties?</Description>
+						<LineNumber>Part IV Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="Section481aAdjustmentStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- IRS3115 Schedule A - Change in Overall Method of Accounting -->
+			<xsd:element name="IRS3115ScheduleA" type="IRS3115ScheduleAType" minOccurs="0" />
+
+			<!-- IRS3115 Schedule D - Change in the Treatment of Long-Term Contracts -->
+			<xsd:element name="IRS3115ScheduleD" type="IRS3115ScheduleDType" minOccurs="0" />
+
+			<!-- IRS3115 Schedule E - Change in Depreciation or Amortization -->
+			<xsd:element name="IRS3115ScheduleE" type="IRS3115ScheduleEType" minOccurs="0" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for repeating group element 'GrossReceipts3YrsPreceding' in Part II -->
+	<xsd:complexType name="GrossReceipts3YrsPrecedingType">
+		<xsd:sequence>
+
+			<!-- Gross Receipts for 1st Preceding Year -->
+			<xsd:element name="GrossReceiptsFor1stPrecedingYr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Receipts for 1st Preceding Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- End Date for 1st Preceding Year -->
+			<xsd:element name="EndDateFor1stPrecedingYear" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>End Date for 1st Preceding Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts for 2nd Preceding Year -->
+			<xsd:element name="GrossReceiptsFor2ndPrecedingYr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Receipts for 2nd Preceding Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- End Date for 2nd Preceding Year -->
+			<xsd:element name="EndDateFor2ndPrecedingYear" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>End Date for 2nd Preceding Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts for 3rd Preceding Year -->
+			<xsd:element name="GrossReceiptsFor3rdPrecedingYr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Receipts for 3rd Preceding Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- End Date for 3rd Preceding Year -->
+			<xsd:element name="EndDateFor3rdPrecedingYear" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>End Date for 3rd Preceding Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ===================  IRS Form 3115 Schedule A ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="IRS3115ScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 3115 Schedule A</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Part I - Change in Overall Method of Accounting ===== -->
+
+			<!-- Choice between the following: Income Accrued But Not Received or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Income Accrued But Not Received -->
+				<xsd:element name="IncomeAccruedButNotReceived" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Income accrued but not received</Description>
+							<LineNumber>Schedule A Part I Line 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Income Accrued But Not Received - NONE indicator-->
+				<xsd:element name="IncmAccruedButNotReceivedNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Income accrued but not received - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Income Received or Reported Before Earned or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Income Received or Reported Before Earned -->
+				<xsd:element name="IncomeRcvdOrRptBeforeEarned">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Income received or reported before it was earned</Description>
+							<LineNumber>Schedule A Part I Line 1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="USAmountType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IncomeReceivedOrReportedBeforeEarnedStatement" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+
+				<!-- Income Received or Reported Before Earned - NONE indicator-->
+				<xsd:element name="IncmRcvdOrRptBeforeEarnedNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Income received or reported before it was earned - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Expenses Accrued But Not Paid or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Expenses Accrued But Not Paid -->
+				<xsd:element name="ExpensesAccruedButNotPaid" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Expenses accrued but not paid</Description>
+							<LineNumber>Schedule A Part I Line 1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Expenses Accrued But Not Paid - NONE indicator-->
+				<xsd:element name="ExpensesAccruedButNotPaidNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Expenses accrued but not paid - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Prepaid Expense Previously Deducted or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Prepaid Expense Previously Deducted -->
+				<xsd:element name="PrepaidExpensePrevDeducted" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Prepaid expense previously deducted</Description>
+							<LineNumber>Schedule A Part I Line 1d</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Prepaid Expense Previously Deducted - NONE indicator-->
+				<xsd:element name="PrepaidExpnsPrevDeductedNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Prepaid expense previously deducted - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1d</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Supplies On Hand Previously Deducted or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Supplies On Hand Previously Deducted -->
+				<xsd:element name="SuppliesOnHandPrevDeducted" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Supplies on hand previously deducted</Description>
+							<LineNumber>Schedule A Part I Line 1e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Supplies On Hand Previously Deducted - NONE indicator-->
+				<xsd:element name="SuppliesOnHandPrevDeductedNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Supplies on hand previously deducted - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Inventory On Hand Previously Deducted or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Inventory On Hand Previously Deducted -->
+				<xsd:element name="InventoryOnHandPrevDeducted" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inventory on hand previously deducted</Description>
+							<LineNumber>Schedule A Part I Line 1f</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Inventory On Hand Previously Deducted - NONE indicator-->
+				<xsd:element name="InvntryOnHandPrevDeductedNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inventory on hand previously deducted - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1f</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Other Amount or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Other Amount -->
+				<xsd:element name="OtherAmount">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other amount</Description>
+							<LineNumber>Schedule A Part I Line 1g</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="USAmountType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherAmountsStatement" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+
+				<!-- Other Amount - NONE indicator-->
+				<xsd:element name="OtherAmountNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other amount - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1g</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between the following: Net Section 481(a) Adjustment or "NONE" indicator -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Net Section 481(a) Adjustment -->
+				<xsd:element name="NetSection481aAdjustment" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Net section 481(a) adjustment</Description>
+							<LineNumber>Schedule A Part I Line 1h</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Net Section 481(a) Adjustment - NONE indicator-->
+				<xsd:element name="NetSection481aAdjustmentNONE">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Net section 481(a) adjustment - NONE indicator</Description>
+							<LineNumber>Schedule A Part I Line 1h</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="NONE"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Requesting Recurring Item Exception? -->
+			<xsd:element name="RequestingRecurItemException" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the applicant also requesting the recurring item exception (section 461(h))?</Description>
+						<LineNumber>Schedule A Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ===================  IRS Form 3115 Schedule D ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="IRS3115ScheduleDType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 3115 Schedule D</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Part I - Change in Reporting Income From Long-Term Contracts ===== -->
+
+			<!-- Are Contracts Long-Term as Defined in Section 460(f)(1)? -->
+			<xsd:element name="ContractsLTAsDefinedSect460f1" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are the applicant's contracts long-term as defined in section 460(f)(1)?</Description>
+						<LineNumber>Schedule D Part I Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Are Contracts Long-Term as Defined in Section 460(e)? -->
+			<xsd:element name="AllContractsQlfySection460eExc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do the applicant's long-term contracts for exception under section 460(e)?</Description>
+						<LineNumber>Schedule D Part I Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExceptionUnderSection460eStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Is applicant requesting to use the percentage-of completion method under Reg sec. 1.460-4(b)? -->
+			<xsd:element name="IsApplcntReqPctOfComplnMthd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is applicant requesting	to use the percentage-of completion method under Reg sec. 1.460-4(b)?</Description>
+						<LineNumber>Schedule D Part I Line 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--Is applicant requesting to use the exempt-contract percentage-of-completion method under Reg sec. 1.460-4(c)(2)? -->
+			<xsd:element name="IsApplcntReqExemptComplnMthd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is applicant requesting	to use the exempt-contract percentage-of-completion method under Reg sec. 1.460-4(c)(2)?</Description>
+						<LineNumber>Schedule D Part I Line 2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CostComparisonOrMethodUsedStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Have Long-Term Manufacturing Contracts as Defined in Section 460(f)(2)? -->
+			<xsd:element name="LTMfrContractsAsDefSect460f2" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the applicant have long-term manufacturing contracts as defined in section 460(f)(2)?</Description>
+						<LineNumber>Schedule D Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LongTermManufacturingContractsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Will Applicant Use Cost-To Cost Method in Reg sec.1.460-4(b)? -->
+			<xsd:element name="WillApplicantUseCosToCostMthd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Will applicant use cost-to cost method in Reg sec.1.460-4(b)?</Description>
+						<LineNumber>Schedule D Part I Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Line 4a is  "No" , Is Applicant Electing Simplified Cost-To-Cost Method in Reg sec.1.460-5(c)? -->
+			<xsd:element name="ElectingSmplfdCostToCostMthd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If line 4a is "No" ,  Is applicant electing simplified cost-to-cost method in Reg sec.1.460-5(c)?</Description>
+						<LineNumber>Schedule D Part I Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Change in Valuing Inventories Including Cost Allocation Changes ===== -->
+
+			<!-- Present Inventory Valuation Method in Compliance per Section 263A? -->
+			<xsd:element name="PresentInvntryVltnMthdPer263A" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the applicant's present inventory valuation method in compliance with section 263A?</Description>
+						<LineNumber>Schedule D Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inventory Being Changed -->
+			<xsd:element name="InventoryBeingChanged" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventory Being Changed</Description>
+						<LineNumber>Schedule D Part II Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Present Method (1st column of table) -->
+						<xsd:element name="PresentMethod" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Methods" type="InventoryIdentificationAndValuationMethodsType" minOccurs="0" />
+
+									<xsd:element name="ValueEndOfTaxYrBeforeYearOfChg" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Enter the value at the end of the tax year preceding the year of change</Description>
+												<LineNumber>Schedule D Part II Line 4b</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Proposed Method (2nd column of table) -->
+						<xsd:element name="ProposedMethod" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Methods" type="InventoryIdentificationAndValuationMethodsType" minOccurs="0" />
+
+									<xsd:element name="ValueEndOfTaxYrBeforeYearOfChg" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Enter the value at the end of the tax year preceding the year of change</Description>
+												<LineNumber>Schedule D Part II Line 4b</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Inventory Not Being Changed -->
+			<xsd:element name="InventoryNotBeingChanged" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventory Not Being Changed</Description>
+						<LineNumber>Schedule D Part II Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Present Method (3rd column of table) -->
+						<xsd:element name="PresentMethod" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Methods" type="InventoryIdentificationAndValuationMethodsType" minOccurs="0" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part III - Method of Cost Allocation ===== -->
+
+			<!-- ===== Section B - Direct and Indirect Costs Required To Be Allocated ===== -->
+
+			<!-- Direct Material -->
+			<xsd:element name="DirectMaterial" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct material</Description>
+						<LineNumber>Schedule D Part III Section B Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Direct Labor -->
+			<xsd:element name="DirectLabor" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct labor</Description>
+						<LineNumber>Schedule D Part III Section B Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Indirect Labor -->
+			<xsd:element name="IndirectLabor" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indirect labor</Description>
+						<LineNumber>Schedule D Part III Section B Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Officers' Compensation -->
+			<xsd:element name="OfficersCompensation" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Officers' compensation (not including selling activities)</Description>
+						<LineNumber>Schedule D Part III Section B Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Pension and Other Related Costs -->
+			<xsd:element name="PensionAndOtherRelatedCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pension and other related costs</Description>
+						<LineNumber>Schedule D Part III Section B Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Employee Benefits -->
+			<xsd:element name="EmployeeBenefits" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee benefits</Description>
+						<LineNumber>Schedule D Part III Section B Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Indirect Materials and Supplies -->
+			<xsd:element name="IndirectMaterialsAndSupplies" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indirect materials and supplies</Description>
+						<LineNumber>Schedule D Part III Section B Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchasing Costs -->
+			<xsd:element name="PurchasingCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchasing costs</Description>
+						<LineNumber>Schedule D Part III Section B Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Handling, Processing, Assembly, and Repackaging Costs -->
+			<xsd:element name="HandlingProcessingAssemblyCost" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Handling, processing, assembly, and repackaging costs</Description>
+						<LineNumber>Schedule D Part III Section B Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Offsite Storage and Warehousing Costs -->
+			<xsd:element name="OffsiteStorageWarehousingCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Offsite storage and warehousing costs</Description>
+						<LineNumber>Schedule D Part III Section B Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation, Amortization, and Cost Recovery Allowance for Equipment and Facilities Placed in Service and Not Temporarily Idle -->
+			<xsd:element name="DeprecAmortzAndCostRecovery" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation, amortization, and cost recovery allowance for equipment and facilities placed in service and not temporarily idle</Description>
+						<LineNumber>Schedule D Part III Section B Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depletion -->
+			<xsd:element name="Depletion" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depletion</Description>
+						<LineNumber>Schedule D Part III Section B Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rent -->
+			<xsd:element name="Rent" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent</Description>
+						<LineNumber>Schedule D Part III Section B Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxes Other Than State, Local, and Foreign Income Taxes -->
+			<xsd:element name="TaxesNotStateLocalAndForeign" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxes other than state, local, and foreign income taxes</Description>
+						<LineNumber>Schedule D Part III Section B Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Insurance -->
+			<xsd:element name="Insurance" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Insurance</Description>
+						<LineNumber>Schedule D Part III Section B Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Utilities -->
+			<xsd:element name="Utilities" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Utilities</Description>
+						<LineNumber>Schedule D Part III Section B Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Maintenance and Repairs that Relate to a Production, Resale, or Long-Term Contract Activity -->
+			<xsd:element name="MaintRepairsProdResaleLTCntrct" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Maintenance and repairs that relate to a production, resale, or long-term contract activity</Description>
+						<LineNumber>Schedule D Part III Section B Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Engineering and Design Costs -->
+			<xsd:element name="EngineeringAndDesignCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Engineering and design costs (not including section 174 research and experimental expenses)</Description>
+						<LineNumber>Schedule D Part III Section B Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rework Labor, Scrap and Spoilage -->
+			<xsd:element name="ReworkLaborScrapAndSpoilage" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rework labor, scrap and spoilage</Description>
+						<LineNumber>Schedule D Part III Section B Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tools and Equipment -->
+			<xsd:element name="ToolsAndEquipment" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tools and equipment</Description>
+						<LineNumber>Schedule D Part III Section B Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Quality Control and Inspection -->
+			<xsd:element name="QualityControlAndInspection" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Quality control and inspection</Description>
+						<LineNumber>Schedule D Part III Section B Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Bidding Expenses Incurred in the Solicitation of Contracts Awarded to the Applicant -->
+			<xsd:element name="ContractBiddingExpnssIncurred" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Bidding expenses incurred in the solicitation of contracts awarded to the applicant</Description>
+						<LineNumber>Schedule D Part III Section B Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Licensing and Franchise Costs -->
+			<xsd:element name="LicensingAndFranchiseCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Licensing and franchise costs</Description>
+						<LineNumber>Schedule D Part III Section B Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Capitalizable Service Costs -->
+			<xsd:element name="CapitalizableServiceCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capitalizable service costs (including mixed services costs)</Description>
+						<LineNumber>Schedule D Part III Section B Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Administrative Costs -->
+			<xsd:element name="AdministrativeCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Administrative costs (not including any costs of selling or any return on capital)</Description>
+						<LineNumber>Schedule D Part III Section B Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Research and Experimental Expenses Attributable to Long-Term Contracts -->
+			<xsd:element name="RsrchAndExptlExpnssLTContracts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Research and experimental expenses attributable to long-Term contracts</Description>
+						<LineNumber>Schedule D Part III Section B Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest -->
+			<xsd:element name="Interest" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest</Description>
+						<LineNumber>Schedule D Part III Section B Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Costs (required to be allocated) -->
+			<xsd:element name="OtherCostsRqrToBeAllocated" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other costs (Attach a list of these costs)</Description>
+						<LineNumber>Schedule D Part III Section B Line 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="PresentAndProposedMethodCheckboxesType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ListOfOtherCostsDirectAndIndirectCostsAttachment" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Section C - Other Costs Not Required To Be Allocated ===== -->
+
+			<!-- Marketing, Selling, Advertising, and Distribution Expenses -->
+			<xsd:element name="MarketingSellAdvtgDistriExpnss" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Marketing, selling, advertising, and distribution expenses</Description>
+						<LineNumber>Schedule D Part III Section C Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Research and Experimental Expenses -->
+			<xsd:element name="OtherResearchAndExptlExpenses" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Research and experimental expenses not included on line 26 above</Description>
+						<LineNumber>Schedule D Part III Section C Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Bidding Expenses -->
+			<xsd:element name="OtherBiddingExpenses" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Bidding expenses not included on line 22 above</Description>
+						<LineNumber>Schedule D Part III Section C Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- General and Administrative Costs -->
+			<xsd:element name="GeneralAndAdministrativeCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General and administrative costs not included in Section B above</Description>
+						<LineNumber>Schedule D Part III Section C Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Income Taxes -->
+			<xsd:element name="IncomeTaxes" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income taxes</Description>
+						<LineNumber>Schedule D Part III Section C Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost of Strikes -->
+			<xsd:element name="CostOfStrikes" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost of strikes</Description>
+						<LineNumber>Schedule D Part III Section C Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Warranty and Product Liability Costs -->
+			<xsd:element name="WarrantyProductLiabilityCosts" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Warranty and product liability costs</Description>
+						<LineNumber>Schedule D Part III Section C Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Costs -->
+			<xsd:element name="Section179Costs" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 costs</Description>
+						<LineNumber>Schedule D Part III Section C Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- On-site Storage -->
+			<xsd:element name="OnSiteStorage" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>On-site storage</Description>
+						<LineNumber>Schedule D Part III Section C Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Depreciation, Amortization, and Cost Recovery Allowance -->
+			<xsd:element name="OtherDeprecAmortzCostRecovery" type="PresentAndProposedMethodCheckboxesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation, amortization, and cost recovery allowance not included one line 11 above</Description>
+						<LineNumber>Schedule D Part III Section C Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Costs (NOT required to be allocated) -->
+			<xsd:element name="OtherCostsNotRqrToBeAllocated" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other costs (Attach a list of these costs)</Description>
+						<LineNumber>Schedule D Part III Section C Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="PresentAndProposedMethodCheckboxesType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherCostsNotRequiredToBeAllocatedAttachment" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Inventory Identification and Valuation Method checkboxes in Schedule D, Part II -->
+	<xsd:complexType name="InventoryIdentificationAndValuationMethodsType">
+		<xsd:sequence>
+
+			<!-- Specific Identification -->
+			<xsd:element name="SpecificIdentification" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specific identification</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FIFO -->
+			<xsd:element name="FIFO" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FIFO</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- LIFO -->
+			<xsd:element name="LIFO" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>LIFO</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other -->
+			<xsd:element name="OtherIdentificationMethod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other (attach explanation)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherIdentificationAndValuationMethodsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Cost -->
+			<xsd:element name="Cost" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Market -->
+			<xsd:element name="CostOrMarket" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or market, whichever is lower</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Retail Cost -->
+			<xsd:element name="RetailCost" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Retail cost</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Retail, Lower of Cost or Market -->
+			<xsd:element name="RetailLowerOfCostOrMarket" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Retail, lower of cost or market</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other -->
+			<xsd:element name="OtherValutionMethod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other (attach explanation)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherIdentificationAndValuationMethodsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Present Method and Proposed Method checkboxes in Schedule D, Part III, Sections A, B & C-->
+	<xsd:complexType name="PresentAndProposedMethodCheckboxesType">
+		<xsd:sequence>
+
+			<!-- Present Method -->
+			<xsd:element name="PresentMethod" type="CheckOrNAType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Present method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Proposed Method -->
+			<xsd:element name="ProposedMethod" type="CheckOrNAType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Proposed method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ===================  IRS Form 3115 Schedule E ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="IRS3115ScheduleEType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 3115 Schedule E</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Change in Depreciation or Amortization (for each item or class of property for which a change is requested) -->
+			<xsd:element name="ChangeInDeprecOrAmortization" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Property Depreciation Figured Under Section 1.167(a)-11? -->
+						<xsd:element name="PropertyDeprecUnderSect1167a11" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Is depreciation for the property figured under Regulations section 1.167(a)-11 (CLADR)?</Description>
+									<LineNumber>Schedule E Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Any Depreciation or Amortization Required Under Any Code Section? -->
+						<xsd:element name="AnyDeprecOrAmortzRqrUnderCode" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Is any of the depreciation or amortization required to be capitalized under any Code section (e.g., section 263A)?</Description>
+									<LineNumber>Schedule E Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable Section -->
+						<xsd:element name="ApplicableSection" type="AlphaNumericAndParenthesesType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If "Yes", enter the applicable section</Description>
+									<LineNumber>Schedule E Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Depreciation or Amortization Election Been Made? -->
+						<xsd:element name="DeprecOrAmortzElectionBeenMade" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Has a depreciation or amortization election been made for the property (e.g., the election under section 168(f)(1))?</Description>
+									<LineNumber>Schedule E Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Election Made -->
+						<xsd:element name="ElectionMade" type="AlphaNumericAndParenthesesType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If "Yes", state the election made</Description>
+									<LineNumber>Schedule E Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lived in Property Before Renting It? -->
+						<xsd:element name="LivedInPropertyBeforeRentingIt" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If the property is residential rental property, did the applicant live in the property before renting it?</Description>
+									<LineNumber>Schedule E Line 4b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Public Utility Property? -->
+						<xsd:element name="PublicUtilityProperty" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Is the property public utility property?</Description>
+									<LineNumber>Schedule E Line 4c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DescriptionOfPropertyBeingChangedStatement ExplanationHowPropertyTreatedUnderPresentMethodStatement FactsSuprtProposedChgToDepreciateOrAmortizePropStmt CodeSectUnderWhichPropIsDeprecOrAmortzStatement" />
+
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Type for Contact Information lines throughout this form -->
+	<xsd:complexType name="ContactInfoType">
+		<xsd:sequence>
+
+			<!-- Name -->
+			<xsd:element name="Name" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Phone Number -->
+			<xsd:element name="PhoneNumber" type="PhoneNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Phone Number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Contact Information and tax year(s)-->
+	<xsd:complexType name="ContactAndTaxYearInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Type for Contact Information and tax year(s)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ContactInfoType">
+				<xsd:sequence>
+
+					<!-- Tax year(s) -->
+					<xsd:element name="TaxYear" type="YearType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Tax year(s)</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<!-- Type for Alpha-Numeric (plus Space) -->
+	<xsd:simpleType name="AlphaNumericAndSpaceType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-Za-z0-9 ]*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Check ('X') or 'NA' Type -->
+	<xsd:simpleType name="CheckOrNAType">
+		<xsd:restriction base="StringType">
+			<xsd:enumeration value="X" />
+			<xsd:enumeration value="NA" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

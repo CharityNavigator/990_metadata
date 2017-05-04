@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Principal Committee Designation Attachment</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../../Common/V2003_06/efileTypes.xsd"/>
+	
+	<!-- ======================================================================== -->
+	<!-- ===========  Principal Committee Designation Attachment ================ -->
+	<!-- ======================================================================== -->
+	
+	<xsd:element name="PrinCommitteeDesgnAttachment">
+		<xsd:annotation>
+			<xsd:documentation>Principal Committee Designation Attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PrinCommitteeDesgnAttType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PrincipalCommitteeDesignationAttachment">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="PrinCommitteeDesgnAttType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for principal committee designation attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Candidate’s Name  -->
+			<xsd:element name="CandidateName" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Candidate’s name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Candidate’s Address  -->
+			<xsd:element name="CandidateAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Candidate’s address</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Candidate’s Identifying Number -->
+			<xsd:element name="CandidateIdentifyingNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Candidate’s identifying number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:pattern value="[A-Za-z0-9]{1,20}"/>
+					</xsd:restriction>					
+				</xsd:simpleType>								
+			</xsd:element>
+			
+			<!-- Party Affiliation  -->
+			<xsd:element name="PartyAffiliation" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Party affiliation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Office Sought -->
+			<xsd:element name="OfficeSought" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Office sought</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- District -->
+			<xsd:element name="District" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>District</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- State -->
+			<xsd:element name="State" type="StateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>State</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Name of Principal Campaign Committee -->
+			<xsd:element name="NameOfPrinCampaignCommittee" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of Principal Campaign Committee</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+			
+			<!-- Committee’s Address -->
+			<xsd:element name="CommitteeAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Committee’s address</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>																								
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

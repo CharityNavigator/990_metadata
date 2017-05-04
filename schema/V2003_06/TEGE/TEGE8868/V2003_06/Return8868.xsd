@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Application for extension of time- Form 8868</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="ReturnHeader8868.xsd" />
+	<xsd:include schemaLocation="ReturnData8868.xsd" />
+
+	<!-- Tax Exempt and Government Entities Organization Return - 8868 -->
+	<xsd:element name="Return">
+		<xsd:annotation>
+			<xsd:documentation> Application for extension of time- Form 8868 - wraps around Header and Data</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:complexType>
+			<xsd:sequence>
+
+				<xsd:element ref="ReturnHeader" />
+				<xsd:element ref="ReturnData" />
+
+			</xsd:sequence>
+			
+			<!-- Return Version -->
+			<xsd:attribute name="returnVersion" type="StringType" use="required" fixed="2003V06">
+				<xsd:annotation>
+					<xsd:documentation>Return Version</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+
+		</xsd:complexType>
+		
+		<!-- Uniqueness constraint for 'documentId' attribute of return documents -->
+		<xsd:unique name="documentId">
+			<xsd:selector xpath="efile:ReturnData/efile:*" />
+			<xsd:field xpath="@documentId" />
+		</xsd:unique>
+
+	</xsd:element>
+
+</xsd:schema>

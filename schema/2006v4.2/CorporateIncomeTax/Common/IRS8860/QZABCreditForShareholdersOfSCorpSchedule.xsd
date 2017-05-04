@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - QZAB Credit for Shareholders of S Corporation Schedule</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>March 11, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ====================================================== -->
+	<!-- === QZAB Credit for Shareholders of S Corporartion === -->
+	<!-- ====================================================== -->
+
+	<xsd:element name="QZABCreditShareholdersSCorpSch">
+		<xsd:annotation>
+			<xsd:documentation>QZAB Credit for Shareholders of S Corporation Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="QZABCreditShareholdersSCorpSchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="QZABCreditForShareholdersOfSCorpSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="QZABCreditShareholdersSCorpSchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for QZAB Credit for Shareholders of S Corporation Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- QZAB Credit for Shareholders of S Corporation info -->
+			<xsd:element name="QZABCreditShareholdersSCorp" type="QZABCreditShareholdersSCorpType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>QZAB Credit for Shareholders of S Corporation info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - QZAB Credit for Shareholders of S Corporation -->
+	<xsd:complexType name="QZABCreditShareholdersSCorpType">
+		<xsd:sequence>		
+
+			<!-- EIN or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">		
+				
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>			
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>			
+
+			<!-- Share of Credit -->
+			<xsd:element name="ShareOfCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Share of credit</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

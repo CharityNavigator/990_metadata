@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Other Notes/Loans Receivable Short Schedule</Description>
+
+			<TaxYear>2006</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>April 18, 2007</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ================================================================= -->
+
+	<!-- =========  Other Notes/Loans Receivable Short Schedule ========== -->
+
+	<!-- ================================================================= -->
+
+	
+
+	<xsd:element name="OtherNotesLoansRcvblShortSch">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Other notes/Loans receivable short schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="OthNotesLoansRcvblShortSchTyp">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="OtherNotesLoansReceivableShortSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<xsd:complexType name="OthNotesLoansRcvblShortSchTyp">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for other notes/loans receivable short schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="OtherNotesLoansRcvblShort" type="OtherNotesLoansRcvblShortType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="OtherNotesLoansRcvblShortType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for other notes/loans receivable (short)</xsd:documentation>
+
+		</xsd:annotation>
+
+		
+
+		<xsd:sequence>
+
+	
+
+			<!-- Category/Name -->
+
+			<xsd:element name="CategoryName" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Category/Name</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Amount -->
+
+			<xsd:element name="Amount" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>			
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+</xsd:schema>
+

@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 4684</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 4684 ============================ -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS4684">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 4684</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS4684Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS4684">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall"/>
+
+					<xsd:attribute name="revenueProcedure200920Cd">
+						<xsd:simpleType>
+							<xsd:restriction base="StringType">
+								<xsd:enumeration value="Revenue Procedure 2009-20"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					
+					<xsd:attribute name="revenueProcedure201036Cd">
+						<xsd:simpleType>
+							<xsd:restriction base="StringType">
+								<xsd:enumeration value="Revenue Procedure 2010-36"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS4684Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 4684</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Section A: Personal Use Property -->
+
+			<!-- Personal Use Properties Properties -->
+			<xsd:element name="PersonalUseProperties" type="PersonalUsePropertiesType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal Use Properties Properties</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Personal Property Casualty Or Theft Loss (line 9, columns A-D total) -->
+			<xsd:element name="TotalPrsnlPropertyTheftLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Personal Property Casualty Or Theft Loss (line 9, columns A-D total)</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Casualty or Theft Loss Limit -->
+			<xsd:element name="CasualtyOrTheftLossLimitAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Casualty or Theft Loss Limit</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Casualty or Theft Loss (line 10 minus line 11) -->
+			<xsd:element name="NetCasualtyOrTheftLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Casualty or Theft Loss (line 10 minus line 11)</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Line 12 Amount For All 4684 Forms -->
+			<xsd:element name="TotalNetCasualtyOrTheftLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Line 12 Amount For All 4684 Forms</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Casualty or Theft Gain -->
+			<xsd:element name="TotalCasualtyAndTheftGainAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Casualty or Theft Gain</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Theft Gain Minus Total Loss -->
+			<xsd:element name="TotalTheftGainLessTotalLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Total Theft Gain Minus Total Loss</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Loss Minus Total TheftGain -->
+			<xsd:element name="TotalLossLessTotalTheftGainAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Loss Minus Total Theft Gain</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ten Percent Of Adjusted Gross Income -->
+			<xsd:element name="TenPercentOfAGIAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ten percent of adjusted gross income</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated Adjusted Gross Income Minus Total Net Loss -->
+			<xsd:element name="CalcAdjGroIncmMnsTotNetLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated adjusted gross income minus total net loss</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section B - Business and Income-Producing Property -->
+
+			<!-- Part I: Casualty or Theft Gain or Loss -->
+
+			<!-- Business Properties -->
+			<xsd:element name="BusinessProperties" type="BusinessPropertiesType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Properties</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Business Property Casualty or Theft Loss -->
+			<xsd:element name="TotalBusPropertyTheftLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Business Property Casualty or Theft Loss</Description>
+						<LineNumber>28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II: Summary of Gains and Losses -->
+
+			<!-- Casualty or Theft of Property Held One Year or Less -->
+			<xsd:element name="ShortTermTheftProperty" type="GainsAndLossesType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Casualty or Theft of Property Held One Year or Less</Description>
+						<LineNumber>29(a) through 29(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short Term Property Trade or Business Total -->
+			<xsd:element name="TotShortTermTradeOrBusinessAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short Term Property Trade or Business Total</Description>
+						<LineNumber>30b(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short Term Property Income-Producing Total -->
+			<xsd:element name="ShortTermPropIncomeProdTotAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short Term Property Income-Producing Total</Description>
+						<LineNumber>30b(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short Term Total Gains from Casualties or Thefts -->
+			<xsd:element name="ShortTermTotalGainsTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short Term Total Gains from Casualties or Thefts</Description>
+						<LineNumber>30c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short Term Property Net Gain Or Loss Group -->
+			<xsd:element name="ShortTermPropNetGainOrLossGrp" type="ShortTermPropNetGainOrLossType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short Term Property Net Gain Or Loss Group</Description>
+						<LineNumber>31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short Term Property Income Total Group -->
+			<xsd:element name="ShortTermPropertyIncTotalGrp" type="ShortTermPropertyIncTotalType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short Term Property Income Total Group</Description>
+						<LineNumber>32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Casualty or Theft Gains from Form 4797 -->
+			<xsd:element name="CasualtyOrTheftGainFrom4797Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Casualty or Theft Gains from Form 4797</Description>
+						<LineNumber>33</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Theft Property -->
+			<xsd:element name="LongTermTheftProperty" type="GainsAndLossesType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Theft Property</Description>
+						<LineNumber>34(a) through 34(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Trade or Business Total -->
+			<xsd:element name="LongTermTradeOrBusinessTotAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Trade or Business Total</Description>
+						<LineNumber>35b(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Income-Producing Total -->
+			<xsd:element name="LongTermPropIncomeProdTotAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Income-Producing Total</Description>
+						<LineNumber>35b(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Total Theft Gains -->
+			<xsd:element name="LongTermTotalGainsTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Total Theft Gains</Description>
+						<LineNumber>36</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Losses Total -->
+			<xsd:element name="LongTermPropertyTotalLossesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Losses Total</Description>
+						<LineNumber>37</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Net Gain or Loss Group -->
+			<xsd:element name="LongTermPropNetGainOrLossGrp" type="LongTermPropNetGainOrLossType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Net Gain or Loss Group</Description>
+						<LineNumber>38(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Income Total Group -->
+			<xsd:element name="LongTermPropertyIncomeTotalGrp" type="LongTermPropertyIncomeTotalType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Income Total Group</Description>
+						<LineNumber>38(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long Term Property Income Plus Gain Group -->
+			<xsd:element name="LongTermPropIncomePlusGainGrp" type="LongTermPropIncomePlusGainType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Income Plus Gain Group</Description>
+						<LineNumber>39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Section C - Theft Loss Deduction for Ponzi-Type Investment Scheme Using the Procedures in Revenue Procedure 2009-20 -->
+
+			<!-- Part I: Computation Of Deduction -->
+
+			<!-- Revenue Procedure 200920 Group -->
+			<xsd:element name="RevenueProcedure200920Gr" type="RevenueProcedure200920GrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Revenue Procedure 200920 Group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Business Properties Type Repeating Group -->
+	<xsd:complexType name="BusinessPropertiesType">
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Property</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Adjusted Basis of Each Property-->
+			<xsd:element name="CostOrAdjustedBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or Adjusted Basis of Each Property</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Insurance or Other Reimbursement -->
+			<xsd:element name="InsuranceOrOthReimbursementAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Insurance or Other Reimbursement </Description>
+						<LineNumber>21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain from Casualty or Theft -->
+			<xsd:element name="GainFromCasualtyOrTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain from Casualty or Theft</Description>
+						<LineNumber>22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value Before Casualty or Theft -->
+			<xsd:element name="FairMarketValueBeforeTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair Market Value Before Casualty or Theft</Description>
+						<LineNumber>23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value After Theft -->
+			<xsd:element name="FairMarketValueAfterTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair Market Value After Theft</Description>
+						<LineNumber>24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value Difference -->
+			<xsd:element name="NetFairMarketValueAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair Market Value Difference</Description>
+						<LineNumber>25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Cost and Fair Market Value Difference -->
+			<xsd:element name="SmllrOfCostOrNetFairMrktVlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Smaller of Cost and Fair Market Value Difference</Description>
+						<LineNumber>26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Business Property Loss -->
+			<xsd:element name="NetBusinessPropertyLossAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Business Property Loss</Description>
+						<LineNumber>27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DeductibleLossComputationStmt"/>
+							<xsd:attribute name="seeAttachedStatementCd">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="SEE ATTACHED STATEMENT"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Personal Use Properties Type Repeating Group -->
+	<xsd:complexType name="PersonalUsePropertiesType">
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Property</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis of Each Property-->
+			<xsd:element name="CostOrOtherBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or Other Basis of Each Property</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Insurance or Other Reimbursement -->
+			<xsd:element name="InsuranceOrOthReimbursementAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Insurance or Other Reimbursement </Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="UnexcludedExcessGainStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Gain from Casualty or Theft -->
+			<xsd:element name="GainFromCasualtyOrTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain from Casualty or Theft</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value Before Casualty or Theft -->
+			<xsd:element name="FairMarketValueBeforeTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair Market Value Before Casualty or Theft</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value After Casualty or Theft -->
+			<xsd:element name="FairMarketValueAfterTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair Market Value After Casualty or Theft</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value After Theft Minus Before Theft -->
+			<xsd:element name="NetFairMarketValueAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair Market Value After Theft Minus Before Theft</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Cost and Fair Market Value Difference -->
+			<xsd:element name="SmllrOfAdjOrNetFairMrktVlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Smaller of Cost and Fair Market Value Difference </Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Lower Personal Property Value Minus Insurance Value -->
+			<xsd:element name="PropertyMinusInsuranceValueAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Lower Personal Property Value Minus Insurance Value</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Casualty or Theft Gains and Losses Type Repeating Group -->
+	<xsd:complexType name="GainsAndLossesType">
+		<xsd:sequence>
+
+			<!-- Casualty or Theft Description -->
+			<xsd:element name="CasualtyOrTheftDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Casualty or Theft Description</Description>
+						<LineNumber>29a or 34a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Trade or Rental Property -->
+			<xsd:element name="TradeOrRentalPropertyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Trade or Rental Property</Description>
+						<LineNumber>29(b)(i) or 34(b)(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Income-Producing Property -->
+			<xsd:element name="IncomeProducingPropertyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income-Producing Property</Description>
+						<LineNumber>29(b)(ii) or 34(b)(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gains from Casualties or Thefts -->
+			<xsd:element name="GainsFromCasualtiesOrTheftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gains from Casualties or Thefts</Description>
+						<LineNumber>29(c) or 34(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Short Term Property Net Gain Or Loss Group -->
+	<xsd:complexType name="ShortTermPropNetGainOrLossType">
+		<xsd:sequence>
+
+			<!-- Passive Activity Loss Code -->
+			<xsd:element name="PassiveActivityLossLiteralCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity loss literal code</Description>
+						<LineNumber>31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="PAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Short Term Property Net Gain or Loss -->
+			<xsd:element name="ShortTermPropNetGainOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short Term Property Net Gain or Loss</Description>
+						<LineNumber>31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Short Term Property Income Total Type -->
+	<xsd:complexType name="ShortTermPropertyIncTotalType">
+		<xsd:sequence>
+
+			<!-- Passive Activity Loss Code -->
+			<xsd:element name="PassiveActivityLossLiteralCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity loss literal code</Description>
+						<LineNumber>32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="PAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Short Term Property Income Total -->
+			<xsd:element name="ShortTermPropIncomeProdTotAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Short Term Property Income Total</Description>
+						<LineNumber>32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Long Term Property Net Gain or Loss Group -->
+	<xsd:complexType name="LongTermPropNetGainOrLossType">
+		<xsd:sequence>
+
+			<!-- Passive Activity Loss Code -->
+			<xsd:element name="PassiveActivityLossLiteralCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity loss literal code</Description>
+						<LineNumber>38(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="PAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Long Term Property Net Gain or Loss -->
+			<xsd:element name="LongTermPropNetGainOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Net Gain or Loss</Description>
+						<LineNumber>38(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Long Term Property Net Gain or Loss Group -->
+	<xsd:complexType name="LongTermPropertyIncomeTotalType">
+		<xsd:sequence>
+
+			<!-- Passive Activity Loss Code -->
+			<xsd:element name="PassiveActivityLossLiteralCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity loss literal code</Description>
+						<LineNumber>38(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="PAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Long Term Property Income Total -->
+			<xsd:element name="LongTermPropIncomeProdTotAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Income Total</Description>
+						<LineNumber>38(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Long Term Property Income Plus Gain Group -->
+	<xsd:complexType name="LongTermPropIncomePlusGainType">
+		<xsd:sequence>
+
+			<!-- Passive Activity Loss Code -->
+			<xsd:element name="PassiveActivityLossLiteralCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity loss literal code</Description>
+						<LineNumber>39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="PAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Long Term Property Total Income Plus Total Gain -->
+			<xsd:element name="LongTermPropIncomePlusGainAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long Term Property Total Income Plus Total Gain</Description>
+						<LineNumber>39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+			
+	<!-- Revenue Procedure 200920 Group Type Repeating Group -->
+	<xsd:complexType name="RevenueProcedure200920GrpType">
+		<xsd:sequence>
+
+			<!-- Initial Investment Amount -->
+			<xsd:element name="InitialInvestmentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Initial Investment Amount</Description>
+						<LineNumber>40</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subsequent Investments Amount-->
+			<xsd:element name="SubsequentInvestmentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subsequent Investments Amount</Description>
+						<LineNumber>41</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Income Reported on Tax Return for Tax Year Reported Prior to Discovery Year Amount -->
+			<xsd:element name="IncmRptOnTxRtnTYPrDiscvYrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Reported on Tax Return for Tax Year Reported Prior to Discovery Year Amount</Description>
+						<LineNumber>42</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Initial Subsequent Investment and Income Amount -->
+			<xsd:element name="TotInitialSubsqInvstAndIncmAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Initial Subsequent Investment and Income Amount</Description>
+						<LineNumber>43</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Withdrawals For All Years Amount -->
+			<xsd:element name="TotalWithdrawalsForAllYearsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Withdrawals For All Years Amount</Description>
+						<LineNumber>44</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Qualified Investment Amount -->
+			<xsd:element name="TotalQlfyInvstAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Qualified Investment Amount</Description>
+						<LineNumber>45</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Actual Or Potential Claims Recovery Percent -->
+			<xsd:element name="ActlOrPotentialClaimsRcvryPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual Or Potential Claims Recovery Percent</Description>
+						<LineNumber>46</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recovery Percent Times Total Qualified Investment Amount -->
+			<xsd:element name="RcvryPctTimesTotalQlfyInvstAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recovery Percent Times Total Qualified Investment Amount</Description>
+						<LineNumber>47</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Actual Recovery Amount -->
+			<xsd:element name="ActualRecoveryAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual Recovery Amount</Description>
+						<LineNumber>48</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Insurance SIPC Recovery Amount -->
+			<xsd:element name="InsuranceSIPCRecoveryAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Insurance SIPC Recovery Amount</Description>
+						<LineNumber>49</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total Recovery Amount -->
+			<xsd:element name="TotalRecoveryAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Recovery Amount</Description>
+						<LineNumber>50</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Theft Loss Deduction Amount -->
+			<xsd:element name="TheftLossDeductionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Theft Loss Deduction Amount</Description>
+						<LineNumber>51</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part II: Required Statements and Declarations -->
+
+			<!-- Theft Loss Deduction Revenue Procedure 2009-20 Group -->
+			<xsd:element name="TheftLossDedRevenuePr200920Grp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Theft Loss Deduction Revenue Procedure 2009-20 Group</Description>
+						<LineNumber>Section C, Part II</LineNumber>				
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="TheftLossDedRevenuePr200920GrpType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OriginalOrAmendedReturnStatement"/>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Theft Loss Deduction Revenue Procedure 200920 Group Type Repeating Group -->
+	<xsd:complexType name="TheftLossDedRevenuePr200920GrpType">
+		<xsd:sequence>
+
+			<!-- Person Name or Business Name -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Person Name -->
+				<xsd:element name="PersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person Name</Description>
+							<LineNumber>Part II</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Business Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business Name</Description>
+							<LineNumber>Part II</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- SSN or EIN -->
+			<xsd:choice minOccurs="0">
+
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN</Description>
+							<LineNumber>Part II</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+							<LineNumber>Part II</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address</Description>
+							<LineNumber>Part II</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Address</Description>
+							<LineNumber>Part II</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

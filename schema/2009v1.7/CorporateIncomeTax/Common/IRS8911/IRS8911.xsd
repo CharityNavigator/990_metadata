@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8911</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 29, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ===================================================================== -->
+	<!-- ======================  IRS Form 8911 =============================== -->
+	<!-- ===================================================================== -->
+	<xsd:element name="IRS8911">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8911</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8911Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8911">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8911Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8911</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="HydrogenRefuelingProperty" type="RefuelingPropertyType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Hydrogen refueling property</Description>
+						<LineNumber>Lines 1 - 8, 12 - 16 columns a and b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherRefuelingProperty" type="RefuelingPropertyType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other refueling property</Description>
+						<LineNumber>Lines 1 - 8, 12 - 16 columns a and b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- NEW ELEMENT -->
+			<!-- Add Columns (a) And (b) On Line 8  -->
+			<xsd:element name="RefuelingPropBusUsePrtTotCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (a) and (b) on line 8</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			 <!-- Alternative Fuel Vehicle Refueling Property Credit  -->
+			<xsd:element name="FinalGulfBondCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative fuel vehicle refueling property credit</Description>
+						<LineNumber>Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			 <!-- Business/Investment Use Part of Credit -->
+			<xsd:element name="BusInvstUsePartOfCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business/investment use part of credit</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- NEW ELEMENT -->
+			<!-- Add Columns(a) And (b) On Line 16 -->
+			<xsd:element name="PersonalUsePartTotalPropCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns(a) and (b) on line 16</Description>
+						<LineNumber>Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--Regular Tax Before Credits -->
+			<xsd:element name="RegularTaxBeforeCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular tax before credits</Description>
+						<LineNumber>Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit  -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>Line 19a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Credit  -->
+			<xsd:element name="ElectricVehicleTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle credit</Description>
+						<LineNumber>Line 19c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 19a Through 19c -->
+			<xsd:element name="TotalTaxCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add Lines 19a through 19c</Description>
+						<LineNumber>Line 19d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Regular Tax  -->
+			<xsd:element name="NetRegularTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net regular tax</Description>
+						<LineNumber>Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative Minimum Tax -->
+			<xsd:element name="TentativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative minimum tax</Description>
+						<LineNumber>Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 21 From Line 20 -->
+			<xsd:element name="AdjustedRegularTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 21 from line 20</Description>
+						<LineNumber>Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Personal Use Part of Credit -->
+			<xsd:element name="TotalPersnlUsePartOfCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal use part of credit</Description>
+						<LineNumber>Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="RefuelingPropertyType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for refueling property type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!--Total Cost of Qualified Altenative Fuel Vehicle Refueling Property -->
+			<xsd:element name="TotalQualifiedPropertyCost" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost of qualified altenative fuel vehicle refueling property</Description>
+						<LineNumber>Line 1a and 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Business/Investment Use Part -->
+			<xsd:element name="BusInvstUsePart" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business/Investment use part</Description>
+						<LineNumber>Line 2a and 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Section 179 Expense Deduction -->
+			<xsd:element name="Section179ExpenseDeduction" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 expense deduction</Description>
+						<LineNumber>Line 3a and 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 3 From Line 2 -->
+			<xsd:element name="NetBusUsePart" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 3 from line 2</Description>
+						<LineNumber>Line 4a and 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- NEW ELEMENT -->
+			<!-- Applicable Credit Rate Decimal Amount -->
+			<xsd:element name="RefuelingPropBusUseApplcblCrRt" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable credit rate decimal amount</Description>
+						<LineNumber>Line 5a and 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 4 By the Applicable Decimal Amount On Line 5-->
+			<xsd:element name="AdjBusUsePrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 4 by the applicable decimal amount on line 5</Description>
+						<LineNumber>Line 6a and 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Maximum Business/Investment Use part of Credit -->
+			<xsd:element name="MxBusUsePrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Maximum business/investment use part of credit</Description>
+						<LineNumber>Line 7a and 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			 <!-- Smaller of Line 6 or Line 7 -->
+			<xsd:element name="AdjBusUsePrtOrMxBusUsePrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Smaller of line 6 or line 7</Description>
+						<LineNumber>Line 8a and 8b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 2 From Line 1 -->
+			<xsd:element name="PersnlUsePartOfCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 2 from Line 1</Description>
+						<LineNumber>Line 12a and 12b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- NEW ELEMENT -->
+			<!-- Applicable Credit Rate Decimal Amount -->
+			<xsd:element name="RefuelPropPersnlUseApplcblCrRt" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable Credit Rate Decimal Amount</Description>
+						<LineNumber>Line 13a and 13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 12 By The Applicable Decimal Amount On Line 13 -->
+			<xsd:element name="AdjPersnlUsePrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 12 by the applicable decimal amount on line 13</Description>
+						<LineNumber>Line 14a and 14b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Maximum Personal Use Part of Credit -->
+			<xsd:element name="MxPersnlUsePrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Maximum personal use part of credit</Description>
+						<LineNumber>Line 15a and 15b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Smaller of Line 14 or Line 15 -->
+			<xsd:element name="AdjPersnlUsePrt-MxPersnlUsePrt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter smaller of line 14 or line 15</Description>
+						<LineNumber>Line 16a and 16b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

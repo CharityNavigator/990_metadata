@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8886</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8886 =============================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8886">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8886</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8886Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8886">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8886Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8886</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Type of Form Filed -->
+			<xsd:element name="TypeOfFormFiled" type="AlphaNumericType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of form filed</Description>
+						<LineNumber>Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For Tax Year -->
+			<xsd:element name="ForTaxYear" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For tax year</Description>
+						<LineNumber>Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Initial Year Filer -->
+			<xsd:element name="InitialYearFiler" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Initial year filer</Description>
+						<LineNumber>Line B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Protective Disclosure -->
+			<xsd:element name="ProtectiveDisclosure" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Protective disclosure</Description>
+						<LineNumber>Line B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reportable Transaction Information (repeating group) -->
+			<xsd:element name="ReportableTransactionInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reportable transaction information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name Of Reportable Transaction -->
+						<xsd:element name="NameOfReportableTransaction" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of reportable transaction</Description>
+									<LineNumber>Line 1a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Initial Year Participated -->
+						<xsd:element name="InitialYearParticipated" type="YearType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Initial year participated</Description>
+									<LineNumber>Line 1b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tax Shelter Registration Number -->
+						<xsd:element name="TaxShelterRegistrationNumber" type="TaxShelterRegistrationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax shelter registration number</Description>
+									<LineNumber>Line 1c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Listed Transaction -->
+			<xsd:element name="ListedTransaction" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Listed transaction</Description>
+						<LineNumber>Line 2(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Confidential -->
+			<xsd:element name="Confidential" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Confidential</Description>
+						<LineNumber>Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Contractual Protection -->
+			<xsd:element name="ContractualProtection" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contractual protection</Description>
+						<LineNumber>Line 2(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Loss -->
+			<xsd:element name="Loss" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Loss</Description>
+						<LineNumber>Line 2(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Significant Book-tax Difference -->
+			<xsd:element name="SignificantBookTaxDifference" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Significant book-tax difference</Description>
+						<LineNumber>Line 2(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Brief Asset Holding Period -->
+			<xsd:element name="BriefAssetHoldingPeriod" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Brief asset holding period</Description>
+						<LineNumber>Line 2(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If "listed transaction" or substantially similar, identify the transaction. -->
+			<xsd:element name="IdentifyListedTransOrSimilar" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If "listed transaction" or substantially similar, identify the transaction.</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Number of Transactions Reported on This Form -->
+			<xsd:element name="NumberOfTransactionsReported" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the number of transactions reported on this form</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+						<xsd:totalDigits value="6"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- If invested through another entity, identify Name -->
+			<xsd:element name="NameOfEntity" type="BusinessNameLine1Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If invested through another entity, identify name</Description>
+						<LineNumber>Line 5(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Entity Type -->
+			<xsd:element name="EntityType" type="ShortDescriptionType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Entity type</Description>
+						<LineNumber>Line 5(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Return Type -->
+			<xsd:element name="TaxReturnType" type="AlphaNumericType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax return type</Description>
+						<LineNumber>Line 5(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Employer Identification Number -->
+			<xsd:element name="EmployerIdentificationNumber" type="EINType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer identification number</Description>
+						<LineNumber>Line 5(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name and Address of Persons You Paid a Fee to and Who Promoted Your Participation In The Transaction. -->
+			<xsd:element name="PersonsPromotedYourPrtcpt" type="PersonInTransactionInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the name and address of each person you paid a fee to, and who promoted, solicited, or recommended your participation in the transaction or provided tax advice.</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Facts-Describe facts that relate to expected tax benefits, including your participation in the transaction. -->
+			<xsd:element name="FactsDescription" type="ShortExplanationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facts-Describe facts that relate to expected tax benefits.  For listed transactions identified in item 2a, also provide the complete name, address, and nature of involvement of all parties to the transaction.</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Expected Tax Benefits-Include deductions, exclusions from gross income, nonrecognition of gain, tax credits, adjustments, etc. -->
+			<xsd:element name="ExpectedTaxBenefits" type="ShortExplanationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Expected Tax Benefits-Include deductions, exclusions from gross income, nonrecognition of gain, tax credits, adjustments, etc.</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estimated Tax Benefits-Provide a separate estimate of the amount of each expected tax benefit for each affected tax year (include prior and future). -->
+			<xsd:element name="EstimatedTaxBenefits" type="ShortExplanationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated Tax Benefits-Provide a separate estimate of each expected tax benefit for each affected tax year.</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ================== Type Definitions ===================== -->
+
+	<!-- The Definition of the ComplexType of "PersonInTransactionInfoType" -->
+	<xsd:complexType name="PersonInTransactionInfoType">
+		<xsd:sequence>
+			<!-- Name Of Persons -->
+			<xsd:element name="NameOfPerson" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address Of Persons -->
+			<xsd:element name="AddressOfPersons" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address of persons</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

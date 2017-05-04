@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Gross Receipts Installment Sales Schedule</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- ======  Gross Receipts Installment Sales Schedule ============ -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="GrossReceiptsInstalSalesSch">
+		<xsd:annotation>
+			<xsd:documentation>Gross receipts installment sales schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="GrossReceiptsInstalSalesSchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="GrossReceiptsInstallmentSalesSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="GrossReceiptsInstalSalesSchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for gross receipts installment sales schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+				
+			<!-- Gross Receipts Installment Sales Info -->													
+			<xsd:element name="GrossReceiptsInstalSalesInfo" type="GrossReceiptsInstalSalesInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Receipts Installment Sales Info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>						
+
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="GrossReceiptsInstalSalesInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for gross receipts installment sales info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>				
+
+			<!-- Corporation Name -->
+			<xsd:element name="CorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporation Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Corporation EIN -->
+			<xsd:element name="CorporationEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporation EIN</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year -->													
+			<xsd:element name="CurrentYear" type="InstalSalesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>						
+						
+			<!-- First Preceding Year -->	
+			<xsd:element name="FirstPrecedingYear" type="InstalSalesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>First preceding year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>						
+				
+			<!-- Second Preceding Year -->
+			<xsd:element name="SecondPrecedingYear" type="InstalSalesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Second preceding year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Third Preceding Year -->
+			<xsd:element name="ThirdPrecedingYear" type="InstalSalesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Third preceding year</Description>
+					</xsd:documentation>
+				</xsd:annotation>							
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+
+	<!-- Type for Repeating rows for Current Year, and Previous Three Years -->
+	<xsd:complexType name="InstalSalesType">
+		<xsd:sequence>		
+
+			<!-- Gross Sales -->
+			<xsd:element name="GrossSales" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Cost of Goods Sold -->
+			<xsd:element name="CostOfGoodsSold" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost of goods sold</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Profits -->
+			<xsd:element name="GrossProfits" type="USAmountType" minOccurs="0">			
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross profits</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Percentage of Gross Profits to Gross Sales -->	
+			<xsd:element name="PctGrossProftToGrossSales" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percentage of gross profits to gross sales</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Amount Collected -->
+			<xsd:element name="AmountCollected" type="USAmountType" minOccurs="0">					
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount collected</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Gross Profit on the Amount Collected -->			
+			<xsd:element name="GrossProfitOnAmountCollected" type="USAmountType" minOccurs="0">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross profit on the amount collected</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+		</xsd:sequence>
+	</xsd:complexType>	
+
+</xsd:schema>

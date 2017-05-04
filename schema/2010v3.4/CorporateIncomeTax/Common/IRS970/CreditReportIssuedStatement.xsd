@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Credit Report Issued Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 21, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ========================================================================== -->
+	<!-- ===============  Credit Report Issued Statement ========================== -->
+	<!-- ========================================================================== -->
+
+	<xsd:element name="CreditReportIssuedStatement">
+		<xsd:annotation>
+			<xsd:documentation>Credit Report Issued Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="CreditReportIssuedStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="CreditReportIssuedStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="CreditReportIssuedStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Credit Report Issued Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+      		<!-- Recipient -->
+      		<xsd:element name="RecipientUsed" type="RecipientType" minOccurs="0" maxOccurs="unbounded">
+        		<xsd:annotation>
+          			<xsd:documentation>
+            			<Description>Recipient Used</Description>
+          			</xsd:documentation>
+        		</xsd:annotation>
+      		</xsd:element>
+    	</xsd:sequence>
+  	</xsd:complexType>
+
+	  <!-- Type for Repeating Group - Recipient Used -->
+  	<xsd:complexType name="RecipientType">
+    	<xsd:sequence>
+
+      		<!-- Recipient -->
+      		<xsd:element name="Recipient" type="BusinessNameType">
+        		<xsd:annotation>
+          			<xsd:documentation>
+            			<Description>Receipient</Description>
+          			</xsd:documentation>
+        		</xsd:annotation>
+      		</xsd:element>
+
+      		<!-- Date Of Issuance -->
+      		<xsd:element name="DateofIssuance" type="DateType" minOccurs="0">
+        		<xsd:annotation>
+          			<xsd:documentation>
+            			<Description>Date of issuance</Description>
+          			</xsd:documentation>
+        		</xsd:annotation>
+      		</xsd:element>
+	
+			<!-- Inventory Method -->
+			<xsd:element name="InventoryMethod" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventory method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

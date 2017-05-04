@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Additional Bond Current Year Credit Statement</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 26, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =============================================================== -->
+	<!-- ===== Additional Bond Current Year Credit Statement ====== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="AddnlBondCYCreditStatmnt">
+		<xsd:annotation>
+			<xsd:documentation>Additional Bond Current Year Credit Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AddnlBondCYCreditStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AdditionalBondCurrentYearCreditStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="AddnlBondCYCreditStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for the Additional Bond Current Year Credit Statement    </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    			<!-- Type for Repeating group Additional Bond Current Year Credit Statement -->
+			<xsd:element name="AddnlBondCYCreditStmtGrp" minOccurs="0" maxOccurs="50">
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Name of Bond Issuer -->
+						<xsd:element name="NameOfBondIssuer" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of Bond Issuer</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- City -->
+						<xsd:element name="City" type="CityType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>City</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- State  -->
+						<xsd:element name="State" type="StateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>State</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Date Bond Issued -->
+						<xsd:element name="DateBondIssued" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date Bond Issued</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Date Bond Disposed Of -->
+						<xsd:element name="DateBondDisposedOf" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date Bond Disposed Of</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Principal Bond and Credits Group -->
+						<xsd:element name="PrincipalBondAndCreditsGrp" minOccurs="0" maxOccurs="50">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Principal Payment Dates -->
+									<xsd:element name="PrinPaymentDates" type="DateType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Principal Payment Dates</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Outstanding Bond Principal -->
+									<xsd:element name="OutstndingBondPrin" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Outstanding Bond Principal</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Credit Rate -->
+									<xsd:element name="CreditRate" type="RatioType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Credit Rate</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Outstanding Bond PrincipalX Credit Rate Amount -->
+									<xsd:element name="OutstndgBondPrinCrdtRteAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>OutStanding Bond PrincipalX Credit Rate Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Percent -->
+									<xsd:element name="Percent" type="RatioType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Percent</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Credit Amount -->
+									<xsd:element name="CreditAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Credit Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Sum of Credits Amount -->
+						<xsd:element name="CreditSumAmt" type="USAmountType" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sum of Credits Amount</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Percentage of Certain Bonds or Credit Sum Amount  -->
+						<xsd:element name="CrComputationOrCrSumAmt" type="USAmountType" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Percentage of Certain Bonds or Credit Sum Amount</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

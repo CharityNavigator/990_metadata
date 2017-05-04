@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Foreign Tax Schedule</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================== -->
+	<!-- ====================  Foreign Tax Schedule ======================= -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="ForeignTaxSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Foreign Tax Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ForeignTaxScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ForeignTaxSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="ForeignTaxScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Foreign Tax Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Foreign Tax Info -->
+			<xsd:element name="ForeignTaxInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name of Foreign Country or U.S. Possession -->
+						<xsd:element name="ForeignCountryOrUSPossession" type="CountryType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>The country or U.S. possession abbreviation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Income from All Sources -->
+						<xsd:element name="GrossIncomeFromAllSources" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross income from all sources</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Income Sourced at Shareholder Level -->
+						<xsd:element name="GrossIncmSrcdAtShareholderLvl" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross income sourced at shareholder level</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GrossIncomeSourcedAtShareholderLevelSchedule"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Foreign Gross Income Sourced at Corporate Level - Passive -->
+						<xsd:element name="ForeignGroIncmSrcdCorpLvlPssv" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign gross income sourced at corporate level - Passive</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Gross Income Sourced at Corporate Level - General Category -->
+						<xsd:element name="ForeignGrossIncmSrcdCorpLvlGC" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign gross income sourced at corporate level - General category</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Gross Income Sourced at Corporate Level - Other -->
+						<xsd:element name="ForeignGrossIncmSrcdCorpLvlOT" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign gross income sourced at corporate level - Other</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ForeignGrossIncomeAtCorpLevelOtherCatSchedule"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Deductions Allocated and Apportioned at Shareholder Level - Interest Expense -->
+						<xsd:element name="DedAllocAndApprtnShrLvlIntExp" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Deductions allocated and apportioned at shareholder level - Interest Expense</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Deductions Allocated and Apportioned at Shareholder Level - Other -->
+						<xsd:element name="DedAllocAndApprtnShrLvlOther" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Deductions allocated and apportioned at shareholder level - Other</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Deductions Allocated and Apportioned at Corporate Level to Foreign Source Income - Passive -->
+						<xsd:element name="DedAllocAndApprtnCorpLvlPssv" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Deductions allocated and apportioned at corporate level to foreign source income - Passive</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Deductions Allocated and Apportioned at Corporate Level to Foreign Source Income - General Category -->
+						<xsd:element name="DedAllocAndApprtnAtCorpLvlGC" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Deductions allocated and apportioned at corporate level to foreign source income - General category</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Deductions Allocated and Apportioned at Corporate Level to Foreign Source Income - Other -->
+						<xsd:element name="DedAllocAndApprtnCorpLvlOT" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Deductions allocated and apportioned at corporate level to foreign source income - Other</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DeductionsOtherCategoriesSchedule"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Foreign Taxes - Paid -->
+						<xsd:element name="ForeignTaxesPaid" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign taxes - Paid</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Taxes - Accrued -->
+						<xsd:element name="ForeignTaxesAccrued" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign taxes - Accrued</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Reduction in Taxes Available for Credit -->
+						<xsd:element name="TaxReductionAvailableForCredit" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Reduction in taxes available for credit</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ReductionInTaxesSchedule"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Foreign Trading Gross Receipts -->
+						<xsd:element name="ForeignTradingGrossReceipts" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign trading gross receipts</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Extraterritorial Income Exclusion -->
+						<xsd:element name="ExtraterritorialIncmExclusion" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Extraterritorial income exclusion</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Foreign Transaction Amount  -->
+						<xsd:element name="OtherForeignTransactionAmount" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other foreign transaction amount</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

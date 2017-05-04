@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Other Certified Historic Structures Schedule</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =============================================================== -->
+	<!-- ========= Other Certified Historic Structures Schedule ======== -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="OtherCertHistoricStructuresSch">
+		<xsd:annotation>
+				<xsd:documentation>Other Certified Historic Structures Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="OtherCertHistoricStructuresSchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="OtherCertifiedHistoricStructuresSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="OtherCertHistoricStructuresSchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Other Certified Historic Structures Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Other Cert Historic Structures -->
+			<xsd:element name="OtherCertHistoricStructures" type="OtherCertHistoricStructuresType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Certified Historic Structures Type</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Other Cert Historic Structures Type -->
+	<xsd:complexType name="OtherCertHistoricStructuresType">
+		<xsd:annotation>
+			<xsd:documentation>Other Cert Historic Structures Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Pre 1936 Building Credit Amount -->
+			<xsd:element name="Pre1936BuildingCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pre 1936 Building Credit Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- NPS Project Number  -->
+			<xsd:element name="NPSProjectNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>NPS Project Number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:pattern value="[A-Za-z0-9\- ]{1,18}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Date of NPS Approval   -->
+			<xsd:element name="DateOfNPSApproval" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of NPS Approval</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rehabilitation Test Period Begin Date -->
+			<xsd:element name="RehabilitationTestPeriodBegDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation Test Period Begin Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rehabilitation Test Period End Date -->
+			<xsd:element name="RehabilitationTestPeriodEndDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation Test Period End Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Basis of Building Amount -->
+			<xsd:element name="AdjustedBasisOfBuildingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted Basis of Building Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Rehabilitation Expenditures Amount -->
+			<xsd:element name="QualifiedRehbltExpendituresAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Rehabilitation Expenditures Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Explanation -->
+			<xsd:element name="Explanation" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prior Year Credit Date -->
+			<xsd:element name="PriorYearCreditDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prior Year Credit Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

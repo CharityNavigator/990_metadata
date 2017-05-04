@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Schema - Other Pre 1936 Buildings Schedule</Description>
+
+			<TaxYear>2013</TaxYear>
+
+			<MaturityLevel>Draft Release</MaturityLevel>
+
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+
+
+	<!-- ============================================================================= -->
+
+	<!-- ============== Other Pre 1936 Buildings Schedule ============================ -->
+
+	<!-- ============================================================================= -->
+
+
+
+	<xsd:element name="OtherPre1936BuildingsSchedule">
+
+		<xsd:annotation>
+
+				<xsd:documentation>Other Pre 1936 Buildings Schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="OtherPre1936BuildingsScheduleType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="StringType" fixed="OtherPre1936BuildingsSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<xsd:complexType name="OtherPre1936BuildingsScheduleType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for Other Pre 1936 Buildings Schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<!-- Other Pre 1936 Buildings Schedule -->
+
+			<xsd:element name="OtherPre1936Buildings" type="OtherPre1936BuildingsType" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Other Pre 1936 Buildings Schedule</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+	<!-- Type for Repeating Group - Other Pre 1936 Buildings Type -->
+
+	<xsd:complexType name="OtherPre1936BuildingsType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Other Pre 1936 Buildings Schedule Type</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<!-- Credit -->
+
+			<xsd:element name="CreditAmt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Credit</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Rehabilitation Test Period Begin Date -->
+
+			<xsd:element name="RehabilitationPeriodBeginDt" type="DateType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Rehabilitation Test Period Begin Date</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Rehabilitation Test Period End Date -->
+
+			<xsd:element name="RehabilitationPeriodEndDt" type="DateType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Rehabilitation Test Period End Date</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Adjusted Basis of Building Amount -->
+
+			<xsd:element name="AdjustedBasisOfBuildingAmt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Adjusted Basis of Building Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Qualified Rehabilitation Expenditures Amount -->
+
+			<xsd:element name="QlfyRehbltExpendIncurredAmt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Qualified Rehabilitation Expenditures Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

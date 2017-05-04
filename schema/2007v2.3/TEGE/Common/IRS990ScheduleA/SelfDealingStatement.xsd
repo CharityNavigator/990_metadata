@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Self Dealing Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>March 11, 2008</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================== -->
+	<!-- =================  Self Dealing Statement ==================== -->
+	<!-- ============================================================== -->
+	
+	<xsd:element name="SelfDealingStatement">
+		<xsd:annotation>
+			<xsd:documentation>Self dealing statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="SelfDealingStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="SelfDealingStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="SelfDealingStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for self dealing statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence >
+		
+			<xsd:element name="SelfDealing" minOccurs="0" maxOccurs="5">
+				<xsd:complexType>
+					<xsd:sequence>
+		
+						<!-- Line Number -->
+						<xsd:element name="LineNumber" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Line number</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="StringType">
+									<xsd:pattern value="2[abcde]"/>								
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>			
+						
+						<!-- Explanation -->
+						<xsd:element name="Explanation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Explanation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+					</xsd:sequence>
+				</xsd:complexType>				
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

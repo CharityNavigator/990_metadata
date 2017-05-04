@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Nonprofit Income Tax Schema - IRS Form 8868</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 8, 2004</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- =============================================================== -->
+	<!-- =====================  IRS Form 8868 ========================== -->
+	<!-- =============================================================== -->
+	
+	<xsd:element name="IRS8868">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8868</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8868Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8868">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS8868Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8868</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice>
+			
+				<!-- Form 990 -->
+				<xsd:element name="Form990" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990-BL (Paper Filers Only Element)>									
+				<xsd:element name="Form990BL" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990-BL</Description>
+							<LineNumber>Part I</LineNumber>							
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element-->
+				
+				<!-- Form 990-EZ -->
+				<xsd:element name="Form990EZ" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990-EZ</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990-PF -->
+				<xsd:element name="Form990PF" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990-PF</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990-T (Corporation) -->
+				<xsd:element name="Form990TCorporation" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990-T (corporation)</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990-T (Sec. 401(a) or 408(a) Trust) -->
+				<xsd:element name="Form990TSection401a408aTrust" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990-T (sec. 401(a) or 408(a) trust)</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990-T (Trust Other Than 401(a) Or 408 (a)) -->
+				<xsd:element name="Form990TTrustOthThan401aOr408a" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 990-T (trust other than 401(a) or 408 (a))</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 1041-A -->
+				<xsd:element name="Form1041A" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 1041-A</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 4720 -->
+				<xsd:element name="Form4720" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 4720</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 5227 -->
+				<xsd:element name="Form5227" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 5227</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 6069 (Paper Filers Only Element)>																
+				<xsd:element name="Form6069" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 6069</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element-->
+				
+				<!-- Form 8870 (Paper Filers Only Element)>																
+				<xsd:element name="Form8870" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Form 8870</Description>
+							<LineNumber>Part I</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element-->
+			</xsd:choice>
+			
+			<!-- If the Organization Does not Have an Office or Place of Business in the United States, Check This Box -->
+			<xsd:element name="OrgDoesNotHaveAnOfficeInUS" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the organization does not have an office or place of business in the United States</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Group Return GEN (Paper Filers Only Element)>																
+			<xsd:element name="GroupReturnGEN" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Group return GEN</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Whole Group (Paper Filers Only Element)>																
+			<xsd:element name="WholeGroup" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Whole group</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Partial Group (Paper Filers Only Element)>																
+			<xsd:element name="PartialGroup" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partial group</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Extension To Date -->
+			<xsd:element name="ExtensionToDate" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extension to date</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Calendar Year CheckBox (Paper Filers Only Element)>																
+			<xsd:element name="CalendarYearCheckBox" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calendar year checkBox</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Year Digit (Paper Filers Only Element)>																
+			<xsd:element name="YearDigit" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year digit</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Intial Return (Paper Filers Only Element)>																
+			<xsd:element name="IntialReturn" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Intial return</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Final Return (Paper Filers Only Element)>																
+			<xsd:element name="FinalReturn" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Final return</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Change Accounting Period (Paper Filers Only Element)>														
+			<xsd:element name="ChangeAccountingPeriod" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Change accounting period</Description>
+						<LineNumber>Part I</LineNumber>												
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element-->
+			
+			<!-- Tentative Tax -->
+			<xsd:element name="TentativeTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative tax</Description>
+						<LineNumber>Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Refundable Credits/ Estimated Payments -->
+			<xsd:element name="RefundableCrEstimatedPayments" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Refundable credits/ Estimated payments</Description>
+						<LineNumber>Part I Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Balance Due -->
+			<xsd:element name="BalanceDue" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance due. Subtract line 3b from line 3a</Description>
+						<LineNumber>Part I Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

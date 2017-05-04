@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Person Meeting Filing Requirements Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================== -->
+	<!-- ====== Person Meeting Filing Requirements Statement ======= -->
+	<!-- =========================================================== -->
+
+	<xsd:element name="PersonMeetingFilingRqrStmt">
+		<xsd:annotation>
+			<xsd:documentation>Person Meeting Filing Requirements Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PersonMeetingFilingRqrStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="PersonMeetingFilingRequirementsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Person Meeting Filing Requirements Statement -->
+	<xsd:complexType name="PersonMeetingFilingRqrStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Person Meeting Filing Requirements Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="PersonMeetingFilingRqr" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Filing Requirement Met Description -->
+						<xsd:element name="FilingRequirementMetDesc" type="LineExplanationType">
+							<xsd:annotation>
+								<xsd:documentation>Filing Requirement Met Description</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Name -->
+						<xsd:element name="Name" type="PersonNameType">
+							<xsd:annotation>
+								<xsd:documentation>Name</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Choice between US Address, or Foreign Address -->
+						<xsd:choice>
+
+							<!-- US Address -->
+							<xsd:element name="USAddress" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>US address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Foreign Address  -->
+							<xsd:element name="ForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Choice between EIN, or SSN, or "APPLD FOR" or "FOREIGNUS" -->
+						<xsd:choice>
+
+							<!-- SSN -->
+							<xsd:element name="SSN" type="SSNType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>SSN</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- EIN -->
+							<xsd:element name="EIN" type="EINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>EIN</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Missing EIN Reason -->
+							<xsd:element name="MissingEINReason">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Missing EIN reason</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="APPLD FOR"/>
+										<xsd:enumeration value="FOREIGNUS"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- IRS Service Center Where Filed -->
+						<xsd:element name="IRSServiceCenterWhereFiled" type="IRSServiceCenterType">
+							<xsd:annotation>
+								<xsd:documentation>IRS Service Center Where Filed</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

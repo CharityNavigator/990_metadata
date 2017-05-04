@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Wholesaling or Retailing Goods Proposed Number of Pools Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 13, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ========================================================================= -->
+	<!-- === Wholesaling or Retailing Goods Proposed Number of Pools Statement === -->
+	<!-- ========================================================================= -->
+
+
+	<xsd:element name="WholesaleRetailPrpsdPoolsStmt">
+		<xsd:annotation>
+			<xsd:documentation>Wholesaling or Retailing Goods Proposed Number of Pools Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="WholesaleRetailPrpsdPoolsStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="WholesaleOrRetailGoodsProposedNumOfPoolsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="WholesaleRetailPrpsdPoolsStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Wholesaling or Retailing Goods Proposed Number of Pools Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="Statement" type="ShortExplanationType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

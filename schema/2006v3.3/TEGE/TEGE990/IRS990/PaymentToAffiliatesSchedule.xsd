@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Payment to Affiliates List</Description>
+
+			<TaxYear>2006</TaxYear>
+
+			<MaturityLevel>Draft Release</MaturityLevel>
+
+			<ReleaseDate>August 17, 2007</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ================================================================== -->
+
+	<!-- ==================  Payment to Affiliates List =================== -->
+
+	<!-- ================================================================== -->
+
+	
+
+	<xsd:element name="PaymentToAffiliatesList">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Payment to affiliates list</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="PaymentToAffiliatesListType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PaymentToAffiliatesSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<xsd:complexType name="PaymentToAffiliatesListType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for payment to affiliates list</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="PaymentToAffiliate" type="PaymentToAffiliateType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="PaymentToAffiliateType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for payment to affiliate</xsd:documentation>
+
+		</xsd:annotation>
+
+		
+
+		<xsd:sequence>
+
+		
+
+			<!-- Name -->
+
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Address -->
+
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="AddressUS" type="USAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Address - US</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				<xsd:element name="AddressForeign" type="ForeignAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Address - Foreign</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>				
+
+			</xsd:choice>
+
+			
+
+			<!-- Amount -->
+
+			<xsd:element name="Amount" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Purpose -->
+
+			<xsd:element name="Purpose" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Purpose</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+</xsd:schema>
+

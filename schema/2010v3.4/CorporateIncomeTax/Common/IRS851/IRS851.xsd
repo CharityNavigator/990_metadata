@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 851</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 21, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =========================================================== -->
+	<!-- =======================  IRS Form 851 ===================== -->
+	<!-- =========================================================== -->
+
+
+	<xsd:element name="IRS851">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 851</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS851Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS851">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" >
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall" />
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS851Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 851</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Table info from Parts I, II, III, and IV is captured separately for the Common Parent and Subsidiary corporations. -->
+			<!-- The single element 'CommonParentCorporationInfo' encapsulates the table info for the Common Parent corporation -->
+			<!-- The repeatable element 'SubsidiaryCorporationInfo' encapsulates the table info for a Subsidiary corporation -->
+			<!-- The repeatable element 'StockHoldingInfo' encapsulates the table info for Stock Holdings at begining of year -->
+
+			<xsd:element name="CommonParentCorporationInfo" minOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- ===== Part I: Overpayment Credits, Estimated Tax Payments, and Tax Deposits ===== -->
+
+						<!-- Corporation Number in table -->
+						<xsd:element name="CorporationNumber" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Corporation number in table</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerPosType">
+									<xsd:enumeration value="1"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Portion of Overpayment Credits and Estimated Tax Payments -->
+						<xsd:element name="PortionOfCrAndEstTaxPayments" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of overpayment credits and estimated tax payments</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of Tax Deposited with Form 7004 -->
+						<xsd:element name="PortionOfTaxDepositedWith7004" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of tax deposited with Form 7004</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- ===== Part II (Common Parent Corporation columns): Principal Business Activity, Voting Stock Information, Etc. ===== -->
+
+						<!-- Principal Business Activity -->
+						<xsd:element name="PBA" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prinicipal Business Activity</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Principal Business Activity Code or Inactive -->
+						<xsd:choice minOccurs="0">
+
+							<!-- PBA Code Number -->
+							<xsd:element name="PBACodeNumber" type="BusinessActivityCodeType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>PBA code number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Inactive PBA Code Number -->
+							<xsd:element name="InactivePBACodeNumber">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Inactive PBA code number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="Inactive"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- ===== Part III: Changes in Stock Holdings During the Tax Year ===== -->
+
+						<!-- Changes in Stock Holdings During the Tax Year table -->
+						<xsd:element name="StockHoldingChangesForTaxYear" type="StockHoldingChangesForTaxYearType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Changes in Stock Holdings During the Tax Year</Description>
+									<LineNumber>Part III (a) and (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- ===== Part IV: Additional Stock Information ===== -->
+
+						<!-- Additional Stock Information -->
+						<xsd:element name="AdditionalStockInformation" type="AdditionalStockInformationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional Stock Information</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="SubsidiaryCorporationInfo" minOccurs="1" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- ===== Part I: Overpayment Credits, Estimated Tax Payments, and Tax Deposits ===== -->
+
+						<!-- Corporation Number in table -->
+						<xsd:element name="CorporationNumber" type="SubsidiaryCorporationNumberType" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Corporation number in table</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Corporation Name -->
+						<xsd:element name="CorporationName" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Nameline(s) of the corporation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Name Control of the Corporation -->
+						<xsd:element name="CorporationNameControl" type="BusinessNameControlType" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name control of the corporation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Corporation's Address:  choice between U.S. and Foreign Address -->
+						<xsd:choice minOccurs="0">
+							<!-- Corporation's U.S. Address -->
+							<xsd:element name="CorporationUSAddress" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Corporation's U.S. address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Corporation's Foreign Address -->
+							<xsd:element name="CorporationForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Corporation's foreign address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Choice between Corporation's EIN or "APPLD FOR" -->
+						<xsd:choice minOccurs="1">
+
+							<!-- Corporation's EIN -->
+							<xsd:element name="CorporationEIN" type="EINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Employer identification number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Missing EIN Reason -->
+							<xsd:element name="MissingEINReason">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Missing EIN reason</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="APPLD FOR"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Portion of Overpayment Credits and Estimated Tax Payments -->
+						<xsd:element name="PortionOfCrAndEstTaxPayments" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of overpayment credits and estimated tax payments</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of Tax Deposited with Form 7004 -->
+						<xsd:element name="PortionOfTaxDepositedWith7004" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of tax deposited with Form 7004</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- ===== Part II (Subsidiary columns): Principal Business Activity, Voting Stock Information, Etc. ===== -->
+
+						<!-- Principal Business Activity -->
+						<xsd:element name="PBA" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prinicipal Business Activity</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Principal Business Activity Code or Inactive -->
+						<xsd:choice minOccurs="0">
+
+							<!-- PBA Code Number -->
+							<xsd:element name="PBACodeNumber" type="BusinessActivityCodeType" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>PBA code number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Inactive PBA Code Number -->
+							<xsd:element name="InactivePBACodeNumber">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Inactive PBA code number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="Inactive"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Made Nondividend Distributions? -->
+						<xsd:element name="MadeNondividendDistributions" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did the corporation make any nondividend distributions?</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- ===== Repeating Group for Stock Holdings at begining of Year ===== -->
+						<xsd:element name="StockHoldingInfo" minOccurs="0" maxOccurs="12">
+							<xsd:complexType>
+								<xsd:sequence>
+
+									<!-- Number of Shares -->
+									<xsd:element name="NumberOfShares" type="LongIntegerType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Number of shares</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Percent of Voting Power -->
+									<xsd:element name="PercentOfVotingPower" type="RatioType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Precent of voting power</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Percent of Value -->
+									<xsd:element name="PercentOfValue" type="RatioType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Precent of value</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Owned By Corporation Number in table -->
+									<xsd:element name="OwnedByCorporationNumber" type="CorporationNumberType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Owned by corporation number</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- ===== Part III: Changes in Stock Holdings During the Tax Year ===== -->
+
+						<!-- Changes in Stock Holdings During the Tax Year table -->
+						<xsd:element name="StockHoldingChangesForTaxYear" type="StockHoldingChangesForTaxYearType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Changes in Stock Holdings During the Tax Year</Description>
+									<LineNumber>Part III Line (a) and (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- ===== Part IV: Additional Stock Information ===== -->
+
+						<!-- Additional Stock Information -->
+						<xsd:element name="AdditionalStockInformation" type="AdditionalStockInformationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional Stock Information</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Totals from table in Part I ===== -->
+
+			<!-- Total Portion of Overpayment Credits and Estimated Tax Payments -->
+			<xsd:element name="TotalCreditsAndEstTaxPayments" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total portion of overpayment credits and estimated tax payments</Description>
+						<LineNumber>Part I Totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Portion of Tax Deposited with Form 7004 -->
+			<xsd:element name="TotalTaxDepositedWithForm7004" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total portion of tax deposited with Form 7004</Description>
+						<LineNumber>Part I Totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Various questions related to table in Part III ===== -->
+
+			<!-- Retained Shares Exceed Value At Time Of Transfer? -->
+			<xsd:element name="RetainedShrExceedValAtTsfrTime" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If any transaction listed above caused a transfer of a share of subsidiary stock</Description>
+						<LineNumber>Part III Line (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Did Any Share Become Worthless Under Section 165? -->
+			<xsd:element name="ShareValueWorthlessUnderSec165" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did any share become worthless within meaning of Section 165?</Description>
+						<LineNumber>Part III Line (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Equitable Owners Not Record Holders Details -->
+			<xsd:element name="OwnersNotRecordHoldersDetails" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the equitable owners of any capital stock shown above were other than the holders of record, provide details of the changes</Description>
+						<LineNumber>Part III Line (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Purchased or Retired Details -->
+			<xsd:element name="StockPurchasedOrRetiredDetails" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If additional stock was issued, or if any stock was retired during the year, list the dates and amounts of these transactions</Description>
+						<LineNumber>Part III Line (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Changes in Stock Holdings During the Tax Year ===== -->
+
+	<xsd:complexType name="StockHoldingChangesForTaxYearType">
+		<xsd:sequence>
+
+			<!-- Shareholder of Corporation Number in table -->
+			<xsd:element name="ShareholderOfCorporationNumber" type="CorporationNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder of corporation number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date of Transaction -->
+			<xsd:element name="TransactionDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of transaction</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Shares Acquired -->
+			<xsd:element name="NumberOfSharesAcquired" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares acquired</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Shares Disposed Of -->
+			<xsd:element name="NumberOfSharesDisposedOf" type="LongIntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares disposed of</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Voting Power -->
+			<xsd:element name="PercentOfVotingPower" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Precent of voting power</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Value -->
+			<xsd:element name="PercentOfValue" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Precent of value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Type for Additional Stock Information ===== -->
+
+	<xsd:complexType name="AdditionalStockInformationType">
+		<xsd:sequence>
+
+			<!-- More Than One Class of Stock Outstanding? -->
+			<xsd:element name="MoreThanOneClassStkOutstd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>During the tax year, did the corporation have more than one class of stock outstanding?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Classes of Stock -->
+			<xsd:element name="ClassesOfStock" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If "Yes", list and describe each class of stock</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Member Reaffiliated Within 60 Months? -->
+			<xsd:element name="MemReaffltWithin60Mnth" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>During the tax year, are there any member of the consolidated group that reaffiliated within 60 months of disaffiliation?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Explanation -->
+			<xsd:element name="Explanation" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If "Yes", explain the circumstances</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Arrangement in Existence for Non-Members to Acquire Stock or Voting Power? -->
+			<xsd:element name="ArrngmExstNonMemAcqStkVotePwr" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>During the tax year was there any arrangement in existence by which one or more persons that were not members of the affiliated group could acquire any stock or acquire any voting power without acquiring stock in the corporation, other than a de minimis amount, from the corporation or another member of the affiliated group?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage of Value of the Outstanding Stock that the Person(s) could acquire -->
+			<xsd:element name="PercentOfValue" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part IV, Line 3, Column 3(a)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage of Outstanding Voting Stock that the Person(s) could acquire -->
+			<xsd:element name="PercentOutstandingVotingStock" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part IV, Line 3, Column 3(b)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage of Voting Power that the Person(s) could acquire -->
+			<xsd:element name="PercentOfVotingPower" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part IV, Line 3, Column 3(c)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Arrangement Description for Question 3 -->
+			<xsd:element name="ArrangementDescForQuestion3" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part IV, Line 3, 3(d)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Subsidiary Corporation Number (in table) Type -->
+	<xsd:simpleType name="SubsidiaryCorporationNumberType">
+		<xsd:annotation>
+			<xsd:documentation>Subsidiary Corporation Number (in table)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="IntegerPosType">
+			<xsd:totalDigits value="6"/>
+			<xsd:minInclusive value="2"/>
+			<xsd:maxInclusive value="999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Parent OR Subsidiary Corporation Number (in table) Type -->
+	<xsd:simpleType name="CorporationNumberType">
+		<xsd:annotation>
+			<xsd:documentation>Corporation Number (in table)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="IntegerPosType">
+			<xsd:totalDigits value="6"/>
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

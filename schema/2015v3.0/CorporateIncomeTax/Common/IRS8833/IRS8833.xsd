@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8833</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 27, 2016</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8833 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8833">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8833</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8833Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8833">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8833Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8833</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Address In Country Of Residence -->
+			<xsd:element name="ForeignResidenceAddress" type="ForeignAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address in country of residence</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address In the United States -->
+			<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address in the United States</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between EIN, SSN or EIN Missing Reason Code -->
+			<xsd:choice minOccurs="1">
+
+				<!-- U.S. Taxpayer Identifying Number EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>U.S. taxpayer identifying number EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason Code -->
+				<xsd:element name="EINMissingReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason code</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- Foreign Reference Identification Number -->
+			<xsd:element name="ForeignEntityIdentificationGrp" type="ForeignEntityIdentificationGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign reference identification number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Treaty-based Position Sec 6114 -->
+			<xsd:element name="TreatybasedPositionSec6114Ind" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The taxpayer is disclosing a treaty-based return position as required by section 6114</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Treaty-based Position Sec 301.7701(b)-7 -->
+			<xsd:element name="TreatybasedPositionSec7701Ind" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The taxpayer is a dual-resident taxpayer and is disclosing a treaty-based return position as required by regulations section 301.7701(b)-7</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- US Citizen, Resident Or Incorporation -->
+			<xsd:element name="USCitizenOrOtherInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Check this box if the taxpayer is a U.S. citizen or resident or is incorporated in the United States</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Treaty Country -->
+			<xsd:element name="TreatyCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the specific treaty position relied on: a.Treaty country</Description>
+							<LineNumber>1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Article(s) -->
+			<xsd:element name="TreatyArticleTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the specific treaty position relied on: b. Article(s)</Description>
+							<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- IRC Provision(s) -->
+			<xsd:element name="IRCProvisionsTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List the Internal Revenue Code provision(s) overruled or modified by the treaty-based return position</Description>
+							<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name Of Payor Of Income -->
+			<xsd:element name="PayorName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of payor of income</Description>
+							<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying Number Of Payor Of Income (EIN or Missing EIN Reason) -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Identifying Number Of Payor Of Income -->
+				<xsd:element name="PayorEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number of payor of income</Description>
+								<LineNumber>3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address Of Payor Of Income: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address Of Payor Of Income -->
+				<xsd:element name="PayorUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of payor of income</Description>
+							<LineNumber>3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address Of Payor Of Income -->
+				<xsd:element name="PayorForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of payor of income</Description>
+							<LineNumber>3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Provision(s) Of Limitation -->
+			<xsd:element name="ProvisionsOfLimitationTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List the provision(s) of the limitation on benefits article (if any) in the treaty that the taxpayer relies on to prevent application of that article</Description>
+							<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Disclosure Treaty Section 301.6114-1(b) Checkbox -->
+			<xsd:element name="DisclosingTreatySec3016114Ind" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disclosure treaty section 301.6114-1(b) checkbox</Description>
+							<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- If Yes, Enter the Specific Subsection(s) 301.6114-1(b) Required Reporting -->
+			<xsd:element name="IRCSubsectionTxt" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If Yes, enter the specific subsection(s) 301.6114-1(b) required reporting</Description>
+							<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Explain Treaty-based Position On Benefit -->
+			<xsd:element name="ExplainTreatybasedPosOnBnftTxt" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explain treaty-based position on benefit. Include a brief summary of the facts on which it is based.</Description>
+							<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

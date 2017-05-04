@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Shareholder's Stock Ownership Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ========================================================== -->
+	<!-- ======== Shareholder's Stock Ownership Statement ======== -->
+	<!-- ========================================================== -->
+
+	<xsd:element name="ShareholdersStockOwnershipStmt">
+		<xsd:annotation>
+			<xsd:documentation>Shareholder's Stock Ownership Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ShareholdersStockOwnershipStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="ShareholdersStockOwnershipStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Shareholder's Stock Ownership Statement Type -->
+	<xsd:complexType name="ShareholdersStockOwnershipStmtType">
+		<xsd:sequence>
+			<xsd:element name="StockOwnershipInfo" type="StockOwnershipInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Shareholder's Stock Ownership Info Type -->
+	<xsd:complexType name="StockOwnershipInfoType">
+		<xsd:sequence>
+
+			<!-- Class of Stock Owned by the Shareholder at the Beginning of its Tax Year -->
+			<xsd:element name="ClassOfStockOwndShrhldrAtBegYr" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class of stock owned by the shareholder at the beginning of its tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Shares Owned by the Shareholder During its Tax Year -->
+			<xsd:element name="NumberOfSharesOwnedAtBegYr" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of shares owned by the shareholder during its tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Changes to the Number of Shares -->
+			<xsd:element name="ChangeToNumberOfSharesOwned" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List changes to the number of shares</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date of Changes -->
+			<xsd:element name="DateOfChanges" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List the date of changes</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Shares -->
+			<xsd:element name="NumberOfSharesAtEndYr" type="NumberOfSharesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List the number of shares</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

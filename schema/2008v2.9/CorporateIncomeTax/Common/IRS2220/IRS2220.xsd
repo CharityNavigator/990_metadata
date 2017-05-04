@@ -1,0 +1,2584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form2220</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+	<!-- =============================================================== -->
+	<!-- =======================  IRS Form 2220  ======================= -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS2220">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 2220</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS2220Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS2220">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS2220Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 2220</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Required Annual Payment ===== -->
+
+			<!-- Total Tax -->
+			<xsd:element name="TotalTax" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="section338GainIndicator">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="SEC. 338 GAIN" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+							<xsd:attribute name="section338GainAmount" type="USAmountType"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Personal Holding Company Tax -->
+			<xsd:element name="PersonalHoldingCompanyTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal holding company tax included in total tax</Description>
+						<LineNumber>2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Lookback Interest Included -->
+			<xsd:element name="LookbackInterestIncluded" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Look-back interest included in total tax under section 460(b)(2) for completed long-term contracts or section 167(g) for depreciation under the income forecast method</Description>
+						<LineNumber>2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit for Federal Tax Paid on Fuels -->
+			<xsd:element name="CreditForFederalTaxPaidOnFuels" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for federal tax paid on fuels</Description>
+						<LineNumber>2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total -->
+			<xsd:element name="SumOfIncludedTaxesAndCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Total.  Add lines 2a through 2c</Description>
+						<LineNumber>2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax Less Sum of Included Taxes and Credits -->
+			<xsd:element name="TotalTaxLessSumOfIncluded" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 2d from line 1</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Shown on Prior Year Tax Return -->
+			<xsd:element name="TaxShownOnPriorYearTaxReturn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax shown on the corporation's prior year income tax return</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller Tax -->
+			<xsd:element name="SmallerTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 3 or line 4</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Corporation is Using the Adjusted Seasonal Installment Method -->
+			<xsd:element name="UsingAdjustedSeasonal" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The corporation is using the adjusted seasonal installment method</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Corporation is Using the Annualized Income Installment Method -->
+			<xsd:element name="UsingAnnualizedIncome" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The corporation is using the annualized income installment method</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Large Corporation figuring its 1st Required Installment based on the Prior Year's Tax -->
+			<xsd:element name="LargeCorporation1stInstallment" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The corporation is a "large corporation" figuring its first required installment based on the prior year's tax</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installment Due Date #1 -->
+			<xsd:element name="InstallmentDueDate1" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter in column the 15th day of the 4th, 6th, 9th, and 12th months of the corp tax year</Description>
+						<LineNumber>9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment for Installment Due Date #1 -->
+			<xsd:element name="RequiredInstallment1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Required installment for installment due date #1</Description>
+						<LineNumber>10a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estimated Tax Paid or Credited for Installment Due Date #1 -->
+			<xsd:element name="EstimatedTaxPaidOrCredited1" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated tax paid or credited for installment due date #1</Description>
+						<LineNumber>11a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 15a, use value of 11a (Estimated Tax Paid or Credited for Installment Due Date #1) -->
+
+			<!-- Underpayment for Installment Due Date #1 -->
+			<xsd:element name="Underpayment1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment.  If line 15 is less than or equal to line 10, subtract line 15 from line 10</Description>
+						<LineNumber>17a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Overpayment for Installment Due Date #1 -->
+			<xsd:element name="Overpayment1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Overpayment for installment due date #1</Description>
+						<LineNumber>18a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installment Due Date #2 -->
+			<xsd:element name="InstallmentDueDate2" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter in column the 15th day of the 4th, 6th, 9th, and 12th months of the corp tax year</Description>
+						<LineNumber>9b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment for Installment Due Date #2 -->
+			<xsd:element name="RequiredInstallment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Required installment for installment due date #2</Description>
+						<LineNumber>10b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estimated Tax Paid or Credited for Installment Due Date #2 -->
+			<xsd:element name="EstimatedTaxPaidOrCredited2" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated tax paid or credited for installment due date #2</Description>
+						<LineNumber>11b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 12b, use value of 18a (Overpayment for Installment Due Date #1) -->
+
+			<!-- Sum of Estimated Tax Paid or Credited for Installment Due Date #2 and Overpayment for Installment Due Date #1 -->
+			<xsd:element name="EstimatedPaid2AndOverpayment1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11 and 12</Description>
+						<LineNumber>13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 14b, use value of 17a.  This value will be considered the Total Underpayment for Installment Due Date #1 -->
+
+			<!-- Sum of Estimated Tax Paid or Credited for Installment Due Date #2 and Overpayment for Installment Due Date #1 minus Total Underpayment for Installment Due Date #1 -->
+			<xsd:element name="EstPd2AndOvpmt1LessTotUndpymt1" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 14 from line 13</Description>
+						<LineNumber>15b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Underpayment Carryover from Installment Due Date #1 for Installment Due Date #2 -->
+			<xsd:element name="UnderpaymentCarryover2" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the amount on line 15 is zero, subtract line 13 from line 14</Description>
+						<LineNumber>16b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Underpayment for Installment Due Date #2 -->
+			<xsd:element name="Underpayment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment.  If line 15 is less than or equal to line 10, subtract line 15 from line 10</Description>
+						<LineNumber>17b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Overpayment for Installment Due Date #2 -->
+			<xsd:element name="Overpayment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Overpayment for installment due date #2</Description>
+						<LineNumber>18b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installment Due Date #3 -->
+			<xsd:element name="InstallmentDueDate3" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter in column the 15th day of the 4th, 6th, 9th, and 12th months of the corp tax year</Description>
+						<LineNumber>9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment for Installment Due Date #3 -->
+			<xsd:element name="RequiredInstallment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Required installment for installment due date #3</Description>
+						<LineNumber>10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estimated Tax Paid or Credited for Installment Due Date #3 -->
+			<xsd:element name="EstimatedTaxPaidOrCredited3" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated tax paid or credited for installment due date #3</Description>
+						<LineNumber>11c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 12c, use value of 18b (Overpayment for Installment Due Date #2) -->
+
+			<!-- Sum of Estimated Tax Paid or Credited for Installment Due Date #3 and Overpayment for Installment Due Date #2 -->
+			<xsd:element name="EstimatedPaid3AndOverpayment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11 and 12</Description>
+						<LineNumber>13c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Underpayment from Installment Due Date #2 -->
+			<xsd:element name="TotalUnderpayment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total underpayment from preceding column (for installment due date #2, line 16b plus line 17b)</Description>
+						<LineNumber>14c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum of Estimated Tax Paid or Credited for Installment Due Date #3 and Overpayment for Installment Due Date #2 less Total Underpayment for Installment Due Date #2 -->
+			<xsd:element name="EstPd3AndOvpmt2LessTotUndpymt2" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 14 from line 13</Description>
+						<LineNumber>15c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Underpayment Carryover from Installment Due Date #2 for Installment Due Date #3 -->
+			<xsd:element name="UnderpaymentCarryover3" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the amount on line 15 is zero, subtract line 13 from line 14</Description>
+						<LineNumber>16c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Underpayment for Installment Due Date #3 -->
+			<xsd:element name="Underpayment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment.  If line 15 is less than or equal to line 10, subtract line 15 from line 10</Description>
+						<LineNumber>17c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Overpayment for Installment Due Date #3 -->
+			<xsd:element name="Overpayment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Overpayment for installment due date #3</Description>
+						<LineNumber>18c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installment Due Date #4 -->
+			<xsd:element name="InstallmentDueDate4" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter in column the 15th day of the 4th, 6th, 9th, and 12th months of the corp tax year</Description>
+						<LineNumber>9d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment for Installment Due Date #4 -->
+			<xsd:element name="RequiredInstallment4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Required installment for installment due date #4</Description>
+						<LineNumber>10d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estimated Tax Paid or Credited for Installment Due Date #4 -->
+			<xsd:element name="EstimatedTaxPaidOrCredited4" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated tax paid or credited for installment due date #4</Description>
+						<LineNumber>11d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 12d, use value of 18c (Overpayment for Installment Due Date #3) -->
+
+			<!-- Sum of Estimated Tax Paid or Credited for Installment Due Date #4 and Overpayment for Installment Due Date #3 -->
+			<xsd:element name="EstimatedPaid4AndOverpayment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11 and 12</Description>
+						<LineNumber>13d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Underpayment from Installment Due Date #3 -->
+			<xsd:element name="TotalUnderpayment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total underpayment from preceding column (for installment due date #3, line 16c plus line 17c)</Description>
+						<LineNumber>14d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum of Estimated Tax Paid or Credited for Installment Due Date #4 and Overpayment for Installment Due Date #3 less Total Underpayment for Installment Due Date #3 -->
+			<xsd:element name="EstPd4AndOvpmt3LessTotUndpymt3" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 14 from line 13</Description>
+						<LineNumber>15d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Underpayment for Installment Due Date #4 -->
+			<xsd:element name="Underpayment4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment.  If line 15 is less than or equal to line 10, subtract line 15 from line 10</Description>
+						<LineNumber>17d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Figuring the Penalty ===== -->
+
+			<!-- Payment Penalty Computation table -->
+			<xsd:element name="PaymentPenaltyComputation" type="PaymentPenaltyComputationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Payment penalty computation</Description>
+						<LineNumber>19a - 37a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty Amount -->
+			<xsd:element name="TotalPenalty" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Penalty Amount</Description>
+						<LineNumber>38</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- IRS2220 Schedule A - Annualized Income Installment Method and/or the Adjusted Seasonal Installment Method Under Section 6655(e) -->
+			<xsd:element name="IRS2220ScheduleA" type="IRS2220ScheduleAType" minOccurs="0" />
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ===================  IRS Form 2220 Schedule A ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="IRS2220ScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 2220 Schedule A</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Part I - Adjusted Seasonal Installment Method ===== -->
+
+			<!-- Taxable Income for Tax Year #1 for 1st 3 months -->
+			<xsd:element name="First3MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 3 months</Description>
+						<LineNumber>Schedule A Line 1a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 3 months -->
+			<xsd:element name="First3MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 3 months</Description>
+						<LineNumber>Schedule A Line 1b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 3 months -->
+			<xsd:element name="First3MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 3 months</Description>
+						<LineNumber>Schedule A Line 1c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 3 months -->
+			<xsd:element name="First3MonthsTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for current tax year for 1st 3 months</Description>
+						<LineNumber>Schedule A Line 2(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 5 months -->
+			<xsd:element name="First5MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 5 months</Description>
+						<LineNumber>Schedule A Line 1a(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 5 months -->
+			<xsd:element name="First5MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 5 months</Description>
+						<LineNumber>Schedule A Line 1b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 5 months -->
+			<xsd:element name="First5MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 5 months</Description>
+						<LineNumber>Schedule A Line 1c(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 5 months -->
+			<xsd:element name="First5MonthsTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for current tax year for 1st 5 months</Description>
+						<LineNumber>Schedule A Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 8 months -->
+			<xsd:element name="First8MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 8 months</Description>
+						<LineNumber>Schedule A Line 1a(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 8 months -->
+			<xsd:element name="First8MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 8 months</Description>
+						<LineNumber>Schedule A Line 1b(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 8 months -->
+			<xsd:element name="First8MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 8 months</Description>
+						<LineNumber>Schedule A Line 1c(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 8 months -->
+			<xsd:element name="First8MonthsTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for current tax year for 1st 8 months</Description>
+						<LineNumber>Schedule A Line 2(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 11 months -->
+			<xsd:element name="First11MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 11 months</Description>
+						<LineNumber>Schedule A Line 1a(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 11 months -->
+			<xsd:element name="First11MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 11 months</Description>
+						<LineNumber>Schedule A Line 1b(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 11 months -->
+			<xsd:element name="First11MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 11 months</Description>
+						<LineNumber>Schedule A Line 1c(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 11 months -->
+			<xsd:element name="First11MonthsTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for current tax year for 1st 11 months</Description>
+						<LineNumber>Schedule A Line 2(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 4 months -->
+			<xsd:element name="First4MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 4 months</Description>
+						<LineNumber>Schedule A Line 3a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 4 months -->
+			<xsd:element name="First4MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 4 months</Description>
+						<LineNumber>Schedule A Line 3b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 4 months -->
+			<xsd:element name="First4MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 4 months</Description>
+						<LineNumber>Schedule A Line 3c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 4 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="First4MonthsIncomeRatio1TY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 4(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 4 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="First4MonthsIncomeRatio1TY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 5(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 4 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="First4MonthsIncomeRatio1TY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 6(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsIncomeRatioTotal1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 4 through 6</Description>
+						<LineNumber>Schedule A Line 7(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsIncomeRatioAvg1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 7 by 3.0</Description>
+						<LineNumber>Schedule A Line 8(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 4 months divided by Average of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsIncomeFactored" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 2 by line 8</Description>
+						<LineNumber>Schedule A Line 9a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items 1st 4 Months Income -->
+			<xsd:element name="First4MnthIncmExtraordnryItems" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items 1st 4 months income</Description>
+						<LineNumber>Schedule A Line 9b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for 1st 4 months -->
+			<xsd:element name="First4MonthsTotalTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 9a(a) and 9b(a)</Description>
+						<LineNumber>Schedule A Line 9c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Figured for Taxable Income for Current Tax Year for 1st 4 months divided by Average of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsTaxFigured1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount on line 9c(a) using the instructions for Form 1120,</Description>
+						<LineNumber>Schedule A Line 10(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 4 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="First4MonthsIncomeRatio2TY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 11a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 4 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="First4MonthsIncomeRatio2TY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 11b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 4 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="First4MonthsIncomeRatio2TY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 11c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsIncomeRatioTotal2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11a through 11c</Description>
+						<LineNumber>Schedule A Line 12(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsIncomeRatioAvg2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 12 by 3.0</Description>
+						<LineNumber>Schedule A Line 13(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 1st 4 months Current Tax Year, Average of Taxable Income Ratios for 1st 4 months of Tax Year #1 through Tax Year #3 multiplied by the Tax Figured for Taxable Income for Current Tax Year for 1st 3 months divided by Average of Taxable Income Ratios for 1st 3 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First4MonthsTaxFigured2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply the amount in columns (a) through (c) of line 10 by columns (a) through (c) of line 13</Description>
+						<LineNumber>Schedule A Line 14(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for 1st 4 months of Current Tax Year -->
+			<xsd:element name="First4MonthsAlternativeMinTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter alternative minimum tax for each payment period</Description>
+						<LineNumber>Schedule A Line 15(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for 1st 4 months of Current Tax Year -->
+			<xsd:element name="First4MonthsOtherTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter other taxes for each payment period</Description>
+						<LineNumber>Schedule A Line 16(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total tax for 1st 4 months of Current Tax Year -->
+			<xsd:element name="First4MonthsTotalTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 14 through 16</Description>
+						<LineNumber>Schedule A Line 17(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Credits for 1st 4 months of Current Tax Year -->
+			<xsd:element name="First4MonthsTaxCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 18(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for 1st 4 months of Current Tax Year -->
+			<xsd:element name="First4MonthsTaxAfterCredits" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 19(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 6 months -->
+			<xsd:element name="First6MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 6 months</Description>
+						<LineNumber>Schedule A Line 3a(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 6 months -->
+			<xsd:element name="First6MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 6 months</Description>
+						<LineNumber>Schedule A Line 3b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 6 months -->
+			<xsd:element name="First6MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 6 months</Description>
+						<LineNumber>Schedule A Line 3c(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 6 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="First6MonthsIncomeRatio1TY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 4(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 6 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="First6MonthsIncomeRatio1TY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 5(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 6 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="First6MonthsIncomeRatio1TY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 6(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsIncomeRatioTotal1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 4 through 6</Description>
+						<LineNumber>Schedule A Line 7(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsIncomeRatioAvg1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 7 by 3.0</Description>
+						<LineNumber>Schedule A Line 8(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 6 months divided by Average of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsIncomeFactored" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 2 by line 8</Description>
+						<LineNumber>Schedule A Line 9a(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items 1st 6 Months Income -->
+			<xsd:element name="First6MnthIncmExtraordnryItems" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items 1st 6 months income</Description>
+						<LineNumber>Schedule A Line 9b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for 1st 6 Months -->
+			<xsd:element name="First6MonthsTotalTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 9a(b) and 9b(b)</Description>
+						<LineNumber>Schedule A Line 9c(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Figured for Taxable Income for Current Tax Year for 1st 6 months divided by Average of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsTaxFigured1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount on line 9c(b) using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 10(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 6 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="First6MonthsIncomeRatio2TY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 11a(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 6 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="First6MonthsIncomeRatio2TY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 11b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 6 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="First6MonthsIncomeRatio2TY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 11c(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsIncomeRatioTotal2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11a through 11c</Description>
+						<LineNumber>Schedule A Line 12(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsIncomeRatioAvg2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 12 by 3.0</Description>
+						<LineNumber>Schedule A Line 13(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 1st 6 months Current Tax Year, Average of Taxable Income Ratios for 1st 6 months of Tax Year #1 through Tax Year #3 multiplied by the Tax Figured for Taxable Income for Current Tax Year for 1st 5 months divided by Average of Taxable Income Ratios for 1st 5 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First6MonthsTaxFigured2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply the amount in columns (a) through (c) of line 10 by columns (a) through (c) of line 13</Description>
+						<LineNumber>Schedule A Line 14(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for 1st 6 months of Current Tax Year -->
+			<xsd:element name="First6MonthsAlternativeMinTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter alternative minimum tax for each payment period</Description>
+						<LineNumber>Schedule A Line 15(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for 1st 6 months of Current Tax Year -->
+			<xsd:element name="First6MonthsOtherTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter other taxes for each payment period</Description>
+						<LineNumber>Schedule A Line 16(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total tax for 1st 6 months of Current Tax Year -->
+			<xsd:element name="First6MonthsTotalTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 14 through 16</Description>
+						<LineNumber>Schedule A Line 17(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Credits for 1st 6 months of Current Tax Year -->
+			<xsd:element name="First6MonthsTaxCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 18(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for 1st 6 months of Current Tax Year -->
+			<xsd:element name="First6MonthsTaxAfterCredits" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 19(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 9 months -->
+			<xsd:element name="First9MonthsTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for 1st 9 months</Description>
+						<LineNumber>Schedule A Line 3a(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 9 months -->
+			<xsd:element name="First9MonthsTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for 1st 9 months</Description>
+						<LineNumber>Schedule A Line 3b(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 9 months -->
+			<xsd:element name="First9MonthsTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for 1st 9 months</Description>
+						<LineNumber>Schedule A Line 3c(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 9 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="First9MonthsIncomeRatio1TY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 4(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 9 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="First9MonthsIncomeRatio1TY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 5(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 9 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="First9MonthsIncomeRatio1TY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 6(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsIncomeRatioTotal1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 4 through 6</Description>
+						<LineNumber>Schedule A Line 7(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsIncomeRatioAvg1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 7 by 3.0</Description>
+						<LineNumber>Schedule A Line 8(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 9 months divided by Average of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsIncomeFactored" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 2 by line 8</Description>
+						<LineNumber>Schedule A Line 9a(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items 1st 9 Months Income -->
+			<xsd:element name="First9MnthIncmExtraordnryItems" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items 1st 9 months income</Description>
+						<LineNumber>Schedule A Line 9b(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for 1st 9 Months -->
+			<xsd:element name="First9MonthsTotalTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 9a(c) and 9b(c)</Description>
+						<LineNumber>Schedule A Line 9c(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Figured for Taxable Income for Current Tax Year for 1st 9 months divided by Average of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsTaxFigured1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount on line 9c(c) using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 10(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 9 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="First9MonthsIncomeRatio2TY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 11a(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 9 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="First9MonthsIncomeRatio2TY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 11b(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 9 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="First9MonthsIncomeRatio2TY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in columns (a) through (c) on line 3c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 11c(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsIncomeRatioTotal2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11a through 11c</Description>
+						<LineNumber>Schedule A Line 12(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsIncomeRatioAvg2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 12 by 3.0</Description>
+						<LineNumber>Schedule A Line 13(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 1st 9 months Current Tax Year, Average of Taxable Income Ratios for 1st 9 months of Tax Year #1 through Tax Year #3 multiplied by the Tax Figured for Taxable Income for Current Tax Year for 1st 8 months divided by Average of Taxable Income Ratios for 1st 8 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="First9MonthsTaxFigured2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply the amount in columns (a) through (c) of line 10 by columns (a) through (c) of line 13</Description>
+						<LineNumber>Schedule A Line 14(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for 1st 9 months of Current Tax Year -->
+			<xsd:element name="First9MonthsAlternativeMinTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter alternative minimum tax for each payment period</Description>
+						<LineNumber>Schedule A Line 15(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for 1st 9 months of Current Tax Year -->
+			<xsd:element name="First9MonthsOtherTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter other taxes for each payment period</Description>
+						<LineNumber>Schedule A Line 16(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total tax for 1st 9 months of Current Tax Year -->
+			<xsd:element name="First9MonthsTotalTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 14 through 16</Description>
+						<LineNumber>Schedule A Line 17(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Credits for 1st 9 months of Current Tax Year -->
+			<xsd:element name="First9MonthsTaxCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 18(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for 1st 9 months of Current Tax Year -->
+			<xsd:element name="First9MonthsTaxAfterCredits" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 19(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for Entire Year -->
+			<xsd:element name="EntireYearTaxableIncomeTY1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #1 for entire year</Description>
+						<LineNumber>Schedule A Line 3a(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for Entire Year -->
+			<xsd:element name="EntireYearTaxableIncomeTY2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #2 for entire year</Description>
+						<LineNumber>Schedule A Line 3b(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for Entire Year -->
+			<xsd:element name="EntireYearTaxableIncomeTY3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for tax year #3 for entire year</Description>
+						<LineNumber>Schedule A Line 3c(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #1 for 1st 11 months divided by Taxable Income for Tax Year #1 for entire year -->
+			<xsd:element name="EntireYearIncomeRatioTY1" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1a by the amount in column (d) on line 3a</Description>
+						<LineNumber>Schedule A Line 4(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #2 for 1st 11 months divided by Taxable Income for Tax Year #2 for entire year -->
+			<xsd:element name="EntireYearIncomeRatioTY2" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1b by the amount in column (d) on line 3b</Description>
+						<LineNumber>Schedule A Line 5(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Tax Year #3 for 1st 11 months divided by Taxable Income for Tax Year #3 for entire year -->
+			<xsd:element name="EntireYearIncomeRatioTY3" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide the amount in each column on line 1c by the amount in column (d) on line 3c</Description>
+						<LineNumber>Schedule A Line 6(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Taxable Income Ratios for 1st 11 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="EntireYearIncomeRatioTotal" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 4 through 6</Description>
+						<LineNumber>Schedule A Line 7(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average of Taxable Income Ratios for 1st 11 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="EntireYearIncomeRatioAvg" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 7 by 3.0</Description>
+						<LineNumber>Schedule A Line 8(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income for Current Tax Year for 1st 11 months divided by Average of Taxable Income Ratios for 1st 11 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="EntireYearIncomeFactored" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide line 2 by line 8</Description>
+						<LineNumber>Schedule A Line 9a(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items Entire Year Income -->
+			<xsd:element name="EntireYearIncmExtraordnryItem" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items entire year income</Description>
+						<LineNumber>Schedule A Line 9b(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for Entire Year -->
+			<xsd:element name="EntireYearTotalTaxableIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 9a(d) and 9b(d)</Description>
+						<LineNumber>Schedule A Line 9c(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Figured for Taxable Income for Current Tax Year for 1st 11 months divided by Average of Taxable Income Ratios for 1st 11 months of Tax Year #1 through Tax Year #3 -->
+			<xsd:element name="EntireYearTaxFigured" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount on line 9c(d) using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 10(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 14(d), use value of 10(d) -->
+
+			<!-- Alternative Minimum Tax for Entirety of Current Tax Year -->
+			<xsd:element name="EntireYearAlternativeMinTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter alternative minimum tax for each payment period</Description>
+						<LineNumber>Schedule A Line 15(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for Entirety of Current Tax Year -->
+			<xsd:element name="EntireYearOtherTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter other taxes for each payment period</Description>
+						<LineNumber>Schedule A Line 16(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total tax for Entirety of Current Tax Year -->
+			<xsd:element name="EntireYearTotalTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 14 through 16</Description>
+						<LineNumber>Schedule A Line 17(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Credits for Entirety of Current Tax Year -->
+			<xsd:element name="EntireYearTaxCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 18(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for Entirety of Current Tax Year -->
+			<xsd:element name="EntireYearTaxAfterCredits" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 19(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Annualized Income Installment Method ===== -->
+
+			<!-- Annualization Period #1 - First ? months-->
+			<xsd:element name="AnnualizationPeriod1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter annualization periods.  Choose from Option 1, Option 2, or Standard Option</Description>
+						<LineNumber>Schedule A Line 20a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="IntegerNNType">
+                        <xsd:totalDigits value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+			</xsd:element>
+
+			<!-- Taxable Income for Annualization Period #1 -->
+			<xsd:element name="TaxableIncome1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for annualization period #1</Description>
+						<LineNumber>Schedule A Line 21a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Amount for Annualization Period #1 -->
+			<xsd:element name="AnnualizationAmount1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualization amount for annualization period #1</Description>
+						<LineNumber>Schedule A Line 22a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="AnnualizationAmountType">
+						<xsd:enumeration value="4" />		<!-- Standard Option or Option 2 -->
+						<xsd:enumeration value="6" />		<!-- Option 1 -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Annualized Taxable Income for Annualization Period #1 -->
+			<xsd:element name="AnnualizedTaxableIncome1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized taxable income for annualization period #1</Description>
+						<LineNumber>Schedule A Line 23a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items for Annualization Period #1 -->
+			<xsd:element name="ExtraordinaryItems1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items for annualization period #1</Description>
+						<LineNumber>Schedule A Line 23b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for Annualization Period #1 -->
+			<xsd:element name="AnnualizedTotalTaxableIncome1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 23a(a) and 23b(a)</Description>
+						<LineNumber>Schedule A Line 23c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Tax Amount for Annualization Period #1 -->
+			<xsd:element name="FiguredTaxAmount1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount in each column on line 23c using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 24a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for Annualization Period #1 -->
+			<xsd:element name="AlternativeMinimumTax1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax for annualization period #1</Description>
+						<LineNumber>Schedule A Line 25a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for Annualization Period #1 -->
+			<xsd:element name="OtherTaxes1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other taxes for annualization period #1</Description>
+						<LineNumber>Schedule A Line 26a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax for Annualization Period #1 -->
+			<xsd:element name="TotalTax1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 24 through 26</Description>
+						<LineNumber>Schedule A Line 27a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credits for Annualization Period #1 -->
+			<xsd:element name="Credits1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 28a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for Annualization Period #1 -->
+			<xsd:element name="TotalTaxAfterCredits1" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 29a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Product of Total Tax After Credits and Applicable Percentage for Annualization Period #1 -->
+			<xsd:element name="TotalTaxAfterPercentage1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Product of total tax after credits and applicable percentage for annualization period #1</Description>
+						<LineNumber>Schedule A Line 31a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Period #2 - First ? months-->
+			<xsd:element name="AnnualizationPeriod2" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter annualization periods.  Choose from Option 1, Option 2, or Standard Option</Description>
+						<LineNumber>Schedule A Line 20b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="IntegerNNType">
+                        <xsd:totalDigits value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+			</xsd:element>
+
+			<!-- Taxable Income for Annualization Period #2 -->
+			<xsd:element name="TaxableIncome2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for annualization period #2</Description>
+						<LineNumber>Schedule A Line 21b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Amount for Annualization Period #2 -->
+			<xsd:element name="AnnualizationAmount2" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualization amount for annualization period #2</Description>
+						<LineNumber>Schedule A Line 22b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="AnnualizationAmountType">
+						<xsd:enumeration value="4" />		<!-- Standard Option -->
+						<xsd:enumeration value="3" />		<!-- Option 1 -->
+						<xsd:enumeration value="2.4" />		<!-- Option 2 -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Annualized Taxable Income for Annualization Period #2 -->
+			<xsd:element name="AnnualizedTaxableIncome2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized taxable income for annualization period #2</Description>
+						<LineNumber>Schedule A Line 23a(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items for Annualization Period #2 -->
+			<xsd:element name="ExtraordinaryItems2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items for annualization period #2</Description>
+						<LineNumber>Schedule A Line 23b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for Annualization Period #2 -->
+			<xsd:element name="AnnualizedTotalTaxableIncome2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 23a(b) and 23b(b)</Description>
+						<LineNumber>Schedule A Line 23c(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Tax Amount for Annualization Period #2 -->
+			<xsd:element name="FiguredTaxAmount2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount in each column on line 23c using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 24b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for Annualization Period #2 -->
+			<xsd:element name="AlternativeMinimumTax2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax for annualization period #2</Description>
+						<LineNumber>Schedule A Line 25b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for Annualization Period #2 -->
+			<xsd:element name="OtherTaxes2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other taxes for annualization period #2</Description>
+						<LineNumber>Schedule A Line 26b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax for Annualization Period #2 -->
+			<xsd:element name="TotalTax2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 24 through 26</Description>
+						<LineNumber>Schedule A Line 27b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credits for Annualization Period #2 -->
+			<xsd:element name="Credits2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 28b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for Annualization Period #2 -->
+			<xsd:element name="TotalTaxAfterCredits2" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 29b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Product of Total Tax After Credits and Applicable Percentage for Annualization Period #2 -->
+			<xsd:element name="TotalTaxAfterPercentage2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Product of total tax after credits and applicable percentage for annualization period #2</Description>
+						<LineNumber>Schedule A Line 31b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Period #3 - First ? months-->
+			<xsd:element name="AnnualizationPeriod3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter annualization periods.  Choose from Option 1, Option 2, or Standard Option</Description>
+						<LineNumber>Schedule A Line 20c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="IntegerNNType">
+                        <xsd:totalDigits value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+			</xsd:element>
+
+			<!-- Taxable Income for Annualization Period #3 -->
+			<xsd:element name="TaxableIncome3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for annualization period #3</Description>
+						<LineNumber>Schedule A Line 21c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Amount for Annualization Period #3 -->
+			<xsd:element name="AnnualizationAmount3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualization amount for annualization period #3</Description>
+						<LineNumber>Schedule A Line 22c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="AnnualizationAmountType">
+						<xsd:enumeration value="2" />			<!-- Standard Option -->
+						<xsd:enumeration value="1.71429" />		<!-- Option 1 -->
+						<xsd:enumeration value="1.5" />			<!-- Option 2 -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Annualized Taxable Income for Annualization Period #3 -->
+			<xsd:element name="AnnualizedTaxableIncome3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized taxable income for annualization period #3</Description>
+						<LineNumber>Schedule A Line 23a(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items for Annualization Period #3 -->
+			<xsd:element name="ExtraordinaryItems3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items for annualization period #3</Description>
+						<LineNumber>Schedule A Line 23b(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for Annualization Period #3 -->
+			<xsd:element name="AnnualizedTotalTaxableIncome3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 23a(c) and 23b(c)</Description>
+						<LineNumber>Schedule A Line 23c(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Tax Amount for Annualization Period #3 -->
+			<xsd:element name="FiguredTaxAmount3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount in each column on line 23c using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 24c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for Annualization Period #3 -->
+			<xsd:element name="AlternativeMinimumTax3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax for annualization period #3</Description>
+						<LineNumber>Schedule A Line 25c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for Annualization Period #3 -->
+			<xsd:element name="OtherTaxes3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other taxes for annualization period #3</Description>
+						<LineNumber>Schedule A Line 26c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax for Annualization Period #3 -->
+			<xsd:element name="TotalTax3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 24 through 26</Description>
+						<LineNumber>Schedule A Line 27c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credits for Annualization Period #3 -->
+			<xsd:element name="Credits3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 28c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for Annualization Period #3 -->
+			<xsd:element name="TotalTaxAfterCredits3" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 29c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Product of Total Tax After Credits and Applicable Percentage for Annualization Period #3 -->
+			<xsd:element name="TotalTaxAfterPercentage3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Product of total tax after credits and applicable percentage for annualization period #3</Description>
+						<LineNumber>Schedule A Line 31c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Period #4 - First ? months-->
+			<xsd:element name="AnnualizationPeriod4" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter annualization periods.  Choose from Option 1, Option 2, or Standard Option</Description>
+						<LineNumber>Schedule A Line 20d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="IntegerNNType">
+                        <xsd:totalDigits value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+			</xsd:element>
+
+			<!-- Taxable Income for Annualization Period #4 -->
+			<xsd:element name="TaxableIncome4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income for annualization period #4</Description>
+						<LineNumber>Schedule A Line 21d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Annualization Amount for Annualization Period #4 -->
+			<xsd:element name="AnnualizationAmount4" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualization amount for annualization period #4</Description>
+						<LineNumber>Schedule A Line 22d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="AnnualizationAmountType">
+						<xsd:enumeration value="1.33333" />		<!-- Standard Option -->
+						<xsd:enumeration value="1.2" />			<!-- Option 1 -->
+						<xsd:enumeration value="1.09091" />		<!-- Option 2 -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Annualized Taxable Income for Annualization Period #4 -->
+			<xsd:element name="AnnualizedTaxableIncome4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized taxable income for annualization period #4</Description>
+						<LineNumber>Schedule A Line 23a(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Extraordinary Items for Annualization Period #4 -->
+			<xsd:element name="ExtraordinaryItems4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraordinary items for annualization period #4</Description>
+						<LineNumber>Schedule A Line 23b(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Taxable Income for Annualization Period #4 -->
+			<xsd:element name="AnnualizedTotalTaxableIncome4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 23a(d) and 23b(d)</Description>
+						<LineNumber>Schedule A Line 23c(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Tax Amount for Annualization Period #4 -->
+			<xsd:element name="FiguredTaxAmount4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Figure the tax on the amount in each column on line 23c using the instructions for Form 1120.</Description>
+						<LineNumber>Schedule A Line 24d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative Minimum Tax for Annualization Period #4 -->
+			<xsd:element name="AlternativeMinimumTax4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax for annualization period #4</Description>
+						<LineNumber>Schedule A Line 25d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Taxes for Annualization Period #4 -->
+			<xsd:element name="OtherTaxes4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other taxes for annualization period #4</Description>
+						<LineNumber>Schedule A Line 26d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax for Annualization Period #4 -->
+			<xsd:element name="TotalTax4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax.  Add lines 24 through 26</Description>
+						<LineNumber>Schedule A Line 27d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credits for Annualization Period #4 -->
+			<xsd:element name="Credits4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For each period, enter the same type of credits as allowed on Form 2220, lines 1 and 2c</Description>
+						<LineNumber>Schedule A Line 28d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax After Credits for Annualization Period #4 -->
+			<xsd:element name="TotalTaxAfterCredits4" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax after credits</Description>
+						<LineNumber>Schedule A Line 29d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Product of Total Tax After Credits and Applicable Percentage for Annualization Period #4 -->
+			<xsd:element name="TotalTaxPercentage4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Product of total tax after credits and applicable percentage for annualization period #4</Description>
+						<LineNumber>Schedule A Line 31d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part III - Required Installments ===== -->
+
+			<!-- Smaller of Annualized Income Installment or Adjusted Seasonal Installment for 1st Required Installment -->
+			<xsd:element name="AnnualizedOrAdjustedSeasonal1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If only one of the above parts is completed, enter the amount in each column from line 19 or line 31. If both parts are completed, enter the smaller of the amounts in each column from line 19 or line 31</Description>
+						<LineNumber>Schedule A Line 32(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Seasonal Installment or Annualized income for 1st 4 months of Current Tax Year -->
+			<xsd:element name="First4MonthsAdjSsnlOrAnnlzd" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted seasonal installment or annualized income for 1st 4 months of current tax year</Description>
+						<LineNumber>Schedule A Line 34(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 25% of Smaller Tax for 1st Required Installment -->
+			<xsd:element name="PortionOfSmallerTax1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% of line 5 on page 1 of Form 2220 in each column.</Description>
+						<LineNumber>Schedule A Line 35(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 25% of Smaller Tax for 2nd Required Installment -->
+			<xsd:element name="PortionOfSmallerTax2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% of line 5 on page 1 of Form 2220 in each column.</Description>
+						<LineNumber>Schedule A Line 35(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 25% of Smaller Tax for 3rd Required Installment -->
+			<xsd:element name="PortionOfSmallerTax3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% of line 5 on page 1 of Form 2220 in each column.</Description>
+						<LineNumber>Schedule A Line 35(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 25% of Smaller Tax for 4th Required Installment -->
+			<xsd:element name="PortionOfSmallerTax4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% of line 5 on page 1 of Form 2220 in each column.</Description>
+						<LineNumber>Schedule A Line 35(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 37(a), use value of 35(a) -->
+
+			<!-- Required Installment #1 -->
+			<xsd:element name="RequiredInstallment1" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 34 or line 37 here and on page 1 of Form 2220, line 10</Description>
+						<LineNumber>Schedule A Line 38(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Annualized Income Installment or Adjusted Seasonal Installment for 2nd Required Installment -->
+			<xsd:element name="AnnualizedOrAdjustedSeasonal2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If only one of the above parts is completed, enter the amount in each column from line 19 or line 31. If both parts are completed, enter the smaller of the amounts in each column from line 19 or line 31</Description>
+						<LineNumber>Schedule A Line 32(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of All Preceding Required Installments for Annualization Period #2 -->
+			<xsd:element name="TotalPrecedingRequired2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of all preceding required installments for annualization period #2</Description>
+						<LineNumber>Schedule A Line 33(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Seasonal Installment or Annualized income for 1st 6 months of Current Tax Year -->
+			<xsd:element name="First6MonthsAdjSsnlOrAnnlzd" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted seasonal installment or annualized income for 1st 6 months of current tax year</Description>
+						<LineNumber>Schedule A Line 34(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 35(b), use value of 35(a), since the same value is to be used across all columns -->
+
+			<!-- Installment Carryover from Required Installment #1 -->
+			<xsd:element name="InstallmentCarryover2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Installment carryover from 1st required installment</Description>
+						<LineNumber>Schedule A Line 36(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Required Installment by adding 25% of Smaller Tax for 2nd Required Installment and Installment Carryover -->
+			<xsd:element name="FiguredRequiredInstallment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 35 and 36</Description>
+						<LineNumber>Schedule A Line 37(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment #2 -->
+			<xsd:element name="RequiredInstallment2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 34 or line 37 here and on page 1 of Form 2220, line 10</Description>
+						<LineNumber>Schedule A Line 38(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Annualized Income Installment or Adjusted Seasonal Installment for 3rd Required Installment -->
+			<xsd:element name="AnnualizedOrAdjustedSeasonal3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If only one of the above parts is completed, enter the amount in each column from line 19 or line 31. If both parts are completed, enter the smaller of the amounts in each column from line 19 or line 31</Description>
+						<LineNumber>Schedule A Line 32(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of All Preceding Required Installments for Annualization Period #3 -->
+			<xsd:element name="TotalPrecedingRequired3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of all preceding required installments for annualization period #3</Description>
+						<LineNumber>Schedule A Line 33(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Seasonal Installment or Annualized income for 1st 9 months of Current Tax Year -->
+			<xsd:element name="First9MonthsAdjSsnlOrAnnlzd" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted seasonal installment or Annualized income for 1st 9 months of current tax year</Description>
+						<LineNumber>Schedule A Line 34(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 35(c), use value of 35(a), since the same value is to be used across all columns -->
+
+			<!-- Installment Carryover from Required Installment #2 -->
+			<xsd:element name="InstallmentCarryover3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Installment carryover from 2nd required installment</Description>
+						<LineNumber>Schedule A Line 36(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Required Installment by adding 25% of Smaller Tax for 3rd Required Installment and Installment Carryover -->
+			<xsd:element name="FiguredRequiredInstallment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 35 and 36</Description>
+						<LineNumber>Schedule A Line 37(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment #3 -->
+			<xsd:element name="RequiredInstallment3" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 34 or line 37 here and on page 1 of Form 2220, line 10</Description>
+						<LineNumber>Schedule A Line 38(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Annualized Income Installment or Adjusted Seasonal Installment for 4th Required Installment -->
+			<xsd:element name="AnnualizedOrAdjustedSeasonal4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If only one of the above parts is completed, enter the amount in each column from line 19 or line 31. If both parts are completed, enter the smaller of the amounts in each column from line 19 or line 31</Description>
+						<LineNumber>Schedule A Line 32(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of All Preceding Required Installments for Annualization Period #4 -->
+			<xsd:element name="TotalPrecedingRequired4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of all preceding required installments for annualization period #4</Description>
+						<LineNumber>Schedule A Line 33d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Seasonal Installment or Annualized income -->
+			<xsd:element name="AdjustedSeasonalOrAnnualized" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted seasonal installment or annualized income</Description>
+						<LineNumber>Schedule A Line 34(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- For 35(d), use value of 35(a), since the same value is to be used across all columns -->
+
+			<!-- Installment Carryover from Required Installment #3 -->
+			<xsd:element name="InstallmentCarryover4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Installment carryover from 3rd required installment</Description>
+						<LineNumber>Schedule A Line 36(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Figured Required Installment by adding 25% of Smaller Tax for 4th Required Installment and Installment Carryover -->
+			<xsd:element name="FiguredRequiredInstallment4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 35 and 36</Description>
+						<LineNumber>Schedule A Line 37(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Required Installment #4 -->
+			<xsd:element name="RequiredInstallment4" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 34 or line 37 here and on page 1 of Form 2220, line 10</Description>
+						<LineNumber>Schedule A Line 38(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Payment Penalty Computation ===== -->
+
+	<xsd:complexType name="PaymentPenaltyComputationType">
+
+		<xsd:sequence>
+
+			<!-- Payment Date -->
+			<xsd:element name="PaymentDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the date of payment or the 15th day of the 3rd month after the close of the tax year, whichever is earlier</Description>
+						<LineNumber>19a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date -->
+			<xsd:element name="DaysFromDueDateToPaymentDate" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days from due date to payment date</Description>
+						<LineNumber>20a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date within 1st Date Range -->
+			<xsd:element name="LateDaysIn1stDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>21a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty for Late Days within 1st Date Range for Payment Date -->
+			<xsd:element name="PenaltyFor1stDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>22a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date within 2nd Date Range -->
+			<xsd:element name="LateDaysIn2ndDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>23a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty for Late Days within 2nd Date Range for Payment Date -->
+			<xsd:element name="PenaltyFor2ndDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>24a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date within 3rd Date Range -->
+			<xsd:element name="LateDaysIn3rdDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>25a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty for Late Days within 3rd Date Range for Payment Date -->
+			<xsd:element name="PenaltyFor3rdDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>26a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date within 4th Date Range -->
+			<xsd:element name="LateDaysIn4thDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>27a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty for Late Days within 4th Date Range for Payment Date -->
+			<xsd:element name="PenaltyFor4thDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>28a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date within 5th Date Range -->
+			<xsd:element name="LateDaysIn5thDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>29a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty for Late Days within 5th Date Range for Payment Date -->
+			<xsd:element name="PenaltyFor5thDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>30a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Days from Due Date to Payment Date within 6th Date Range -->
+			<xsd:element name="LateDaysIn6thDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>31a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty for Late Days within 6th Date Range for Payment Date -->
+			<xsd:element name="PenaltyFor6thDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>32a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Late Days In 7th Date Range -->
+			<xsd:element name="LateDaysIn7thDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>33a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty For 7th Date Range -->
+			<xsd:element name="PenaltyFor7thDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>34a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Late Days In 8th Date Range -->
+			<xsd:element name="LateDaysIn8thDateRange" type="NumberOfDaysType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of days on line 20</Description>
+						<LineNumber>35a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Penalty For 8th Date Range -->
+			<xsd:element name="PenaltyFor8thDateRange" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Underpayment on line 17</Description>
+						<LineNumber>36a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Penalty for Payment Date -->
+			<xsd:element name="TotalPenaltyForPaymentDate" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total penalty for payment date</Description>
+						<LineNumber>37a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- Annualization Amount Type -->
+	<xsd:simpleType name="AnnualizationAmountType">
+		<xsd:annotation>
+			<xsd:documentation>A decimal amount that allows up to 6 total digits and 5 fraction digits</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="6" />
+			<xsd:fractionDigits value="5" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

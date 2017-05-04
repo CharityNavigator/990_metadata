@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 4797</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================= -->
+	<!-- ===================  IRS Form 4797 ==================== -->
+	<!-- ======================================================= -->
+
+
+	<xsd:element name="IRS4797">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 4797</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS4797Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS4797">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS4797Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 4797</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Current Year Gross Proceeds -->
+			<xsd:element name="CurrentYearGrossProceeds" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The gross proceeds from sales or exchanges reported for the tax year on Form(s) 1099-B or 1099-S</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part I - Sales or Exchanges of Property Used in a Trade or Business and Involuntary Conversions From Other Than Casualty or Theft - Most Property Held More Than 1 Year ===== -->
+
+			<!-- Sales or Exchanges of Property -->
+			<xsd:element name="PropertySaleOrExchange" type="PropertySaleExchangeType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales or exchanges of property used in a trade or business held more than 1 year</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain from Form 4684 -->
+			<xsd:element name="GainForm4684" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain, if any, from Form 4684</Description>
+						<LineNumber>3(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain from Installment Sales -->
+			<xsd:element name="GainInstallmentSalesForm6252" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1231 gain from installment sales from Form 6252</Description>
+						<LineNumber>4(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain or Loss from Like-Kind Exchanges -->
+			<xsd:element name="GainLossForm8824" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1231 gain or (loss) from like-kind exchanges from Form 8824</Description>
+						<LineNumber>5(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain from Other Than Casualty or Theft (portion of line 32) -->
+			<xsd:element name="GainOtherThanCasualtyOrTheft" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain, if any, from line 32, from other than casualty or theft</Description>
+						<LineNumber>6(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Property Gain or Loss -->
+			<xsd:element name="TotalPropertyGainLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total property gain or loss.  Combine lines 2 through 6</Description>
+						<LineNumber>7(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nonrecaptured net section 1231 losses -->
+			<xsd:element name="NnrcptrNet1231Losses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nonrecaptured net section 1231 losses</Description>
+						<LineNumber>8(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Gain or Loss -->
+			<xsd:element name="TotalGainLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gain or loss.  Subtract line 8 from line 7</Description>
+						<LineNumber>9(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Ordinary Gains and Losses ===== -->
+
+			<!-- Ordinary Gain and Loss table -->
+			<xsd:element name="OrdinaryGainLoss" type="OrdinaryGainLossType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary gain and loss table</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>			
+			</xsd:element>
+
+			<!-- Ordinary Loss -->
+			<xsd:element name="OrdinaryLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary loss from line 7</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Gain or Nonrecaptured Net Section 1231 Losses -->
+			<xsd:element name="PropertyGainNonrecapturedLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property gain or nonrecaptured net section 1231 losses</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Skip line 13 - Gain from line 31 - redundant -->
+
+			<!-- Net Gain or Loss from Form 4684 -->
+			<xsd:element name="NetGainLossForm4684" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net gain or (loss) from Form 4684</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ordinary Gain from Installment Sales from Form 6252 -->
+			<xsd:element name="OrdinaryGainInstalSalesFrm6252" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary gain from installment sales from Form 6252</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ordinary Gain or Loss from Like-Kind Exchanges -->
+			<xsd:element name="OrdGainLossLikeKindExchg8824" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary gain or (loss) from like-kind exchanges from Form 8824</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Ordinary Gain or Loss -->
+			<xsd:element name="TotalOrdinaryGainLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total ordinary gain or loss.</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Form 4684 Loss -->
+			<xsd:element name="Form4684Loss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 4684 Loss</Description>
+						<LineNumber>18(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Redetermined Gain Loss -->
+			<xsd:element name="RedeterminedGainLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Redetermined Gain Loss</Description>
+						<LineNumber>18(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part III - Gain From Disposition of Property Under Sections 1245, 1250, 1252, 1254, and 1255 ===== -->
+
+			<!-- Gain from Disposition of Property -->
+			<xsd:element name="PropertyDispositionGain" type="PropertyDispositionType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain from disposition of property under sections 1245, 1250, 1252, 1254, and 1255</Description>
+						<LineNumber>Part III Lines 19 through 29b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Gains for All Properties -->
+			<xsd:element name="TotalGainsAllProperties" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gains for all properties</Description>
+						<LineNumber>30</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Section Property Amount -->
+			<xsd:element name="TotalSectionPropertyAmount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total section property amount - add lines 25b, 26g, 27c, 28b, and 29b for all properties.</Description>
+						<LineNumber>31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="note">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:enumeration value="N/A" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Net Gain -->
+			<xsd:element name="NetGain" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net gain.  Subtract line 31 from line 30</Description>
+						<LineNumber>32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="note">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:enumeration value="N/A" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part IV - Recapture Amounts Under Sections 179 and 280F(b)(2) When Business Use Drops to 50% or Less ===== -->
+
+			<!-- Section 179 Expense Deduction or Depreciation Allowable in Prior Years -->
+			<xsd:element name="Sect179DeductionDepreciationPY" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 expense deduction or depreciation allowable in prior years. Enter the amount description in the note attribute.</Description>
+						<LineNumber>33(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 280F(b)(2) Expense Deduction or Depreciation Allowable in Prior Years -->
+			<xsd:element name="Sect280DeductionDepreciationPY" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 280F(b)(2) expense deduction or depreciation allowable in prior years. Enter the amount description in the note attribute.</Description>
+						<LineNumber>33(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Recomputed Depreciation -->
+			<xsd:element name="Sect179RecomputedDepreciation" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 recomputed depreciation. Enter the amount description in the note attribute.</Description>
+						<LineNumber>34(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 280F(b)(2) Recomputed Depreciation -->
+			<xsd:element name="Sect280RecomputedDepreciation" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 280F(b)(2) recomputed depreciation. Enter the amount description in the note attribute.</Description>
+						<LineNumber>34(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Recapture Amount -->
+			<xsd:element name="Sect179RecaptureAmount" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 recapture amount. Enter the amount description in the note attribute.</Description>
+						<LineNumber>35(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 280F(b)(2) Recapture Amount -->
+			<xsd:element name="Sect280RecaptureAmount" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 280F(b)(2) recapture amount. Enter the amount description in the note attribute.</Description>
+						<LineNumber>35(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ===================================================== -->
+	<!-- ============= Type for Repeating Tables Rows in Part I ============= -->
+	<!-- ===================================================== -->
+
+
+	<xsd:complexType name="PropertySaleExchangeType">
+		<xsd:annotation>
+			<xsd:documentation>Type for repeating tables rows in Part I</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+						<LineNumber>2(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="20" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Date Acquired or Inherited -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Acquired -->
+				<xsd:element name="DateAcquired" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the date acquired. If you disposed of property acquired by inheritance, enter INHERITED in the DateAcquiredInherited field instead.</Description>
+							<LineNumber>2(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Acquired Inherited -->
+				<xsd:element name="DateAcquiredInherited">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Use only if you disposed of property acquired by inheritance.</Description>
+							<LineNumber>2(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="INHERITED" />
+							<xsd:enumeration value="FROM SCHEDULE K-1 F1120S" />
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Date Sold or Various -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Sold -->
+				<xsd:element name="DateSold" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold</Description>
+							<LineNumber>2(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Sold Various -->
+				<xsd:element name="DateSoldVarious">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold - VARIOUS</Description>
+							<LineNumber>2(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+						<LineNumber>2(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation Allowed or Allowable Since Acquisition -->
+			<xsd:element name="DepreciationAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation allowed or allowable since acquisition</Description>
+						<LineNumber>2(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis -->
+			<xsd:element name="CostOrOtherBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis, plus improvements and expense of sale</Description>
+						<LineNumber>2(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain or Loss -->
+			<xsd:element name="GainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or loss</Description>
+						<LineNumber>2(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ====================================================== -->
+	<!-- ============= Type for Repeating Tables Rows in Part II ============= -->
+	<!-- ====================================================== -->
+
+
+	<xsd:complexType name="OrdinaryGainLossType">
+		<xsd:annotation>
+			<xsd:documentation>Type for repeating tables rows in Part II</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property held 1 year or less, or Security or Commodities held by a Trader who made a mark-to-market election</Description>
+						<LineNumber>10(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:restriction base="PropertyDescriptionForMarkToMarketType">
+							<xsd:maxLength value="20" />
+						</xsd:restriction>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Date Acquired or Inherited -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Acquired -->
+				<xsd:element name="DateAcquired" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the date acquired. If you disposed of property acquired by inheritance, enter INHERITED in the DateAcquiredInherited field instead.</Description>
+							<LineNumber>10(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Acquired Inherited -->
+				<xsd:element name="DateAcquiredInherited">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Use only if you disposed of property acquired by inheritance.</Description>
+							<LineNumber>10(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="INHERITED" />
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Date Sold or Various -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Sold -->
+				<xsd:element name="DateSold" type="DateType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold</Description>
+							<LineNumber>10(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Sold Various -->
+				<xsd:element name="DateSoldVarious">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold - VARIOUS</Description>
+							<LineNumber>10(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+						<LineNumber>10(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation Allowed or Allowable Since Acquisition -->
+			<xsd:element name="DepreciationAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation allowed or allowable since acquisition</Description>
+						<LineNumber>10(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis -->
+			<xsd:element name="CostOrOtherBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis, plus improvements and expense of sale</Description>
+						<LineNumber>10(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain or Loss -->
+			<xsd:element name="GainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or loss</Description>
+						<LineNumber>10(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ============================================================ -->
+	<!-- =============== Type for Repeating Tables Columns in Part III =============== -->
+	<!-- ============================================================ -->
+
+
+	<xsd:complexType name="PropertyDispositionType">
+		<xsd:annotation>
+			<xsd:documentation>Type for repeating property columns in Part III</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of section 1245, 1250, 1252, 1254, or 1255 property</Description>
+						<LineNumber>19(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="40" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Date Acquired or Inherited -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Acquired -->
+				<xsd:element name="DateAcquired" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the date acquired. If you disposed of property acquired by inheritance, enter INHERITED in the DateAcquiredInherited field instead.</Description>
+							<LineNumber>19(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Acquired Inherited -->
+				<xsd:element name="DateAcquiredInherited">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Use only if you disposed of property acquired by inheritance.</Description>
+							<LineNumber>19(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="INHERITED" />
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Date Sold or Various -->
+			<xsd:choice minOccurs="0">
+				<!-- Date Sold -->
+				<xsd:element name="DateSold" type="DateType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold</Description>
+							<LineNumber>19(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Sold Various -->
+				<xsd:element name="DateSoldVarious">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold - VARIOUS</Description>
+							<LineNumber>19(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis Plus Expense of Sale -->
+			<xsd:element name="CostOrOtherBasisSaleExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis plus expense of sale</Description>
+						<LineNumber>21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation or Depletion Allowed or Allowable -->
+			<xsd:element name="DepreciationDepletionAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation (or depletion) allowed or allowable</Description>
+						<LineNumber>22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Basis -->
+			<xsd:element name="AdjustedBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basis</Description>
+						<LineNumber>23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Gain -->
+			<xsd:element name="TotalGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gain</Description>
+						<LineNumber>24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1245 Depreciation Allowed from line 22 -->
+			<xsd:element name="Section1245DepreciationAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1245 depreciation allowed or allowable from line 22</Description>
+						<LineNumber>25a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1245 Property Amount -->
+			<xsd:element name="Section1245PropertyAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1245 property amount - the smaller of line 24 or 25a</Description>
+						<LineNumber>25b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Depreciation After 1975 -->
+			<xsd:element name="AddnlDepreciationAfter1975" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional depreciation after 1975</Description>
+						<LineNumber>26a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Applicable Percentage Amount -->
+			<xsd:element name="ApplicablePercentageAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable percentage amount</Description>
+						<LineNumber>26b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Gain Less Depreciation After 1975 -->
+			<xsd:element name="GainLessDepreciationAfter1975" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gain less depreciation after 1975.  Subtract line 26a from line 24</Description>
+						<LineNumber>26c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Depreciation After 1969 and before 1976 -->
+			<xsd:element name="AddnlDepreciation1969To1976" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional depreciation after 1969 and before 1976</Description>
+						<LineNumber>26d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Reduced or Additional Depreciation -->
+			<xsd:element name="SmallerReducedGainAddnlDeprec" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 26c or line 26d</Description>
+						<LineNumber>26e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 291 Amount-->
+			<xsd:element name="Section291Amount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 291 amount</Description>
+						<LineNumber>26f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1250 Property Amount -->
+			<xsd:element name="Section1250PropertyAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1250 property amount - add lines 26b, 26e, and 26f</Description>
+						<LineNumber>26g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Soil, Water, and Land Clearing Expenses -->
+			<xsd:element name="SoilWaterLandClearExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Soil, water, and land clearing expenses</Description>
+						<LineNumber>27a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Applicable Soil, Water, and Land Clearing Expenses -->
+			<xsd:element name="AppPctSoilWaterLandClearExpn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable percentage soil, water, and land clearing expenses</Description>
+						<LineNumber>27b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1252 Property Amount -->
+			<xsd:element name="Section1252PropertyAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1252 property amount - the smaller of line 24 or 27b</Description>
+						<LineNumber>27c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Intangible Drilling and Development Costs -->
+			<xsd:element name="IntangibleDrillingDevCosts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Intangible drilling and development costs</Description>
+						<LineNumber>28a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1254 Property Amount -->
+			<xsd:element name="Section1254PropertyAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1254 property amount - the smaller of line 24 or 28a</Description>
+						<LineNumber>28b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Applicable Percentage of Payments Excluded from Income -->
+			<xsd:element name="AppPctPaymentsExcluded" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable percentage of payments excluded from income under section 126</Description>
+						<LineNumber>29a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1255 Property Amount -->
+			<xsd:element name="Section1255PropertyAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1255 property amount - the smaller of line 24 or 29a</Description>
+						<LineNumber>29b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+	
+	
+	
+	<!-- ====================================================== -->
+	<!-- ========== Types for Supporting Info, Schedules, Elections, etc. ========== -->
+	<!-- ====================================================== -->
+
+
+	<!-- Property Description Type for Securities or Commodities Held by a Trader – Mark-To-Market Election -->
+	<xsd:complexType name="PropertyDescriptionForMarkToMarketType">
+		<xsd:annotation>
+			<xsd:documentation>Used by line 10(a) with the Securities or Commodities Held by a Trader – Mark-To-Market Election</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="TextType">
+				<xsd:attribute name="referenceDocumentId" type="IdListType" />
+				<xsd:attribute name="referenceDocumentName" type="StringType" fixed="SecuritiesOrCommoditiesHeldByATraderMarkToMarket SmallBusinessInvestmentCompanyStockStatement" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+
+</xsd:schema>

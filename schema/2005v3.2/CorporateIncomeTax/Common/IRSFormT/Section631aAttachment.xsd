@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Section 631(a) Attachment</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>June 7, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ==================================================== -->
+	<!-- ============ Section 631(a) Attachment ============= -->
+	<!-- ==================================================== -->
+
+
+	<xsd:element name="Section631aAttachment">
+		<xsd:annotation>
+			<xsd:documentation>Section 631(a) Attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Section631aAttachmentType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="Section631aAttachment">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<!-- Section 631(a) Attachment Type -->
+	<xsd:complexType name="Section631aAttachmentType">
+		<xsd:sequence>		
+			<xsd:element name="FormTPartIILine28Info" type="ExplanationType" minOccurs="0" />		
+			<xsd:element name="FormTPartIILine29Info" type="ExplanationType" minOccurs="0" />		
+			<xsd:element name="FormTPartIILine30Info" type="ExplanationType" minOccurs="0" />		
+			<xsd:element name="FormTPartIILine31Info" type="ExplanationType" minOccurs="0" />		
+			<xsd:element name="FormTPartIILine32Info" type="ExplanationType" minOccurs="0" />		
+			<xsd:element name="FormTPartIILine33Info" type="ExplanationType" minOccurs="0" />		
+		</xsd:sequence>
+	</xsd:complexType>		
+	
+</xsd:schema>

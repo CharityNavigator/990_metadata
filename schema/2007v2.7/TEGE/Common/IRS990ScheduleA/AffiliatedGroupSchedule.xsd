@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Affiliated Group Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 22, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ============================================================== -->
+	<!-- =================  Affiliated Group Schedule ==================== -->
+	<!-- ============================================================== -->
+
+	<xsd:element name="AffiliatedGroupSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Affiliated Group Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AffiliatedGroupScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AffiliatedGroupSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="AffiliatedGroupScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Affiliated Group Schedule</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+			<xsd:element name="AffiliatedSchedule" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+					<!-- Business Name -->
+					<xsd:element name="BusinessName" type="BusinessNameType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Affiliated group business name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>	
+
+					<!-- Address. Either US or foreign type -->
+		      			<xsd:choice>
+						<!-- Address US -->
+						<xsd:element name="AddressUS" type="USAddressType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Affiliated group US address</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+						</xsd:element>	
+
+						<!-- Foreign Address -->
+						<xsd:element name="ForeignAddress" type="ForeignAddressType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Affiliated group foreign address</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+						</xsd:element>	
+		 			</xsd:choice>
+
+					<!-- EIN -->
+					<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>			
+
+					<!-- Electing Organization Checkbox -->
+					<xsd:element name="ElectingOrg" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Indicates an electing organization</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+			
+					<!-- Total Grassroots Lobbying Amount -->
+					<xsd:element name="TotalGrassrootsLobbying" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total Grassroots Lobbying Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Total Direct Lobbying Amount -->
+					<xsd:element name="TotalDirectLobbying" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total Direct Lobbying Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Total Lobbying Expenditures Amount -->
+					<xsd:element name="TotalLobbyingExpenditures" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total Lobbying Expenditures Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Other Exempt Purpose Expenditures Amount -->
+					<xsd:element name="OtherExemptPurposeExpenditures" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other Exempt Purpose Expenditures Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Total Exempt Purpose Expenditures Amount -->
+					<xsd:element name="TotalExemptPurposeExpenditures" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total Exempt Purpose Expenditures Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Lobbying Nontaxable Amount -->
+					<xsd:element name="LobbyingNontaxableAmount" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Lobbying Nontaxable Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Grassroots Nontaxable Amount -->
+					<xsd:element name="GrassrootsNontaxableAmount" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Grassroots Nontaxable Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Total Lobbying Grassroots Minus Non-Taxable Amount -->
+					<xsd:element name="TotLobbyingGrassrootMinusNontx" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total Lobbying Grassroots Minus Non-Taxable Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Total Lobbying Expenditures Minus Lobbying Non-Taxable Amount -->
+					<xsd:element name="TotLobbyExpendMnsLobbyingNontx" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total Lobbying Expenditures Minus Lobbying Non-Taxable Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					<!-- Share Of Excess Lobbying Expenditures Amount -->
+					<xsd:element name="ShareOfExcessLobbyingExpendtrs" type="USAmountNNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Share Of Excess Lobbying Expenditures Amount</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>					
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

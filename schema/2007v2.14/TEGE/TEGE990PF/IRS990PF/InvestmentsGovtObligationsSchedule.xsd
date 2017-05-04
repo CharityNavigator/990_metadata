@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Investments Government Obligations Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 8, 2009</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- =============================================================== -->
+	<!-- ========= Investments Government Obligations Schedule ========= -->
+	<!-- =============================================================== -->
+	
+	<xsd:element name="InvestmentsGovtObligationsSch">
+		<xsd:annotation>
+			<xsd:documentation>Investments Government Obligations Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="InvestmentsGovtObligationsSchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="InvestmentsGovtObligationsSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="InvestmentsGovtObligationsSchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Investments Government Obligations Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- US Government Securities - End of Year Book Value -->
+			<xsd:element name="USGovtSecuritiesEOYBookValue" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>US Government Securities - End of Year Book Value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- US Government Securities - End of Year Fair Market Value -->
+			<xsd:element name="USGovtSecuritiesEOYFMV" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>US Government Securities - End of Year Fair Market Value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- State & Local Government Securities - End of Year Book Value -->
+			<xsd:element name="StateLocalSecuritiesEOYBookVal" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>State &#x26; Local Government Securities - End of Year Book Value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- State & Local Government Securities - End of Year Fair Market Value -->
+			<xsd:element name="StateLocalSecuritiesEOYFMV" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>State &#x26; Local Government Securities - End of Year Fair Market Value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

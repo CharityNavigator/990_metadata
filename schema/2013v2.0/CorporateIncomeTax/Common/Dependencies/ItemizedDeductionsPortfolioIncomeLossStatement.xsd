@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Corporate Income Tax Schema - Itemized Deductions Related to Portfolio Income (Loss) Statement</Description>
+
+			<TaxYear>2013</TaxYear>
+
+			<MaturityLevel>Draft Release</MaturityLevel>
+
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+
+
+	<!-- =========================================================================== -->
+
+	<!-- ==== Itemized Deductions Related to Portfolio Income (Loss) Statement  ==== -->
+
+	<!-- =========================================================================== -->
+
+
+
+
+
+	<xsd:element name="ItemizedDedPrtflIncomeLossStmt">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Itemized deductions related to portfolio income (loss) statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="ItemizedDedPrtflIncomeLossStmtType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ItemizedDeductionsPortfolioIncomeLossStatement">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>	
+
+	
+
+	<xsd:complexType name="ItemizedDedPrtflIncomeLossStmtType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for itemized deductions related to portfolio income (loss) statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>		
+
+				
+
+			<!-- Itemized Deductions related to Portfolio Income (Loss) -->
+
+			<xsd:element name="DedRltdToPortfolioIncomeLoss" type="DedRltdToPortfolioIncmLossType" minOccurs="0" maxOccurs="unbounded">	
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Itemized deductions related to portfolio income (loss)</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>		
+
+
+
+	<!-- Type for Repeating Group - Itemized Deductions related to Portfolio Income (Loss) -->
+
+	<xsd:complexType name="DedRltdToPortfolioIncmLossType">
+
+		<xsd:sequence>		
+
+	
+
+			<!-- Description -->
+
+			<xsd:element name="Desc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Description</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Amount -->
+
+			<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Amount</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Name -->
+
+			<xsd:element name="BusinessName" type="BusinessNameType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Category -->
+
+			<xsd:element name="PortfolioIncomeCategoryCd" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Portfolio Income Categories</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:simpleType>
+
+					<xsd:restriction base="StringType">
+
+						<xsd:enumeration value="Royalty Income"/>
+
+						<xsd:enumeration value="Portfolio (2% floor)"/>
+
+						<xsd:enumeration value="Portfolio (Other)"/>
+
+					</xsd:restriction>
+
+				</xsd:simpleType>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+		
+
+	</xsd:complexType>	
+
+</xsd:schema>

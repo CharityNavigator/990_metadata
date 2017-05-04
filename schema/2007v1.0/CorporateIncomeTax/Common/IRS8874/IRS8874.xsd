@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8874</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 17, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8874 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8874">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8874</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8874Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8874">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8874Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8874</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="CurrentYearCreditInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name Of The Community Development Entity -->
+						<xsd:element name="NameOfCDE" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of the community development entity</Description>
+										<LineNumber>Part I Line 1(a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Address Of The Community Development Entity: choice between U.S. or foreign address -->
+						<xsd:choice minOccurs="0">
+							<!-- US Address of CDE -->
+							<xsd:element name="USAddressOfCDE" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>US address of CDE</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Foreign Address of CDE -->
+							<xsd:element name="ForeignAddressOfCDE" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign address of CDE</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Identifying Number Of The Community Development Entity (EIN or Missing EIN Reason) -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Identifying Number Of The Community Development Entity -->
+							<xsd:element name="IdentificationNumberOfCDE" type="EINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Identifying number of the community development entity</Description>
+											<LineNumber>Part I Line 1(b)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Missing EIN Reason -->
+							<xsd:element name="MissingEINReason">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Missing EIN reason</Description>
+										<LineNumber>Part I Line 1(b)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="APPLD FOR"/>
+										<xsd:enumeration value="FOREIGNUS"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Date Of Initial Investment -->
+						<xsd:element name="DateOfInitialInvestment" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date of initial investment</Description>
+										<LineNumber>Part I Line 1(c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount Of Qualified Equity Investment -->
+						<xsd:element name="AmountOfQlfyEquityInvestment" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of qualified equity investment</Description>
+										<LineNumber>Part I Line 1(d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Credit Rate -->
+						<xsd:element name="CreditRate" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit rate</Description>
+									<LineNumber>Part I Line 1(e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerType">
+									<xsd:enumeration value="5"/>
+									<xsd:enumeration value="6"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Credit ((d) X (e)) -->
+						<xsd:element name="CreditByRatio" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit ((d) x (e))</Description>
+										<LineNumber>Part I Line 1(f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- New Markets Credit -->
+			<xsd:element name="NewMarketsCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>New Markets Credit</Description>
+							<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Credit -->
+			<xsd:element name="TotalCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Credit</Description>
+							<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

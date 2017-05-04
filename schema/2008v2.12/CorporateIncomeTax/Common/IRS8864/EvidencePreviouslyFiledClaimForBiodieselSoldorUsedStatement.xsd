@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Evidence of a Previously Filed Claim for Biodiesel Sold or Used Statement</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 29, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ===================================================================================================== -->
+	<!-- ============  Evidence of a Previously Filed Claim for Biodiesel Sold or Used Statement  ============ -->
+	<!-- ===================================================================================================== -->
+
+
+	<xsd:element name="EvdncofPrevFldClmBiodieselStmt">
+		<xsd:annotation>
+			<xsd:documentation>Evidence of a previously filed claim for biodiesel sold or used statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="EvdncofPrevFldClmBiodieselStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="EvidencePreviouslyFiledClaimForBiodieselSoldorUsedStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="EvdncofPrevFldClmBiodieselStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for evidence of a previously filed claim for biodiesel sold or used statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Certificate for Biodiesel -->
+			<xsd:element name="CertificateforBiodiesel" type="CertificateforBiodieselType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certificate for biodiesel</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Certificate for Biodiesel -->
+	<xsd:complexType name="CertificateforBiodieselType">
+		<xsd:sequence>		
+		
+			<!-- Certificate Identification Number -->
+			<xsd:element name="CertificateIdNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certificate identification number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="25"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>	
+			
+			<!-- Total Gallons of Agri-Biodiesel -->
+			<xsd:element name="TotalGallonsofAgriBiodiesel" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gallons of agri-biodiesel</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total Gallons Claimed on Schedule 3 (Form 8849) -->
+			<xsd:element name="TotGalsClmSchedule3Form8849" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gallons claimed on Schedule 3 (Form 8849)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total Gallons Claimed on Schedule C (Form 720) -->
+			<xsd:element name="TotGalsClmScheduleCForm720" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gallons claimed on Schedule C (Form 720)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total Gallons Claimed on Form 4136 -->
+			<xsd:element name="TotalGallonsClaimedForm4136" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gallons claimed on Form 4136</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 5713</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+ 
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 5713 ============================ -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS5713">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5713</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5713Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5713">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS5713ScheduleA IRS5713ScheduleB IRS5713ScheduleC" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5713Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5713</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Tax Year Beginnining -->
+			<xsd:element name="TaxYearBeginning" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year beginnining</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Year Ending -->
+			<xsd:element name="TaxYearEnding" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year ending</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between Identifying Number, or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Identifying Number -->
+				<xsd:element name="IdentifyingNumber" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>	
+
+			<!-- Address -->
+			<xsd:element name="Address" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Service Center where Tax Return is Filed -->
+			<xsd:element name="IRSServiceCenterWhereFiled" type="IRSServiceCenterType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Service Center where Tax Return is Filed</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Filer Type --> 
+			<xsd:choice>
+
+				<!-- Individual Filer Type--> 
+				<xsd:element name="IndividualFileType" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Individual filer type</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!--Partnership Filer Type--> 
+				<xsd:element name="PartnershipFileType" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partnership filer type</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Corporation Filer Type -->
+				<xsd:element name="CorporateFileType" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Corporation filer type</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Trust Filer Type--> 
+				<xsd:element name="TrustFileType" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Trust filer type</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Estate Filer Type--> 
+				<xsd:element name="EstateFileType" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Estate filer type</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Other Filer Type -->
+				<xsd:element name="OtherFileType" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other filer type</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!--  Individuals Adjusted Gross Income --> 
+ 			<xsd:element name= "IndividualsAdjustedGrossIncome" type="USAmountType" minOccurs="0">
+ 				<xsd:annotation>
+					<xsd:documentation>
+ 						<Description>Individuals Adjusted Gross Income</Description>  
+ 						<LineNumber>1</LineNumber>
+ 					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element> 
+			
+			<!-- Partnerships and Corporations -->
+			<xsd:element name="PartnershipAndCorporation" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnerships and Corporations</Description>
+						<LineNumber>2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="PartnershipAndCorporationType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS851" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Additional Partnership and Corporation Information Included -->
+			<xsd:element name="AdditionalCorpInfoIncluded" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional partnership and corporation information included</Description>
+						<LineNumber>2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Principal business activity code or Inactive -->
+			<xsd:choice minOccurs="0">	
+					
+				<!-- Principal Business Activity Code -->
+				<xsd:element name="PrincipalBusinessActivityCode" type="BusinessActivityCodeType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Principal business activity code</Description>
+							<LineNumber>2c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Inactive principal business activity code -->
+				<xsd:element name="InactivePrincipalBusActyCode">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inactive Principal business activity code</Description>
+							<LineNumber>2c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="Inactive"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			
+			</xsd:choice>
+
+			<!-- Principal Business Activity Description -->
+			<xsd:element name="PrincipalBusinessActivityDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Principal business activity description</Description>
+						<LineNumber>2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Principal Product Code -->
+			<xsd:element name="PrincipalProductCode" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Principal product code</Description>
+						<LineNumber>2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Principal Product Code Description -->
+			<xsd:element name="PrincipalProductCodeDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Principal product code description</Description>
+						<LineNumber>2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Partnership’s Total Asset--> 
+			<xsd:element name= "PartnershipsTotalAsset" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+   						<Description> Partnership’s Total Asset</Description>   
+   						<LineNumber>3a</LineNumber> 
+   					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  Partnership’s Ordinary Income --> 
+ 			<xsd:element name= "PartnershipsOrdinaryIncome" type="USAmountType" minOccurs="0">
+ 				<xsd:annotation>
+					<xsd:documentation>
+ 						<Description> Partnership’s Ordinary Income</Description>  
+ 						<LineNumber>3b</LineNumber>
+ 					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element> 
+			
+			<!-- Type of Form Filed -->
+			<xsd:element name="TypeOfFormFiled" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of form filed</Description>
+						<LineNumber>4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:enumeration value="1120"/>
+						<xsd:enumeration value="1120S"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Name of Corporation -->
+			<xsd:element name="NameOfCorporation" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of corporation</Description>
+						<LineNumber>4b(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="BusinessNameType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CommonTaxableYearElectionStmt" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Choice between Employer Identification Number, or EIN Missing Reason -->
+			<xsd:choice minOccurs="0">
+				
+				<!-- Employer Identification Number -->
+				<xsd:element name="EmployerIdentificationNumber" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+							<LineNumber>4b(2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- EIN Missing Reason -->
+				<xsd:element name="EINMissingReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN Missing reason</Description>
+							<LineNumber>4b(2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>						
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>	
+
+			<!-- Common Tax Year Beginning -->
+			<xsd:element name="CommonTaxYearBeginning" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Common tax year beginning</Description>
+						<LineNumber>4b(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Common Tax Year Ending -->
+			<xsd:element name="CommonTaxYearEnding" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Common tax year ending</Description>
+						<LineNumber>4b(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Assets -->
+			<xsd:element name="TotalAssets" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total assets</Description>
+						<LineNumber>4c(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income Before Net Loss and Deductions -->
+			<xsd:element name="TxblIncomeBeforeNetLossAndDed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable income before net loss and deductions</Description>
+						<LineNumber>4c(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Income Of Estates Or Trusts -->
+			<xsd:element name="TotalIncomeOfEstatesOrTrusts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income of estates or trusts</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Foreign Tax Credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deferral of Earnings of Controlled Foreign Corporations -->
+			<xsd:element name="DfrlOfEarningsOfCtrlFrgnCorp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferral of earnings of controlled foreign corporations</Description>
+						<LineNumber>6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deferral Of IC-DISC Income -->
+			<xsd:element name="DeferralOfICDISCIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferral Of IC-DISC Income</Description>
+						<LineNumber>6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Exempt FSC Income -->
+			<xsd:element name="ExemptFSCIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exempt FSC income</Description>
+						<LineNumber>6d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+			
+			<!-- Extraterritorial Exclusion Foreign Trade Income -->
+			<xsd:element name="ExtraterritorialExclIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Extraterritorial exclusion foreign trade income</Description>
+						<LineNumber>6e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Shareholder of Foreign Corporation that had Operations Reportable Under Section 999(a) -->
+			<xsd:element name="ShrOfCorpWithReportableOpr" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder of foreign corporation that had operations reportable under Section 999(a)</Description>
+						<LineNumber>7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is Any Foreign Corporation a Controlled Foreign Corporation -->
+			<xsd:element name="IsControlledForeignCorp" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is any foreign corporation a controlled foreign corporation</Description>
+						<LineNumber>7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Do You Own any Stock of an IC-DISC -->
+			<xsd:element name="OwnAnyICDISCStock" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you own any stock of an IC-DISC</Description>
+						<LineNumber>7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Do You Claim Any Foreign Tax Credit -->
+			<xsd:element name="DoYouClaimAnyForeignTaxCredit" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you claim any foreign tax credit</Description>
+						<LineNumber>7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Do You Control Any Corporation that has Operations Reportable Under Section 999(a) -->
+			<xsd:element name="CtrlOfCorpWithReportableOpr" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you control any corporation that has operations reportable under Section 999(a)</Description>
+						<LineNumber>7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Did That Corporation Participate in an International Boycott -->
+			<xsd:element name="CorpParticipateInBoycott" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did that corporation participate in an international boycott</Description>
+						<LineNumber>7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Are You Controlled by Any Person who has Operations Reportable Under Section 999(a) -->
+			<xsd:element name="CtrlByPersonWithReportableOpr" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are you controlled by any person who has operations reportable under Section 999(a)</Description>
+						<LineNumber>7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Did that Person Participate in an International Boycott -->
+			<xsd:element name="PersonParticipateInBoycott" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did that person participate in an international boycott</Description>
+						<LineNumber>7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Do You Own a Trust that has Reportable Operations under Section 999(a) -->
+			<xsd:element name="OwnTrustWithReportableOpr" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do You Own a Trust that has Reportable Operations under Section 999(a)</Description>
+						<LineNumber>7g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Are You a Partner in a Partnership that has Reportable Operations Under Section 999(a) -->
+			<xsd:element name="PartnershipWithReportableOpr" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are you a partner in a partnership that has reportable operations under Section 999(a)</Description>
+						<LineNumber>7h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Are You a Foreign Sales Corporation -->
+			<xsd:element name="ForeignSalesCorporation" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are you a foreign sales corporation</Description>
+						<LineNumber>7i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Are You Excluding Extraterritorial Income from Gross Income -->
+			<xsd:element name="ExcldExtraterritorialFromGross" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are you excluding extraterritorial income from gross income</Description>
+						<LineNumber>7j</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I: Operations in or Related to a Boycotting Country -->
+
+			<!-- Has Operations in Countries Boycotting Israel -->
+			<xsd:element name="IsOprInCtryBoycottingIsrael" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has operations in countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Addition Information about Operations in Countries Boycotting Israel -->
+			<xsd:element name="AddnlInfoAboutCtryByctIsrael" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Addition information about operations in countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Operations in Countries Boycotting Israel -->
+			<xsd:element name="OprInCtryBoycottingIsrael" type="BoycottDetailsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Operations in countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has Operations in Nonlisted Countries Boycotting Israel -->
+			<xsd:element name="IsOprInNonlistedCtryByctIsrael" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has operations in nonlisted countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Information Relating to Operations in Nonlisted Countries Boycotting Israel -->
+			<xsd:element name="AddnlInfoNonlistedByctIsrael" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional information relating to operations in nonlisted countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Operations in Nonlisted Countries Boycotting Israel -->
+			<xsd:element name="OprInNonlistedCtryByctIsrael" type="BoycottDetailsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Operations in nonlisted countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has Operations in Countries Boycotting Country Besides Israel -->
+			<xsd:element name="IsOprInNonIsraelBoycottingCtry" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has operations in countries boycotting country besides Israel</Description>
+						<LineNumber>Part I, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Information Relating to Countries Boycotting Country Besides Israel -->
+			<xsd:element name="AddnlInfoOprNonIsraelByctCtry" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional information relating to nonlisted countries boycotting Israel</Description>
+						<LineNumber>Part I, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Operations in Countries Boycotting Country Besides Israel -->
+			<xsd:element name="OprInNonIsraelBoycottingCtry" type="BoycottDetailsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Operations in countries boycotting country besides Israel</Description>
+						<LineNumber>Part I, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Were You Requested to Participate in or Cooperate with an Internation Boycott -->
+			<xsd:element name="AskedToJoinBoycott">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Were you requested to participate in or cooperate with an internation boycott</Description>
+						<LineNumber>Part I, Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BoycottRequestsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Did You Participate in or Cooperate with an International Boycott -->
+			<xsd:element name="DidParticipateInBoycott">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you participate in or cooperate with an international boycott</Description>
+						<LineNumber>Part I, Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BoycottAgreementsStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II: Requests for and Acts of Participation in or Cooperation With an International Boycott -->
+
+			<!-- Received Request to Refrain from Doing Business with a Boycotted Country -->
+			<xsd:element name="ReqToRefrainDoingBusWithCtry" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Received request to refrain from doing business with a boycotted country</Description>
+						<LineNumber>Part II, Line 13a(1)(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agree to Refrain from Doing Business with a Boycotted Country -->
+			<xsd:element name="AgreeToRefrainDoingBusWithCtry" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agree to refrain from doing business with a boycotted country</Description>
+						<LineNumber>Part II, Line 13a(1)(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Received Request to Refrain from Doing Business with a US Person -->
+			<xsd:element name="ReqToRefrainDoingBusWithPrsn" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Received request to refrain from doing business with a US person</Description>
+						<LineNumber>Part II, Line 13a(1)(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agree to Refrain from Doing Business with a US Person -->
+			<xsd:element name="AgreeToRefrainDoingBusWithPrsn" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agree to refrain from doing business with a US person</Description>
+						<LineNumber>Part II, Line 13a(1)(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Received Request to Refrain from Doing Business with a company -->
+			<xsd:element name="RequestToRefrainDoingBusWithCo" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Received request to refrain from doing business with a company</Description>
+						<LineNumber>Part II, Line 13a(1)(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agree to Refrain from Doing Business with a company -->
+			<xsd:element name="AgreeToRefrainDoingBusWithCo" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agree to refrain from doing business with a company</Description>
+						<LineNumber>Part II, Line 13a(1)(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Received Request to Refrain from Employing Certain Individuals -->
+			<xsd:element name="RequestToRefrainEmplgIndiv" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Received request to refrain from employing certain individuals</Description>
+						<LineNumber>Part II, Line 13a(1)(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agree to Refrain from Employing Certain Individuals -->
+			<xsd:element name="AgreeToRefrainEmployingIndiv" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agree to refrain from employing certain individuals</Description>
+						<LineNumber>Part II, Line 13a(1)(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Received Request to Refrain from Shipping or Insuring Certain Products -->
+			<xsd:element name="RequestToRefrainShippingProd" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Received request to refrain from shipping or insuring certain products</Description>
+						<LineNumber>Part II, Line 13a(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agree to Refrain from Shipping or Insuring Certain Products -->
+			<xsd:element name="AgreeToRefrainShippingProd" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agree to refrain from shipping or insuring certain products</Description>
+						<LineNumber>Part II, Line 13a(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Boycott Requests and Agreements Information Included -->
+			<xsd:element name="AddnlByctRequestAndAgrmtIncld" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional boycott requests and agreements information included</Description>
+						<LineNumber>Part II, Line 13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Boycott Requests and Agreements -->
+			<xsd:element name="BoycottRequestsAndAgreements" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Boycott requests and agreements</Description>
+						<LineNumber>Part II, Line 13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="BoycottDetailsType">
+							<xsd:sequence>
+
+								<!-- Total Number of Boycott Requests -->
+								<xsd:element name="TotalNumberOfBoycottRequests" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Total number of boycott requests</Description>
+											<LineNumber>Part II, Line 13b, Column (6)</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="IntegerType">
+											<xsd:totalDigits value="12"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+
+								<!-- Number of Boycott Requests Code -->
+								<xsd:element name="NumberOfBoycottRequestsCode" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Number of boycott requests code</Description>
+											<LineNumber>Part II, Line 13b, Column (7)</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="StringType">
+											<xsd:enumeration value="01"/>
+											<xsd:enumeration value="02"/>
+											<xsd:enumeration value="03"/>
+											<xsd:enumeration value="04"/>
+											<xsd:enumeration value="05"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+
+								<!-- Total Number of Boycott Agreements -->
+								<xsd:element name="TotalNumberOfBoycottAgreements" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Total number of boycott Agreements</Description>
+											<LineNumber>Part II, Line 13b, Column (8)</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="IntegerType">
+											<xsd:totalDigits value="12"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+
+								<!-- Number of Boycott Agreements Code -->
+								<xsd:element name="NumberOfBoycottAgreementsCode" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Number of boycott agreements code</Description>
+											<LineNumber>Part II, Line 13b, Column (9)</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="StringType">
+											<xsd:enumeration value="01"/>
+											<xsd:enumeration value="02"/>
+											<xsd:enumeration value="03"/>
+											<xsd:enumeration value="04"/>
+											<xsd:enumeration value="05"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ========================================================================== -->
+	<!-- ======================  Recurring Local Types ============================ -->
+	<!-- ========================================================================== -->
+
+
+	<!-- Partnership and Corporation Repeating Group Type -->
+	<xsd:complexType name="PartnershipAndCorporationType">
+		<xsd:sequence>
+
+			<!-- Name of Partnership or Corporation -->
+			<xsd:element name="Name" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of partnership or corporation</Description>
+						<LineNumber>2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between Identifying Number, or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Identifying Number of Partnership or Corporation -->
+				<xsd:element name="IdentifyingNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number of partnership or corporation</Description>
+							<LineNumber>2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>2b</LineNumber>						
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>						
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>	
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Boycott Details Repeating Group Type -->
+	<xsd:complexType name="BoycottDetailsType">
+		<xsd:sequence>
+
+			<!-- Name of Country -->
+			<xsd:element name="NameOfCountry" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>NameOfCountry</Description>
+						<LineNumber>Part I, Column (1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying Number of Person Involved or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!--  SSN of Person Inovlved -->
+				<xsd:element name="SSNOfPersonInvolved" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of Person Involved</Description>
+							<LineNumber>Part I, Column (2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!--  EIN of Person Inovlved -->
+				<xsd:element name="EINOfPersonInvolved" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of Person Involved</Description>
+							<LineNumber>Part I, Column (2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>Part I, Column (2)</LineNumber>						
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>						
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>				
+
+			</xsd:choice>
+
+			<!-- Name of Foreign Corporation Having the Operation in or Related to the Listed Country -->
+			<xsd:element name="NameOfForeignCorpHavingOpr" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of foreign corporation having the operation in or related to the listed country</Description>
+						<LineNumber>Part I, Column (2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying Number of the Related Foreign Corporations: choice between EIN, or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Identifying Number of the Related Foreign Corporations-->
+				<xsd:element name="IdNumberOfRelatedForeignCorp" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number of the related foreign corporations</Description>
+							<LineNumber>Part I, Column (2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing Identifying Number Reason of the Related Foreign Corporations-->
+				<xsd:element name="MissingIdNumOfRelatedFrgnCorp">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing identifying number reason of the related foreign corporations</Description>
+							<LineNumber>Part I, Column (2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Principal business activity code or Inactive -->
+			<xsd:choice minOccurs="0">			
+			
+				<!-- Principal Business Activity Code -->
+				<xsd:element name="PrincipalBusinessActivityCode" type="BusinessActivityCodeType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Principal business activity code</Description>
+							<LineNumber>Part I, Column (3)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Inactive principal business activity code -->
+				<xsd:element name="InactivePrincipalBusActyCode">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inactive Principal business activity code</Description>
+							<LineNumber>Part I, Column (3)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="Inactive"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			
+			</xsd:choice>
+
+			<!-- Principal Business Activity Description -->
+			<xsd:element name="PrincipalBusinessActivityDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Principal business activity description</Description>
+						<LineNumber>Part I, Column (4)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- IC-DISCS only - Enter Product Code -->
+			<xsd:element name="ICDISCSProductCode" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IC-DISCS only - enter product code</Description>
+						<LineNumber>Part I, Column (5)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

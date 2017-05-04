@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8925</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 8925 =============================== -->
+	<!-- ================================================================== -->
+	<xsd:element name="IRS8925">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8925</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8925Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8925">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8925Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8925</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Name on Return -->
+			<xsd:element name="NameOnReturn" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name on Returrn</Description>
+											</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Identifying Number -->
+			<xsd:choice>
+			<xsd:element name="NameOnReturnEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name On Return EIN</Description>
+											</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameOnReturnSSN" type="SSNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name On Return SSN</Description>
+											</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			</xsd:choice>
+			
+			<!--Policyholder Name -->
+			<xsd:element name="PolicyHolderName" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>PolicyHolder Name</Description>
+											</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Policy Holder ID Number -->
+			<xsd:choice>
+			<xsd:element name="PolicyHolderEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Policy Holder EIN</Description>
+											</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PolicyHolderSSN" type="SSNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Policy Holder SSN</Description>
+											</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			</xsd:choice>
+			
+			<!--  Business Type-->
+			<xsd:element name="BusinessType" type="TextType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Type</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- # of employees - EOY-->
+			<xsd:element name="NumberOfEmployeesEOY" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of Employees - EOY</Description>
+						<LineNumber>Line 1</LineNumber>
+						</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- # Employees on line 1 insured - EOY -->
+			<xsd:element name="NumberEmployeesLine1InsuredEOY" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description># Employees on Line 1 Insured - EOY</Description>
+						<LineNumber>Line 2</LineNumber>
+						</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total Amount of Insurance in Force at - EOY -->
+			<xsd:element name="TotalAmtOfInsuranceEOY" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Amount of Insurance in Force at - EOY</Description>
+						<LineNumber>Line 3</LineNumber>
+						</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			 <!-- Valid Consent for Each Employee -->
+			<xsd:element name="ValidConsentForEachEmployee" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Valid Consent for Each Employee</Description>
+						<LineNumber>Line 4(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			 <!-- Employees Who Do not have a Valid Consent -->
+			<xsd:element name="EmployeesWithoutValidConsent" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employees Who Do not have a Valid Consent</Description>
+						<LineNumber>Line 4(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

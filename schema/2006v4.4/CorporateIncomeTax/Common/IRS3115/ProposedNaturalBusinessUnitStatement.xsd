@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Proposed Natural Business Unit Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 13, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================= -->
+	<!-- =========== Proposed Natural Business Unit Statement ============ -->
+	<!-- ================================================================= -->
+
+
+	<xsd:element name="ProposedNaturalBusUnitStmt">
+		<xsd:annotation>
+			<xsd:documentation>Proposed Natural Business Unit Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ProposedNaturalBusUnitStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ProposedNaturalBusinessUnitStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="ProposedNaturalBusUnitStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Proposed Natural Business Unit Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="ProposedNaturalBusUnitInfo" type="ProposedNaturalBusUnitInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Content model for Proposed Natural Business Unit Info</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<xsd:complexType name="ProposedNaturalBusUnitInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Proposed Natural Business Unit Info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Description of Type of Products Produced by the Applicant -->
+			<xsd:element name="DescOfApplicantProductsType" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Type of Products Produced by the Applicant</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Types of Processes and Raw Materials Used to Produce the Products -->
+			<xsd:element name="ProcessesTypesAndRawMaterials" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Types of Processes and Raw Materials Used to Produce the Products</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Separate Facility Reasons -->
+			<xsd:element name="SeparateFacilityReasons" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Separate Facility Reasons</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Natural Business Divisions Adopted by the Taxpayer -->
+			<xsd:element name="DescOfTxpyrNaturalBusDivisions" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Natural Business Divisions Adopted by the Taxpayer</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inventories of Items Purchased and Held For Resale -->
+			<xsd:element name="ItemsInvntryPrchsHeldForResale" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventories of Items Purchased and Held For Resale</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- All Items Value Statement -->
+			<xsd:element name="AllItemsValueStatement" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>All Items Value Statement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Items Sold or Transferred -->
+			<xsd:element name="ItemsSoldOrTransferred" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Items Sold or Transferred</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+</xsd:schema>

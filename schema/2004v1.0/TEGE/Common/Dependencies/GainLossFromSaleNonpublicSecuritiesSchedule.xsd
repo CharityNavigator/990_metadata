@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Gain/Loss from Sale of Nonpublic Securities Schedule</Description>
+			<TaxYear>2004</TaxYear>
+			<MaturityLevel>Initial Draft</MaturityLevel>
+			<ReleaseDate>August 30, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+		
+	<!-- =========================================================================== -->
+	<!-- ==========  Gain/Loss from Sale of Nonpublic Securities Schedule ========== -->
+	<!-- =========================================================================== -->
+	
+	<xsd:element name="GainLossSaleNonpublicSecSch">
+		<xsd:annotation>
+			<xsd:documentation>Gain/loss from sale of nonpublic securities schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="GainLossSaleNonpublicSecSchTyp">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="GainLossFromSaleNonpublicSecuritiesSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="GainLossSaleNonpublicSecSchTyp">
+		<xsd:annotation>
+			<xsd:documentation>Content model for gain/loss from sale of public securities schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="GainLossSaleNonpublicSecurity" type="GainLossSaleNonpublicSecType" minOccurs="0" maxOccurs="100"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="GainLossSaleNonpublicSecType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for gain/loss from sale of nonpublic security</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+	
+			<!-- Name -->
+			<xsd:element name="Name" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Date Acquired-->
+			<xsd:element name="DateAcquired" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date acquired</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- How Acquired-->
+			<xsd:element name="HowAcquired" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How acquired</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Date Sold -->
+			<xsd:element name="DateSold" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>DateSold</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Purchaser Name -->
+			<xsd:element name="PurchaserName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchaser Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+					 	<xsd:choice>
+					 		<xsd:element name="Individual" type="PersonNameType"/>
+				 			<xsd:element name="Business" type="BusinessNameType"/>					 		
+				 		</xsd:choice>				 		
+					</xsd:sequence>
+				</xsd:complexType>				
+			</xsd:element>			
+			
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>						
+
+			<!-- Basis -->
+			<xsd:element name="Basis" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Sales Expenses -->
+			<xsd:element name="SalesExpenses" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales expenses</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total (net) - Gross Sales Price minus Basis minus Sales Expense -->
+			<xsd:element name="TotalNet" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total (net) - gross sales price minus basis minus sales expense</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

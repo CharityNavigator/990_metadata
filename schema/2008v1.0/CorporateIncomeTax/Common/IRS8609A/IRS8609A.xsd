@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8609-A</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>March 3, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================= -->
+	<!-- ======================  IRS Form 8609-A ====================== -->
+	<!-- ======================================================================= -->
+
+
+	<xsd:element name="IRS8609A">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8609-A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8609AType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8609A">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8609AType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8609 A</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Part I - Compliance Information ===== -->
+
+			<!-- Building Identification Number -->
+			<xsd:element name="BuildingIDNumber" type="BINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Building identification number.</Description>
+						<LineNumber>Part I A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Newly Constructed or Section 42(e) rehabilitation expenditures -->
+			<xsd:choice>
+
+				<!-- Newly Constructed or Existing Building -->
+				<xsd:element name="NewlyConstructed" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Newly Constructed or existing building</Description>
+							<LineNumber>Part I B (1)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Section 42(e) rehabilitation expenditures-->
+				<xsd:element name="Section42e" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Section 42(e) rehabilitation expenditures</Description>
+							<LineNumber>Part I B (2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Have Original Form 8609 Issued By Housing Credit Agency? -->
+			<xsd:element name="HaveOrig8609IssdByHsngCrAgency">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Have in your records the original Form 8609 issued by housing credit agency</Description>
+						<LineNumber>Part I C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="BooleanType">
+						<xsd:pattern value="true"/>
+						<xsd:pattern value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Part of Low-Income Housing Project and Meets Reqs of Section 42? -->
+			<xsd:element name="PartOfLowIncmHsngProjAndSect42" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Building qualifies as part of qualified low-income housing project and meets requirements of Sec 42 at end of your tax year</Description>
+						<LineNumber>Part I D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Decrease in Qualified Basis of Building?  -->
+			<xsd:element name="DecreaseInQualifiedBasisOfBldg" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Decrease in qualified basis of building this tax year</Description>
+						<LineNumber>Part I E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Computation of Credit ===== -->
+
+			<!-- Eligible Basis of Building -->
+			<xsd:element name="EligibleBasisOfBuilding" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Eligible basis of building.</Description>
+						<LineNumber>Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Low-Income Portion -->
+			<xsd:element name="LowIncomePortion" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low-income portion (smaller of unit percentage or floor-space percentage).</Description>
+						<LineNumber>Part II Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Basis of Low-Income Building -->
+			<xsd:element name="QlfyBasisOfLowIncomeBuilding" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified basis of low-income building.  Multiply line 1 by line 2.</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part-Year Adjustment for Disposition or Acquisition During the Tax Year -->
+			<xsd:element name="PartYearAdjustmentDuringTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part-year adjustment for disposition or acquisition during the tax year.</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit Percentage -->
+			<xsd:element name="CreditPercentage" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit percentage.</Description>
+						<LineNumber>Part II Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Qualified Basis of Low-Income Building or Part-Year Adjustment for Disposition or Acquisition by the Credit Percentage -->
+			<xsd:element name="CreditForLowIncomeBuilding" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 3 or line 4 by the percentage on line 5.</Description>
+						<LineNumber>Part II Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additions to Qualified Basis, if Any -->
+			<xsd:element name="AdditionsToQualifiedBasis" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additions to qualified basis, if any.</Description>
+						<LineNumber>Part II Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part-Year Adjustment for Disposition or Acquisition During the Tax Year-2 -->
+			<xsd:element name="PartYearAdjustment2DuringTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part-year adjustment for disposition or acquisition during the tax year.</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit Percentage-2 -->
+			<xsd:element name="CreditPercentage2" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit percentage.  Enter one-third of the percentage on line 5.</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Additions to Qualified Basis or Part-Year Adjustment for Disposition or Acquisition-2 by the Credit Percentage-2 -->
+			<xsd:element name="CreditForLowIncomeBuilding2" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 7 or line 8 by the percentage on line 9.</Description>
+						<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 42(f)(3)(B) Modification -->
+			<xsd:element name="Section42f3BModification" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 42(f)(3)(B) modification.</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Qualified Basis-2 or Part-Year Adjustment-2 by the Credit Percentage-2 and Add Section 42(f)(3)(B) Modification -->
+			<xsd:element name="AdjustedCreditForLowIncomeBldg" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 10 and 11.</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit for Building Before Line 14 Reduction -->
+			<xsd:element name="CreditForBldgBeforeReduction" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for building before line 14 reduction.  Subtract line 12 from line 6.</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Disallowed Credit Due to Federal Grants -->
+			<xsd:element name="DisallowedCreditAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disallowed credit due to federal grants.</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit Allowed for Building for Tax Year -->
+			<xsd:element name="CreditAllowedForBldgForTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit allowed for building for tax year.  Subtract line 14 from line 13, but do not enter more than the amount shown on Form 8609, Part I, line 1b.</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxpayer's Proportionate Share of Credit for the Year -->
+			<xsd:element name="TaxpayerShareOfCreditForYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxpayer's proportionate share of credit for the year.</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjustments for Deferred First-Year Credit and Prior Election to Accelerate Credit -->
+			<xsd:element name="AdjForDeferredFirstYearCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustments for deferred first-year credit and prior election to accelerate credit.</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxpayer's Credit -->
+			<xsd:element name="TaxpayerCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxpayer's credit.  Combine lines 16 and 17.  Enter here and in Part I of Form 8586.</Description>
+						<LineNumber>Part II Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+					
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

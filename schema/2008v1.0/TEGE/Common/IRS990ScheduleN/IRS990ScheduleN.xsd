@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule N</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>March 3, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule N ================ -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleN">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule N</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleNType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleN">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule N (Form 990) Liquidation, Termination, Dissolution or Significant Disposition of Assets -->
+
+	<xsd:complexType name="IRS990ScheduleNType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule N</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="Form990ScheduleNPartI" minOccurs="0">		
+				<xsd:annotation>
+					<xsd:documentation>Part I contents</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>		
+					<xsd:sequence>
+
+						<!-- Part I, Liquidation, Termination or Dissolution -->
+						<xsd:element name="LiquidationTable" type="Form990SchNGroup1Type" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Complete Part I if the organization ceased its operations and any remaining activities are for the purpose of dissolving, paying debts, or distributing any remaining assets</Description>
+									<LineNumber>Part I, Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Line 2 Questions, Did or will any officer, director, trustee, or key employee of the organization: -->
+						<!-- Director of Successor? -->
+						<xsd:element name="DirectorOfSuccessor" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Become a director or trustee of a successor or transferee organization?</Description>
+									<LineNumber>Part I, Line 2a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Employee of Successor? -->
+						<xsd:element name="EmployeeOfSuccessor" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Become an employee of, or independent contractor for, a successor or transferee organization?</Description>
+									<LineNumber>Part I, Line 2b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Owner of Successor? -->
+						<xsd:element name="OwnerOfSuccessor" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Become a direct or indirect owner of a successor or transferee organization?</Description>
+									<LineNumber>Part I, Line 2c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Receive Compensation? -->
+						<xsd:element name="ReceiveCompensation" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Receive, or become entitled to, compensation or other similar payments as a result of the organization's liquidation, termination, or dissolution?</Description>
+									<LineNumber>Part I, Line 2d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Assets Distributed? -->
+						<xsd:element name="AssetsDistributed" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did the organization distribute its assets in accordance with its governing instruments?</Description>
+									<LineNumber>Part I, Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Determination Letter? -->
+						<xsd:element name="DeterminationLetter" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did the organization request or receive a determination letter from EO Determinations that the organization's exempt status was terminated?</Description>
+									<LineNumber>Part I, Line 4a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Date of Letter? -->
+						<xsd:element name="DateOfLetter" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date of letter</Description>
+									<LineNumber>Part I, Line 4b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+
+						<!-- Required to Notify AG? -->
+						<xsd:element name="RequiredToNotifyAG" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Is the organization required to notify the attorney general or other appropriate state official of its intent to dissolve?</Description>
+									<LineNumber>Part I, Line 5a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- AG Notified? -->
+						<xsd:element name="AGNotified" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If "Yes," did the organization provide such notice?</Description>
+									<LineNumber>Part I, Line 5b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Liabilities Paid? -->
+						<xsd:element name="LiabilitiesPaid" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did the organization discharge or pay all liabilities in accordance with state laws?</Description>
+									<LineNumber>Part I, Line 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Bonds Outstanding? -->
+						<xsd:element name="BondsOutstanding" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did the organization have any tax-exempt bonds outstanding during the year?</Description>
+									<LineNumber>Part I, Line 7a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Bond Liabilities Discharged? -->
+						<xsd:element name="BondLiabilitiesDischarged" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did the organization discharge or defease tax-exempt bond liabilities in accordance with the Internal Revenue Code and state laws?</Description>
+									<LineNumber>Part I, Line 7b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>	
+				</xsd:complexType>		
+			</xsd:element>		
+						
+			<xsd:element name="Form990ScheduleNPartII" minOccurs="0">		
+				<xsd:annotation>
+					<xsd:documentation>Part II contents</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>		
+					<xsd:sequence>
+
+						<!-- Part II, Sale, Exchange, Disposition or Other Transfer of more than 25% of the Organization's Assets -->
+						<xsd:element name="DispositionTable" type="Form990SchNGroup1Type" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Complete Part II if the organization had a disposition of more than 25% of its assets</Description>
+									<LineNumber>Part II, Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part II, Line 2 Questions: Did or will any officer, director, trustee, or key employee of the organization: -->
+						<!-- Director of Successor? -->
+						<xsd:element name="DirectorOfSuccessor" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Become a director or trustee of a successor or transferee organization?</Description>
+									<LineNumber>Part II, Line 2a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Employee of Successor? -->
+						<xsd:element name="EmployeeOfSuccessor" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Become an employee of, or independent contractor for, a successor or transferee organization?</Description>
+									<LineNumber>Part II, Line 2b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Owner of Successor? -->
+						<xsd:element name="OwnerOfSuccessor" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Become a direct or indirect owner of a successor or transferee organization?</Description>
+									<LineNumber>Part II, Line 2c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Receive Compensation? -->
+						<xsd:element name="ReceiveCompensation" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Receive, or become entitled to, compensation or other similar payments as a result of the organization's significant disposition of assets?</Description>
+									<LineNumber>Part II, Line 2d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>	
+				</xsd:complexType>		
+			</xsd:element>		
+
+			<xsd:element name="Form990ScheduleNPartIII" minOccurs="0">		
+				<xsd:annotation>
+					<xsd:documentation>Part III contents</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>		
+					<xsd:sequence>
+
+						<!-- Explanatory Text -->
+						<xsd:element name="ExplanatoryText" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Explanatory text</Description>
+									<LineNumber>Part III</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>	
+				</xsd:complexType>		
+			</xsd:element>		
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+	<!-- Type for Part I and Part II, Columns (a) through (g) -->
+	<xsd:complexType name="Form990SchNGroup1Type">
+		<xsd:sequence>
+	
+			<!-- Description of Asset -->
+			<xsd:element name="DescriptionOfAsset" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of asset(s) distributed or transactional expenses paid</Description>
+						<LineNumber>Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date of Distribution -->
+			<xsd:element name="DateOfDistribution" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of distribution</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FMV of Asset -->
+			<xsd:element name="FMVOfAsset" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value of asset(s) distributed or amount of transactional expenses</Description>
+						<LineNumber>Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method of FMV Determination -->
+			<xsd:element name="MethodOfFMVDetermination" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method of determining FMV for asset(s) distributed or transactional expenses</Description>
+						<LineNumber>Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EIN -->
+			<xsd:element name="EIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>EIN of recipient (if tax-exempt)</Description>
+						<LineNumber>Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Recipient -->
+			<xsd:choice>
+				<xsd:element name="NamePerson" type="PersonNameType" minOccurs ="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name - Person</Description>
+							<LineNumber>Column (f)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="NameBusiness" type="BusinessNameType" minOccurs ="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name - Business</Description>
+							<LineNumber>Column (f)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address of Recipient -->
+			<xsd:choice>
+				<xsd:element name="AddressUS" type="USAddressType" minOccurs ="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address - US</Description>
+							<LineNumber>Column (f)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="AddressForeign" type="ForeignAddressType" minOccurs ="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Address - Foreign</Description>
+							<LineNumber>Column (f)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- IRC Section or Type of Entity -->
+			<xsd:element name="IRCSection" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRC code section of recipient(s) (if tax-exempt) or type of entity </Description>
+						<LineNumber>Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file - Content models for the common transmission/ack file definitions</Description>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept.8, 2015</ReleaseDate>
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="efileTypes.xsd"/>
+
+	<!-- Submission ID Type - 20 digits (EFIN + ccyyddd + 7-character lower case alphanumeric) -->
+	<xsd:simpleType name="SubmissionIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{13}[a-z0-9]{7}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="SubmissionDataType">
+		<xsd:sequence>
+			<xsd:element name="SubmissionId" type="SubmissionIdType"/>
+			<xsd:element name="ElectronicPostmarkTs" type="TimestampType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SubmissionDataListType">
+		<xsd:sequence>
+			<xsd:element name="Cnt" type="xsd:positiveInteger"/>
+			<xsd:element name="SubmissionData" type="SubmissionDataType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="TransmissionManifest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="SubmissionDataList" type="SubmissionDataListType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

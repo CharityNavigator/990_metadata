@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Return schema for 1120 POL return</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 8, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="ReturnHeader1120POL.xsd" />
+	<xsd:include schemaLocation="ReturnData1120POL.xsd" />
+
+	<!-- Tax Exempt and Government Entities Organization Return - 1120POL -->
+	<xsd:element name="Return">
+		<xsd:annotation>
+			<xsd:documentation>1120 POL Return - wraps around Return Header and Return Data</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:complexType>
+			<xsd:sequence>
+
+				<xsd:element ref="ReturnHeader" />
+				<xsd:element ref="ReturnData" />
+
+			</xsd:sequence>
+			
+			<!-- Return Version -->
+			<xsd:attribute name="returnVersion" type="StringType" use="required" fixed="2003V21">
+				<xsd:annotation>
+					<xsd:documentation>Return Version</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+
+		</xsd:complexType>
+		
+		<!-- Uniqueness constraint for 'documentId' attribute of return documents -->
+		<xsd:unique name="documentId">
+			<xsd:selector xpath="efile:ReturnData/efile:*" />
+			<xsd:field xpath="@documentId" />
+		</xsd:unique>
+
+	</xsd:element>
+
+</xsd:schema>

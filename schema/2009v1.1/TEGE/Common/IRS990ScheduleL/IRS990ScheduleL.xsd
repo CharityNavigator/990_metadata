@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule L</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule L ================ -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleL">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule L</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleLType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleL">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule L (Form 990) Suplemental Information on Loans -->
+
+	<xsd:complexType name="IRS990ScheduleLType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule L</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+	
+						<!-- Part I,  DQP Table -->
+						<xsd:element name="DQPTable" type="Form990SchLPartIGroup1Type" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>DQP information</Description>
+									<LineNumber>Part I Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of Tax Imposed -->
+						<xsd:element name="AmountOfTaxImposed" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of tax imposed</Description>
+									<LineNumber>Part I Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of Tax Reimbursed -->
+						<xsd:element name="AmountOfTaxReimbursed" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of tax reimbursed</Description>
+									<LineNumber>Part I Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part II,  Loan Table -->
+						<xsd:element name="LoanTable" type="Form990SchLPartIIGroup1Type" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Loan information</Description>
+									<LineNumber>Part II</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Balance Due -->
+						<xsd:element name="TotalBalanceDue" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total balance due</Description>
+									<LineNumber>Part II Column d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+			<xsd:element name="Form990ScheduleLPartIII" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part III content</Description>
+
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name of Interested Person -->
+						<xsd:choice minOccurs ="0">
+							<xsd:element name="NameOfInterestedPerson" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Name of interested person - Person</Description>
+										<LineNumber>Part III Column a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<xsd:element name="NameOfInterestedBusiness" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Name of interested person - Business</Description>
+										<LineNumber>Part III Column a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Relationship With Organization -->
+						<xsd:element name="RelationshipWithOrganization" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Relationship with organization</Description>
+									<LineNumber>Part III Column b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of Grant or Type of Assistance -->
+						<xsd:choice minOccurs ="0">
+							<xsd:element name="AmountOfGrant" type="USAmountType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Amount of grant</Description>
+										<LineNumber>Part III Column c</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<xsd:element name="TypeOfAssistance" type="LineExplanationType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Type of assistance</Description>
+										<LineNumber>Part III Column c</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>			
+
+			<xsd:element name="Form990ScheduleLPartIV" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part IV content</Description>
+
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name of Interested Person -->
+						<xsd:element name="NameOfInterestedPerson" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of interested person</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Name Choice -->
+									<xsd:choice minOccurs ="0">
+										<xsd:element name="NamePerson" type="PersonNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Name - Person</Description>
+													<LineNumber>Part IV Column a</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<xsd:element name="NameBusiness" type="BusinessNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Name - Business</Description>
+													<LineNumber>Part IV Column a</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+								</xsd:sequence>						
+							</xsd:complexType>							
+						</xsd:element>
+
+						<!-- Relationship With Organization -->
+						<xsd:element name="Relationship" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Relationship with organization</Description>
+									<LineNumber>Part IV Column b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of Transaction -->
+						<xsd:element name="AmountOfTransaction" type="USAmountType" minOccurs="0">			
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of transaction</Description>
+									<LineNumber>Part IV Column c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Description of Transaction -->
+						<xsd:element name="DescriptionOfTransaction" type="ShortExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Description of transaction</Description>
+									<LineNumber>Part IV Column d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Sharing of Revenues? -->
+						<xsd:element name="SharingOfRevenues" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sharing of revenues?</Description>
+									<LineNumber>Part IV Column e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>			
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+	<!-- Type for Part I, and Part II,  Columns (a) through (i) -->
+	<xsd:complexType name="Form990SchLPartIGroup1Type">
+		<xsd:sequence>
+	
+			<!-- Name of DQP -->
+			<xsd:choice minOccurs ="0">
+				<xsd:element name="NamePerson" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name - Person</Description>
+							<LineNumber>Part I Column 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="NameBusiness" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name - Business</Description>
+							<LineNumber>Part I Column 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Description of Transaction -->
+			<xsd:element name="DescriptionOfTransaction" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of transaction</Description>
+						<LineNumber>Part I Column 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Transaction Corrected? -->
+			<xsd:element name="TransactionCorrected" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Transaction corrected?</Description>
+						<LineNumber>Part I Column 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Form990SchLPartIIGroup1Type">
+		<xsd:sequence>
+	
+			<!-- Name of Interested Person -->
+			<xsd:choice minOccurs ="0">
+				<xsd:element name="NamePerson" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name - Person</Description>
+							<LineNumber>Part II Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="NameBusiness" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name - Business</Description>
+							<LineNumber>Part II Column a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Purpose of Loan -->
+			<xsd:element name="PurposeOfLoan" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purpose of loan</Description>
+						<LineNumber>Part II Column a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+				<!-- Loan to Organization? -->
+				<xsd:element name="LoanToOrganization" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Loan to organization?</Description>
+							<LineNumber>Part II Column b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Loan From Organization? -->
+				<xsd:element name="LoanFromOrganization" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Loan from organization?</Description>
+							<LineNumber>Part II Column b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Original Principal Amount -->
+			<xsd:element name="OriginalPrincipalAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Original principal amount</Description>
+						<LineNumber>Part II Column c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Balance Due -->
+			<xsd:element name="BalanceDue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance due</Description>
+						<LineNumber>Part II Column d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Default? -->
+			<xsd:element name="Default" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Default?</Description>
+						<LineNumber>Part II Column e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Approved by Board? -->
+			<xsd:element name="ApprovedByBoard" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Approved by board?</Description>
+						<LineNumber>Part II Column f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Written Agreement? -->
+			<xsd:element name="WrittenAgreement" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Written agreement?</Description>
+						<LineNumber>Part II Column g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

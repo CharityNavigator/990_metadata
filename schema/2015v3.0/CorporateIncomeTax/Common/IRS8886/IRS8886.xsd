@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Schema - Form 8886</Description>
+
+			<TaxYear>2015</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>May 27, 2016</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+	<!-- =================================================================== -->
+
+	<!-- =======================  IRS Form 8886 =============================== -->
+
+	<!-- =================================================================== -->
+
+
+
+	<xsd:element name="IRS8886">
+
+		<xsd:annotation>
+
+			<xsd:documentation>IRS Form 8886</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="IRS8886Type">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8886">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+
+						<xsd:annotation>
+
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+
+
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall"/>
+
+
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+
+
+	<xsd:complexType name="IRS8886Type">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for IRS Form 8886</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<!-- Statement Number Of This Form -->
+
+			<xsd:element name="StatementCnt" type="IntegerType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Statement number of this form</Description>
+
+						<LineNumber>Line A</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Total Statement Number -->
+
+			<xsd:element name="TotalStatementCnt" type="IntegerType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Total statement number</Description>
+
+						<LineNumber>Line A</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Form Number Of Tax Return -->
+
+			<xsd:element name="TaxReturnFormNumberDsc" type="AlphaNumericType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Form number of tax return</Description>
+
+						<LineNumber>Line B</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- For Tax Year -->
+
+			<xsd:element name="TaxYearDt" type="YearMonthType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>For tax year</Description>
+
+						<LineNumber>Line B</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Attached To Amended Return -->
+
+			<xsd:element name="AttachedToAmendedReturnInd" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Attached to amended return</Description>
+
+						<LineNumber>Line B</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Initial Year Filer -->
+
+			<xsd:element name="InitialYearFilerInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Initial year filer</Description>
+
+						<LineNumber>Line C</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Protective Disclosure -->
+
+			<xsd:element name="ProtectiveDisclosureInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Protective disclosure</Description>
+
+						<LineNumber>Line C</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Reportable Transaction Information (repeating group) -->
+
+			<xsd:element name="ReportableTransactionInfo" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Reportable transaction information</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:sequence>
+
+
+
+						<!-- Name Of Reportable Transaction -->
+
+						<xsd:element name="ReportableTransactionDesc" type="LineExplanationType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Name of reportable transaction</Description>
+
+									<LineNumber>Line 1(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Initial Year Participated -->
+
+						<xsd:element name="InitialParticipatedYr" type="YearType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Initial year participated</Description>
+
+									<LineNumber>Line 1(b)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Transaction Or Tax Shelter Number -->
+
+						<xsd:element name="TransactionOrTaxShelterNum" type="TaxShelterRegistrationType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Transaction or tax shelter number</Description>
+
+									<LineNumber>Line 1(c)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+					</xsd:sequence>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+			<!-- Listed  -->
+
+			<xsd:element name="ListedInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Listed</Description>
+
+						<LineNumber>Line 2(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Confidential -->
+
+			<xsd:element name="ConfidentialInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Confidential</Description>
+
+						<LineNumber>Line 2(b)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Contractual Protection -->
+
+			<xsd:element name="ContractualProtectionInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Contractual protection</Description>
+
+						<LineNumber>Line 2(c)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Loss -->
+
+			<xsd:element name="LossInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Loss</Description>
+
+						<LineNumber>Line 2(d)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Transaction Of Interest -->
+
+			<xsd:element name="TransactionOfInterestInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Transaction of interest</Description>
+
+						<LineNumber>Line 2(e)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Published Guidance Number -->
+
+			<xsd:element name="PublishedGuidanceNumberTxt" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Published guidance number</Description>
+
+						<LineNumber>Line 3</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Number Of Same Or Similar Transactions -->
+
+			<xsd:element name="SameOrSimilarTransactionCnt" type="IntegerType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Number of same or similar transactions</Description>
+
+						<LineNumber>Line 4</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Type Of Entity Information (repeating group) -->
+
+			<xsd:element name="TypeOfEntityInformation" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Type of entity information</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:sequence>
+
+
+
+						<!-- Partnership -->
+
+						<xsd:element name="PartnershipInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Partnership</Description>
+
+									<LineNumber>Line 5(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- S Corporation -->
+
+						<xsd:element name="SCorporationInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>S corporation</Description>
+
+									<LineNumber>Line 5(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Trust -->
+
+						<xsd:element name="TrustInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Trust</Description>
+
+									<LineNumber>Line 5(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Foreign -->
+
+						<xsd:element name="ForeignInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Foreign</Description>
+
+									<LineNumber>Line 5(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Entity Name -->
+
+						<xsd:element name="EntityName" type="BusinessNameType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Entity name</Description>
+
+									<LineNumber>Line 5(b)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Entity EIN or Missing EIN Reason -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- Entity EIN -->
+
+							<xsd:element name="EntityEIN" type="EINType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Entity EIN</Description>
+
+										<LineNumber>Line 5(c)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- Missing EIN Reason -->
+
+							<xsd:element name="MissingEINReasonCd">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Missing EIN reason</Description>
+
+										<LineNumber>Line 5(c)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+								<xsd:simpleType>
+
+									<xsd:restriction base="StringType">
+
+										<xsd:enumeration value="APPLD FOR"/>
+
+										<xsd:enumeration value="FOREIGNUS"/>
+
+									</xsd:restriction>
+
+								</xsd:simpleType>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+						<!-- Schedule K-1 Received Date or None -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- Schedule K-1 Received Date -->
+
+							<xsd:element name="ScheduleK1ReceivedDt" type="DateType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Schedule K-1 received date</Description>
+
+										<LineNumber>Line 5(d)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- No Schedule K-1 Received -->
+
+							<xsd:element name="NoScheduleK1ReceivedCd">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>No Schedule K-1 Received</Description>
+
+										<LineNumber>Line 5(d)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+								<xsd:simpleType>
+
+									<xsd:restriction base="StringType">
+
+										<xsd:enumeration value="NONE"/>
+
+									</xsd:restriction>
+
+								</xsd:simpleType>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+					</xsd:sequence>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+			<!-- Name and Address of Persons You Paid a Fee with Regard to Transaction(repeating group) -->
+
+			<xsd:element name="PersonsYouPaidAFeeInfo" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name and address of persons you paid a fee with regard to transaction</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:sequence>
+
+
+
+						<!-- Name Of Person You Paid A Fee -->
+
+						<xsd:element name="PersonNm" type="PersonNameType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Name of person you paid a fee</Description>
+
+									<LineNumber>Line 6(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Id Number Of Person You Paid A Fee or Missing EIN Reason -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- SSN Number Of Person You Paid A Fee -->
+
+							<xsd:element name="SSN" type="SSNType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>SSN number of person you paid a fee</Description>
+
+										<LineNumber>Line 6(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- EIN Number Of Person You Paid A Fee -->
+
+							<xsd:element name="EIN" type="EINType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>EIN number of person you paid a fee</Description>
+
+										<LineNumber>Line 6(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- Missing EIN Reason -->
+
+							<xsd:element name="MissingEINReasonCd">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Missing EIN reason</Description>
+
+										<LineNumber>Line 6(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+								<xsd:simpleType>
+
+									<xsd:restriction base="StringType">
+
+										<xsd:enumeration value="APPLD FOR"/>
+
+										<xsd:enumeration value="FOREIGNUS"/>
+
+									</xsd:restriction>
+
+								</xsd:simpleType>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+						<!-- Fees Paid -->
+
+						<xsd:element name="FeesPaidAmt" type="USAmountType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Fees paid</Description>
+
+									<LineNumber>Line 6(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Address Of Person You Paid A Fee - U.S. Address or Foreign Address -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- US Address Of Person You Paid A Fee -->
+
+							<xsd:element name="USAddress" type="USAddressType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>US address of person you paid a fee</Description>
+
+										<LineNumber>Line 6(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- Foreign Address Of Person You Paid A Fee -->
+
+							<xsd:element name="ForeignAddress" type="ForeignAddressType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Foreign address of person you paid a fee</Description>
+
+										<LineNumber>Line 6(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+					</xsd:sequence>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+			<!-- Deductions  -->
+
+			<xsd:element name="DeductionsInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Deductions </Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Capital Loss -->
+
+			<xsd:element name="CapitalLossInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Capital loss</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Ordinary Loss -->
+
+			<xsd:element name="OrdinaryLossInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Ordinary loss</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Exclusions From Gross Income -->
+
+			<xsd:element name="ExclusionsFromGrossIncomeInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Exclusions from gross income</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Nonrecognition Of Gain -->
+
+			<xsd:element name="NonrecognitionOfGainInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Nonrecognition of gain</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Adjustments To Basis -->
+
+			<xsd:element name="AdjustmentsToBasisInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Adjustments to basis</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Absence Of Adjustments To Basis -->
+
+			<xsd:element name="AbsenceOfAdjustmentsToBasisInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Absence of adjustments to basis</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Deferral -->
+
+			<xsd:element name="DeferralInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Deferral</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Other -->
+
+			<xsd:element name="OtherInd" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Other</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:simpleContent>
+
+						<xsd:extension base="CheckboxType">
+
+							<xsd:attribute name="otherTaxBenefitDesc" type="ShortDescriptionType">
+
+							</xsd:attribute>
+
+						</xsd:extension>
+
+					</xsd:simpleContent>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+			<!-- Tax Credits -->
+
+			<xsd:element name="TaxCreditsInd" type="CheckboxType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Tax credits</Description>
+
+						<LineNumber>Line 7(a)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Describe Expected Tax Benefits -->
+
+			<xsd:element name="ExpectedTaxBenefitsExplnTxt" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Describe expected tax benefits</Description>
+
+						<LineNumber>Line 7(b)</LineNumber>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:simpleContent>
+
+						<xsd:extension base="ShortExplanationType">
+
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ContinuationOfForm8886ExpectedTaxBenefitsExplanation"/>
+
+						</xsd:extension>
+
+					</xsd:simpleContent>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+			<!-- Identify All Involved In Transaction (repeating group) -->
+
+			<xsd:element name="IdentifyAllInvolvedInTr" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Identify all involved in transaction</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+				<xsd:complexType>
+
+					<xsd:sequence>
+
+
+
+						<!-- Tax Exempt -->
+
+						<xsd:element name="TaxExemptInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Tax exempt</Description>
+
+									<LineNumber>Line 8(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Foreign -->
+
+						<xsd:element name="ForeignInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Foreign</Description>
+
+									<LineNumber>Line 8(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Related -->
+
+						<xsd:element name="RelatedInd" type="CheckboxType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Related</Description>
+
+									<LineNumber>Line 8(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+						<!-- Name Involved In Transaction -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- Business Name Involved In Transaction -->
+
+							<xsd:element name="BusinessName" type="BusinessNameType" minOccurs="0">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Business name involved in transaction</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- Person Name Involved In Transaction -->
+
+							<xsd:element name="PersonNm" type="PersonNameType" minOccurs="0">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Person name involved in transaction</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+						<!-- Id Number Involved In Transaction -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- SSN Number Involved In Transaction -->
+
+							<xsd:element name="SSN" type="SSNType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>SSN number involved in transaction</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- EIN Number Involved In Transaction -->
+
+							<xsd:element name="EIN" type="EINType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>EIN number involved in transaction</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- Missing EIN Reason -->
+
+							<xsd:element name="MissingEINReasonCd">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Missing EIN</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+								<xsd:simpleType>
+
+									<xsd:restriction base="StringType">
+
+										<xsd:enumeration value="APPLD FOR"/>
+
+										<xsd:enumeration value="FOREIGNUS"/>
+
+									</xsd:restriction>
+
+								</xsd:simpleType>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+						<!-- Address Involved In Transaction - U.S. Address or Foreign Address -->
+
+						<xsd:choice minOccurs="0">
+
+
+
+							<!-- US Address Involved In Transaction -->
+
+							<xsd:element name="USAddress" type="USAddressType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>US address involved in transaction</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+							<!-- Foreign Address Involved In Transaction -->
+
+							<xsd:element name="ForeignAddress" type="ForeignAddressType">
+
+								<xsd:annotation>
+
+									<xsd:documentation>
+
+										<Description>Foreign address involved in transaction</Description>
+
+										<LineNumber>Line 8(a)</LineNumber>
+
+									</xsd:documentation>
+
+								</xsd:annotation>
+
+							</xsd:element>
+
+
+
+						</xsd:choice>
+
+
+
+						<!-- Description Of Involvement -->
+
+						<xsd:element name="InvolvementDesc" type="ShortExplanationType" minOccurs="0">
+
+							<xsd:annotation>
+
+								<xsd:documentation>
+
+									<Description>Description of involvement</Description>
+
+									<LineNumber>Line 8(a)</LineNumber>
+
+								</xsd:documentation>
+
+							</xsd:annotation>
+
+						</xsd:element>
+
+
+
+					</xsd:sequence>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+</xsd:schema>

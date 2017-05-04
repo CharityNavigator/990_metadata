@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8834</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================ -->
+	<!-- =======================  IRS Form 8834 ============================ -->
+	<!-- ================================================================ -->
+
+	<xsd:element name="IRS8834">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8834</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8834Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8834">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" >
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall" />
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8834Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8834</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I: Qualified Plug-in Electric Vehicle Credit -->
+
+			<!-- Section A - Vehicle Information -->
+
+			<!-- Vehicle Information -->
+			<xsd:element name="VehicleInformation" type="VehicleInformationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section B - Credit for Business/Investment Use Part of Vehicle -->
+
+			<!-- Credit for Business/Investment Vehicle -->
+			<xsd:element name="CrBusinessInvestmentVehicle" type="BusinessInvestmentVehicleCreditType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for business/investment vehicle</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Total Business Investment Use -->
+			<xsd:element name="QlfyElecVehTotBusInvstUse" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total business investment use</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Credit -->
+			<xsd:element name="QlfyPlugInElecVehicleCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle credit</Description>
+						<LineNumber>Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Business Use Part Credit -->
+			<xsd:element name="QlfyElecVehBusUsePrtCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle business use part credit</Description>
+						<LineNumber>Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section C - Credit for Personal Use Part of Vehicle -->
+
+			<!-- Credit for Personal Use Part of Vehicle -->
+			<xsd:element name="CreditPersonalUsePartVehicle" type="PersonalVehicleCreditType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for personal use part of vehicle</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Total Credit Personal Use -->
+			<xsd:element name="QlfyElecVehTotCrPrsnlUse" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total credit for personal use of vehicle</Description>
+						<LineNumber>Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax Before Credit And Other Taxes -->
+			<xsd:element name="TotalTxBeforeCrAndOtherTxs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax before credit and other taxes</Description>
+						<LineNumber>Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Credit From Form -->
+			<xsd:element name="QlfyElecVehCreditFromForm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle credit from form</Description>
+						<LineNumber>Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Adjusted Credit -->
+			<xsd:element name="QlfyPlugInElecVehAdjustedCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle adjusted credit</Description>
+						<LineNumber>Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Personal Use Part Credit -->
+			<xsd:element name="QlfyPlugInElecVehPrsnlUsePrtCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle personal use part credit</Description>
+						<LineNumber>Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II: Qualified Electric Vehicle Credit -->
+
+			<!-- Qualified Electric Vehicle Passive Activity Credits Allowed  -->
+			<xsd:element name="QlfyElecVehPssvActyCrAllw" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle passive activity credits allowed</Description>
+						<LineNumber>Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Regular Tax Before Credits -->
+			<xsd:element name="QlfyElecVehRegularTxBfrCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle regular tax before credits</Description>
+						<LineNumber>Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>Line 25a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Sum Of Credits -->
+			<xsd:element name="QlfyElecVehSumOfCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle sum of credits</Description>
+						<LineNumber>Line 25b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- American Samoa Economic Development Credit -->
+			<xsd:element name="AmericanSamoaEconomicDevCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>American samoa economic development credit</Description>
+						<LineNumber>Line 25c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax Credit Before Qualified Electric Vehicle Credit -->
+			<xsd:element name="TotTaxCrBfrQlfyElecVehCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax credit before qualified electric vehicle credit</Description>
+						<LineNumber>Line 25d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Net Regular Tax -->
+			<xsd:element name="QlfyElecVehNetRegularTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle net regular tax</Description>
+						<LineNumber>Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Tentative Minimum Tax -->
+			<xsd:element name="QlfyElecVehTentativeMinTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle tentative minimum tax</Description>
+						<LineNumber>Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Vehicle Adjusted Regular Tax -->
+			<xsd:element name="QlfyElecVehAdjRegularTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric vehicle adjusted regular tax</Description>
+						<LineNumber>Line 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Electric Motor Vehicle Credit -->
+			<xsd:element name="QlfyElecMotorVehCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified electric motor vehicle credit</Description>
+						<LineNumber>Line 29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Type for repeating group in Part I Section A: Vehicle Information -->
+	<xsd:complexType name="VehicleInformationType">
+		<xsd:sequence>
+
+			<!-- Vehicle Description - Year, Make, and Model of Vehicle -->
+			<xsd:element name="VehicleDescription" type="VehicleDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle description - Year, Make, and Model of Vehicle</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Vehicle Placed in Service Date -->
+			<xsd:element name="VehiclePlacedInServiceDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle placed in service date</Description>
+						<LineNumber>Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost of Vehicle Amount -->
+			<xsd:element name="CostOfVehicleAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost of vehicle amount</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Type for repeating group in Part I Section B:  Credit for Business/Investment Use Part of Vehicle -->
+	<xsd:complexType name="BusinessInvestmentVehicleCreditType">
+		<xsd:sequence>
+
+			<!-- Qualified Plug-in Electric Vehicle Business Investment Use -->
+			<xsd:element name="QlfyElecVehBusInvestmentUse" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle business investment use</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Business Investment Use Percentage -->
+			<xsd:element name="QlfyElecVehBusInvestmentUsePct" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle business investment use percentage</Description>
+						<LineNumber>Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Section 179 Expenses Deduction -->
+			<xsd:element name="QlfyPlugInElecVehSect179ExpDed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle section 179 expenses deduction</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Deduction Less Business Investment -->
+			<xsd:element name="NetQlfyPlugInElecVehBusInvst" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle deduction less business investment</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Net Percentage -->
+			<xsd:element name="QlfyPlugInElecVehNetPct" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle net percentage</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Smaller Percentage Or Credit -->
+			<xsd:element name="QlfyPlugInElecVehSmllrPctOrCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle smaller percentage or credit</Description>
+						<LineNumber>Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for repeating group in Part I Section C: Credit for Personal Use Part of Vehicle -->
+	<xsd:complexType name="PersonalVehicleCreditType">
+		<xsd:sequence>
+
+			<!-- Qualified Plug-in Electric Vehicle Net Cost Personal Use -->
+			<xsd:element name="QlfyElecVehNetCostPrsnlUse" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle net cost personal use</Description>
+						<LineNumber>Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Net Cost Percentage -->
+			<xsd:element name="QlfyElecVehNetCostPcnt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle net cost percentage</Description>
+						<LineNumber>Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Maximum Credit Per Vehicle -->
+			<xsd:element name="QlfyElecVehMaxCrPerVeh" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle maximum credit per vehicle amount</Description>
+						<LineNumber>Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Plug-in Electric Vehicle Smaller Cost Or Maximum Credit -->
+			<xsd:element name="QlfyElecVehSmllrCostOrMaxCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified plug-in electric vehicle smaller cost or maximum credit</Description>
+						<LineNumber>Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>

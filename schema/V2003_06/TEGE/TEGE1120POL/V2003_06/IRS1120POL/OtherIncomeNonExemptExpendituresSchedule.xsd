@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Other Income/Non Exempt Expenditures Schedule</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../../Common/V2003_06/efileTypes.xsd"/>
+	
+	<!-- ======================================================================== -->
+	<!-- =========  Other Income/Non Exempt Expenditures Schedule =============== -->
+	<!-- ======================================================================== -->
+	
+	<xsd:element name="OthIncomeNonExemptExpendSch">
+		<xsd:annotation>
+			<xsd:documentation>Other income/non exempt expenditures schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="OthIncomeNonExemptExpendSchTyp">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="OtherIncomeNonExemptExpendituresSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="OthIncomeNonExemptExpendSchTyp">
+		<xsd:annotation>
+			<xsd:documentation>Content model for other income/non exempt expenditures schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OthIncomeNonExemptExpenditure" type="OthIncomeNonExemptExpendType" minOccurs="0" maxOccurs="100"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="OthIncomeNonExemptExpendType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for other income/non exempt expenditures</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+
+			<!-- Type of Income -->
+			<xsd:element name="TypeOfIncome" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of Income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amount -->
+			<xsd:element name="Amount" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>			
+	</xsd:complexType>
+	
+</xsd:schema>

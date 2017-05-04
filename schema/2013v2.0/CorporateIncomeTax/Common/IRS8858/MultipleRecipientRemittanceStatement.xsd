@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Multiple Recipient Remittance Statement</Description>
+            <TaxYear>2013</TaxYear>
+            <MaturityLevel>Draft Release</MaturityLevel>
+            <ReleaseDate>September 16, 2013</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+    <!-- =============================================== -->
+    <!-- === Multiple Recipient Remittance Statement === -->
+    <!-- =============================================== -->
+
+    <xsd:element name="MultRecipientRemittanceStmt">
+        <xsd:annotation>
+            <xsd:documentation>Multiple Recipient Remittance Statement</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="MultRecipientRemittanceStmtType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    <xsd:attribute name="documentName" type="StringType" fixed="MultipleRecipientRemittanceStatement">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="MultRecipientRemittanceStmtType">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Multiple Recipient Remittance Statement</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+
+            <!-- Additional Schedule C-1 for Each Recipient That has a Functional Currency That is Different Than the Functional Currency of the Foreign Disregarded Entity -->
+            <xsd:element name="MediumExplanationTxt" type="MediumExplanationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Additional Schedule C-1 for each recipient that has a functional currency that is different than the functional currency of the Foreign Disregarded Entity</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

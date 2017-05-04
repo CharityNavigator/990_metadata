@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+  <xsd:annotation>
+    <xsd:documentation>
+      <Description>IRS e-file Corporate Income Tax Schema - Inventory Method Used For Prior Tax Year Statement</Description>
+      <TaxYear>2005</TaxYear>
+      <MaturityLevel>Final Release</MaturityLevel>
+      <ReleaseDate>January 19, 2007</ReleaseDate>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+  <!-- ============================================================================== -->
+  <!-- ============ Inventory Method Used For Prior Tax Year Statement  ============= -->
+  <!-- ============================================================================== -->
+  <xsd:element name="InvntryMthdUsedForPrTYStmt">
+    <xsd:annotation>
+      <xsd:documentation>Inventory Method Used For Prior Tax Year Statement</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="InvntryMthdUsedForPrTYStmtType">
+          <xsd:attributeGroup ref="DocumentAttributes">
+            <xsd:annotation>
+              <xsd:documentation>Common return document attributes</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attributeGroup>
+          <xsd:attribute name="documentName" type="xsd:string" fixed="InventoryMethodUsedForPriorTaxYearExplnStatement">
+            <xsd:annotation>
+              <xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="InvntryMthdUsedForPrTYStmtType">
+    <xsd:annotation>
+      <xsd:documentation>Content model for Inventory Method Used For Prior Tax Year Statement</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <!-- Inventory Method Used -->
+      <xsd:element name="InvntryMthdUsed" type="InvntryMthdUsedType" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Inventory Method Used</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- Type for Repeating Group - Inventory Method Used -->
+  <xsd:complexType name="InvntryMthdUsedType">
+    <xsd:sequence>
+
+      <!-- InventoryMethod -->
+      <xsd:element name="InventoryMethod" type="LineExplanationType">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Inventory Method</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+
+      <!-- Description -->
+      <xsd:element name="Description" type="ShortExplanationType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            <Description>Description</Description>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

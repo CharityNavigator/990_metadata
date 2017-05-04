@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Code Section Under Which Property Is Depreciated or Amortized Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =============================================================================== -->
+	<!-- === Code Section Under Which Property Is Depreciated or Amortized Statement === -->
+	<!-- =============================================================================== -->
+
+
+	<xsd:element name="CodeSectPropDeprecOrAmortzStmt">
+		<xsd:annotation>
+			<xsd:documentation>Code Section Under Which Property Is Depreciated or Amortized Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="CodeSectPropDeprecOrAmortzStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="CodeSectUnderWhichPropIsDeprecOrAmortzStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="CodeSectPropDeprecOrAmortzStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Code Section Under Which Property Is Depreciated or Amortized Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Code Section Under Which Property Is Depreciated or Amortized Info -->
+			<xsd:element name="CodeSectPropDeprecOrAmortzInfo" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Code Section Under Which Property Is Depreciated or Amortized Info - Present Method -->
+						<xsd:element name="PresentMethod" type="CodeSectPropDeprecOrAmortzInfoType" minOccurs="0">	
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Code Section Under Which Property Is Depreciated or Amortized Info - Present Method</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Code Section Under Which Property Is Depreciated or Amortized Info - Proposed Method -->
+						<xsd:element name="ProposedMethod" type="CodeSectPropDeprecOrAmortzInfoType" minOccurs="0">	
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Code Section Under Which Property Is Depreciated or Amortized Info - Proposed Method</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CodeSectPropDeprecOrAmortzInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Code Section Under Which Property Is Depreciated or Amortized Info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Code Section -->
+			<xsd:element name="CodeSection" type="AlphaNumericAndParenthesesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Code section under which the property is depreciated</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Asset Class -->
+			<xsd:element name="AssetClass" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the property is depreciated under section 168, identify the applicable asset class in Rev. Proc. 87-56, 1987-2 C.B. 674. (if none, state so and explain why)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Asset Class Supporting Facts Under Propsed Method -->
+			<xsd:element name="AssetClassSuprtFactsPrpsdMthd" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Provide the facts supporting the asset class under the proposed method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation or Amortization Method and Code Section -->
+			<xsd:element name="DeprecOrAmortzMthdAndCodeSect" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation or amortization method of property, including the applicable Code section (e.g. 200% declining balance method under section 168(b)(1)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Useful Life, Recovery, or Amortization Period -->
+			<xsd:element name="UsefulLifeRecoveryAmortzPeriod" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Useful Life, Recovery, or Amortization Period</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Applicable Convention -->
+			<xsd:element name="ApplicableConvention" type="DepreciationConventionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable convention of the property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

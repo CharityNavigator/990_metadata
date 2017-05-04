@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8865 K1 Partner Payment Explanation</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 2, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+	<!-- =============================================================================== -->
+	<!-- ================== Form 8865 K1 Partner Payment Explanation =================== -->
+	<!-- =============================================================================== -->
+
+	<xsd:element name="F8865K1PrtnrPymtExplanation">
+		<xsd:annotation>
+			<xsd:documentation>Form 8865 K1 Partner Payment Explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="F8865K1PrtnrPymtExplanationType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="Form8865K1PartnerPaymentExplanation">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="F8865K1PrtnrPymtExplanationType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for form 8865 K1 partner payment explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Form8865K1PartnerPaymentExpln" type="Form8865K1PartnerPaymentExplnType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group -->
+	<xsd:complexType name="Form8865K1PartnerPaymentExplnType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for form 8865 K1 partner payment explanation</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="ShortExplanation" type="ShortExplanationType" minOccurs="0" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

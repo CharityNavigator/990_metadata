@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8594</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 29, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================ -->
+	<!-- =======================  IRS Form 8594 ============================ -->
+	<!-- ================================================================ -->
+
+	<xsd:element name="IRS8594">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8594</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8594Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8594">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8594Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8594</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Business Name -->
+			<xsd:element name="BusinessName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EIN or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="BusinessMissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<xsd:choice minOccurs="0">
+				<!-- Purchaser Box -->
+				<xsd:element name="Purchaser" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Check the box that identifies you: purchaser</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Seller Box -->
+				<xsd:element name="Seller" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Check the box that identifies you: seller</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- =============== Part I: General Information ========================= -->
+			<!-- Name of Other Party to Transaction -->
+			<xsd:element name="NameOfOtherParty" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of other party to the transaction</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Party's Identification Number (TINType) or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="EINOfOtherParty" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other party's identification number</Description>
+							<LineNumber>Part I Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="SSNOfOtherParty" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other party's social security number</Description>
+							<LineNumber>Part I Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address of Other Party: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Other Party -->
+				<xsd:element name="USAddressOfOtherParty" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of other party</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Other Party -->
+				<xsd:element name="ForeignAddressOfOtherParty" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of other party</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!--  Date of Sale  -->
+			<xsd:element name="DateOfSale" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of sale</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Total Sales Price  -->
+			<xsd:element name="TotalSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total sales price</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ====================== Part II: Assets Transferred ======================= -->
+
+			<!-- Assets Transferred Aggregate Fair Market Value (Class I) -->
+			<xsd:element name="Class1FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred aggregate fair market value (class I)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Assets Transferred Allocation of Sales Price (Class I) -->
+			<xsd:element name="Class1SalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred allocation of sales price (class I)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Assets Transferred Aggregate Fair Market Value (Class II) -->
+			<xsd:element name="Class2FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred aggregate fair market value (class II)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Assets Transferred Allocation of Sales Price (Class II) -->
+			<xsd:element name="Class2SalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred allocation of sales price (class II)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Assets Transferred Aggregate Fair Market Value (Class III) -->
+			<xsd:element name="Class3FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred aggregate fair market value (class III)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Assets Transferred Allocation of Sales Price (Class III) -->
+			<xsd:element name="Class3SalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred allocation of sales price (class III)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Assets Transferred Aggregate Fair Market Value (Class IV) -->
+			<xsd:element name="Class4FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred aggregate fair market value (class IV)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Assets Transferred Allocation of Sales Price (Class IV) -->
+			<xsd:element name="Class4SalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred allocation of sales price (class IV)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Assets Transferred Aggregate Fair Market Value (Class V) -->
+			<xsd:element name="Class5FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred aggregate fair market value (class V)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Assets Transferred Allocation of Sales Price (Class V) -->
+			<xsd:element name="Class5SalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred allocation of sales price (class V)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Assets Transferred Aggregate Fair Market Value (Class VI and Class VII) -->
+			<xsd:element name="Class6And7FairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred aggregate fair market value (class VI and VII)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Assets Transferred Allocation of Sales Price (Class VI and VII) -->
+			<xsd:element name="Class6And7SalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Assets transferred allocation of sales price (class VI and VII)</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Total Assets Transferred Aggregate Fair Market Value -->
+			<xsd:element name="TotalFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Assets Transferred Aggregate Fair Market Value</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Total Assets Transferred Allocation of Sales Price -->
+			<xsd:element name="TotalSalesPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Assets Transferred allocation Fair Market Value</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Buyer or Seller Provide for Allocation of Price in Contract -->
+			<xsd:element name="BuyerOrSellerProvAllocnPrice" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the buyer or seller provide for an allocation of the sales price in the contract</Description>
+						<LineNumber>Part II Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Are Aggregate Fair Market Values Listed -->
+			<xsd:element name="AggregateValuesListed" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are aggregate fair market values listed</Description>
+						<LineNumber>Part II Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchase or Enter a license, agreement, or contract -->
+			<xsd:element name="PurchaseOrEnterAgrmtWithSeller" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchase or enter a license, agreement, or contract</Description>
+						<LineNumber>Part II Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ConsiderationComputationStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!--======================= Part III: Supplemental Statement ======================= -->
+
+			<!-- Tax Year Orig. Form 8594 and Supp. Stmts. Were Filed  -->
+			<xsd:element name="TaxYearOfOrigFormFiled" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year orig. Form 8594 and supp. stmts. were filed</Description>
+						<LineNumber>Part III Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--Tax Return Form Number with Which Original Form 8594 and Supp. Stmts Were Filed -->
+			<xsd:element name="TaxReturnFormNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax return form number with which original form 8594 and supp. stmts were filed</Description>
+						<LineNumber>Part III Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ShortDescriptionType">
+						<xsd:maxLength value="12"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Supplemental Statement Previously Reported Allocation Sales Price (Class I) -->
+			<xsd:element name="Class1PrevPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement previously reported allocation sales price (class I)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Increase or (Decrease)(Class I) -->
+			<xsd:element name="Class1IncreaseDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement increase or (decrease)(class I)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Redetermined Allocation of Sales Price (Class I)-->
+			<xsd:element name="Class1RedeterminedAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement redetermined allocation of sales price (class I)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Previously Reported Allocation Sales Price (Class II) -->
+			<xsd:element name="Class2PrevPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement previously reported allocation sales price (class II)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Increase or (Decrease)(Class II) -->
+			<xsd:element name="Class2IncreaseDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement increase or (decrease)(class II)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Redetermined Allocation of Sales Price (Class II)-->
+			<xsd:element name="Class2RedeterminedAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement redetermined allocation of sales price (class II)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Previously Reported Allocation Sales Price (Class III) -->
+			<xsd:element name="Class3PrevPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement previously reported allocation sales price (class III)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Increase or (Decrease)(Class III) -->
+			<xsd:element name="Class3IncreaseDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement increase or (decrease)(class III)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Redetermined Allocation of Sales Price (Class III)-->
+			<xsd:element name="Class3RedeterminedAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement redetermined allocation of sales price (class III)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Previously Reported Allocation Sales Price (Class IV) -->
+			<xsd:element name="Class4PrevPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement previously reported allocation sales price (class IV)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Increase or (Decrease)(Class IV) -->
+			<xsd:element name="Class4IncreaseDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement increase or (decrease)(class IV)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Redetermined Allocation of Sales Price (Class IV)-->
+			<xsd:element name="Class4RedeterminedAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement redetermined allocation of sales price (class IV)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Previously Reported Allocation Sales Price (Class V) -->
+			<xsd:element name="Class5PrevPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement previously reported allocation sales price (class V)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Increase or (Decrease)(Class V) -->
+			<xsd:element name="Class5IncreaseDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement increase or (decrease)(class V)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Redetermined Allocation of Sales Price (Class V)-->
+			<xsd:element name="Class5RedeterminedAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement redetermined allocation of sales price (class V)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Previously Reported Allocation Sales Price (Class VI and VII) -->
+			<xsd:element name="Class6And7PrevPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement previously reported allocation sales price (class VI and VII)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Increase or (Decrease)(Class VI and VII) -->
+			<xsd:element name="Class6And7IncreaseDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement increase or (decrease)(class VI and VII)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supplemental Statement Redetermined Allocation of Sales Price (Class VI and VII)-->
+			<xsd:element name="Class6And7RedeterminedAllocn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Supplemental statement redetermined allocation of sales price (class V and VII)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Supplemental Statement Allocation Sales Price -->
+			<xsd:element name="TotalOfPreviousPriceAllocation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Supplemental Statement Allocation Sales Price</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Supplemental Statement Redetermined Allocation of Sales Price  -->
+			<xsd:element name="RedeterminedAllocationTotal" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Supplemental Statement Redetermined Allocation of Sales Price</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reason(s) for Increase or Decrease -->
+			<xsd:element name="ReasonsForIncreaseOrDecrease" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reason(s) for increase or decrease</Description>
+						<LineNumber>Part III Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ShortExplanationType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ReasonsForIncreaseOrDecreaseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

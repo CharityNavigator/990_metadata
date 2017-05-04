@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 6781</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 15, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================= -->
+	<!-- ===========================  IRS Form 6781 ============================ -->
+	<!-- ======================================================================= -->
+
+
+	<xsd:element name="IRS6781">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 6781</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS6781Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS6781">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ListOfForeignCurrencyContractsStatement" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS6781Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 6781</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Mixed Straddle Election -->
+			<xsd:element name="MixedStraddleElection" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mixed straddle election</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Straddle-by-Straddle Identification Election -->
+			<xsd:element name="StraddleByStraddleIdElection" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Straddle-by-straddle identification election</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Mixed Straddle Account Election -->
+			<xsd:element name="MixedStraddleAccountElection" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mixed straddle account election</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="MixedStraddleAccountElectionStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part I - Section 1256 Contracts Marked to Market ===== -->
+
+			<!-- Section 1256 Contracts Account Info table -->
+			<xsd:element name="Sect1256ContractsAccountInfo" type="Sect1256ContractsAccountInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1256 contracts account info</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Section 1256 Contracts Loss -->
+			<xsd:element name="TotalSect1256ContractsLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add the amounts on line 1 in column (b)</Description>
+						<LineNumber>Part I Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Section 1256 Contracts Gain -->
+			<xsd:element name="TotalSect1256ContractsGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add the amounts on line 1 in column (c)</Description>
+						<LineNumber>Part I Line 2(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Gain -->
+			<xsd:element name="NetGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Combine line 2, columns (b) and (c)</Description>
+						<LineNumber>Part I Line 3(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 1099-B Adjustments - Gain -->
+			<xsd:element name="Form1099BAdjustmentsGain" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 1099-B adjustments.  See instructions and attach schedule</Description>
+						<LineNumber>Part I Line 4(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExplanationOfForm1099BAdjustmentsSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Net Gain And Form 1099-B Adjustments -->
+			<xsd:element name="NetGainAnd1099BAdjustments" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Combine lines 3(c) and 4(c)</Description>
+						<LineNumber>Part I Line 5(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Gain And Adjustments Plus Carryback -->
+			<xsd:element name="NetGainAndAdjPlusCarryback" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Combine lines 5 and 6</Description>
+						<LineNumber>Part I Line 7(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short-Term Capital Gain -->
+			<xsd:element name="ShortTermCapitalGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short-term capital gain.  Multiply line 7(b) by 40% (.40)</Description>
+						<LineNumber>Part I Line 8(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long-Term Capital Gain -->
+			<xsd:element name="LongTermCapitalGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long-term capital gain.  Multiply line 7(c) by 60% (.60)</Description>
+						<LineNumber>Part I Line 9(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Gains and Lossses From Straddles ===== -->
+
+			<!-- ===== Part II - Section A - Lossses From Straddles ===== -->
+
+			<!-- Losses From Straddles table -->
+			<xsd:element name="LossesFromStraddlesInfo" type="LossesFromStraddlesInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Losses From Straddles</Description>
+						<LineNumber>Part II Section A Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short-Term Portion of Recognized Loss -->
+			<xsd:element name="ShortTermPortionRecognizedLoss" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the short-term portion of losses from line 10, column (h)</Description>
+						<LineNumber>Part II Section A Line 11a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ShortLongTermLossesSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Long-Term Portion of Recognized Loss -->
+			<xsd:element name="LongTermPortionRecognizedLoss" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the long-term portion of losses from line 10, column (h)</Description>
+						<LineNumber>Part II Section A Line 11b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ShortLongTermLossesSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part II - Section B - Gains From Straddles ===== -->
+
+			<!-- Gains From Straddles table -->
+			<xsd:element name="GainsFromStraddlesInfo" type="GainsFromStraddlesInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gains From Straddles</Description>
+						<LineNumber>Part II Section B Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short-Term Portion of Gain -->
+			<xsd:element name="ShortTermPortionOfGain" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the short-term portion of gains from line 12, column (f)</Description>
+						<LineNumber>Part II Section B Line 13a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ShortLongTermGainsSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Long-Term Portion of Gain -->
+			<xsd:element name="LongTermPortionOfGain" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the long-term portion of gains from line 12, column (f)</Description>
+						<LineNumber>Part II Section B Line 13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ShortLongTermGainsSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part III - Unrecognized Gains From Positions Held on Last Day of Tax Year ===== -->
+
+			<!-- Unrecognized Gains From Positions Held on Last Day of Tax Year table -->
+			<xsd:element name="UnrcgnzdGainsLastDayPosOfTY" type="UnrcgnzdGainsLastDayPosOfTYType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unrecognized Gains From Positions Held on Last Day of Tax Year</Description>
+						<LineNumber>Part III Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Element "Sect1256ContractsAccountInfo" in Part I ===== -->
+
+	<xsd:complexType name="Sect1256ContractsAccountInfoType">
+		<xsd:sequence>
+
+			<!-- Identification of Account -->
+			<xsd:element name="IdentificationOfAccount" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Identification of account</Description>
+						<LineNumber>Part I Line 1(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Loss -->
+			<xsd:element name="Loss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Loss</Description>
+						<LineNumber>Part I Line 1(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain -->
+			<xsd:element name="Gain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain</Description>
+						<LineNumber>Part I Line 1(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Element "LossesFromStraddlesInfo" in Part II Section A ===== -->
+
+	<xsd:complexType name="LossesFromStraddlesInfoType">
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+						<LineNumber>Part II Section A Line 10(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ShortDescriptionType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="StraddlesAndComponentsSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Date Entered Into or Acquired -->
+			<xsd:element name="DateEnteredIntoOrAcquired" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date entered into or acquired</Description>
+						<LineNumber>Part II Section A Line 10(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Closed Out or Sold -->
+			<xsd:element name="DateClosedOutOrSold" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date closed out or sold</Description>
+						<LineNumber>Part II Section A Line 10(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+						<LineNumber>Part II Section A Line 10(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis Plus Expense of Sale -->
+			<xsd:element name="CostOrOthBasisPlusSaleExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis plus expense of sale</Description>
+						<LineNumber>Part II Section A Line 10(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Loss -->
+			<xsd:element name="Loss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Loss.  If column (e) is more than (d), enter difference.  Otherwise, enter -0-</Description>
+						<LineNumber>Part II Section A Line 10(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unrecognized Gain on Offsetting Positions -->
+			<xsd:element name="UnrecognizedGainOffsettingPos" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unrecognized gain on offsetting positions</Description>
+						<LineNumber>Part II Section A Line 10(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recognized Loss -->
+			<xsd:element name="RecognizedLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recognized loss.  If column (f) is more than (g), enter difference.  Otherwise, enter -0-</Description>
+						<LineNumber>Part II Section A Line 10(h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Element "GainsFromStraddlesInfo" in Part II Section B ===== -->
+
+	<xsd:complexType name="GainsFromStraddlesInfoType">
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+						<LineNumber>Part II Section B Line 12(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ShortDescriptionType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="StraddlesAndComponentsSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Date Entered Into or Acquired -->
+			<xsd:element name="DateEnteredIntoOrAcquired" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date entered into or acquired</Description>
+						<LineNumber>Part II Section B Line 12(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Closed Out or Sold -->
+			<xsd:element name="DateClosedOutOrSold" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date closed out or sold</Description>
+						<LineNumber>Part II Section B Line 12(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross sales price</Description>
+						<LineNumber>Part II Section B Line 12(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis Plus Expense of Sale -->
+			<xsd:element name="CostOrOthBasisPlusSaleExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis plus expense of sale</Description>
+						<LineNumber>Part II Section B Line 12(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain -->
+			<xsd:element name="Gain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain.  If column (d) is more than (e), enter difference.  Otherwise, enter -0-</Description>
+						<LineNumber>Part II Section B Line 12(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Element "UnrcgnzdGainsLastDayPosOfTY" in Part III ===== -->
+
+	<xsd:complexType name="UnrcgnzdGainsLastDayPosOfTYType">
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+						<LineNumber>Part III 14(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Acquired -->
+			<xsd:element name="DateAcquired" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date acquired</Description>
+						<LineNumber>Part III 14(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fair Market Value on Last Business Day of Tax Year -->
+			<xsd:element name="FairMarketValueLastBusDayOfTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value on last business day of tax year</Description>
+						<LineNumber>Part III 14(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis as Adjusted -->
+			<xsd:element name="CostOrOtherBasisAsAdjusted" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis as adjusted</Description>
+						<LineNumber>Part III Line 14(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unrecognized Gain -->
+			<xsd:element name="UnrecognizedGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unrecognized gain.  If column (c) is more than (d), enter difference.  Otherwise, enter -0-</Description>
+						<LineNumber>Part III Line 14(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

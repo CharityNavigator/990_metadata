@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8621</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 14, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 8621 ============================ -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS8621">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8621</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8621Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8621">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+
+					<xsd:attribute name="referenceDocumentName" fixed="ShareholdersStockOwnershipAtt TaxationOfExcessDistributionStmt"/>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8621Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8621</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Name of Shareholder  -->
+			<xsd:element name="NameOfShareholder" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of shareholder</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying Number or Missing EIN Reason -->
+			<xsd:choice>
+
+				<!-- Employer Identification Number -->
+				<xsd:element name="EmployerIdentificationNumber" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Social Security Number -->
+				<xsd:element name="SocialSecurityNumber" type="SSNType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Social security number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Shareholder Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Shareholder U.S. Address -->
+				<xsd:element name="ShareholderUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Shareholder U.S. address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Shareholder Foreign Address -->
+				<xsd:element name="ShareholderForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Shareholder foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Shareholder Tax Year -->
+			<xsd:element name="ShareholderTaxYear" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Shareholder Beginning Tax Year -->
+			<xsd:element name="ShareholderBeginningTaxYear" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder beginning tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Shareholder Ending Tax Year -->
+			<xsd:element name="ShareholderEndingTaxYear" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder ending tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Shareholder Type Choice -->
+			<xsd:choice>
+				
+				<!-- Individual Shareholder -->
+
+				<xsd:element name="IndividualShareholder" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Individual shareholder</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Corporation Shareholder -->
+				<xsd:element name="CorporationShareholder" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Corporation shareholder</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Partnership Shareholder -->
+				<xsd:element name="PartnershipShareholder" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partnership shareholder</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- S Corporation Shareholder -->
+				<xsd:element name="SCorporationShareholder" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>S corporation shareholder</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Nongrantor Trust Shareholder -->
+				<xsd:element name="NongrantorTrustShr" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Nongrantor trust shareholder</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Estate Shareholder -->
+				<xsd:element name="EstateShareholder" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Estate shareholder</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Name of Passive Foreign Investment Company (PFIC) or Qualified Electing Fund (QEF) -->
+			<xsd:element name="NameOfPFICOrQEF" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of passive foreign investment company (PFIC) or qualified electing fund (QEF)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between: U.S. or Foreign Address of Passive Foreign Investment Company (PFIC) or Qualified Electing Fund (QEF) -->
+			<xsd:choice minOccurs="0">
+
+				<!-- U.S. Address of Passive Foreign Investment Company (PFIC) or Qualified Electing Fund (QEF) -->
+				<xsd:element name="USAddressOfPFICOrQEF" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>U.S. address of passive foreign investment company (PFIC) or qualified electing fund (QEF)</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Passive Foreign Investment Company (PFIC) or Qualified Electing Fund (QEF) -->
+				<xsd:element name="ForeignAddressOfPFICOrQEF" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of passive foreign investment company (PFIC) or qualified electing fund (QEF)</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Employer Identification Number or EIN missing Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Employer Identification Number -->
+				<xsd:element name="EINOfPFICOrQlfyElectingFund" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+					<!-- EIN Missing Reason -->			
+					<xsd:element name="EINMissingReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN missing reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<!-- Tax Year of Company or Fund -->
+			<xsd:element name="TaxYearOfCompanyOrFund" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year of company or fund</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Company or Fund Beginning Tax Year -->
+			<xsd:element name="CompanyOrFundBeginningTaxYear" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Company or fund beginning tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Company or Fund Ending Tax Year -->
+			<xsd:element name="CompanyOrFundEndingTaxYear" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Company or fund ending tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I: Elections -->
+
+			<!-- Election to Treat the PFIC as a QEF -->
+			<xsd:element name="ElectionToTreatThePFICAsQEF" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Election to treat the PFIC as a QEF</Description>
+						<LineNumber>Part I Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deemed Sale Election -->
+			<xsd:element name="DeemedSaleElection" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deemed sale election</Description>
+						<LineNumber>Part I Line B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deemed Dividend Election -->
+			<xsd:element name="DeemedDividendElection" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deemed dividend election</Description>
+						<LineNumber>Part I Line C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="DeemedDividendElectionStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Election to Extend Time for Payment of Tax -->
+			<xsd:element name="ElectToExtendTimeForPymtOfTax" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Election to extend time for payment of tax</Description>
+						<LineNumber>Part I Line D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Election to Recognize Gain on Deemed Sale of PFIC -->
+			<xsd:element name="ElectToRecognizeGainOnPFICSale" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Election to recognize gain on deemed sale of PFIC</Description>
+						<LineNumber>Part I Line E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Election to Mark-to-market PFIC Stock -->
+			<xsd:element name="ElectToMarkToMarketPFICStock" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Election to mark-to-market PFIC stock</Description>
+						<LineNumber>Part I Line F</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II: Income from a Qualified Electing Fund (QEF) -->
+
+			<!-- Enter Your Pro Rata Share of the Ordinary Earnings of the QEF -->
+			<xsd:element name="ProRataShareOfQEFOrdinaryEarn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter your pro rata share of the ordinary earnings of the QEF</Description>
+						<LineNumber>Part II Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Portion of Line 1a that is Included in Income Under Section 551 or 951 or that May Be Excluded Under Section 1293(g) -->
+			<xsd:element name="IncomePortionOfOrdinaryEarn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Enter the portion of Line 1a that is included in income under Section 551 or 951 or that may be excluded under Section 1293(g)</Description>
+						<LineNumber>Part II Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 1b from Line 1a. Enter this Amount on Your Tax Return as Dividend Income -->
+			<xsd:element name="DividendIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 1b from Line 1a. Enter this amount on your tax return as dividend income</Description>
+						<LineNumber>Part II Line 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Your Pro Rata Share of the Total Net Capital Gain of the QEF -->
+			<xsd:element name="ProRataShareOfTotalNetCapGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter your pro rata share of the total net capital gain of the QEF</Description>
+						<LineNumber>Part II Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Portion of Line 2a that is Included in Income Under Section 551 or 951 or that May Be Excluded Under Section 1293(g) -->
+			<xsd:element name="IncomePortionOfNetCapitalGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the portion of Line 2a that is included in income under Section 551 or 951 or that may be excluded under Section 1293(g)</Description>
+						<LineNumber>Part II Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 2b from Line 2a. This Amount is a Net Long-term Capital Gain -->
+			<xsd:element name="NetLongTermCapitalGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 2b from Line 2a. This amount is a net long-term capital gain</Description>
+						<LineNumber>Part II Line 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 1c and 2c -->
+			<xsd:element name="DividendIncomeAndNetLTCG" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1c and 2c</Description>
+						<LineNumber>Part II Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Total Amount of Cash and the Fair Market Value of Other Property Distributed or Deemed Distributed to You During the Tax Year of QEF -->
+			<xsd:element name="TotalCashAndDistributions" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total amount of cash and the fair market value of other property distributed or deemed distributed to you during the tax year of QEF</Description>
+						<LineNumber>Part II Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="QEFDistributionStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Enter the Portion of Line 3a not Already Included in Line 3b that is Attributable to Shares in the QEF that you Disposed of, Pledged, or Otherwise Transferred During the Tax Year -->
+			<xsd:element name="PortionOfProRataOrdnryEarnings" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the portion of Line 3a not already included in Line 3b that is attributable to shares in the QEF that you disposed of, pledged, or otherwise transferred during the tax year</Description>
+						<LineNumber>Part II Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 3b and 3c -->
+			<xsd:element name="TotalCashAndPortionOfProRata" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 3b and 3c</Description>
+						<LineNumber>Part II Line 3d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 3d from Line 3a, and Enter the Difference -->
+			<xsd:element name="ProRataLessCashAndPortion" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 3d from Line 3a, and enter the difference</Description>
+						<LineNumber>Part II Line 3e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Total Tax for the Tax Year -->
+			<xsd:element name="TotalTaxForTheTaxYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total tax for the tax year</Description>
+						<LineNumber>Part II Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Total Tax for the Tax Year Determined Without Regard to the Amount Entered on Line 3e -->
+			<xsd:element name="TotTaxWithoutProRataLessCash" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total tax for the tax year determined without regard to the amount entered on Line 3e</Description>
+						<LineNumber>Part II Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 4b from Line 4a -->
+			<xsd:element name="DeferredTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 4b from Line 4a</Description>
+						<LineNumber>Part II Line 4c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III: Gain or (Loss) from Mark-to-market Election -->
+
+			<!-- Enter the Fair Market Value of Your PFIC Stock at the End of the Tax Year -->
+			<xsd:element name="FairMarketValueOfPFICStock" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the fair market value of your PFIC stock at the end of the tax year</Description>
+						<LineNumber>Part III Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Your Adjusted Basis in the Stock at the End of the Tax Year -->
+			<xsd:element name="AdjustedBasisInStockEndOfTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter your adjusted basis in the stock at the end of the tax year</Description>
+						<LineNumber>Part III Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Excess. Subtract Line 6 from Line 5 -->
+			<xsd:element name="Excess" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess. Subtract Line 6 from Line 5</Description>
+						<LineNumber>Part III Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Any Unreversed Inclusions (as Defined in Section 1296(d)) -->
+			<xsd:element name="UnreversedInclusions" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter any unreversed inclusions (as defined in Section 1296(d))</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Smaller of Line 7 or Line 8. Include This Amount as an Ordinary Loss on Your Tax Returns -->
+			<xsd:element name="ExcessOrUnreservedInclusions" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of Line 7 or Line 8. Include this amount as an ordinary loss on your tax returns</Description>
+						<LineNumber>Part III Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV -->
+
+			<!-- Distributions and Disposition of Stock in a Section 1291 Fund -->
+			<xsd:element name="DistriAndDispositionOfStock" type="DistriAndDisposOfStockType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distributions and disposition of stock in a Section 1291 fund</Description>
+						<LineNumber>Part IV Lines 10a-11f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part V -->
+
+			<!-- Status of Prior Year Section 1294 Elections and Termination of Section 1294 Elections -->
+			<xsd:element name="ElectionStatus" type="ElectionStatusType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Status of prior year Section 1294 elections and termination of Section 1294 elections</Description>
+						<LineNumber>Part V Lines 1-10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Distribution and Disposition of Stock Type -->
+	<xsd:complexType name="DistriAndDisposOfStockType">
+		<xsd:sequence>
+
+			<!-- Enter Your Total Distributions from the PFIC During the Current Tax Year -->
+			<xsd:element name="TotalPFICDistriDuringCurrentTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter your total distributions from the PFIC during the current tax year</Description>
+						<LineNumber>Part IV Line 10a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Total Distributions Made by the Company for Each of the 3 Years Preceding the Current Tax Year -->
+			<xsd:element name="DistributionsIn3PrecedingTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total distributions made by the company for each of the 3 years preceding the current tax year</Description>
+						<LineNumber>Part IV Line 10b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Divide Line 10b by 3 -->
+			<xsd:element name="AvgDistribution3PrecedingTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide Line 10b by 3</Description>
+						<LineNumber>Part IV Line 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 10c by 125% -->
+			<xsd:element name="AverageDistri3PreviousTY125Pct" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply Line 10c by 125%</Description>
+						<LineNumber>Part IV Line 10d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 10d from Line 10a -->
+			<xsd:element name="TotalExcessDistribution" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 10d from Line 10a</Description>
+						<LineNumber>Part IV Line 10e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Gain or Loss from the Disposition of Stock of a Section 1291 Fund or Former Section 1291 Fund -->
+			<xsd:element name="GainLossFromDispositionOfStock" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter gain or loss from the disposition of stock of a Section 1291 fund or former Section 1291 fund</Description>
+						<LineNumber>Part IV Line 10f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Total of the Amounts Determined in Line 11a that are Allocatable to the Current Tax Year and Tax Years Before the Foreign Corporation Became a PFIC -->
+			<xsd:element name="TotAllocatableCurrAndPrePFICTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total of the amounts determined in Line 11a that are allocatable to the current tax year and tax years before the foreign corporation became a PFIC</Description>
+						<LineNumber>Part IV Line 11b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Aggregate Increases in Tax (Before Credits) for Each Tax Year in Your Holding Period -->
+			<xsd:element name="AggregateIncreaseInTaxEachTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the aggregate increases in tax (before credits) for each tax year in your holding period</Description>
+						<LineNumber>Part IV Line 11c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>Part IV Line 11d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 11d from Line 11c -->
+			<xsd:element name="AggregateIncrLessForeignTaxCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 11d from Line 11c</Description>
+						<LineNumber>Part IV Line 11e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Determine Interest on Each Net Increase in Tax Determined on Line 11e Using the Rates and Methods of Section 6621 -->
+			<xsd:element name="InterestOnEachNetIncreaseInTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Determine interest on each net increase in tax determined on Line 11e using the rates and methods of Section 6621</Description>
+						<LineNumber>Part IV Line 11f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Election Status Type -->
+	<xsd:complexType name="ElectionStatusType">
+		<xsd:sequence>
+
+				<!-- Tax Year of Outstanding Election -->
+				<xsd:element name="TaxYearOfOutstandingElection" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year of outstanding election</Description>
+						<LineNumber>Part V Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Undistributed Earnings to which the Election Relates -->
+			<xsd:element name="UndistributedEarnings" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Undistributed earnings to which the election relates</Description>
+						<LineNumber>Part V Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deferred Tax -->
+			<xsd:element name="DeferredTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferred tax</Description>
+						<LineNumber>Part V Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest Accrued on Deferred Tax (Line 3) as of the Filing Date -->
+			<xsd:element name="InterestAccruedOnDeferredTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest accrued on deferred tax (Line 3) as of the filing date</Description>
+						<LineNumber>Part V Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Event Terminating Election -->
+			<xsd:element name="EventTerminatingElection" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Event terminating election</Description>
+						<LineNumber>Part V Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Earnings Distributed or Deemed Distributed During the Tax Year -->
+			<xsd:element name="EarningsDistributedDuringTheTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Earnings distributed or deemed distributed during the tax year</Description>
+						<LineNumber>Part V Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deferred Tax Due with This Return -->
+			<xsd:element name="DeferredTaxDueWithThisReturn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferred tax due with this return</Description>
+						<LineNumber>Part V Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Accrued Interest Due with This Return -->
+			<xsd:element name="AccruedInterestDueThisReturn" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Accrued interest due with this return</Description>
+						<LineNumber>Part V Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deferred Tax Outstanding After Partial Termination of Election -->
+			<xsd:element name="DeferredTaxAfterPartialTerm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferred tax outstanding after partial termination of election</Description>
+						<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest Accrued After Partial Termination of Election -->
+			<xsd:element name="IntAccruedAfterPartialTerm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest accrued after partial termination of election</Description>
+						<LineNumber>Part V Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

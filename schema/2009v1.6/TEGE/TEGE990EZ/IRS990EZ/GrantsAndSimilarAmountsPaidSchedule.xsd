@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Grants and Similar Amounts Paid Schedule</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 19, 2010</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================== -->
+	<!-- =========== Grants and Similar Amounts Paid Schedule ========= -->
+	<!-- ============================================================== -->
+	
+	<xsd:element name="GrantsAndSimilarAmountsPaidSch">
+		<xsd:annotation>
+			<xsd:documentation>Grants and similar amounts paid schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="GrantsSimilarAmountsPaidSchTyp">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="GrantsAndSimilarAmountsPaidSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="GrantsSimilarAmountsPaidSchTyp">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Grants and similar amounts paid schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="GrantsAndSimilarAmountsPaid" type="GrantsAndSimilarAmountsPaidTyp" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="GrantsAndSimilarAmountsPaidTyp">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Grants and similar amounts paid</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+		
+			<!-- Class of Activity  -->
+			<xsd:element name="ClassOfActivity" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class of activity</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Donee's Name  -->
+			<xsd:element name="DoneesNameBusiness" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donee's Name - Business</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Donee's Address. Either US or foreign type -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="DoneesAddressUS" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Donee's address - US</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>			
+				<xsd:element name="DoneesAddressForeign" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Donee's address - Foreign</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>					
+			</xsd:choice>	
+			
+			<!-- Amount (FMV) -->
+			<xsd:element name="AmountFmv" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount (FMV)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Purpose of Payment to Affiliate  -->
+			<xsd:element name="PurposeOfPaymentToAffiliate" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purpose of payment to affiliate</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Relationship -->
+			<xsd:element name="Relationship" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Relationship</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Book Value -->
+			<xsd:element name="BookValue" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Book value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- How FMV Determined -->
+			<xsd:element name="HowBvDetermined" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How FMV determined</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- How FMV Determined -->
+			<xsd:element name="HowFmvDetermined" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How FMV determined</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Date of Gift -->
+			<xsd:element name="DateOfGift" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of gift</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Tax-exempt Bond Liabilities Schedule</Description>
+
+			<TaxYear>2007</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>May 13, 2009</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ============================================================== -->
+
+	<!-- =========  Tax-exempt Bond Liabilities Schedule ============== -->
+
+	<!-- ============================================================== -->
+
+	
+
+	<xsd:element name="TaxExemptBondLiabilitiesSch">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Tax-exempt bond liabilities schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="TaxExemptBondLiabilitiesSchTyp">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="TaxExemptBondLiabilitiesSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<xsd:complexType name="TaxExemptBondLiabilitiesSchTyp">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for tax-exempt bond liabilities schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="TaxExemptBondLiability" type="TaxExemptBondLiabilityType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="TaxExemptBondLiabilityType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for tax-exempt bond liability</xsd:documentation>
+
+		</xsd:annotation>
+
+		
+
+		<xsd:sequence>
+
+		
+
+			<!-- Name of Issue -->
+
+			<xsd:element name="NameOfIssue" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name of Issue</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Purpose -->
+
+			<xsd:element name="Purpose" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Purpose</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>			
+
+			
+
+			<!-- Amount Outstanding -->
+
+			<xsd:element name="AmountOutstanding" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Amount outstanding</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Unexpended Bond Proceeds -->
+
+			<xsd:element name="UnexpendedBondProceeds" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Unexpended bond proceeds</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Third Party Use -->
+
+			<xsd:element name="ThirdPartyUse" type="BooleanType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Third party use</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Space Percentage -->
+
+			<xsd:element name="SpacePercentage" type="LargeRatioType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Space percentage</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Maturity Date -->
+
+			<xsd:element name="MaturityDate" type="YearMonthType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Maturity date</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>		
+
+				
+
+			<!-- Repayment Terms -->
+
+			<xsd:element name="RepaymentTerms" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Repayment terms</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Interest Rate -->
+
+			<xsd:element name="InterestRate" type="LargeRatioType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Interest rate</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Security -->
+
+			<xsd:element name="Security" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Security</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>												
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+</xsd:schema>
+

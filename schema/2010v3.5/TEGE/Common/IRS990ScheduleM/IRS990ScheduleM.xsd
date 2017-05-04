@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule M</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 2, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule M ================ -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleM">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule M</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleMType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleM">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule M (Form 990) Non-Cash Contributions -->
+
+	<xsd:complexType name="IRS990ScheduleMType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule M</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I - Types of Property -->
+			<!-- Art - Works of Art  -->
+			<xsd:element name="WorksOfArt" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Art - works of art </Description>
+						<LineNumber>Part I Line 1</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Art - Historical Treasures -->
+			<xsd:element name="ArtHistoricalTreasures" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Art - Historical treasures</Description>
+						<LineNumber>Part I Line 2</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Art - Fractional Interest  -->
+			<xsd:element name="ArtFractionalInterest" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Art - fractional interest</Description>
+						<LineNumber>Part I Line 3</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Books and Publications -->
+			<xsd:element name="BooksAndPublications" type="Form990SchMGroup2Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Books and publications</Description>
+						<LineNumber>Part I Line 4</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Clothing and Household Goods -->
+			<xsd:element name="ClothingAndHouseholdGoods" type="Form990SchMGroup2Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Clothing and household goods</Description>
+						<LineNumber>Part I Line 5</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cars and Other Vehicles -->
+			<xsd:element name="CarsAndOtherVehicles" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cars and other vehicles</Description>
+						<LineNumber>Part I Line 6</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Boats and Planes -->
+			<xsd:element name="BoatsAndPlanes" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Boats and planes</Description>
+						<LineNumber>Part I Line 7</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Intellectual Property -->
+			<xsd:element name="IntellectualProperty" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Intellectual property</Description>
+						<LineNumber>Part I Line 8</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Securities - Publicly Traded -->
+			<xsd:element name="SecuritiesPubliclyTraded" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Securities - publicly traded</Description>
+						<LineNumber>Part I Line 9</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Securities - Closely Held Stock -->
+			<xsd:element name="SecuritiesCloselyHeldStock" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Securities - closely held stock</Description>
+						<LineNumber>Part I Line 10</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Securities - Partnership or Trust Interests -->
+			<xsd:element name="SecuritiesPrtnrshpTrustIntrsts" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Securities - partnership or trust interests</Description>
+						<LineNumber>Part I Line 11</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Securities - Miscellaneous -->
+			<xsd:element name="SecuritiesMiscellaneous" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Securities - miscellaneous</Description>
+						<LineNumber>Part I Line 12</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Conservation Contributions - Historic Structures -->
+			<xsd:element name="QualifiedContribHistStruct" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified conservation contributions - historic structures</Description>
+						<LineNumber>Part I Line 13</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Conservation Contributions - Other -->
+			<xsd:element name="QualifiedContribOther" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified conservation contributions - other</Description>
+						<LineNumber>Part I Line 14</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Real Estate - Residential -->
+			<xsd:element name="RealEstateResidential" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real estate - residential</Description>
+						<LineNumber>Part I Line 15</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Real Estate - Commercial -->
+			<xsd:element name="RealEstateCommercial" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real estate - commercial</Description>
+						<LineNumber>Part I Line 16</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Real Estate - Other -->
+			<xsd:element name="RealEstateOther" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real estate - other</Description>
+						<LineNumber>Part I Line 17</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Collectibles -->
+			<xsd:element name="Collectibles" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Collectibles</Description>
+						<LineNumber>Part I Line 18</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Food Inventory -->
+			<xsd:element name="FoodInventory" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Food inventory</Description>
+						<LineNumber>Part I Line 19</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Drugs and Medical Supplies -->
+			<xsd:element name="DrugsAndMedicalSupplies" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Drugs and medical supplies</Description>
+						<LineNumber>Part I Line 20</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxidermy -->
+			<xsd:element name="Taxidermy" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxidermy</Description>
+						<LineNumber>Part I Line 21</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Historical Artifacts -->
+			<xsd:element name="HistoricalArtifacts" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Historical artifacts</Description>
+						<LineNumber>Part I Line 22</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Scientific Specimens -->
+			<xsd:element name="ScientificSpecimens" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Scientific specimens</Description>
+						<LineNumber>Part I Line 23</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Archaeological Artifacts -->
+			<xsd:element name="ArchaeologicalArtifacts" type="Form990SchMGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Archaeological artifacts</Description>
+						<LineNumber>Part I Line 24</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Non-Cash Contributions Repeating Table -->
+			<xsd:element name="OtherNonCashContributionsTable" type="Form990SchMGroup3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other non-cash contributions</Description>
+						<LineNumber>Part I Lines 25-28</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of 8283s Received -->
+			<xsd:element name="NumberOf8283Received" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of 8283s received</Description>
+						<LineNumber>Part I Line 29</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Any Property that Must be Held? -->
+			<xsd:element name="AnyPropertyThatMustBeHeld" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Any property that must be held?</Description>
+						<LineNumber>Part I Line 30a</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Review Process Reference Unusual Noncash Gifts? -->
+			<xsd:element name="ReviewProcessUnusualNCGifts" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Review process reference unusual noncash gifts?</Description>
+						<LineNumber>Part I Line 31</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Third Parties Used? -->
+			<xsd:element name="ThirdPartiesUsed" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Third parties used?</Description>
+						<LineNumber>Part I Line 32a</LineNumber> 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II - Repeating Explanation Table -->
+			<!-- Explanation Table -->
+			<xsd:element name="Form990ScheduleMPartII" minOccurs="0" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation repeating group</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+					
+						<!-- Identifier -->
+						<xsd:element name="Identifier" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Identifier</Description>
+									<LineNumber>Part II</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Return Reference -->
+						<xsd:element name="ReturnReference" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Return Reference</Description>
+									<LineNumber>Part II</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Explanation -->
+						<xsd:element name="Explanation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Explanation</Description>
+									<LineNumber>Part II</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+
+	<!-- Group for Part I, Non-Cash Contributions Checkbox Column (a) Table -->
+	<xsd:group name="Form990SchMGroup1">
+		<xsd:sequence>
+
+			<!-- Checkbox for Non-Cash Contribtuion  -->
+			<xsd:element name="NonCashCheckbox" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Checkbox for lines on Part I</Description>
+						<LineNumber>Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- Group for Part I, Non-Cash Contributions Column (b) Table -->
+	<xsd:group name="Form990SchMGroup2">
+		<xsd:sequence>
+
+			<!-- Number of Contributions -->
+			<xsd:element name="NumberOfContributions" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of contributions</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- Group for Part I, Non-Cash Contributions Columns (c) and (d) Table -->
+	<xsd:group name="Form990SchMGroup3">
+		<xsd:sequence>
+
+			<!-- Revenues Reported On F990, Part VIII, Line 1G -->
+			<xsd:element name="NoncashContribsRptdF990" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Revenues reported on F990, Pt VIII, line 1g</Description>
+						<LineNumber>Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method of Determining Revenues -->
+			<xsd:element name="MethodOfDeterminingRevenues" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method of determining revenues</Description>
+						<LineNumber>Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- Type for Part I, Non-Cash Contributions Checkbox Plus Columns (b) through (d) Table -->
+	<xsd:complexType name="Form990SchMGroup1Type">
+		<xsd:sequence>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup1"/>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup2"/>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup3"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for Part I, Non-Cash Contributions Checkbox Plus Columns (c) and (d) Table -->
+	<xsd:complexType name="Form990SchMGroup2Type">
+		<xsd:sequence>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup1"/>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup3"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part I, Non-Cash Contributions Other Repeating Group -->
+	<!-- Description Plus Columns (a) through (d) -->	
+	<xsd:complexType name="Form990SchMGroup3Type">
+		<xsd:sequence>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup1"/>
+
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description</Description>
+						<LineNumber>Lines 25 - 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup2"/>
+
+			<!-- Other Repeating Elements Joined -->
+			<xsd:group ref="Form990SchMGroup3"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>

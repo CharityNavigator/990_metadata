@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Profit or Loss Information on Timber Cutting Rights on a Pay-As-Cut Basis Statement</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================================================== -->
+	<!-- === Profit or Loss Information on Timber Cutting Rights on a Pay-As-Cut Basis Statement === -->
+	<!-- =========================================================================================== -->
+
+	<xsd:element name="PrftLossTmbrCuttingRightsStmt">
+		<xsd:annotation>
+			<xsd:documentation>Profit or Loss Information on Timber Cutting Rights on a Pay-As-Cut Basis Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PrftLossTmbrCuttingRightsStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ProfitOrLossInfoOnTimberCuttingRightsOnAPayAsCutBasisStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="PrftLossTmbrCuttingRightsStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Profit or Loss Information on Timber Cutting Rights on a Pay-As-Cut Basis Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Repeating for Timber Profit or Loss Info -->
+			<xsd:element name="TimberProfitOrLossInfo" type="TimberProfitOrLossInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TimberProfitOrLossInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Timber Profit or Loss Info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Number of Years from Effective Date to Expiration Date -->
+			<xsd:element name="NumYearsFromEffDateToExprDate" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of years from effective date to expiration date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Annual Minimum Cut or Payment -->
+			<xsd:element name="AnnualMinimumCutOrPayment" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annual minimum cut or payment</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Payment Rates for Different Kinds of Timber -->
+			<xsd:element name="PymtRatesForDiffKindsOfTimber" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Payment rates for different kinds of timber</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Provisions of Purchase or Lease -->
+			<xsd:element name="OtherProvisions" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other provisions of purchase or lease</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

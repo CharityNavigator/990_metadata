@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Relationship Schedule</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 17, 2007</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================= -->
+	<!-- ================== Relationship Schedule ==================== -->
+	<!-- ============================================================= -->
+	
+	<xsd:element name="RelationshipSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Relationship schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="RelationshipScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="RelationshipSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="RelationshipScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Relationship schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RelationshipInformation" type="RelationshipInformationType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="RelationshipInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Relationship</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:sequence>
+		
+			<!-- First Name -->
+			<xsd:choice minOccurs="0">			
+			<xsd:element name="PersonName" type="PersonNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Person Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BusinessName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			</xsd:choice>				
+			
+			<!-- Title or Role -->
+			<xsd:element name="TitleOrRole" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Title or Role</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+			
+			<!-- Second Name -->
+			<xsd:choice minOccurs="0">			
+			<xsd:element name="PersonName2" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Person Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BusinessName2" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			</xsd:choice>				
+			
+			<!-- Title or Role 2 -->
+			<xsd:element name="TitleOrRole2" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Title or Role 2</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>							
+			
+			<!-- Relationship -->
+			<xsd:element name="Relationship" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Relationship</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>								
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Compensation Schedule</Description>
+
+			<TaxYear>2006</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>January 19, 2007</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ============================================================= -->
+
+	<!-- ================== Compensation Schedule ==================== -->
+
+	<!-- ============================================================= -->
+
+	
+
+	<xsd:element name="CompensationSchedule">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Compensation schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="CompensationScheduleType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="CompensationSchedule">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<xsd:complexType name="CompensationScheduleType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for compensation schedule</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="Compensation" type="Compensation1Type" minOccurs="0" maxOccurs="100"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="Compensation1Type">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for compensation</xsd:documentation>
+
+		</xsd:annotation>
+
+		
+
+		<xsd:sequence>
+
+		
+
+			<!-- Name -->
+
+			<xsd:element name="Name" type="PersonNameType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Related Organization Name -->
+
+			<xsd:element name="RelatedOrganizationName" type="BusinessNameType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Related organization name</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Related Organization EIN -->
+
+			<xsd:element name="RelatedOrganizationEIN" type="EINType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Related organization EIN</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>		
+
+			
+
+			<!-- Relationship -->
+
+			<xsd:element name="Relationship" type="ShortExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Relationship</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>				
+
+			
+
+			<!-- Compensation -->
+
+			<xsd:element name="CompensationAmount" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>					
+
+			
+
+			<!-- Benefit Plan Contributions -->
+
+			<xsd:element name="BenefitPlanContributions" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Benefit plan contributions</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>				
+
+
+
+			<!-- Expense Account -->
+
+			<xsd:element name="ExpenseAccount" type="USAmountNNType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Expense account</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>	
+
+			
+
+			<!-- Compensation Description -->
+
+			<xsd:element name="CompensationDescription" type="ExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Compensation description</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>					
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+</xsd:schema>
+

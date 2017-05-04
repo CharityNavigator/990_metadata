@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Request to Defer Advance Payment Under Rev Proc 71-21 Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 14, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================= -->
+	<!-- === Request to Defer Advance Payment Under Rev Proc 71-21 Statement === -->
+	<!-- ======================================================================= -->
+
+
+	<xsd:element name="ReqToDeferUnderRevProc7121Stmt">
+		<xsd:annotation>
+			<xsd:documentation>Request to Defer Advance Payment Under Rev Proc 71-21 Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ReqToDeferUnderRevProc7121StmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="RequestToDeferAdvancePaymentUnderRevProc7121Stmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="ReqToDeferUnderRevProc7121StmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Request to Defer Advance Payment Under Rev Proc 71-21 Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Request to Defer Advance Payment Under Rev Proc 71-21 Info -->
+			<xsd:element name="ReqToDeferUnderRevProc7121Info" type="ReqToDeferUnderRevProc7121InfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Request to Defer Advance Payment Under Rev Proc 71-21 Info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<xsd:complexType name="ReqToDeferUnderRevProc7121InfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Request to Defer Advance Payment Under Rev Proc 71-21 Info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Explanation whether the obligation to provide parts or materials is incidental (of minor or secondary importance) to an agreement providing for the performance of personal services. -->
+			<xsd:element name="ObligProvPartsOrMaterialsExpln" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation whether the obligation to provide parts or materials is incidental to an agreement providing for the performance of personal services.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Explanation of Contingent Service Contracts -->
+			<xsd:element name="ExplnOfContingentSrvcContracts" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation of Contingent Service Contracts</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of the Method -->
+			<xsd:element name="DescriptionOfMethod" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of the Method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Explanation of how the method to determine the amount of gross receipts each year will be no less than the amount included in gross receipts for purposes of its books and records -->
+			<xsd:element name="MethodToDetermineAmountExpln" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation of how the method to determine the amount of gross receipts each year will be no less than the amount included in gross receipts for purposes of its books and records</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>		
+
+</xsd:schema>

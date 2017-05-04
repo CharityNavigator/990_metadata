@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule H</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>March 3, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule H ================ -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleH">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule H</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleHType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleH">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule H (Form 990) Hospitals -->
+
+	<xsd:complexType name="IRS990ScheduleHType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule H</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I - Community Benefit Report -->		
+			<xsd:element name="Form990ScheduleHPartI" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part I content</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Charity Care Policy? -->
+						<xsd:element name="CharityCarePolicy" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Charity care policy?</Description>
+									<LineNumber>Part I Line 1a</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Written Policy? -->
+						<xsd:element name="WrittenPolicy" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Written policy?</Description>
+									<LineNumber>Part I Line 1b</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Policy Choice -->
+						<xsd:choice>
+
+							<!-- Policy Applied to All Hospitals -->
+							<xsd:element name="PolicyAppliedToAllHospitals" type="CheckboxType" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Policy applied to all hospitals</Description>
+										<LineNumber>Part I Line 2</LineNumber> 
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Policy Applied to Most Hospitals -->
+							<xsd:element name="PolicyAppliedToMostHospitals" type="CheckboxType" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Policy applied to most hospitals</Description>
+										<LineNumber>Part I Line 2</LineNumber> 
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Policy Tailored to Individual Hospitals -->
+							<xsd:element name="PolicyTailoredToIndHospitals" type="CheckboxType" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Policy tailored to individual hospitals</Description>
+										<LineNumber>Part I Line 2</LineNumber> 
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- FPG Reference Free Care? -->
+						<xsd:element name="FPGReferenceFreeCare" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>FPG reference free care?</Description>
+									<LineNumber>Part I Line 3a</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- FPG Reference Free Care Percentage Choice -->
+						<xsd:element name="FreeCarePcent" minOccurs="0">
+							<xsd:annotation>			
+								<xsd:documentation>
+									<Description>Choice FPG reference free care percentage</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+
+									<xsd:choice>
+										<!-- 100% -->
+										<xsd:element name="Pcent100" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>100%</Description>
+													<LineNumber>Part I Line 3a</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- 150% -->
+										<xsd:element name="Pcent150" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>150%</Description>
+													<LineNumber>Part I Line 3a</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- 200% -->
+										<xsd:element name="Pcent200" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>200%</Description>
+													<LineNumber>Part I Line 3a</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- Other -->
+										<xsd:element name="Other" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Other</Description>
+													<LineNumber>Part I Line 3a</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										
+									</xsd:choice>
+
+									<!-- FPG Free Other Percentage -->
+									<xsd:element name="FreeOtherPercentage" type="RatioType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Free other percentage</Description>
+												<LineNumber>Part I Line 3a</LineNumber> 
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>			
+
+
+
+						<!-- FPG Reference Discounted Care -->
+						<xsd:element name="FPGReferenceDiscountedCare" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>FPG reference discounted care</Description>
+									<LineNumber>Part I Line 3b</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- FPG Reference Discounted Care Percentage Choice -->
+						<xsd:element name="DiscountedCare" minOccurs="0">
+							<xsd:annotation>			
+								<xsd:documentation>
+									<Description>Choice FPG reference discounted care percentage</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:choice>
+
+										<!-- 200% -->
+										<xsd:element name="Pcent200" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>200%</Description>
+													<LineNumber>Part I Line 3b</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- 250% -->
+										<xsd:element name="Pcent250" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>250%</Description>
+													<LineNumber>Part I Line 3b</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- 300% -->
+										<xsd:element name="Pcent300" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>300%</Description>
+													<LineNumber>Part I Line 3b</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- 350% -->
+										<xsd:element name="Pcent350" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>350%</Description>
+													<LineNumber>Part I Line 3b</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- 400% -->
+										<xsd:element name="Pcent400" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>400%</Description>
+													<LineNumber>Part I Line 3b</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- Other -->
+										<xsd:element name="Other" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Other</Description>
+													<LineNumber>Part I Line 3b</LineNumber> 
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+									</xsd:choice>
+
+									<!-- Discounted Other Percentage -->
+									<xsd:element name="DiscountedOtherPercentage" type="RatioType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Discounted other percentage</Description>
+												<LineNumber>Part I Line 3b</LineNumber> 
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>			
+
+						<!-- Free or Discounted Care to Medically Indigent? -->
+						<xsd:element name="FreeDiscCareMedicallyIndigent" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Free or discounted care to medically indigent?</Description>
+									<LineNumber>Part I Line 4</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amounts Budgeted For Charity Care? -->
+						<xsd:element name="AmountsBudgetedForCharityCare" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amounts budgeted for charity care?</Description>
+									<LineNumber>Part I Line 5a</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Expenses Exceeded Budget? -->
+						<xsd:element name="ExpensesExceededBudget" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Expenses exceeded budget?</Description>
+									<LineNumber>Part I Line 5b</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Unable to Provide Care? -->
+						<xsd:element name="UnableToProvideCare" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Unable to provide care?</Description>
+									<LineNumber>Part I Line 5c</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Annual Community Benefit Report? -->
+						<xsd:element name="AnnualCommunityBenefitReport" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Annual community benefit report?</Description>
+									<LineNumber>Part I Line 6a</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Report Publically Available? -->
+						<xsd:element name="ReportPublicallyAvailable" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Report publically available?</Description>
+									<LineNumber>Part I Line 6b</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Charity Care at Cost -->
+						<xsd:element name="CharityCareAtCost" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Charity care at cost</Description>
+									<LineNumber>Part I Line 7a</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Unreimbursed Medicaid -->
+						<xsd:element name="UnreimbursedMedicaid" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Unreimbursed Medicaid</Description>
+									<LineNumber>Part I Line 7b</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Unreimbursed Costs -->
+						<xsd:element name="UnreimbursedCosts" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Unreimbursed costs</Description>
+									<LineNumber>Part I Line 7c</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Charity Care -->
+						<xsd:element name="TotalCharityCare" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total charity care</Description>
+									<LineNumber>Part I Line 7d</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Community Health Services -->
+						<xsd:element name="CommunityHealthServices" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Community health services</Description>
+									<LineNumber>Part I Line 7e</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Health Professions Education -->
+						<xsd:element name="HealthProfessionsEducation" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Health professions education</Description>
+									<LineNumber>Part I Line 7f</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Subsidized Health Services -->
+						<xsd:element name="SubsidizedHealthServices" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subsidized health services</Description>
+									<LineNumber>Part I Line 7g</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Research -->
+						<xsd:element name="Research" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Research</Description>
+									<LineNumber>Part I Line 7h</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cash and In-Kind Contributions -->
+						<xsd:element name="CashAndInKindContributions" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cash and in-kind contributions</Description>
+									<LineNumber>Part I Line 7i</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Other Benefits -->
+						<xsd:element name="TotalOtherBenefits" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Other Benefits</Description>
+									<LineNumber>Part I Line 7j</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Community Benefits -->
+						<xsd:element name="TotalCommunityBenefits" type="Form990SchHPartIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total community benefits</Description>
+									<LineNumber>Part I Line 7k</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II - ? -->					
+			<xsd:element name="Form990ScheduleHPartII" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part II content</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Physical Improvements and Housing -->
+						<xsd:element name="PhysicalImprovementsAndHousing" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Physical improvements and housing</Description>
+									<LineNumber>Part II Line 1</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Economic Development -->
+						<xsd:element name="EconomicDevelopment" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Economic development</Description>
+									<LineNumber>Part II Line 2</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Community Support -->
+						<xsd:element name="CommunitySupport" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Community support</Description>
+									<LineNumber>Part II Line 3</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Environmental Improvements -->
+						<xsd:element name="EnvironmentalImprovements" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Environmental improvements</Description>
+									<LineNumber>Part II Line 4</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Leadership Development -->
+						<xsd:element name="LeadershipDevelopment" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Leadership development</Description>
+									<LineNumber>Part II Line 5</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Coalition Building -->
+						<xsd:element name="CoalitionBuilding" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Coalition building</Description>
+									<LineNumber>Part II Line 6</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Health Improvement Advocacy -->
+						<xsd:element name="HealthImprovementAdvocacy" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Health improvement advocacy</Description>
+									<LineNumber>Part II Line 7</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Workforce Development -->
+						<xsd:element name="WorkforceDevelopment" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Workforce development</Description>
+									<LineNumber>Part II Line 8</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other -->
+						<xsd:element name="Other" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other</Description>
+									<LineNumber>Part II Line 9</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total -->
+						<xsd:element name="Total" type="Form990SchHPartIIGroup1Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total</Description>
+									<LineNumber>Part II Line 10</LineNumber> 
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part III - Bad Debt, Medicare, and Collection Practices -->
+			<xsd:element name="Form990ScheduleHPartIII" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part III content</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+			
+						<!-- Bad Debt Expense Reported? -->
+						<xsd:element name="BadDebtExpenseReported" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Bad debt expense reported?</Description>
+									<LineNumber>Part III Section A Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Bad Debt Expense Amount -->
+						<xsd:element name="BadDebtExpenseAmount" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Bad debt expense amount</Description>
+									<LineNumber>Part III Section A Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount Attributable To -->
+						<xsd:element name="AmountAttributableTo" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount attributable to</Description>
+									<LineNumber>Part III Section A Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount Reimbursed by Medicare -->
+						<xsd:element name="AmountReimbursedByMedicare" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount reimbursed by Medicare</Description>
+									<LineNumber>Part III Section B Line 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cost of Care Reimbursed by Medicare -->
+						<xsd:element name="CostOfCareReimbursedByMedicare" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cost of care reimbursed by Medicare</Description>
+									<LineNumber>Part III Section B Line 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Line 5 Less Line 6 -->
+						<xsd:element name="Line5LessLine6" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Line 5 less line 6</Description>
+									<LineNumber>Part III Section B Line 7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Checkbox Choice -->
+						<xsd:element name="PartIIILine8Choice" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Checkbox choice</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:choice>
+
+										<!-- Cost Accounting System -->
+										<xsd:element name="CostAccountingSystem" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Cost accounting system</Description>
+													<LineNumber>Part III Section B Line 8</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- Cost to Charge Ratio -->
+										<xsd:element name="CostToChargeRatio" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Cost to charge ratio</Description>
+													<LineNumber>Part III Section B Line 8</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<!-- Other -->
+										<xsd:element name="Other" type="CheckboxType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Other</Description>
+													<LineNumber>Part III Section B Line 8</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+									</xsd:choice>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Written Debt Collection Policy? -->
+						<xsd:element name="WrittenDebtCollectionPolicy" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Written debt collection policy?</Description>
+									<LineNumber>Part III Section C Line 9a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Provision For Charity Care? -->
+						<xsd:element name="ProvisionForCharityCare" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Provision for charity care?</Description>
+									<LineNumber>Part III Section C Line 9b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part IV - Management Companies and Joint Ventures -->					
+			<!-- Repeating Group -->
+			<xsd:element name="Form990ScheduleHPartIV" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part IV repeating group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Name of Entity -->
+						<xsd:element name="NameOfEntity" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of entity</Description>
+									<LineNumber>Part IV Column (a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Description of Entity's Primary Activity -->
+						<xsd:element name="DescriptionEntPrimaryActivity" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Description of entity's primary activity</Description>
+									<LineNumber>Part IV Column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Organization's Profit % or Ownership % -->
+						<xsd:element name="OrganizationProfitOrOwnership" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Organization's profit % or ownership %</Description>
+									<LineNumber>Part IV Column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Officers, Etc. Profit % or Ownership % -->
+						<xsd:element name="OfficersEtcProfitOrOwnership" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Officers, etc. profit % or ownership %</Description>
+									<LineNumber>Part IV Column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Physican's Profit % or Ownership % -->
+						<xsd:element name="PhysicansProfitOrOwnership" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Physican's profit % or ownership %</Description>
+									<LineNumber>Part IV Column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part V - Facility Information -->
+			<!-- Repeating Group -->
+			<xsd:element name="Form990ScheduleHPartV" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part V repeating group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name -->
+						<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name, business</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Address -->
+						<xsd:element name="Address" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Address</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Address Choice -->
+									<xsd:choice>
+										<xsd:element name="AddressUS" type="USAddressType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Adress - US</Description>
+													<LineNumber>Part V</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+
+										<xsd:element name="AddressForeign" type="ForeignAddressType" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Address - Foreign</Description>
+													<LineNumber>Part V</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+								</xsd:sequence>						
+							</xsd:complexType>							
+						</xsd:element>
+
+						<!-- Licensed Hospital -->
+						<xsd:element name="LicensedHospital" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Licensed hospital</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Medical and Surgical -->
+						<xsd:element name="GeneralMedicalAndSurgical" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>General medical and surgical</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Children's Hospital -->
+						<xsd:element name="ChildrensHospital" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Children's hospital</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Teaching Hospital -->
+						<xsd:element name="TeachingHospital" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Teaching hospital</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Critical Access Hospital -->
+						<xsd:element name="CriticalAccessHospital" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Critical Access hospital</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Research Facility -->
+						<xsd:element name="ResearchFacility" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Research facility</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Er - 24 Hours -->
+						<xsd:element name="Er24Hours" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>ER - 24 hours</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Er - Other -->
+						<xsd:element name="ErOther" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>ER - other</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other -->
+						<xsd:element name="Other" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other</Description>
+									<LineNumber>Part V</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Part VI - Supplemental Information -->								
+			<xsd:element name="Form990ScheduleHPartVI" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part VI</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Part I, Line 3C -->
+						<xsd:element name="PartILine3C" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Part I, line 3c</Description>
+									<LineNumber>Part VI Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part III, Line 4 -->
+						<xsd:element name="PartIIILine4" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Part III, line 4</Description>
+									<LineNumber>Part VI Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part III, Line 8 -->
+						<xsd:element name="PartIIILine8" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Part III, line 8</Description>
+									<LineNumber>Part VI Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part III, Line 9b -->
+						<xsd:element name="PartIIILine9b" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Part III, line 9b</Description>
+									<LineNumber>Part VI Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Needs Assessment -->
+						<xsd:element name="NeedsAssessment" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Needs assessment</Description>
+									<LineNumber>Part VI Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Patient Education Reference Assistance -->
+						<xsd:element name="PatientEducationAssistance" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Patient education reference assistance</Description>
+									<LineNumber>Part VI Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Community Information -->
+						<xsd:element name="CommunityInformation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Community information</Description>
+									<LineNumber>Part VI Line 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Community Building Activities -->
+						<xsd:element name="CommunityBuildingActivities" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Community building activities</Description>
+									<LineNumber>Part VI Line 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Information -->
+						<xsd:element name="OtherInformation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other information</Description>
+									<LineNumber>Part VI Line 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Affiliated Health Care System -->
+						<xsd:element name="AffiliatedHealthCareSystem" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Affiliated health care system</Description>
+									<LineNumber>Part VI Line 7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Reports Filed with States -->
+						<xsd:element name="ReportsFiledWithStates" type="StateType" minOccurs="0" maxOccurs="60">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Reports filed with states</Description>
+									<LineNumber>Part VI Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+
+	<!-- Type for Part I, Columns (a) through (f) Table -->
+	<xsd:complexType name="Form990SchHPartIGroup1Type">
+		<xsd:sequence>
+
+			<!-- Number of Activities or Programs -->
+			<xsd:element name="NumberOfActivitiesOrPrograms" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of activities or programs</Description>
+						<ColumnNumber>Column (a)</ColumnNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Persons Served -->
+			<xsd:element name="PersonsServed" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Persons served</Description>
+						<ColumnNumber>Column (b)</ColumnNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Community Benefit Expense -->
+			<xsd:element name="TotalCommunityBenefitExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total community benefit expense</Description>
+						<ColumnNumber>Column (c)</ColumnNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Direct Offsetting Revenue -->
+			<xsd:element name="DirectOffsettingRevenue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct offsetting revenue</Description>
+						<ColumnNumber>Column (d)</ColumnNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Community Benefit Expense -->
+			<xsd:element name="NetCommunityBenefitExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net community benefit expense</Description>
+						<ColumnNumber>Column (e)</ColumnNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Total Expense -->
+			<xsd:element name="PercentOfTotalExpense" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of total expense</Description>
+						<ColumnNumber>Column (f)</ColumnNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part II, Columns (a) through (f) Table -->
+	<xsd:complexType name="Form990SchHPartIIGroup1Type">
+		<xsd:sequence>
+
+			<!-- Number of Activities or Programs -->
+			<xsd:element name="NumberOfActivitiesOrPrograms" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of activities or programs</Description>
+						<LineNumber>Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Persons Served -->
+			<xsd:element name="PersonsServed" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Persons served</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Community Building Expense -->
+			<xsd:element name="TotalCommunityBuildingExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total community building expense</Description>
+						<LineNumber>Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Direct Offsetting Revenue -->
+			<xsd:element name="DirectOffsettingRevenue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct offsetting revenue</Description>
+						<LineNumber>Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Community Building Expense -->
+			<xsd:element name="NetCommunityBuildingExpense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net community building expense</Description>
+						<LineNumber>Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent of Total Expense -->
+			<xsd:element name="PercentOfTotalExpense" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent of total expense</Description>
+						<LineNumber>Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

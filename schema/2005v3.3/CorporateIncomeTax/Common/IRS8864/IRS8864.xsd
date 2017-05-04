@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8864</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 17, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================== -->
+	<!-- =======================	IRS Form 8864 ============================ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="IRS8864">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8864</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8864Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8864">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" >
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>					
+					</xsd:attribute>						
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- ============================================= -->
+	<!-- Biodiesel and Renewable Diesel Fuels Credit   -->
+	<!-- ============================================= -->
+
+	<!-- ======== Part I: Current Year Credit ======== -->
+	<!-- ======== Type of Fuel ======== -->
+	<xsd:complexType name="IRS8864Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8864</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Biodiesel - gallons-->
+			<xsd:element name="BiodieselGallons" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel (in gallons)</Description>
+						<LineNumber>Part I Line 1 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Biodiesel - amount (Column (a) x Column (b)) -->
+			<xsd:element name="BiodieselAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel amount (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 1 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-biodiesel - gallons -->
+			<xsd:element name="AgriBiodieselGallons" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel (in gallons)</Description>
+						<LineNumber>Part I Line 2 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-biodiesel - amount (Column (a) x Column (b)) -->
+			<xsd:element name="AgriBiodieselAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel amount (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 2 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Renewable diesel sold or used after Dec 31 2005(in gallons) -->
+			<xsd:element name="RenewableDieselSoldUsed" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel sold or used after Dec 31 2005(in gallons)</Description>
+						<LineNumber>Part I Line 3 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Renewable diesel sold or used amount (Column (a) x Column (b)) -->
+			<xsd:element name="RenewableDieselSoldUsedAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel sold or used amount (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 3 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Biodiesel included in a biodiesel mixture - gallons -->
+			<xsd:element name="BiodieselIncldGals" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel included in a biodiesel mixture (in gallons)</Description>
+						<LineNumber>Part I Line 4 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Biodiesel included in a biodiesel mixture - amount -->
+			<xsd:element name="BiodieselIncldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel included in a biodiesel mixture - amount (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 4 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-biodiesel included in a biodiesel mixture -->
+			<xsd:element name="AgriBiodieselIncldGals" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel included in a biodiesel mixture (in gallons)</Description>
+						<LineNumber>Part I Line 5 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agri-Biodiesel included in a biodiesel mixture - amount -->
+			<xsd:element name="AgriBiodieselIncldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-Biodiesel included in a biodiesel mixture - amount (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 5 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Renewable diesel included in renewable mixture sold or used after Dec 31 2005(in gallons) -->
+			<xsd:element name="RenewableDieselIncludedMixture" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel included in renewable mixture sold or used after Dec 31 2005(in gallons)</Description>
+						<LineNumber>Part I Line 6 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Renewable diesel included in renewable mixture sold or used after Dec 31 2005 (Column (a) x Column (b)) -->
+			<xsd:element name="RenewableDieselInclMixtureAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable diesel included in renewable mixture sold or used after Dec 31 2005 (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 6 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified agri-biodiesel production(in gallons) -->
+			<xsd:element name="QualifiedAgriBioDieselProd" type="FuelGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified agri-biodiesel production(in gallons)</Description>
+						<LineNumber>Part I Line 7 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified agri-biodiesel production (Column (a) x Column (b)) -->
+			<xsd:element name="QualifiedAgriBioDieselProdAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified agri-biodiesel production (Column (a) x Column (b))</Description>
+						<LineNumber>Part I Line 7 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 1 through 7 -->
+			<xsd:element name="BiodieselPlusAgriBiodiesel" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 7</Description>
+						<LineNumber>Part I Line 8c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Biodiesel and renewable diesel fuels amount(s) -->
+			<xsd:element name="BiodieselRenewableFuelsAmounts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Biodiesel and renewable diesel fuels amount(s)</Description>
+						<LineNumber>Part I Line 9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Current Year Credit -->
+			<xsd:element name="CurrentYearCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Credit</Description>
+						<LineNumber>Part I Line 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ======== Part II: Allowable Credit ======== -->
+
+
+			<!-- Regular tax before credits -->
+			<xsd:element name="RegularTaxBeforeCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular tax before credits</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alternative minimum tax -->
+			<xsd:element name="AlternativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Regular Tax Plus Alternative Minimum Tax -->
+			<xsd:element name="RegularTaxPlusAltMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 11 and 12</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign tax credit -->
+			<xsd:element name="ForeignTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>Part II Line 14a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Possessions tax credit (Form 5735) -->
+			<xsd:element name="PossessionsTaxCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Possessions tax credit (Form 5735)</Description>
+						<LineNumber>Part II Line 14c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit for Fuel from a Nonconventional Source -->
+			<xsd:element name="NonconventionalSourceFuelCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for fuel from a nonconventional source</Description>
+						<LineNumber>Part II Line 14d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Specified Credits -->
+			<xsd:element name="OtherSpecifiedCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other specified credits</Description>
+						<LineNumber>Part II Line 14e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Tax Credits -->
+			<xsd:element name="TotalTaxCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax credits</Description>
+						<LineNumber>Part II Line 14f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net income tax -->
+			<xsd:element name="NetIncomeTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income tax</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net regular tax -->
+			<xsd:element name="NetRegularTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net regular tax</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter 25% (.25) of the Excess -->
+			<xsd:element name="TwentyFivePercentOfExcess" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter 25% (.25) of the excess</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative minimum tax -->
+			<xsd:element name="TentativeMinimumTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative minimum tax</Description>
+						<LineNumber>Part II Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Greater of Tentative Minimum Tax or Excess -->
+			<xsd:element name="GreaterOfTentMinTaxOrExcess" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the greater of line 17 or line 18</Description>
+						<LineNumber>Part II Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Net Income Tax  -->
+			<xsd:element name="AdjustedNetIncomeTax" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 19 from line 15</Description>
+						<LineNumber>Part II Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit allowed for the current year -->
+			<xsd:element name="CreditAllowedForCurrentYear" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit allowed for the current year</Description>
+						<LineNumber>Part II Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>
+

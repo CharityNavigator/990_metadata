@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema -  Agri-biodiesel Producer Credit Statement</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 25, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =============================================================== -->
+	<!-- ==========  Agri-biodiesel Producer Credit Statement ========== -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="AgriBiodieselProducerCrStmt">
+		<xsd:annotation>
+			<xsd:documentation>Agri-biodiesel producer credit statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AgriBiodieselProducerCrStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AgriBiodieselProducerCreditStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="AgriBiodieselProducerCrStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for agri-biodiesel producer credit statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    		<!-- Agri-biodiesel Producer Credit Amount -->
+			<xsd:element name="AgriBiodieselProducerCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel producer credit amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+    		<!-- Agri-biodiesel Gallons Produced -->
+			<xsd:element name="AgriBiodieselGallonsProduced" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel gallons produced</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+    		<!-- Agri-biodiesel Production Capacity -->
+			<xsd:element name="AgriBiodieselProductionCap" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agri-biodiesel production capacity</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>								
+		</xsd:sequence>
+	</xsd:complexType>	
+</xsd:schema>

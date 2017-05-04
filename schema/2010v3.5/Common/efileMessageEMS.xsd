@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file - Content models for the EMS transmission/ack file definitions</Description>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 2, 2011</ReleaseDate>
+		</xsd:documentation>
+
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="efileTypes.xsd"/>
+	<xsd:include schemaLocation="efileMessageCommon.xsd"/>
+
+	<!-- Transmission Header -->
+	<xsd:element name="TransmissionHeader" type="TransmissionHeaderType"/>
+	<xsd:complexType name="TransmissionHeaderType">
+		<xsd:sequence>
+		
+			<!-- Transmission ID -->
+			<xsd:element name="TransmissionId" type="IdType">
+				<xsd:annotation>
+					<xsd:documentation>Must be unique for the transmitter for the tax year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Transmission Time Stamp -->
+			<xsd:element name="Timestamp" type="TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The time stamp at the time of transmission.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Transmitter -->
+			<xsd:element name="Transmitter">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ETIN" type="ETINType">
+							<xsd:annotation>
+								<xsd:documentation>The ETIN of the transmitter</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Acknowledgement Header -->
+	<xsd:element name="AcknowledgementHeader" type="AcknowledgementHeaderType"/>
+	<xsd:complexType name="AcknowledgementHeaderType">
+		<xsd:sequence>
+			<xsd:element name="AcknowledgementTimestamp" type="TimestampType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Transmission Acknowledgement -->
+	<xsd:element name="TransmissionAcknowledgement" type="TransmissionAcknowledgementType"/>
+	<xsd:complexType name="TransmissionAcknowledgementType">
+		<xsd:sequence>
+			<xsd:element name="TransmissionId" type="IdType" minOccurs="0"/>
+			<xsd:element name="TransmissionTimestamp" type="TimestampType" minOccurs="0"/>
+			<xsd:element name="TransmissionStatus" type="StatusType"/>
+			<xsd:element ref="Errors" minOccurs="0"/>
+
+			<xsd:element name="GTXKey" type="GTXKeyType" />
+
+			<!-- GTX key of Original Transmission that was Duplicated -->
+			<xsd:element name="GTXKeyOfOriginalDuplicated" type="GTXKeyType" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Status Type-->
+	<xsd:simpleType name="StatusType">
+		<xsd:restriction base="StringType">
+			<xsd:enumeration value="A">
+				<xsd:annotation>
+					<xsd:documentation>Accepted</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="R">
+				<xsd:annotation>
+					<xsd:documentation>Rejected</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- Payment Indicator Type -->
+	<xsd:simpleType name="PaymentIndicatorType">
+		<xsd:restriction base="StringType">
+			<xsd:enumeration value="Payment Request Received"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- Errors -->
+	<xsd:element name="Errors">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Error" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="XPath" type="StringType" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The XPath expression indicating the full path from the root to the error element or attribute</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ErrorCategory" type="StringType"/>
+							<xsd:element name="ErrorMessage" type="StringType"/>
+							<xsd:element name="RuleNumber" type="StringType"/>
+							<xsd:element name="Severity" type="StringType"/>
+							<xsd:element name="DataValue" type="StringType" minOccurs="0"/>
+						</xsd:sequence>
+						<xsd:attribute name="errorId" use="required">
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerPosType">
+									<xsd:totalDigits value="6"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="errorCount" type="IntegerNNType" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

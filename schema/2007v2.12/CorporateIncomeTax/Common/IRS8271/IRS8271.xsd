@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8271</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 13, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================ -->
+	<!-- ======================  IRS Form 8271 ====================== -->
+	<!-- ============================================================ -->
+
+
+	<xsd:element name="IRS8271">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8271</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8271Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8271">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8271Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8271</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Investor's Tax Year Ended -->
+			<xsd:element name="InvestorsTaxYearEnded" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investor's tax year ended</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Investor Reporting of Tax Shelter Registration Number Information -->
+			<xsd:element name="InvestorReportingInfo" type="InvestorReportingInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investor Reporting of Tax Shelter Registration Number information.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Type for Repeating Table Rows -->
+	<xsd:complexType name="InvestorReportingInfoType">
+
+		<xsd:sequence>
+
+			<!-- Tax Shelter Name -->
+			<xsd:element name="TaxShelterName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax Shelter name</Description>
+						<LineNumber>Column a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Shelter Registration Number -->
+			<xsd:element name="TaxShelterRegistrationNumber" type="TaxShelterRegistrationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax Shelter registration number</Description>
+						<LineNumber>Column b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Person Who Applied for Registration -->
+			<xsd:element name="NameOfPersonWhoApplied" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of person who applied for registration.</Description>
+						<LineNumber>Column b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Shelter Identifying Number: choice between SSN (person) or EIN (business, partnership, etc.) or Missing EIN Reason -->
+			<xsd:choice>
+				<xsd:element name="TaxShelterEIN" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Tax Shelter EIN.</Description>
+							<LineNumber>Column c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="TaxShelterSSN" type="SSNType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Tax Shelter SSN.</Description>
+							<LineNumber>Column c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="MissingEINReason" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>Column c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

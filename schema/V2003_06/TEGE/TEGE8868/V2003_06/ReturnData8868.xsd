@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Return Data for Form 8868</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/V2003_06/efileTypes.xsd"/>
+	<xsd:include schemaLocation="IRS8868/IRS8868.xsd"/>
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/Dependencies/IRSCorporatePayment.xsd"/>
+
+	<xsd:element name="ReturnData">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Return Data - Form 8868</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+			
+				<!-- Form 8868 -->
+				<xsd:element ref="IRS8868">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 8868</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- IRS Payment Record -->
+				<xsd:element ref="IRSCorporatePayment" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>IRS Corporate/Organization payment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+			</xsd:sequence>
+			
+			<xsd:attributeGroup ref="ReturnDataAttributes">
+				<xsd:annotation>
+					<xsd:documentation>Common return data attributes</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attributeGroup>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8825</Description>
+			<TaxYear>2014</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>TBD</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ======================================================= -->
+	<!-- =======================  IRS Form 8825 ===================== -->
+	<!-- ======================================================= -->
+
+
+	<xsd:element name="IRS8825">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8825</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8825Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8825">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8825Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8825</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Rental Real Estate Address and Type -->
+			<xsd:element name="RentalAddressGrp" type="RentalAddressGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Rental Real Estate Income and Expenses -->
+			<xsd:element name="RentalIncomeExpensesGrp" type="RentalIncomeExpensesGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Total Gross Rents -->
+			<xsd:element name="TotalGrossRentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gross rents</Description>
+						<LineNumber>18a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Expenses -->
+			<xsd:element name="TotalExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total expenses</Description>
+						<LineNumber>18b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Gain (Loss) From Form 4797 -->
+			<xsd:element name="NetGainLossFrom4797Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net gain (loss) from Form 4797 from the disposition of property from rental real estate activities</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income or Loss from Rental Real Estate Activities -->
+			<xsd:element name="RealEstateNetIncomeLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income (loss) from rental real estate activities from partnerships, estates and trusts</Description>
+						<LineNumber>20a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identify Partnership Estate Trust -->
+			<xsd:element name="IdentifyPartnershipEstateTrGrp" type="IdentifyPartnershipEstateTrGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Identify Partnership, Estate or Trust</Description>
+						<LineNumber>20b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income (Loss) From Rental Real Estate Activities -->
+			<xsd:element name="NetIncomeLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income (loss) from rental real estate activities</Description>
+						<LineNumber>21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ===== Type for Rental Address ===== -->
+
+
+	<xsd:complexType name="RentalAddressGrpType">
+
+		<xsd:sequence>
+
+			<!-- Physical Address (U.S. or Foreign) -->
+			<xsd:choice minOccurs="0">
+
+				<!-- U.S. Physical Address -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>U.S. physical address</Description>
+							<LineNumber>1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Physical Address -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign physical address</Description>
+							<LineNumber>1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Type -->
+			<xsd:element name="RentalTypeDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="60"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Fair Rental Days -->
+			<xsd:element name="FairRentalDaysCnt" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair rental days</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Personal Use Days -->
+			<xsd:element name="PersonalUseDaysCnt" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal use days</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ===== Type for Rental Income and Expenses ===== -->
+
+
+	<xsd:complexType name="RentalIncomeExpensesGrpType">
+
+		<xsd:sequence>
+
+			<!-- Gross Rents -->
+			<xsd:element name="GrossRentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross rents</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Advertising -->
+			<xsd:element name="AdvertisingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Advertising</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Auto and Travel -->
+			<xsd:element name="AutoAndTravelAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Auto and travel</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cleaning and Maintenance -->
+			<xsd:element name="CleaningAndMaintenanceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cleaning and maintenance</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Commissions -->
+			<xsd:element name="CommissionsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Insurance -->
+			<xsd:element name="InsuranceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Insurance</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Legal and Other Professional Fees -->
+			<xsd:element name="LegalAndProfessionalServiceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Legal and other professional fees</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest -->
+			<xsd:element name="InterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Repairs -->
+			<xsd:element name="RepairsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Repairs</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxes -->
+			<xsd:element name="TaxesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxes</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Utilities -->
+			<xsd:element name="UtilitiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Utilities</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wages and Salaries -->
+			<xsd:element name="WagesAndSalariesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wages and salaries</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation -->
+			<xsd:element name="DepreciationAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS4562"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Other Rental Real Estate Expenses -->
+			<xsd:element name="OtherRentalRealEstExpenseGrp" type="OtherRentalRealEstExpenseGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Expenses for Each Property -->
+			<xsd:element name="TotalExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total expenses for each property</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Income Or Loss -->
+			<xsd:element name="IncomeOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income or loss</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ===== Type for Other Rental Real Estate Expenses ===== -->
+
+
+	<xsd:complexType name="OtherRentalRealEstExpenseGrpType">
+		<xsd:sequence>
+			<!-- Other Expense Type -->
+			<xsd:element name="OtherExpenseTxt">
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Other Expense Amount -->
+			<xsd:element name="OtherExpenseAmt" type="USAmountType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ===== Type for Partnership, Estate or Trust ===== -->
+
+
+	<xsd:complexType name="IdentifyPartnershipEstateTrGrpType">
+		<xsd:sequence>
+			<!-- Partnership, Estate or Trust Name -->
+			<xsd:element name="BusinessName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnership, Estate or Trust name</Description>
+						<LineNumber>20b(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Related Party's Identifying Number (EIN or SSN or Missing EIN Reason) -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Partnership, Estate or Trust EIN or Missing EIN Reason -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partnership, Estate or Trust EIN</Description>
+							<LineNumber>20b(2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>

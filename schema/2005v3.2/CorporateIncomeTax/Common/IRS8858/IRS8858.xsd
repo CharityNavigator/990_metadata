@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Corporate Income Tax Schema - IRS Form 8858</Description>
+            <TaxYear>2005</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>June 7, 2007</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+    <!-- ================================================================== -->
+    <!-- ========================== IRS Form 8858 ========================= -->
+    <!-- ================================================================== -->
+
+
+    <xsd:element name="IRS8858">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 8858</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS8858Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    <xsd:attribute name="documentName" type="xsd:string" fixed="IRS8858">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+
+                    <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                    <xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment IRS8858ScheduleM OrganizationChartStatement" />
+                    <xsd:attribute name="summaryDormantFDEIndicator">
+                        <xsd:simpleType>
+                    	    <xsd:restriction base="StringType">
+                    	        <xsd:enumeration value="Filed Pursuant to Announcement 2004-4 for Dormant FDE"/>
+                    	    </xsd:restriction>
+                    	</xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="IRS8858Type">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Form 8858</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+
+            <!-- Foreign disregarded entity's annual accounting period beginning and ending date -->
+            <xsd:element name="FrgnDisrgrdEntAnnualAcctPeriod" type="IRS8858TaxYearType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Information furnished for the foreign disregarded entity's annual accounting period (see instructions)</Description>
+                         <LineNumber>Form header</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Name of business filing this return -->
+            <xsd:element name="FilerName" type="BusinessNameType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name of person filing this return</Description>
+                         <LineNumber>Form header</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Filer's identifying number -->
+            <xsd:choice minOccurs="0">
+
+                <xsd:element name="FilerIdentifyingNumber" type="SSNType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Filer's identifying number, SSN</Description>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+		<xsd:element name="FilerIdentifyingNumberEIN" type="EINType">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Filer's identifying number, EIN</Description>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Missing EIN Reason -->
+		<xsd:element name="MissingEINReason">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Missing EIN reason</Description>
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="StringType">
+					<xsd:enumeration value="APPLD FOR"/>
+					<xsd:enumeration value="FOREIGNUS"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:element>
+
+            </xsd:choice>
+
+            <!-- Filer's address -->
+            <xsd:element name="FilerAddress" type="USAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Number, street, and room or suite no. (or P.O. box number if mail is not delivered to street address) City or town, state, and ZIP code</Description>
+                         <LineNumber>Form header</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Filer's tax year beginning and ending date -->
+            <xsd:element name="FilerTaxYear" type="IRS8858TaxYearType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Filer's tax year</Description>
+                         <LineNumber>Form header</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Name of foreign disregarded entity -->
+            <xsd:element name="ForeignDisrgrdEntityName" type="BusinessNameType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name and address of foreign disregarded entity</Description>
+                         <LineNumber>Line 1a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Address of foreign disregarded entity -->
+            <xsd:element name="ForeignDisrgrdEntityAddress" type="ForeignAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name and address of foreign disregarded entity</Description>
+                         <LineNumber>Line 1a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Foreign disregarded entity's U.S. employer identification number, if any -->
+            <xsd:element name="ForeignDisrgrdEntityUSIdNumber" type="IRS8858USIdNumberType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>U.S. identifying number, if any (for foreign disregarded entity)</Description>
+                        <LineNumber>Line 1b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Country(ies) under whose laws organized, entity type under local tax law, and date(s) of organization (for foreign disregarded entity) -->
+            <xsd:element name="CountryEntityTypeDate" type="IRS8858CountryDateType" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Country(ies) under whose laws organized, entity type under local tax law, and date(s) of organization (for foreign disregarded entity)</Description>
+                        <LineNumber>Lines 1c and 1d</LineNumber>
+					</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Effective date as foreign disregarded entity -->
+            <xsd:element name="ForeignDisrgrdEntEffectiveDate" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Effective date as foreign disregarded entity</Description>
+                        <LineNumber>Line 1e</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Treaty and article number -->
+            <xsd:element name="TreatyAndArticleNumber" type="LineExplanationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>If benefits under a U.S. tax treaty were claimed with respect to income of the foreign disregarded entity, enter the treaty and article number</Description>
+                        <LineNumber>Line 1f</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Country in which principal business activity is conducted -->
+            <xsd:element name="CountryOfPrinBusinessActivity" type="CountryType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Country in which principal business activity is conducted (for foreign disregarded entity)</Description>
+                        <LineNumber>Line 1g</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Principal business activity -->
+            <xsd:element name="PrincipleBusinessActivity" type="LineExplanationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Principal business activity (for foreign disregarded entity)</Description>
+                        <LineNumber>Line 1h</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Functional currency -->
+            <xsd:element name="ForeignDisrgrdEntFuncCurrency" type="ShortDescriptionType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Functional currency (for foreign disregarded entity)</Description>
+                        <LineNumber>Line 1i</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- 2 Provide the following information for the foreign disregarded entity's accounting period stated above. -->
+
+            <!-- Name of branch office or agent in the United States -->
+            <xsd:element name="BranchOfficeOrAgentUSName" type="BusinessNameType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name, address, and identifying number of branch office or agent (if any) in the United States </Description>
+                        <LineNumber>Line 2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Address of branch office or agent in the United States -->
+            <xsd:element name="BranchOfficeOrAgentUSAddress" type="USAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name, address, and identifying number of branch office or agent (if any) in the United States </Description>
+                        <LineNumber>Line 2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- U.S. identifying number of branch office or agent, if any -->
+            <xsd:element name="BranchOfficeOrAgentUSIdNumber" type="IRS8858USIdNumberType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name, address, and identifying number of branch office or agent (if any) in the United States</Description>
+                        <LineNumber>Line 2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Books and Records information (name and address, and location, if different) -->
+            <xsd:element name="BooksAndRecords" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name and address (including corporate department, if applicable) of person(s) with custody of the books and records of the foreign disregarded entity, and the location of such books and records, if different</Description>
+                        <LineNumber>Line 2b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+
+                        <!-- Name of person with custody of books and records -->
+                        <xsd:element name="CustodianName" type="BusinessNameType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Name of person with custody of books and records</Description>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+
+			<!-- Choice between: US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of person with custody of books and records -->
+				<xsd:element name="CustodianUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address of person with custody of books and records</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of person with custody of books and records -->
+				<xsd:element name="CustodianForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign Address of person with custody of books and records</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+                        <!-- Location of books and records, if different -->
+                        <xsd:element name="Location" type="USAddressType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Location of books and records, if different</Description>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- 3 For the tax owner of the foreign disregarded entity (if different from the filer) provide the following: -->
+
+            <!-- Tax owner's Name -->
+            <xsd:element name="TaxOwnerName" type="BusinessNameType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name and address (for tax owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 3a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Tax Owner's Address -->
+            <xsd:choice minOccurs="0">
+
+                <!-- Tax Owner's US Address -->
+                <xsd:element name="TaxOwnerUSAddress" type="USAddressType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Tax owner's US address</Description>
+                            <LineNumber>Line 3a</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+                <!-- Tax Owner's Foreign Address -->
+                <xsd:element name="TaxOwnerForeignAddress" type="ForeignAddressType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Tax owner's Foreign Address</Description>
+                            <LineNumber>Line 3a</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+            </xsd:choice>
+
+            <!-- Tax owner's annual accounting period beginning and ending date -->
+            <xsd:element name="TaxOwnerTaxYear" type="IRS8858TaxYearType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Annual accounting period covered by the return (see instructions) (for tax owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 3b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Tax owner's U.S. identifying number, if any -->
+            <xsd:element name="TaxOwnerUSIdNumber" type="IRS8858USIdNumberType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>U.S. identifying number, if any (for tax owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 3c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Country under whose laws the tax owner is organized -->
+            <xsd:element name="TaxOwnerCountryOrganized" type="AllCountriesType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Country under whose laws organized (for tax owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 3d</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Functional currency for the tax owner -->
+            <xsd:element name="TaxOwnerFunctionalCurrency" type="ShortDescriptionType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Functional currency (for tax owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 3e</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- 4 For the direct owner of the foreign disregarded entity (if different from the tax owner) provide the following: -->
+
+            <!-- Direct owner's name -->
+            <xsd:element name="DirectOwnerName" type="BusinessNameType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name and address (for direct owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 4a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Direct Owner's Address -->
+            <xsd:choice minOccurs="0">
+
+                <!-- Direct Owner's US Address -->
+                <xsd:element name="DirectOwnerUSAddress" type="USAddressType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Direct owner's US address</Description>
+                            <LineNumber>Line 4a</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+                <!-- Direct Owner's Foreign Address -->
+                <xsd:element name="DirectOwnerForeignAddress" type="ForeignAddressType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Direct owner's Foreign Address</Description>
+                            <LineNumber>Line 4a</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+
+            </xsd:choice>
+
+            <!-- Country under whose laws the direct owner is organized -->
+            <xsd:element name="DirectOwnerCountryOrganized" type="CountryType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Country under whose laws organized (for direct owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 4b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Direct owner's U.S. identifying number, if any -->
+            <xsd:element name="DirectOwnerUSIdNumber" type="IRS8858USIdNumberType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>U.S. identifying number, if any (for direct owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 4c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Functional currency for the direct owner -->
+            <xsd:element name="DirectOwnerFunctionalCurrency" type="ShortDescriptionType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Functional currency (for direct owner of the foreign disregarded entity)</Description>
+                        <LineNumber>Line 4d</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- IRS8858 Schedule C - Income Statement -->
+            <xsd:element name="IRS8858ScheduleC" type="IRS8858ScheduleCType" minOccurs="0" />
+
+            <!-- IRS8858 Schedule C-1 - Section 987 Gain or Loss Information -->
+            <xsd:element name="IRS8858ScheduleC1" type="IRS8858ScheduleC1Type" minOccurs="0" maxOccurs="unbounded" />
+
+            <!-- IRS8858 Schedule F - Balance Sheet -->
+            <xsd:element name="IRS8858ScheduleF" type="IRS8858ScheduleFType" minOccurs="0" />
+
+            <!-- IRS8858 Schedule G - Other Information -->
+            <xsd:element name="IRS8858ScheduleG" type="IRS8858ScheduleGType" minOccurs="0" />
+
+            <!-- IRS8858 Schedule H - Current Earnings and Profits or Taxable Income -->
+            <xsd:element name="IRS8858ScheduleH" type="IRS8858ScheduleHType" minOccurs="0" maxOccurs="unbounded" />
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- ============================================================================= -->
+    <!-- ======================  IRS Form 8858 Schedule C ============================ -->
+    <!-- ============================================================================= -->
+
+    <xsd:complexType name="IRS8858ScheduleCType">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Form 8858 Schedule C</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+
+            <!-- Section 989(b) Average Exchange Rate -->
+            <xsd:element name="Section989bAverageExchangeRate" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Section 989(b) Average Exchange Rate</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Gross receipts or sales -->
+            <xsd:element name="GrossReceiptsOrSales" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Gross receipts or sales (net of returns and allowances)</Description>
+                        <LineNumber>Schedule C Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Cost of goods sold -->
+            <xsd:element name="CostOfGoodsSold" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Cost of goods sold</Description>
+                        <LineNumber>Schedule C Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Gross profit -->
+            <xsd:element name="GrossProfit" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Gross profit</Description>
+                        <LineNumber>Schedule C Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Other income -->
+            <xsd:element name="OtherIncome" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Other income</Description>
+                        <LineNumber>Schedule C Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Total income -->
+            <xsd:element name="TotalIncome" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total income</Description>
+                        <LineNumber>Schedule C Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Total deductions -->
+            <xsd:element name="TotalDeductions" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total deductions</Description>
+                        <LineNumber>Schedule C Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Other adjustments -->
+            <xsd:element name="OtherAdjustments" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Other adjustments</Description>
+                        <LineNumber>Schedule C Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Net income (loss) per books -->
+            <xsd:element name="NetIncomeOrLossPerBooks" type="IRS8858CurrencyDollarType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Net income (loss) per books</Description>
+                        <LineNumber>Schedule C Line 8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- ============================================================================= -->
+    <!-- ======================  IRS Form 8858 Schedule C-1 ========================== -->
+    <!-- ============================================================================= -->
+
+    <xsd:complexType name="IRS8858ScheduleC1Type">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Form 8858 Schedule C-1</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+
+            <!-- Remittances from the foreign disregarded entity. Amount stated in functional currency of foreign disregarded entity -->
+            <xsd:element name="RemittancesFrgnDisrgrdEntAmt" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Remittances from the foreign disregarded entity. Amount stated in functional currency of foreign disregarded entity</Description>
+                        <LineNumber>Schedule C-1 Line 1(a)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Remittances from the foreign disregarded entity. Amount stated in functional currency of recipient -->
+            <xsd:element name="RemittancesRecipientAmount" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Remittances from the foreign disregarded entity. Amount stated in functional currency of recipient</Description>
+                        <LineNumber>Schedule C-1 Line 1(b)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Section 987 gain (loss) of recipient -->
+            <xsd:element name="Section987GainOrLossOfRcpnt" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Section 987 gain (loss) of recipient</Description>
+                        <LineNumber>Schedule C-1 Line 2(b)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Foreign disregarded entity remittances on directowner books -->
+            <xsd:element name="RemittancesOnDirectOwnerBooks" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Were all remittances from the foreign disregarded entity reflected on the books of the direct owner?</Description>
+                        <LineNumber>Schedule C-1 Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Tax owner method of accounting change -->
+            <xsd:element name="TaxOwnerMethodOfAcctChange" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Did the tax owner change its method of accounting for section 987 gain or loss with respect to remittances from the foreign disregarded entity during the tax year?</Description>
+                        <LineNumber>Schedule C-1 Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- ============================================================================= -->
+    <!-- ======================  IRS Form 8858 Schedule F ============================ -->
+    <!-- ============================================================================= -->
+
+    <xsd:complexType name="IRS8858ScheduleFType">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Form 8858 Schedule F</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+
+            <!-- Cash and other current assets -->
+            <xsd:element name="CashAndOtherCurrentAssets" type="IRS8858BegngAndEndAmtNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Cash and other current assets</Description>
+                        <LineNumber>Schedule F Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Other assets -->
+            <xsd:element name="OtherAssets" type="IRS8858BegngAndEndAmtNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Other assets</Description>
+                        <LineNumber>Schedule F Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Total assets -->
+            <xsd:element name="TotalAssets" type="IRS8858BegngAndEndAmtNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total assets</Description>
+                        <LineNumber>Schedule F Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Liabilities -->
+            <xsd:element name="Liabilities" type="IRS8858BegngAndEndAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Liabilities</Description>
+                        <LineNumber>Schedule F Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Owner's equity -->
+            <xsd:element name="OwnerEquity" type="IRS8858BegngAndEndAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Owner's equity</Description>
+                        <LineNumber>Schedule F Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Total liabilities and owner's equity -->
+            <xsd:element name="TotalLiabilitiesAndOwnerEquity" type="IRS8858BegngAndEndAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total liabilities and owner's equity</Description>
+                        <LineNumber>Schedule F Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- ============================================================================= -->
+    <!-- ======================  IRS Form 8858 Schedule G ============================ -->
+    <!-- ============================================================================= -->
+
+    <xsd:complexType name="IRS8858ScheduleGType">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Form 8858 Schedule G</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+
+            <!-- Interest owned in trust -->
+            <xsd:element name="InterestOwnedInTrust" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>During the tax year, did the foreign disregarded entity own an interest in any trust?</Description>
+                        <LineNumber>Schedule G Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Foreign disregarded entity owned at least a 10% interest in any foreign partnership -->
+            <xsd:element name="Owned10PercentIntForeignPrtshp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>During the tax year, did the foreign disregarded entity own at least a 10% interest, directly or indirectly, in any foreign partnership?</Description>
+                        <LineNumber>Schedule G Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="BooleanType">
+                            <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                            <xsd:attribute name="referenceDocumentName" type="StringType" fixed="Owned10PercentInterestInForeignPartnershipStatement" />
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- Loss claim to stock or debt as result of election -->
+            <xsd:element name="LossClaimToStockOrDebt" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Answer the following question only if the foreign disregarded entity made its election to be treated as disregarded from its owner during the tax year: Did the tax owner claim a loss with respect to stock or debt of the foreign disregarded entity as a result of the election?</Description>
+                        <LineNumber>Schedule G Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="BooleanType">
+                            <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                            <xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8886" />
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- Separate unit as defined in Regulation section 1.1503-2(c)(3) and (4).  Choice between: BooleanType (for Yes/No box) OR "N/A" -->
+			<xsd:choice minOccurs="0">
+
+                <!-- Separate unit as defined in Regulation section 1.1503-2(c)(3) and (4) -->
+                <xsd:element name="SeparateUnitDefinedInReg">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Answer the following question only if the foreign disregarded entity is owned directly or indirectly by a domestic corporation and the foreign disregarded entity incurred a net operating loss for the tax year: Is the foreign disregarded entity a separate unit as defined in Regulation section 1.1503-2(c)(3) and (4)? (If yes, see the instructions)</Description>
+                            <LineNumber>Schedule G Line 4</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="BooleanType">
+                                <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                                <xsd:attribute name="referenceDocumentName" type="StringType" fixed="ElectiveReliefAgreementAndOrAnnualCertificationStatement" />
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <!-- Separate unit as defined in Regulation section 1.1503-2(c)(3) and (4) - "N/A" -->
+                <xsd:element name="SeparateUnitDefinedInRegNA">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Answer the following question only if the foreign disregarded entity is owned directly or indirectly by a domestic corporation and the foreign disregarded entity incurred a net operating loss for the tax year: Is the foreign disregarded entity a separate unit as defined in Regulation section 1.1503-2(c)(3) and (4)? (If yes, see the instructions)</Description>
+                            <LineNumber>Schedule G Line 4</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction base="StringType">
+                            <xsd:enumeration value="N/A"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+
+			</xsd:choice>
+
+            <!-- Acted as a manufacturing, selling, or purchasing branch in intracompany transactions -->
+            <xsd:element name="MfrSellingOrPurchasingBranch" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Answer the following question only if the tax owner of the foreign disregarded entity is a controlled foreign corporation (CFC): Were there any intracompany transactions between the foreign disregarded entity and the CFC or any other branch of the CFC during the tax year, in which the foreign disregarded entity acted as a manufacturing, selling, or purchasing branch?</Description>
+                        <LineNumber>Schedule G Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- ============================================================================= -->
+    <!-- ======================  IRS Form 8858 Schedule H ============================ -->
+    <!-- ============================================================================= -->
+
+    <xsd:complexType name="IRS8858ScheduleHType">
+        <xsd:annotation>
+            <xsd:documentation>Content model for Form 8858 Schedule H</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+
+            <!-- Current year net income or (loss) per foreign books of account -->
+            <xsd:element name="CurrentYearNetIncomeOrLoss" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Current year net income or (loss) per foreign books of account</Description>
+                        <LineNumber>Schedule H Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Total net additions -->
+            <xsd:element name="TotalNetAdditions" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total net additions</Description>
+                        <LineNumber>Schedule H Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ForeignAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="EPTaxableIncomeAdjustmentSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+            </xsd:element>
+
+            <!-- Total net subtractions -->
+            <xsd:element name="TotalNetSubtractions" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total net subtractions</Description>
+                        <LineNumber>Schedule H Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+               <xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ForeignAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="EPTaxableIncomeAdjustmentSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+            </xsd:element>
+
+            <!-- Current earnings and profits (or taxable income - see instructions) (line 1 plus line 2 minus line 3) -->
+            <xsd:element name="CurrentEarningsAndProfits" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Current earnings and profits (or taxable income - see instructions) (line 1 plus line 2 minus line 3)</Description>
+                        <LineNumber>Schedule H Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- DASTM gain or loss (if applicable) -->
+            <xsd:element name="DASTMGainOrLoss" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>DASTM gain or loss (if applicable)</Description>
+                        <LineNumber>Schedule H Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Current earnings and profits plus DASTM gain or loss -->
+            <xsd:element name="CurrEarnPrftPlusDASTMGainLoss" type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Combine lines 4 and 5</Description>
+                        <LineNumber>Schedule H Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Current earnings and profits (or taxable income) in U.S. dollars -->
+            <xsd:element name="CurrEarnPrftOrTaxableIncome" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Current earnings and profits (or taxable income) in U.S. dollars (line 6 translated at the appropriate exchange rate as defined in section 989(b) and the related regulations</Description>
+                        <LineNumber>Schedule H Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- exchange rate used for current earnings and profits or taxable income -->
+			<xsd:element name="ExchangeRateUsed" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Enter exchange rate used for line 7</Description>
+                        <LineNumber>Schedule H Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- Type for Lines 1c and 1d -->
+    <xsd:complexType name="IRS8858CountryDateType">
+        <xsd:sequence>
+
+            <!-- Country under whose laws organized -->
+            <xsd:element name="CountryOrganized" type="CountryType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Country(ies) under whose laws organized and entity type under local tax law</Description>
+                        <LineNumber>Line 1c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Entity type under local tax law -->
+            <xsd:element name="TypeOfEntity" type="LineExplanationType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Country(ies) under whose laws organized and entity type under local tax law</Description>
+                        <LineNumber>Line 1c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Date of organization -->
+            <xsd:element name="DateOfOrganization" type="DateType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date(s) of organization</Description>
+                        <LineNumber>Line 1d</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- Type for Schedule C, Lines 1 to 8 -->
+    <xsd:complexType name="IRS8858CurrencyDollarType">
+        <xsd:sequence>
+
+            <!-- Amount in functional currency -->
+            <xsd:element name="FunctionalCurrency"  type="ForeignAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Functional currency</Description>
+                        <LineNumber>Schedule C, Lines 1 to 8, Column (a)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Amount in the U.S. Dollar -->
+            <xsd:element name="USDollars"  type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>U.S. Dollars</Description>
+                        <LineNumber>Schedule C, Lines 1 to 8, Column (b)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- Type for Schedule F, Lines 1 to 3 -->
+    <xsd:complexType name="IRS8858BegngAndEndAmtNNType">
+        <xsd:sequence>
+
+            <!-- Non-negative amount at the beginning of annual accounting period -->
+            <xsd:element name="BeginningAmount"  type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Beginning of annual accounting period</Description>
+                        <LineNumber>Schedule F, Lines 1 to 3, Column (a)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Non-negative amount at the end of annual accounting period -->
+            <xsd:element name="EndingAmount"  type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>End of annual accounting period</Description>
+                        <LineNumber>Schedule F, Lines 1 to 3, Column (b)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- Type for Schedule F, Lines 4 to 6 -->
+    <xsd:complexType name="IRS8858BegngAndEndAmountType">
+        <xsd:sequence>
+
+            <!-- Amount at the beginning of annual accounting period -->
+            <xsd:element name="BeginningAmount"  type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Beginning of annual accounting period</Description>
+                        <LineNumber>Schedule F, Lines 4 to 6, Column (a)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Amount at the end of annual accounting period -->
+            <xsd:element name="EndingAmount"  type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>End of annual accounting period</Description>
+                        <LineNumber>Schedule F, Lines 4 to 6, Column (b)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+	<!-- ========================================================================== -->
+	<!-- ======================  Recurring Local Types ============================ -->
+	<!-- ========================================================================== -->
+
+    <!-- Recurring type for annual accounting period or tax year -->
+    <xsd:complexType name="IRS8858TaxYearType">
+        <xsd:annotation>
+            <xsd:documentation>Recurring type for annual accounting period or tax year</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="BeginningDate" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>annual accounting period or tax year beginning date</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="EndingDate" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>annual accounting period or tax year ending date</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Recurring type for U.S. identifying number -->
+    <xsd:complexType name="IRS8858USIdNumberType">
+        <xsd:annotation>
+            <xsd:documentation>Recurring type for U.S. identifying number</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:choice minOccurs="0">
+                <xsd:element name="EIN" type="EINType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>U.S. employer identification number, if any</Description>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="SSN" type="SSNType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>U.S. social security number, if any</Description>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

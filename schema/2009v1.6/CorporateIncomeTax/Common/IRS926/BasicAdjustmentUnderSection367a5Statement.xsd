@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Basic Adjustment Under Section 367(a)(5) Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 19, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =================================================================================== -->
+	<!-- ===============  Basic Adjustment Under Section 367(a)(5) Statement =============== -->
+	<!-- =================================================================================== -->
+
+
+	<xsd:element name="BscAdjUnderSect367a5Stmt">
+		<xsd:annotation>
+			<xsd:documentation>Basic Adjustment Under Section 367(a)(5) Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="BscAdjUnderSect367a5StmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="BasicAdjustmentUnderSection367a5Statement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="BscAdjUnderSect367a5StmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Basic Adjustment Under Section 367(a)(5) Statement</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Basic Adjustment Under Section 367(a)(5) (repeating group) -->
+			<xsd:element name="BscAdjUnderSect367a5Info" type="BscAdjUnderSect367a5InfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basic Adjustment Under Section 367(a)(5) Statement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="BscAdjUnderSect367a5InfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for basic adjustment under section 367(a)(5) info</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Description Of the Asset Tranferred in the Exchange -->
+			<xsd:element name="DescOfAssetTrnsfrInExch" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of the asset tranferred in the exchange</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Have The Conditions Set Forth In The Second Sentence of Section 367(a)(5) And Any Regulations Under That Section Been Satisfied? -->
+			<xsd:element name="CondSect367a5RegsBeenStsfd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Have the conditions set forth in the second sentence of Section 367(a)(5) and any regulations under that section been satisfied?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter an Explanation of Any Basis or Other Adjustments Made Pursuant to Section 367(a)(5) And Any Regulations Thereunder -->
+			<xsd:element name="DescOfAdjMadeSect367a5"  type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter an explanation of any basis or other adjustments made pursuant to Section 367(a)(5) and any regulations thereunder</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

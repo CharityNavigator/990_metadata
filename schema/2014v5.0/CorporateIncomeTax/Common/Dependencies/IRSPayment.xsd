@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Payment</Description>
+			<TaxYear>2014</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>TBD</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- ========================================================== -->
+	<!-- =======================  IRS Payment ===================== -->
+	<!-- ========================================================== -->
+	<xsd:element name="IRSPayment">
+		<xsd:annotation>
+			<xsd:documentation>IRS Payment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRSPaymentType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRSPayment">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRSPaymentType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Payment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Routing Transit Number -->
+			<xsd:element name="RoutingTransitNum" type="RoutingTransitNumberType">
+				<xsd:annotation>
+					<xsd:documentation>Routing Transit Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Bank Account Number -->
+			<xsd:element name="BankAccountNum" type="BankAccountNumberType">
+				<xsd:annotation>
+					<xsd:documentation>Bank Account Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Type of Account -->
+			<xsd:element name="BankAccountTypeCd" type="BankAccountType">
+				<xsd:annotation>
+					<xsd:documentation>Type of Account</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Payment Amount -->
+			<xsd:element name="PaymentAmt">
+				<xsd:annotation>
+					<xsd:documentation>Payment Amount in Whole Dollars</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerPosType">
+						<xsd:totalDigits value="11"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Requested Payment Date -->
+			<xsd:element name="RequestedPaymentDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>Requested Payment Date</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Taxpayer Daytime Phone -->
+			<xsd:element name="TaxpayerDaytimePhoneNum" type="PhoneNumberType">
+				<xsd:annotation>
+					<xsd:documentation>Taxpayer's Daytime Phone Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

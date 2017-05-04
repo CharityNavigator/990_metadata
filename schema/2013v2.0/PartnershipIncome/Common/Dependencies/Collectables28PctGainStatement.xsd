@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Collectables (28%) Gain Statement</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ========================================================== -->
+	<!-- =========== Collectables (28%) Gain Statement ============ -->
+	<!-- ========================================================== -->
+
+
+	<xsd:element name="Collectables28PctGainStmt">
+		<xsd:annotation>
+			<xsd:documentation>Collectables (28%) Gain Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Collectables28PctGainStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="Collectables28PctGainStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="Collectables28PctGainStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Collectables (28%) Gain Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    			<!-- Collectables (28%) Gain Information -->
+			<xsd:element name="Collectables28PctGainGrp" type="Collectables28PctGainGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Collectables (28%) Gain Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Collectables (28%) Gain Information -->
+	<xsd:complexType name="Collectables28PctGainGrpType">
+		<xsd:sequence>
+			<!-- Sale or Exchange Date -->
+			<xsd:element name="SaleOrExchangeDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sale or Exchange Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amount of Gain or Loss Attributable to Section 751 Property -->
+			<xsd:element name="GainLossAttributableSect571Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of Gain or Loss Attributable to Section 751 Property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amount of Gain(Loss) Attributable to Capital Gain(Loss) on Sale of Partnership Interest -->
+			<xsd:element name="CapitalGainLossOnSalePrtshpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of Gain(Loss) Attributable to Capital Gain(Loss) on Sale of Partnership Interest</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

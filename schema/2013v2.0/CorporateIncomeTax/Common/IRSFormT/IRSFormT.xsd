@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form T (Timber)</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ====================  IRS Form T (Timber) ===================== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRSFormT">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form T (Timber)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRSFormTType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRSFormT">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DedExpendForOtherSilviculturalActivitiesSch"/>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRSFormTType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form T (Timber)</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name(s) as Shown on Return -->
+			<xsd:element name="ShownOnReturnName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name(s) as shown on return</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying Number: choice between EIN or SSN or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Part I - Acquisitions (repeating group) -->
+			<xsd:element name="ForestActyAcquisitionsGrp" type="ForestActyAcquisitionsGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Part II - Timber Depletion (repeating group) -->
+			<xsd:element name="ForestActyTimberDepletionGrp" type="ForestActyTimberDepletionGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Part III - Profit or Loss From Land and Timber Sales (repeating group) -->
+			<xsd:element name="ForestActyPrftLossTmbrSalesGrp" type="ForestActyPrftLossTmbrSalesGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Part IV - Reforestation and Timber Stand Activities (repeating group) -->
+			<xsd:element name="ForestActyReforestationTmbrGrp" type="ForestActyReforestationTmbrGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- Part V - Land Ownership (repeating group) -->
+			<xsd:element name="ForestActyLandOwnershipGrp" type="ForestActyLandOwnershipGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- =================  IRS Form T (Timber) Part I ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="ForestActyAcquisitionsGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form T (Timber) Part I - Acquisitions</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Block and Title of Account -->
+			<xsd:element name="NameOfBlockAndTitleOfAcctTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of block and title of account</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location of Property -->
+			<xsd:element name="PropertyLocationTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location of property (by legal subdivisions or map surveys)</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Seller -->
+			<xsd:element name="SellerName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of seller or person from whom property was acquired</Description>
+						<LineNumber>Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Seller: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Seller -->
+				<xsd:element name="SellerUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of seller or person from whom property was acquired</Description>
+							<LineNumber>Part I Line 3a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Seller -->
+				<xsd:element name="SellerForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of seller or person from whom property was acquired</Description>
+							<LineNumber>Part I Line 3a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Date Acquired -->
+			<xsd:element name="AcquiredDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date acquired</Description>
+						<LineNumber>Part I Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Paid in Cash -->
+			<xsd:element name="PaidCashAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid in cash</Description>
+						<LineNumber>Part I Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Paid in Interest-Bearing Notes -->
+			<xsd:element name="PaidInterestBearingNotesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid in interest-bearing notes</Description>
+						<LineNumber>Part I Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Paid in Non-Interest-Bearing Notes -->
+			<xsd:element name="PaidNonInterestBearingNotesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid in non-interest-bearing notes</Description>
+						<LineNumber>Part I Line 4c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount of Other Consideration -->
+			<xsd:element name="OtherConsiderationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of other consideration</Description>
+						<LineNumber>Part I Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nature of Other Consideration -->
+			<xsd:element name="OtherConsiderationNatureTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explain the nature of other consideration and how you determined the amount shown on line 5a</Description>
+						<LineNumber>Part I Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Legal Expenses -->
+			<xsd:element name="LegalExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Legal expenses</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cruising, Surveying, and Other Acquisition Expenses -->
+			<xsd:element name="OtherAcquisitionExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cruising, surveying, and other acquisition expenses</Description>
+						<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Cost or Other Basis of Property -->
+			<xsd:element name="TotalCostOrOtherBasisPropAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost or other basis of property</Description>
+						<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Forested Land -->
+			<xsd:element name="ForestedLand" type="AllocationOfTotalCostOrOtherBasis1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Forested land</Description>
+						<LineNumber>Part I Line 9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Unimproved Land -->
+			<xsd:element name="OtherUnimprovedLand" type="AllocationOfTotalCostOrOtherBasis1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other unimproved land</Description>
+						<LineNumber>Part I Line 9b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Improved Land -->
+			<xsd:element name="ImprovedLand" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Improved land</Description>
+						<LineNumber>Part I Line 9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="AllocationOfTotalCostOrOtherBasis1Type">
+							<xsd:attribute name="desc" type="LineExplanationType"/>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Merchantable Timber -->
+			<xsd:element name="MerchantableTimber" type="AllocationOfTotalCostOrOtherBasis2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Merchantable timber</Description>
+						<LineNumber>Part I Line 9d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Premerchantable Timber -->
+			<xsd:element name="PremerchantableTimber" type="AllocationOfTotalCostOrOtherBasis2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premerchantable timber</Description>
+						<LineNumber>Part I Line 9e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Improvements -->
+			<xsd:element name="Improvement" type="AllocationOfTotalCostOrOtherBasis3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Improvements</Description>
+						<LineNumber>Part I Line 9f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Mineral Rights -->
+			<xsd:element name="MineralRights" type="AllocationOfTotalCostOrOtherBasis2Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mineral rights</Description>
+						<LineNumber>Part I Line 9g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Line 9h (Total Cost or Other Basis) is a copy of Line 8 -->
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ================  IRS Form T (Timber) Part II ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="ForestActyTimberDepletionGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form T (Timber) Part II - Timber Depletion</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Block and Title of Account of Depletion -->
+			<xsd:element name="NameOfBlockAndTitleOfAcctTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of block and title of account of depletion</Description>
+						<LineNumber>Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Log Rule Used -->
+			<xsd:element name="LogRuleUsedTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Log rule used</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Estimated Quantity of Timber at End of Preceding Tax Year -->
+			<xsd:element name="TimberEndOfPrecedingTYEstQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated quantity of timber at end of preceding tax year</Description>
+						<LineNumber>Part II Line 2(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis Returnable Through Depletion at End of Preceding Tax Year -->
+			<xsd:element name="CostRetThruDpltnEndPrecTYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis returnable through depletion at end of preceding tax year</Description>
+						<LineNumber>Part II Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Increase or Decrease of Quantity of Timber -->
+			<xsd:element name="IncreaseOrDecreaseTimberQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increase or decrease of quantity of timber by way of correction</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Addition for Growth-Quantity -->
+			<xsd:element name="AdditionForGrowthQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Addition for growth-quantity</Description>
+						<LineNumber>Part II Line 4a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="IRSFormTInteger12Type">
+							<xsd:attribute name="yearsCoveredCnt">
+								<xsd:simpleType>
+									<xsd:restriction base="IntegerType">
+										<xsd:totalDigits value="20"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Transfers from Premerchantable Timber Account - Quantity -->
+			<xsd:element name="TrnsfrPrmrchTmbrAcctQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Transfers from premerchantable timber account - quantity</Description>
+						<LineNumber>Part II Line 4b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Transfers from Premerchantable Timber Account - Cost -->
+			<xsd:element name="TrnsfrPrmrchTmbrAcctCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Transfers from premerchantable timber account - cost</Description>
+						<LineNumber>Part II Line 4b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Transfers from Deferred Reforestation Account - Quantity -->
+			<xsd:element name="TransfersFromDefrdRforAcctQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Transfers from deferred reforestation account - quantity</Description>
+						<LineNumber>Part II Line 4c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Transfers from Deferred Reforestation Account - Cost -->
+			<xsd:element name="TrnsfrFromDefrdRforAcctCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Transfers from deferred reforestation account - cost</Description>
+						<LineNumber>Part II Line 4c(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Timber Acquired During Year - Quantity -->
+			<xsd:element name="TimberAcquiredDuringYearQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Timber acquired during year - quantity</Description>
+						<LineNumber>Part II Line 5(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Timber Acquired During Year - Cost -->
+			<xsd:element name="TimberAcquiredDuringYrCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Timber acquired during year - cost</Description>
+						<LineNumber>Part II Line 5(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Addition to Capital During Year -->
+			<xsd:element name="AdditionToCapitalDurYrCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Addition to capital during year</Description>
+						<LineNumber>Part II Line 6(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Quantity at End of Year Before Depletion -->
+			<xsd:element name="TotalEOYBeforeDepletionQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total quantity at end of year before depletion</Description>
+						<LineNumber>Part II Line 7(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Cost at End of Year Before Depletion -->
+			<xsd:element name="TotalEOYBeforeDepletionCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost at end of year before depletion</Description>
+						<LineNumber>Part II Line 7(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unit Rate Returnable Through Depletion or Basis of Sales or Losses -->
+			<xsd:element name="ReturnableOrSlsLossesBssUnitRt" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unit rate returnable through depletion or basis of sales or losses</Description>
+						<LineNumber>Part II Line 8(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Quantity of Timber Cut During Year -->
+			<xsd:element name="TimberCutDuringYearQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Quantity of timber cut during year</Description>
+						<LineNumber>Part II Line 9(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depletion for the Current Tax Year -->
+			<xsd:element name="DepletionForCurrentTaxYearAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depletion for the current tax year</Description>
+						<LineNumber>Part II Line 10(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Quantity of Standing Timber Sold During Year -->
+			<xsd:element name="StandingTimberSoldDuringYrQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Quantity of standing timber sold during year</Description>
+						<LineNumber>Part II Line 11(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allowable as Basis of Sale -->
+			<xsd:element name="AllowableBasisSaleAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allowable as basis of sale</Description>
+						<LineNumber>Part II Line 12(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Quantity of Standing Timber Lost By Fire or Other Cause During Year -->
+			<xsd:element name="LostByFireOrOtherCauseDurYrQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Quantity of standing timber lost by fire or other cause during year</Description>
+						<LineNumber>Part II Line 13(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allowable Basis of Loss -->
+			<xsd:element name="AllowableBasisOfLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allowable basis of loss</Description>
+						<LineNumber>Part II Line 14(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Reductions During Year - Quantity -->
+			<xsd:element name="TotalReductionsDuringYearQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total reductions during year - quantity</Description>
+						<LineNumber>Part II Line 15a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Reductions During Year - Cost -->
+			<xsd:element name="TotalReductionsDuringYrCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total reductions during year - cost</Description>
+						<LineNumber>Part II Line 15b(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Quantity at End of Year -->
+			<xsd:element name="NetEndOfYearQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net quantity at end of year</Description>
+						<LineNumber>Part II Line 16(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Value at End of Year -->
+			<xsd:element name="NetValueAtEndOfYearAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net value at end of year</Description>
+						<LineNumber>Part II Line 16(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Quantity of Timber Sold as Logs -->
+			<xsd:element name="TimberSoldAsLogsQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Quantity of timber sold as logs</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 631(a) Election -->
+			<xsd:element name="Section631aElectionInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 631(a) election</Description>
+						<LineNumber>Part II Line 18(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 631(a) Revocation -->
+			<xsd:element name="Section631aRevocationInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 631(a) revocation</Description>
+						<LineNumber>Part II Line 18(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Revocation Effective Date -->
+			<xsd:element name="EffectiveDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Revocation effective date</Description>
+						<LineNumber>Part II Line 18(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ================  IRS Form T (Timber) Part III ================ -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="ForestActyPrftLossTmbrSalesGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form T (Timber) Part III - Profit or Loss From Land and Timber Sales</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Block and Title of Account -->
+			<xsd:element name="NameOfBlockAndTitleOfAcctTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of block and title of account</Description>
+						<LineNumber>Part III Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location of Property -->
+			<xsd:element name="PropertyLocationTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location of property (by legal subdivisions or map surveys)</Description>
+						<LineNumber>Part III Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchaser Name -->
+			<xsd:element name="PurchaserName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchaser's name</Description>
+						<LineNumber>Part III Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchaser Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- Purchaser US Address -->
+				<xsd:element name="PurchaserUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Purchaser's US address</Description>
+							<LineNumber>Part III Line 3a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Purchaser Foreign Address -->
+				<xsd:element name="PurchaserForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Purchaser's foreign address</Description>
+							<LineNumber>Part III Line 3a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Date of Sale -->
+			<xsd:element name="SaleDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of sale</Description>
+						<LineNumber>Part III Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Received in Cash -->
+			<xsd:element name="CashReceivedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount received in cash</Description>
+						<LineNumber>Part III Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Received in Interest-Bearing Notes -->
+			<xsd:element name="InterestBearingNotesRcvdAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount received in interest-bearing notes</Description>
+						<LineNumber>Part III Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Received in Non-Interest-Bearing Notes -->
+			<xsd:element name="NonInterestBearingNotesRcvdAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount received in non-interest-bearing notes</Description>
+						<LineNumber>Part III Line 4c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Received in Other Consideration -->
+			<xsd:element name="OtherConsiderationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount received in other consideration</Description>
+						<LineNumber>Part III Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nature of Other Consideration -->
+			<xsd:element name="OtherConsiderationNatureTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explain the nature of other consideration and how you determined the amount shown on line 38a</Description>
+						<LineNumber>Part III Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amount Received for Property -->
+			<xsd:element name="TotalReceivedForPropertyAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amount received for property</Description>
+						<LineNumber>Part III Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Forested Land -->
+			<xsd:element name="ForestedLand" type="AllocationOfTotalCostOrOtherBasis1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Forested land</Description>
+						<LineNumber>Part III Line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nonforested Land -->
+			<xsd:element name="NonforestedLand" type="AllocationOfTotalCostOrOtherBasis1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nonforested land</Description>
+						<LineNumber>Part III Line 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Improved Land -->
+			<xsd:element name="ImprovedLand" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Improved land</Description>
+						<LineNumber>Part III Line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="AllocationOfTotalCostOrOtherBasis1Type">
+							<xsd:attribute name="desc" type="LineExplanationType"/>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Merchantable Timber -->
+			<xsd:element name="MerchantableTimber" type="AllocationOfTotalCostOrOtherBasis2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Merchantable timber</Description>
+						<LineNumber>Part III Line 7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Log Rule Used -->
+			<xsd:element name="LogRuleUsedTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Log rule used</Description>
+						<LineNumber>Part III Line 7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Premerchantable Timber -->
+			<xsd:element name="PremerchantableTimber" type="AllocationOfTotalCostOrOtherBasis2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premerchantable timber</Description>
+						<LineNumber>Part III Line 7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Improvements -->
+			<xsd:element name="Improvement" type="AllocationOfTotalCostOrOtherBasis3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Improvements</Description>
+						<LineNumber>Part III Line 7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Mineral Rights -->
+			<xsd:element name="MineralRights" type="AllocationOfTotalCostOrOtherBasis2Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mineral rights</Description>
+						<LineNumber>Part III Line 7g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Cost or Other Basis -->
+			<xsd:element name="TotalCostOrOtherBasisPropAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost or other basis</Description>
+						<LineNumber>Part III Line 7h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Direct Sale Expenses -->
+			<xsd:element name="DirectSaleExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct sale expenses (cruising, marking, selling)</Description>
+						<LineNumber>Part III Line 7i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Profit or Loss -->
+			<xsd:element name="ProfitOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Profit or loss (line 6 less the total of lines 7h and 7i)</Description>
+						<LineNumber>Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- ================  IRS Form T (Timber) Part IV ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="ForestActyReforestationTmbrGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form T (Timber) Part IV - Reforestation and Timber Stand Activities</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Expenses Info (table) for Reforestation and Timber Stand Activities -->
+			<xsd:element name="ReforestationExpensesInfoGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Account, Block, Tract, or Area -->
+						<xsd:element name="AccountBlockTractOrAreaTxt" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Account, block, tract, or area</Description>
+									<LineNumber>Part IV Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Kind of Activity -->
+						<xsd:element name="KindOfActivityTxt" type="ShortDescriptionType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Kind of activity</Description>
+									<LineNumber>Part IV Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Number of Acres Treated -->
+						<xsd:element name="AcresTreatedQty" type="IRSFormTInteger12Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Number of acres treated</Description>
+									<LineNumber>Part IV Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Expenditures -->
+						<xsd:element name="TotalExpendituresAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total expenditures</Description>
+									<LineNumber>Part IV Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total Number of Acres Treated -->
+			<xsd:element name="TotalAcresTreatedQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of acres treated</Description>
+						<LineNumber>Part IV Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Total Expenditures -->
+			<xsd:element name="TotalOfTotalExpendituresAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of total expenditures</Description>
+						<LineNumber>Part IV Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reforestation Expenses - Number of Acres Treated -->
+			<xsd:element name="RforExpnssAcreTreatdQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reforestation expenses - number of acres treated</Description>
+						<LineNumber>Part IV Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reforestation Expenses - Total Expenditures -->
+			<xsd:element name="RforExpnssTotExpendAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reforestation expenses - total expenditures</Description>
+						<LineNumber>Part IV Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount to be Expensed Under Section 194(b) -->
+			<xsd:element name="RforExpnssDedUndSection194bAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount to be expensed under section 194(b)</Description>
+						<LineNumber>Part IV Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount to be Amortized Under IRC 194(a) -->
+			<xsd:element name="RforExpnssAmortzUndIRC194aAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount to be amortized under IRC 194(a)</Description>
+						<LineNumber>Part IV Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =============================================================== -->
+	<!-- =================  IRS Form T (Timber) Part V ================= -->
+	<!-- =============================================================== -->
+
+	<xsd:complexType name="ForestActyLandOwnershipGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form T (Timber) Part V - Land Ownership</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Block and Title of Account -->
+			<xsd:element name="NameOfBlockAndTitleOfAcctTxt" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of block and title of account</Description>
+						<LineNumber>Part V Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Balance at Beginning of Year -->
+			<xsd:element name="LandOwnershipBOYGrp" type="LandOwnershipInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at beginning of year</Description>
+						<LineNumber>Part V Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Acquisitions During Year -->
+			<xsd:element name="LandOwnershipAcquisDuringYrGrp" type="LandOwnershipInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Acquisitions during year</Description>
+						<LineNumber>Part V Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sales During Year -->
+			<xsd:element name="LandOwnershipSalesDuringYrGrp" type="LandOwnershipInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales during year</Description>
+						<LineNumber>Part V Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Changes -->
+			<xsd:element name="LandOwnershipOtherChangesGrp" type="LandOwnershipInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other changes</Description>
+						<LineNumber>Part V Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Balance at End of Year -->
+			<xsd:element name="LandOwnershipBalanceEOYGrp" type="LandOwnershipInfoType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Balance at end of year</Description>
+						<LineNumber>Part V Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Information -->
+			<xsd:element name="AdditionalInformationTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Type for Allocation of Total Cost or Other Basis - 1 (table rows a - c in Part I & Part III) ===== -->
+	<xsd:complexType name="AllocationOfTotalCostOrOtherBasis1Type">
+		<xsd:sequence>
+			<xsd:group ref="AllocationOfTotalCostOrOtherBasis1Group" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Type for Allocation of Total Cost or Other Basis - 2 (table rows d, e, and g in Part I & Part III) ===== -->
+	<xsd:complexType name="AllocationOfTotalCostOrOtherBasis2Type">
+		<xsd:sequence>
+			<xsd:group ref="AllocationOfTotalCostOrOtherBasis2Group" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Type for Allocation of Total Cost or Other Basis - 3 (table row f in Part I & Part III) ===== -->
+	<xsd:complexType name="AllocationOfTotalCostOrOtherBasis3Type">
+		<xsd:sequence>
+			<xsd:group ref="AllocationOfTotalCostOrOtherBasis3Group" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Group of columns 3, 4, and 5 of Allocation of Total Cost or Other Basis table in Part I & Part III ===== -->
+	<xsd:group name="AllocationOfTotalCostOrOtherBasis1Group">
+		<xsd:sequence>
+
+			<!-- Number of Units -->
+			<xsd:element name="UnitQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of units</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Cost or Other Basis Per Unit -->
+				<xsd:element name="CostOrOtherBasisPerUnitAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Cost or other basis per unit</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Cost or Other Basis Per Unit Decimal -->
+				<xsd:element name="CostOrOtherBasisPerUnitDcmlAmt" type="USDecimalAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Cost or other basis per unit decimal</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Total Cost or Other Basis -->
+			<xsd:element name="TotalCostOrOtherBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost or other basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- ===== Group of columns 2, 3, 4, and 5 of Allocation of Total Cost or Other Basis table in Part I & Part III ===== -->
+	<xsd:group name="AllocationOfTotalCostOrOtherBasis2Group">
+		<xsd:sequence>
+
+			<!-- Unit -->
+			<xsd:element name="UnitTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unit</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:group ref="AllocationOfTotalCostOrOtherBasis1Group" minOccurs="0"/>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- ===== Group of columns 1, 2, 3, 4, and 5 of Allocation of Total Cost or Other Basis table in Part I & Part III ===== -->
+	<xsd:group name="AllocationOfTotalCostOrOtherBasis3Group">
+		<xsd:sequence>
+
+			<!-- Description -->
+			<xsd:element name="Desc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:group ref="AllocationOfTotalCostOrOtherBasis2Group" minOccurs="0"/>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- ===== Type for Land Ownership Info (table row info for Lines 2-6 of Part V) ===== -->
+	<xsd:complexType name="LandOwnershipInfoType">
+		<xsd:sequence>
+
+			<!-- Acres -->
+			<xsd:element name="AcresQty" type="IRSFormTInteger12Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Acres</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Cost or Other Basis -->
+			<xsd:element name="TotalCostOrOtherBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost or other basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average Rate Per Acre -->
+			<xsd:element name="AverageRatePerAcreAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Average rate per acre</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== Type for 12 digit Integer for various quantity types on FormT ===== -->
+	<xsd:simpleType name="IRSFormTInteger12Type">
+		<xsd:annotation>
+			<xsd:documentation>12 digit integer type for various quantity types on FormT</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="IntegerType">
+			<xsd:totalDigits value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- ===== Type for 6 digit Integer for various quantity types on FormT ===== -->
+	<xsd:simpleType name="IRSFormTInteger6Type">
+		<xsd:annotation>
+			<xsd:documentation>6 digit integer type for various quantity types on FormT</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="IntegerType">
+			<xsd:totalDigits value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

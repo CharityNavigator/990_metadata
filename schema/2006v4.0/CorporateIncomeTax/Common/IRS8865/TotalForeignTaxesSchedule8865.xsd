@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Total Foreign Taxes Schedule (for Form 8865)</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================== -->
+	<!-- =======  Total Foreign Taxes Schedule (for Form 8865) ======== -->
+	<!-- ============================================================== -->
+
+
+	<xsd:element name="TotalForeignTaxesSch8865">
+		<xsd:annotation>
+			<xsd:documentation>Total foreign taxes schedule (for Form 8865)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="TotalForeignTaxesSch8865Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="TotalForeignTaxesSchedule8865">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="TotalForeignTaxesSch8865Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for total foreign taxes schedule (for Form 8865)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+
+			<!-- Total Foreign Taxes - Passive -->
+			<xsd:element name="Passive" type="TotalForeignTax8865Type" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total foreign tax - passive</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Foreign Taxes - Listed Categories -->
+			<xsd:element name="ListedCategories" type="TotalForeignTax8865Type" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total foreign tax - listed categories</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Foreign Taxes - general limitation -->
+			<xsd:element name="GeneralLimitation" type="TotalForeignTax8865Type" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total foreign tax - general limitation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Total Foreign Tax (for Form 8865) -->
+	<xsd:complexType name="TotalForeignTax8865Type">
+		<xsd:sequence>		
+	
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amount in Foreign Currency -->
+			<xsd:element name="AmountInForeignCurrency" type="ForeignAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount in foreign currency</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Amount in U.S. Dollars -->
+			<xsd:element name="AmountInUSDollars" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount in U.S. Dollars</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Date -->
+			<xsd:element name="Date" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+			
+			<!-- Exchange Rates -->
+			<xsd:element name="ExchangeRates" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exchange Rates</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

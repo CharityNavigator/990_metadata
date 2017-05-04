@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - IRS Form 8909</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 13, 2008</ReleaseDate>
+		</xsd:documentation>		
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+	<!-- ===================================================================== -->
+	<!-- ========================  IRS Form 8909  ================================ -->
+	<!-- ===================================================================== -->
+
+	<xsd:element name="IRS8909">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8909</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8909Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8909">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>					
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8909Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8909</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+		
+			<!-- Number Eligible Dishwashers -->
+			<xsd:element name="NumEligibleDishwashers" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number eligible dishwashers</Description>
+						<LineNumber>Line 1(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number Eligible Clothes Washers -->
+			<xsd:element name="NumEligibleClothesWashers" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number eligible clothes washers</Description>
+						<LineNumber>Line 1(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average number dishwashers produced in prior 3 calendar years  -->
+			<xsd:element name="AvgNumDshwshrPrdPr3Yrs" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Average number dishwashers produced in prior 3 calendar years</Description>
+						<LineNumber>Line 2(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average Number Clothes Washers Produced In Prior 3 Calendar Years -->
+			<xsd:element name="AvgNumClthsWshrPrducdInPr3Yrs" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Average number clothes washers produced in prior 3 calendar years</Description>
+						<LineNumber>Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Subtract Line 2(a) From Line 1(a) (Dishwashers)  -->
+			<xsd:element name="SubLn2aFrmLn1aDshwshr" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 2(a) from line 1(a) (Dishwashers)</Description>
+						<LineNumber>Line 3(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 2(b) from Line 1(b) (Clothes Washers) -->
+			<xsd:element name="SubLn2bFrmLn1bClthsWshrs" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 2(b) from Line 1(b) (Clothes Washers)</Description>
+						<LineNumber>Line 3(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--Multiply Line 3(a) by Line 4(a) (Dishwashers) -->
+			<xsd:element name="MultLn3aByLn4aDshwshrs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply Line 3(a) by Line 4(a) (Dishwashers)</Description>
+						<LineNumber>Line 5(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Line 3(b) by Line 4(b) (Clothes Washers) -->
+			<xsd:element name="MultLn3bByLn4bClthsWshrs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply Line 3(b) by Line 4(b) (Clothes Washers)</Description>
+						<LineNumber>Line 5(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative Credit for Dishwashers and Clothes Washers  -->
+			<xsd:element name="TntivCrdtForDshwshrClthsWshrs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative credit for dishwashers and clothes washers</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Type A Refrigerators Produced  -->
+			<xsd:element name="TypeARefrigeratorsProduced" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type a refrigerators produced</Description>
+						<LineNumber>Line 7(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Type B Refrigerators Produced  -->
+			<xsd:element name="TypeBRefrigeratorsProduced" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type b refrigerators produced</Description>
+						<LineNumber>Line 7(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Type C Refrigerators Produced  -->
+			<xsd:element name="TypeCRefrigeratorsProduced" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type c refrigerators produced</Description>
+						<LineNumber>Line 7(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+			<!--  110% Average Number Type A Refrigerators -->
+			<xsd:element name="Per110AvgNumberTypeARfrgrtrs" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>110% Average number type A refrigerators</Description>
+						<LineNumber>Line 8(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  110% Average Number Type B Refrigerators -->
+			<xsd:element name="Per110AvgNumberTypeBRfrgrtrs" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>110% Average number type B refrigerators</Description>
+						<LineNumber>Line 8(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  110% Average Number Type C Refrigerators -->
+				<xsd:element name="Per110AvgNumberTypeCRfrgrtrs" type="IntegerType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>110% Average number type C refrigerators</Description>
+							<LineNumber>Line 8(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+						
+			<!--  Subtract Line 8(a) from Line 7(a) (Type A) -->
+			<xsd:element name="SubtLn8aFrmLn7bTypeA" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 8(a) from line 7(a) (Type A)</Description>
+						<LineNumber>Line 9(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+			<!--  Subtract Line 8(b) from Line 7(b) (Type B) -->
+			<xsd:element name="SubtLn8aFrmLn7bTypeB" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 8(b) from line 7(b) (Type B)</Description>
+						<LineNumber>Line 9(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+					
+						
+			<!--  Subtract Line 8(a) from Line 7(b) (Type C) -->
+			<xsd:element name="SubtLn8aFrmLn7bTypeC" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 8(c) from line 7(c) (Type C)</Description>
+						<LineNumber>Line 9(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Multiply Line 9(a) by Line 10(a) -->
+			<xsd:element name="MultLn9aByLn10a" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 9(a) by line 10(a)</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Smaller of line 11 or $20,000,000 -->
+			<xsd:element name="EnterSmallerofLine11or20000000" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter smaller of line 11 or $20,000,000</Description>
+						<LineNumber>Line 12(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Multiply 9(b) by 10(b) -->
+			<xsd:element name="Multiply9bBy10b" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply 9(b) by 10(b)</Description>
+						<LineNumber>Line 12(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply 9(c) by 10(c) -->
+			<xsd:element name="Multiply9cBy10c" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply 9(c) by 10(c)</Description>
+						<LineNumber>Line 12(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Tentative Credit for Refrigerators -->
+			<xsd:element name="TentativeCreditForRefrigerator" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative Credit for Refrigerators</Description>
+						<LineNumber>Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  Total Tentative Credit-->
+			<xsd:element name="TotalTentativeCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tentative credit</Description>
+						<LineNumber>Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+  			<!-- 2% Average Annual Gross Receipts -->
+			<xsd:element name="Avg2PerAnnualGrossReceipts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>2% Average Annual Gross Receipts</Description>
+						<LineNumber>Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			
+			<!-- Amount From Line 17 -->
+			<xsd:element name="AmountFromLine17" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount from line 17</Description>
+						<LineNumber>Line 16b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>		
+			
+			<!-- Subtract Line 16b from 16a -->
+			<xsd:element name="SubtractLine16bFrom16a" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 16b from 16a</Description>
+						<LineNumber>Line 16c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>		
+					
+			<!-- Smallest of Lines 14, 15 or 16c -->
+			<xsd:element name="SmallestOfLines14And15Or16c" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Smallest of lines 14, 15 or 16c</Description>
+						<LineNumber>Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+						
+			<!-- Energy Efficient Appliance Credits -->
+			<!-- Single Producer -->
+			<xsd:element name="SingleProducer" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Single Producer</Description>
+						<LineNumber>Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+						
+			<xsd:element name="EnergyEfficientApplianceCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy Efficient Appliance Credits</Description>
+						<LineNumber>Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Add Lines 17 and 18 -->
+			<xsd:element name="AddLines17And18" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 17 and 18</Description>
+						<LineNumber>Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries of Estates or Trusts or Patrons of the Cooperatives -->
+			<xsd:element name="AmtAllocatedToBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries of estates or trusts or patrons of the cooperatives</Description>
+						<LineNumber>Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Estates, Trusts, and Cooperatives  -->
+			<xsd:element name="EstatesTrustsAndCooperatives" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates, Trusts, and Cooperatives</Description>
+						<LineNumber>Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	
+
+	
+
+</xsd:schema>

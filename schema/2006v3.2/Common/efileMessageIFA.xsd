@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file - Content models for the IFA transmission file definitions</Description>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>June 7, 2007</ReleaseDate>
+		</xsd:documentation>
+
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="efileTypes.xsd"/>
+	<xsd:include schemaLocation="efileMessageCommon.xsd"/>	
+
+	<!-- Transmission Header -->
+	<xsd:element name="TransmissionHeader" type="TransmissionHeaderType"/>
+	<xsd:complexType name="TransmissionHeaderType">
+		<xsd:sequence>
+		
+			<!-- Message ID -->
+			<xsd:element name="MessageId" type="MessageIdType">
+				<xsd:annotation>
+					<xsd:documentation>Must be unique for the transmitter for the tax year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Transmission Time Stamp -->
+			<xsd:element name="Timestamp" type="TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The time stamp at the time of transmission.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Transmitter -->
+			<xsd:element name="Transmitter">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ETIN" type="ETINType">
+							<xsd:annotation>
+								<xsd:documentation>The ETIN of the transmitter</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Message ID Type - 20 digits (ETIN + ccyyddd + 8-character lower case alphanumeric) -->
+	<xsd:simpleType name="MessageIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{12}[a-z0-9]{8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

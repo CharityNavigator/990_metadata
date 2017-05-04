@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Disposition of Property with Section 179 Deductions Statement</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 13, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ============================================================================= -->
+	<!-- ======= Disposition of Property with Section 179 Deductions Statement ======= -->
+	<!-- ============================================================================= -->
+
+
+	<xsd:element name="DisposOfPropWithSect179DedStmt">
+		<xsd:annotation>
+			<xsd:documentation>Disposition of Property with Section 179 Deductions Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DisposOfPropWithSect179DedStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DispositionOfPropWithSect179DeductionsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="DisposOfPropWithSect179DedStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Disposition of Property with Section 179 Deductions Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Disposition of Property with Section 179 Deductions Information -->
+			<xsd:element name="DisposOfPropWithSect179DedInfo" type="DisposOfPropWithSect179DedInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disposition of Property with Section 179 Deductions Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Disposition of Property with Section 179 Deductions Information -->
+	<xsd:complexType name="DisposOfPropWithSect179DedInfoType">
+		<xsd:sequence>
+
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Sales Price -->
+			<xsd:element name="GrossSalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Sales Price</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost of Sale -->
+			<xsd:element name="CostOfSale" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or Expense of Sale</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Depreciation Allowed -->
+			<xsd:element name="DepreciationAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depreciation Allowed</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Acquired -->
+			<xsd:element name="DateAcquired" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Property was Acquired</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date of Sale -->
+			<xsd:element name="DateOfSale" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Property was Sold</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Deduction -->
+			<xsd:element name="Section179Deduction" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 Deduction</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Years -->
+			<xsd:element name="Years" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporation Tax Years in which the Amount was Passed Through</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Disposition Type -->
+			<xsd:element name="DispositionType" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>An Indication if the Disposition is from Casualty or Theft</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installments Received - Future Tax Years -->
+			<xsd:element name="InstalReceivedFutureTaxYears" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Installments Received for Sales in Future Tax Years</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installments Received - Prior Tax Years -->
+			<xsd:element name="InstalReceivedPriorTaxYears" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Installments Received for Sales in Prior Tax Years</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Installments Received - Curret Tax Year -->
+			<xsd:element name="InstalReceivedCurrentTaxYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Installments Received - Current Tax Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Related Party -->
+			<xsd:element name="RelatedPartyName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of related party</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Related Party: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Related Party -->
+				<xsd:element name="USAddressOfRelatedParty" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of related party</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Related Party -->
+				<xsd:element name="ForeignAddressOfRelatedParty" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of related party</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Taxpayer ID for Related Party (EIN SSN or Missing EIN Reason) -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Related Party EIN -->
+				<xsd:element name="RelatedPartyEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of related party</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Related Party SSN -->
+				<xsd:element name="RelatedPartySSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of related party</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Did the Related Party Resell or Dispose of the Property? -->
+			<xsd:element name="PropertySoldOrDisposed" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the related party resold or disposed of the property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Was the Second Disposition More Than 2 Years After the First Disposition? -->
+			<xsd:element name="SecondDisposMore2YrsThanFirst" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates The second disposition was more than 2 years after the first disposition</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date of Disposition  -->
+			<xsd:element name="DateOfDisposition" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of disposition</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Was the First Disposition a Sale or Exchange of Stock to the Issuing Corporation?  -->
+			<xsd:element name="FirstDisposSaleExchange" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the first disposition was a sale or exchange of stock to the issuing corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Was the Second Disposition was an Involuntary Conversion and the Threat of Conversion Occurred After the First Disposition? -->
+			<xsd:element name="SecondDisposInvoluntaryCnvrt" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the second disposition was an involuntary conversion and the threat of conversion occurred after the first disposition</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Did the Second Disposition Occur After the Death of the Original Seller or Buyer? -->
+			<xsd:element name="SecondDisposAfterDeathSeller" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates the second disposition occurred after the death of the original seller or buyer</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Can it be established to the satisfaction of the IRS that tax avoidance was not a principal purpose
+				for either of the dispositions? -->
+			<xsd:element name="DispositionNotToAvoidTax" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicates it can be established to the satisfaction of the IRS that tax avoidance was not a principal purpose for either of the dispositions</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExplanationOfDisposNotToAvoidTaxStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Selling Price of Property Sold by Related Party -->
+			<xsd:element name="SellingPriceByRelatedParty" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Selling price of property sold by related party</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Contract Price from Year of First Sale -->
+			<xsd:element name="ContractPriceYearOfFirstSale" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contract price from year of first sale</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the Smaller Selling Price of Property Sold or Contract Price from Year of First Sale -->
+			<xsd:element name="SmallerSellPriceContractPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller selling price of property sold or contract price from year of first sale</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Payments Received by the End of Your Current Tax Year -->
+			<xsd:element name="TotalPaymentsReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total payments received by the end of your current tax year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Payments Received Subtracted From the Smaller, Selling Price or Contract Price -->
+			<xsd:element name="TotalPaymentsReceivedLessPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total payments received subtracted from the smaller, selling price or contract price</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Payments Received Less Price Multiplied by the Gross Profit Percentage -->
+			<xsd:element name="TotPymtPrcMultipliedGroPrftPct" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total payments received less price multiplied by the gross profit percentage</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part of Total Payments Received Less Price Multiplied by the Gross Profit Percentage that is Ordinary Income Under the Recapture Rules -->
+			<xsd:element name="OrdinaryIncmUnderRecaptureRls" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Part of total payments received less price multiplied by the gross profit percentage that is ordinary income under the recapture rules</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Payment Price Less Ordinary Income -->
+			<xsd:element name="PaymentPriceLessOrdinaryIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Payment price less ordinary income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Related Party Installment Information -->
+			<xsd:element name="RelatedPartyInstallmentInfo" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Related Party Installment Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8697</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 18, 2014</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- =======================  IRS Form 8697 ============================ -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS8697">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8697</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8697Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8697">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AlternativeMethodOfInterestComputationStatement IdentificationOfPassThroughEntitiesStatement"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8697Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8697</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Business Name or Person Name -->
+			<xsd:choice minOccurs="0">			
+			
+				<!-- Business Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Person Name -->
+				<xsd:element name="PersonNm" type="NameLine1Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+			</xsd:choice>
+
+			<!--  Number, Street Address City, State, Zip Code  -->
+			<xsd:element name="USAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number, street and room or suite no. city, state, and zip code</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Identifying Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number</Description>
+							<LineNumber>A</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying Number</Description>
+							<LineNumber>A</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Type of Taxpayer Corporation -->
+				<xsd:element name="CorporationInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Type of taxpayer  corporation</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Type of Taxpayer S Corporation -->
+				<xsd:element name="SCorporationInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Type of taxpayer S corporation</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Type of Taxpayer Individual -->
+				<xsd:element name="IndividualInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Type of taxpayer individual</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Type Of Taxpayer Partnership -->
+				<xsd:element name="PartnershipInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Type of taxpayer partnership</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Type Of Taxpayer Estate or Trust -->
+				<xsd:element name="EstateOrTrustInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Type of taxpayer estate or trust</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!--  Name of Pass Through Entity -->
+			<xsd:element name="PassThroughEntityName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of pass through entity</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Employer Identification Number of Entity or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Employer Identification Number of Pass Through Entity  -->
+				<xsd:element name="PassThroughEntityEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer Identification Number of Pass Through Entity</Description>
+							<LineNumber>C</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Entity Reason  -->
+				<xsd:element name="MissingEINEntityReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN Entity Reason</Description>
+							<LineNumber>C</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Entity Name Control -->
+			<xsd:element name="EntityNameControlTxt" type="BusinessNameControlType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Entity name control</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ================== Part I: Regular Method ==================== -->
+
+			<!--  Regular Method Filing Year -->
+			<xsd:element name="RegularMethodFilingYrGrp" type="RegularMethodFilingYrGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular method filing year</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  Regular Method Redeterm Year -->
+			<xsd:element name="RegularMethodRedetermYrGrp" type="RegularMethodRedetermYrGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular method redeterm year</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  Total Look Back Regular Method -->
+			<xsd:element name="TotLookBackRegularMethodGrp" type="TotLookBackRegularMethodGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total look back regular method</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- =============== Part II: Simplified Marginal Impact Method ======== -->
+
+			<!--  Simplified Marginal Impact Method Computation Table  -->
+			<xsd:element name="SimplifiedMethodComputation" type="SimplifiedMethodType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Simplified marginal impact method</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  Total Look Back Simplified Method -->
+			<xsd:element name="TotLookBackSmplfdMthdGrp" type="TotLookBackSmplfdMethodGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total look back simplified method</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ============ Type of Regular Method Filing Year Group Type  ==============-->
+
+	<xsd:complexType name="RegularMethodFilingYrGrpType">
+		<xsd:sequence>
+			<!--  Year ended  -->
+			<xsd:element name="YearEndedDt" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year ended</Description>
+						<LineNumber>Part I line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Filing Year Taxable Income Or Loss  -->
+			<xsd:element name="TaxableIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Filing year taxable income or loss</Description>
+						<LineNumber>Part I line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>					
+
+			<!--  Adjustment to Income  -->
+			<xsd:element name="IncomeAdjustmentAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment to income</Description>
+						<LineNumber>Part I line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdjustmentsToLongTermContractsSchedule AdjustmentsToLongTermContractsFromK1Schedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!--  Adjusted Taxable Income Look-Back Amount  -->
+			<xsd:element name="AdjTaxableIncomeLookBackAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted taxable income Look-Back amount</Description>
+						<LineNumber>Part I line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Tax Liability Amount -->
+			<xsd:element name="TaxLiabilityAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax liability amount</Description>
+						<LineNumber>Part I line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- ============ Type of Repeating Group of Regular Method Filing Year Group Type  ==============-->
+
+	<xsd:complexType name="RegularMethodRedetermYrGrpType">
+		<xsd:sequence>
+			<!--  Year ended  -->
+			<xsd:element name="YearEndedDt" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year ended</Description>
+						<LineNumber>Part I line 1(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Filing Year Taxable Income Or Loss  -->
+			<xsd:element name="TaxableIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Filing year taxable income or loss amount</Description>
+						<LineNumber>Part I line 1(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>					
+
+			<!--  Adjustment to Income  -->
+			<xsd:element name="IncomeAdjustmentAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment to income</Description>
+						<LineNumber>Part I line 2(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdjustmentsToLongTermContractsSchedule AdjustmentsToLongTermContractsFromK1Schedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!--  Adjusted Taxable Income Look-Back Amount  -->
+			<xsd:element name="AdjTaxableIncomeLookBackAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted taxable income Look-Back amount</Description>
+						<LineNumber>Part I line 3(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Tax Liability Amount -->
+			<xsd:element name="TaxLiabilityAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax liability amount</Description>
+						<LineNumber>Part I line 4(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Tax Liability On Return -->
+			<xsd:element name="FederalIncomeTaxLiabilityAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax liability amount on return</Description>
+						<LineNumber>Part I line 5(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Increase Or Decrease In Tax For PY -->
+			<xsd:element name="IncreaseOrDecreaseInTxForPYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increase or decrease in tax for PY</Description>
+						<LineNumber>Part I line 6(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Interest Due On Increase  -->
+			<xsd:element name="InterestDueOnIncreaseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest due on increase</Description>
+						<LineNumber>Part I line 7(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  Interest to be Refunded on Decrease -->
+			<xsd:element name="InterestToBeRefundedOnDecrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description> Interest to be refunded on decrease</Description>
+						<LineNumber>Part I line 8(a,b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- ============ Type of Total Look Back Regular Method Group Type  ==============-->
+
+	<xsd:complexType name="TotLookBackRegularMethodGrpType">
+		<xsd:sequence>
+		
+			<!--  Total Adjustment To Income Amount  -->
+			<xsd:element name="TotalAdjustmentToIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total adjustment to income amount</Description>
+						<LineNumber>Part I line 2(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>					
+
+			<!--  Total Interest Due On Increase  -->
+			<xsd:element name="TotalInterestDueOnIncreaseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total interest due on increase</Description>
+						<LineNumber>Part I line 7(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Total Interest To Be Refunded  -->
+			<xsd:element name="TotalInterestToBeRefundedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total interest to be refunded</Description>
+						<LineNumber>Part I line 8(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Net Amount Of Interest You Owe -->
+			<xsd:element name="NetAmtOfInterestOwedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net amount of interest you owe </Description>
+						<LineNumber>Part I line 10(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!--  ==============Type of Repeating Group Of Simplified Method Type  ==================-->
+
+	<xsd:complexType name="SimplifiedMethodType">
+		<xsd:sequence>
+
+			<!--  Year ended  -->
+			<xsd:element name="YearEndedDt" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year ended</Description>
+						<LineNumber>Part II line 1(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Adjustment to Regular Taxable Income  -->
+			<xsd:element name="RegularTaxableIncomeAdjAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment to regular taxable income</Description>
+						<LineNumber>Part II line 1(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdjustmentsToLongTermContractsSimplifiedSchedule AdjustmentsToLongTermContractsSimplifiedFromK1Schedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!--  Increase (or Decrease) in Regular Tax for the Prior Year(s)  -->
+			<xsd:element name="PriorYearRegTaxIncrOrDecrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increase (or decrease) in regular tax for the prior year(s)</Description>
+						<LineNumber>Part II line 2(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Adjustment to Alternative Minimum Taxable Income -->
+			<xsd:element name="AltMinTaxableIncomeAdjAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment to alternative minimum taxable income</Description>
+						<LineNumber>Part II line 3(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AltMinTxblIncomeAdjSimplifiedSchedule AltMinTxblIncmAdjSimplifiedFromK1Schedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Increase or Decrease in Alternative Minimum Tax for Prior Years -->
+			<xsd:element name="PriorYearAMTIncrOrDecrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increase or decrease in alternative minimum tax for prior years</Description>
+						<LineNumber>Part II line 4(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjustment To Taxable Income Amount -->
+			<xsd:element name="AdjustmentToTaxableIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment to taxable income amount</Description>
+						<LineNumber>Part II line 5(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Overpayment Ceiling   -->
+			<xsd:element name="OverpaymentCeilingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Overpayment Ceiling</Description>
+						<LineNumber>Part II line 6(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Increase (or Decrease) in Tax for the Prior Year(s) -->
+			<xsd:element name="IncreaseOrDecreaseInTxForPYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increase (or decrease) in tax for the prior year(s) (smaller amount of line 5 or line 6)</Description>
+						<LineNumber>Part II line 7(a.b.c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Interest Due on Increase Shown on Line 7 -->
+			<xsd:element name="InterestDueOnIncreaseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest due on increase (shown on Line 7)</Description>
+						<LineNumber>Part II line 8(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Interest to be Refunded on Decrease (shown on line 7)-->
+			<xsd:element name="InterestToBeRefundedOnDecrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description> Interest to be Refunded on Decrease (shown on line 7)</Description>
+						<LineNumber>Part II line 9(a,b,c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+	</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- ============ Type of Total Look Back Simplified Method Group Type  ==============-->
+
+	<xsd:complexType name="TotLookBackSmplfdMethodGrpType">
+		<xsd:sequence>					
+
+			<!--  Total Interest Due On Increase  -->
+			<xsd:element name="TotalInterestDueOnIncreaseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total interest due on increase</Description>
+						<LineNumber>Part II line 8(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Total Interest To Be Refunded  -->
+			<xsd:element name="TotalInterestToBeRefundedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total interest to be refunded</Description>
+						<LineNumber>Part II line 9(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Net Amount Of Interest You Owe -->
+			<xsd:element name="NetAmtOfInterestOwedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net amount of interest you owe </Description>
+						<LineNumber>Part II line 11(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

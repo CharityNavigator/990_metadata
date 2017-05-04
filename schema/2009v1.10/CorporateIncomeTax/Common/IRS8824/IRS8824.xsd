@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8824</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 13, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================= -->
+	<!-- ===========================  IRS Form 8824 ============================ -->
+	<!-- ======================================================================= -->
+
+
+	<xsd:element name="IRS8824">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8824</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8824Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8824">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="RealizedAndRecognizedGainInMultiAssetExchangesStmt" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8824Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8824</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+			<!-- ===== Part I - Like-Kind Exchanges ===== -->
+
+			<!-- Description of Like-Kind Property Given Up -->
+			<xsd:element name="DescOfLikeKindPropertyGivenUp" type="Form8824PropertyDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of like-kind property given up</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Like-Kind Property Given Up -->
+			<xsd:element name="DescOfLikeKindPropertyReceived" type="Form8824PropertyDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of like-kind property received</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Like-Kind Property Given Up Originally Acquired -->
+			<xsd:element name="DateLikeKindPropertyGivenUpAcq" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date like-kind property given up was orginally acquired (month, day, year)</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Property Actually Transferred -->
+			<xsd:element name="DatePropActuallyTransferred" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date you actually transferred your property to other party (month, day, year)</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Like-Kind Property Received Was Identified -->
+			<xsd:element name="DateLikeKindPropRcvdIdentified" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date like-kind property you received was identified by written notice to another party (see instructions for 45-day written notice requirement) (month, day, year)</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Property Actually Received -->
+			<xsd:element name="DatePropertyActuallyReceived" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date you actually received the like-kind property from other party (month, day, year) (see instructions)</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Exchange Made with a Related Party? -->
+			<xsd:element name="ExchangeMadeWithRelatedParty" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Was the exchange of the property given up or received made with a related party, either directly or indirectly (such as through an intermediary)(see instructions)?  If "Yes", complete Part II.  If "No", go to Part III.</Description>
+						<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Related Party Exchange Information ===== -->
+
+			<!-- Name of Related Party -->
+			<xsd:element name="RelatedPartyName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of related party</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Relationship to You -->
+			<xsd:element name="RelationshipToYou" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Relationship to you</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Related Party's Identifying Number (EIN or SSN or Missing EIN Reason) -->
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="RelatedPartyEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN of Related Party</Description>
+							<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="RelatedPartySSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN of Related Party</Description>
+							<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address of Related Party: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Related Party -->
+				<xsd:element name="USRelatedPartyAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of related party</Description>
+							<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Related Party -->
+				<xsd:element name="ForeignRelatedPartyAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of related party</Description>
+							<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- During this Tax Year, Related Party Sold Property Received from You? -->
+			<xsd:element name="RelatedPartySoldPropReceived" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>During this tax year (and before the date that is 2 years after the last transfer of property that was part of the exchange), did the related party directly or indirectly (such as through an intermediary) sell or dispose of any part of the like-kind property received from you in the exchange?</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- During this Tax Year, You Sold Property Received? -->
+			<xsd:element name="YouSoldPropertyReceived" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>During this tax year (and before the date that is 2 years after the last transfer of property that was part of the exchange), did you sell or dispose of any part of the like-kind property you received?</Description>
+						<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Disposition was After Death of Either Related Parties -->
+			<xsd:element name="DisposWasAfterDeathRltdParties" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The disposition was after the death of either of the related parties</Description>
+						<LineNumber>Part II Line 11a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Disposition was Involuntary Conversion, and Threat of Conversion Occured After the Exchange -->
+			<xsd:element name="DisposWasInvoluntaryConversion" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The disposition was an involuntary conversion, and the threat of conversion occurred after the exchange</Description>
+						<LineNumber>Part II Line 11b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Neither the Exchange Nor the Disposition Had Tax Avoidance as its Principal Purpose -->
+			<xsd:element name="ExchangeDisposNotTaxAvoidance" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>You can establish to the satisfaction of the IRS that neither the exchange nor the disposition had tax avoidance as its principal purpose.  If this box is checked, attach an explanation (see instructions)</Description>
+						<LineNumber>Part II Line 11c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PrincipalPurposeOfRelatedPartyExchangeStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part III - Realized Gain or (Loss), Recognized Gain, and Basis of Like-Kind Property Received ===== -->
+
+			<!-- FMV of Other Property Given Up -->
+			<xsd:element name="FMVOfOtherPropertyGivenUp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value (FMV) of other property given up</Description>
+						<LineNumber>Part III Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Basis of Other Property Given Up -->
+			<xsd:element name="AdjBasisOfOtherPropertyGivenUp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basis of other property given up</Description>
+						<LineNumber>Part III Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain or (Loss) Recognized on Other Property Given Up -->
+			<xsd:element name="GainLossOnOtherPropertyGivenUp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or (loss) recognized on other property given up.  Subtract line 13 from line 12.  Report the gain or (loss) in the same manner as if the exchange had been a sale</Description>
+						<LineNumber>Part III Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cash Received, FMV of Other Property Received, plus Net Liabilities Assumed by Other Party, Reduced by any Exchange Expenses-->
+			<xsd:element name="CashFMVAndNetLiabRedByExpenses" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash received, FMV of other property received, plus net liabilities assumed by other party, reduced (but not below zero) by any exchange expenses you incurred (see instructions)</Description>
+						<LineNumber>Part III Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FMV of Like-Kind Property You Received -->
+			<xsd:element name="FMVOfLikeKindPropertyReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FMV of like-kind property you received</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Realized -->
+			<xsd:element name="AmountRealized" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 15 and 16</Description>
+						<LineNumber>Part III Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted Basis of Like-Kind Property Given Up, Net Amounts Paid to Other Party, plus Any Exchange Expenses NOT used on Line 15 -->
+			<xsd:element name="AdjBasisOfLikeKindPropGivenUp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basis of like-kind property you gave up, net amounts paid to other party, plus any exchange expenses not used on line 15 (see instructions)</Description>
+						<LineNumber>Part III Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Realized Gain or (Loss) -->
+			<xsd:element name="RealizedGainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Realized gain or (loss).  Subtract line 18 from line 17</Description>
+						<LineNumber>Part III Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller of Line 15 or Line 19 -->
+			<xsd:element name="SmallerGainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of line 15 or line 19, but not less than zero</Description>
+						<LineNumber>Part III Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ordinary Income Under Recapture Rules -->
+			<xsd:element name="OrdinaryIncmUndRecaptureRules" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary income under recpature rules.  Enter here and on Form 4797, line 16 (see instructions)</Description>
+						<LineNumber>Part III Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Line 20 minus Line 21 -->
+			<xsd:element name="SmallerGainLossLessOrdnryIncm" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 21 from line 20.  If zero or less, enter -0-.  If more than zero, enter here and on Schedule D or Form 4797, unless the installment method applies (see instructions)</Description>
+						<LineNumber>Part III Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recognized Gain -->
+			<xsd:element name="RecognizedGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recognized gain.  Add lines 21 and 22</Description>
+						<LineNumber>Part III Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deferred Gain or (Loss) -->
+			<xsd:element name="DeferredGainOrLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deferred gain or (loss).  Subtract line 23 from line 19.  If a related party exchange, see instructions</Description>
+						<LineNumber>Part III Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis of Like-Kind Property Received -->
+			<xsd:element name="BasisOfLikeKindPropertyRcvd" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis of like-kind property received.  Subtract line 15 from the sum of lines 18 and 23</Description>
+						<LineNumber>Part III Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+	
+	<!-- Type for Property Description on this form -->
+	<xsd:simpleType name="Form8824PropertyDescriptionType">
+		<xsd:restriction base="TextType">
+			<xsd:maxLength value="250" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

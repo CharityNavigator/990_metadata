@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Donor Advised Funds Noncash Grants Paid Schedule</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 17, 2007</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================ -->
+	<!-- =================  Noncash grants Paid Schedule ================ -->
+	<!-- ================================================================ -->
+
+	<xsd:element name="DAFNoncashGrantsPaidSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Donor advised funds noncash grants paid schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DAFNoncashGrantsPaidScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="DAFNoncashGrantsPaidSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="DAFNoncashGrantsPaidScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for donor advised funds noncash grants paid schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DAFNoncashGrantPaid" type="DAFNoncashGrantPaidType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DAFNoncashGrantPaidType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for noncash grant paid</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Class of Activity -->
+			<xsd:element name="ClassOfActivity" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class of Activity</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donee's Name -->
+			<xsd:element name="DoneesName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donee's Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+					 	<xsd:choice>
+					 		<xsd:element name="Individual" type="PersonNameType"/>
+				 			<xsd:element name="Business" type="BusinessNameType"/>					 		
+				 		</xsd:choice>				 		
+					</xsd:sequence>
+				</xsd:complexType>										 	
+			</xsd:element>	
+
+			<!-- Donee's Address -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="DoneesAddressUS" type="USAddressType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Donee's address - US</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DoneesAddressForeign" type="ForeignAddressType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Donee's address - Foreign</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>			
+
+			<!-- Amount (FMV) -->
+			<xsd:element name="AmountFmv" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount (FMV)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Relationship -->
+			<xsd:element name="Relationship" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Relationship</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>																	
+
+			<!-- Description -->
+			<xsd:element name="Description" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Book Value -->
+			<xsd:element name="BookValue" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Book value</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- How Book Value is Determined -->
+			<xsd:element name="HowBookValueDetermined" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How book value is determined?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- How FMV is Determined? -->
+			<xsd:element name="HowFmvDetermined" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How FMV is determined?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Date of Gift -->
+			<xsd:element name="DateOfGift" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of gift</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>										
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

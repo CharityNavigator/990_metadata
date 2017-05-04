@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8586</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>May 13, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 8586 ============================ -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS8586">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8586</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8586Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8586">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8586Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8586</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I Buildings Placed in Service Before January 1, 2008 -->
+
+			<!-- Number of Forms 8609-A Attached Before 2008 -->
+			<xsd:element name="NumberOfForms8609AAtchBF2008" type="NumberOfAttachedFormsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of Forms 8609-A Attached Before 2008</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has There Been a Decrease in the Qualified Basis of any Building(s) Before 2008 -->
+			<xsd:element name="DecrInQlfyBasisOfBldgsBF2008" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has there been a decrease in the qualified basis of any building(s) before 2008</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Building Identification Number of the Building(s) that had a Decreased Basis -->
+			<xsd:element name="BldgIdOfBldgWithDecreasedBasis" type="BldgIdOfBldgWithDecreasedBasisType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Building identification number of the building(s) that had a decreased basis</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit Before 2008 -->
+			<xsd:element name="CurrentYearCreditBF2008" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit before 2008</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="IRS8609A"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Low-Income Housing Credits Before 2008 -->
+			<xsd:element name="LowIncomeHousingCreditsBF2008" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low-income housing credits before 2008</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 3 and 4 -->
+			<xsd:element name="LowIncmHsnCrPlusCurrYrCrBF2008" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low income housing credit before 2008 plus current year credit before 2008 (Add lines 3 and 4)</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries -->
+			<xsd:element name="AmountAllocatedtoBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Passive Activity Or Total Currrent Year Credit -->
+			<xsd:element name="PassiveActivityOrTotCurrYearCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive activity or total currrent year credit</Description>
+						<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Part II Buildings Placed in Service After December 31, 2007 -->
+
+
+			<!-- Number of Forms 8609-A Attached After 2007 -->
+			<xsd:element name="NumberOfForms8609AAtchAF2007" type="NumberOfAttachedFormsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of forms 8609-A attached after 2007</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has There Been a Decrease in the Qualified Basis of any Building(s) After 2007 -->
+			<xsd:element name="DecrQlfyBasisOfBuildingsAF2007" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has there been a decrease in the qualified basis of any building(s) after 2007</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Decrease in the Qualified Basis of Building After 2007 -->
+			<xsd:element name="DecrInQlfyBasisOfBldgsAF2007" type="DecrInQlfyBasisOfBldgsAF2007Type">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Decrease in the qualified basis of building after 2007</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Credit After 2007 -->
+			<xsd:element name="CurrentYearCreditAF2007" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year credit after 2007</Description>
+						<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="IRS8609A"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Low-Income Housing Credits After 2007 -->
+			<xsd:element name="LowIncomeHousingCreditsAF2007" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low-income housing credits after 2007</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 10 and 11 -->
+			<xsd:element name="LowIncmHsnCrPlusCurrYrCrAF2007" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low income housing credit after 2007 plus current year credit after 2007 (Add lines 10 and 11)</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Low Income Housing Credit Passive -->
+			<xsd:element name="LowIncmHsingCredPassive" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low-income housing credit passive</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 13 From Line 12 -->
+			<xsd:element name="LowIncHsgCrLowIncHsgCredResult" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Line 13 From Line 12</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Low Income Housing Credit 2008 Passive -->
+			<xsd:element name="LowIncHsingCredit2008Passive" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Low-income housing credit 2008 passive</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- CarryForward Low Income Credit 2007 FY -->
+			<xsd:element name="CarryForwardLowIncCredit2007FY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>CarryForward Low Income Credit 2007 FY</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- CarryBack Low Income Housing Credit 2009 -->
+			<xsd:element name="CarryBackLowIncHsingCred2009" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>CarryBack Low Income Housing Credit 2009</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum Part II Form Lines -->
+			<xsd:element name="SumPartIIFormLines" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum Part II Form Lines</Description>
+						<LineNumber>Part II Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated to Beneficiaries AF 2007 -->
+			<xsd:element name="AmtAlloctoBeneficiariesAF2007" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries AF 2007</Description>
+						<LineNumber>Part II Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates And Trusts Result -->
+			<xsd:element name="EstatesAndTrustsResult" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates And Trusts Result</Description>
+						<LineNumber>Part II Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Number of Attached Forms Type -->
+	<xsd:simpleType name="NumberOfAttachedFormsType">
+		<xsd:restriction base="IntegerType">
+			<xsd:totalDigits value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<!-- ===== Type for Building Identification Number With Decreased Basis Before 2008 ===== -->
+
+	<xsd:complexType name="BldgIdOfBldgWithDecreasedBasisType">
+		<xsd:sequence>
+
+			<!-- Building Identification Number of the Building(s) that had a Decreased Basis -->
+			<xsd:element name="BldgIdNbrBF2008" type="BINType" minOccurs="0" maxOccurs="4">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Building identification number of the building(s) that had a decreased basis</Description>
+						<LineNumber>Part I Line 2i-iv</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+		<xsd:attribute name="referenceDocumentId" type="IdListType" />
+		<xsd:attribute name="referenceDocumentName" type="StringType" fixed="MultipleBuildingProjectSchedule" />
+
+	</xsd:complexType>
+
+	<!-- ===== Type for Decrease in The Qualified Basis of Building After 2007 ===== -->
+
+	<xsd:complexType name="DecrInQlfyBasisOfBldgsAF2007Type">
+		<xsd:sequence>
+
+			<!-- Decrease in the Qualified Basis of Building After 2007 -->
+			<xsd:element name="BldgIdNbrAF2007" type="BINType" minOccurs="0" maxOccurs="4">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Decrease in the qualified basis of building after 2007</Description>
+						<LineNumber>Part II Line 9i-iv</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+		<xsd:attribute name="referenceDocumentId" type="IdListType" />
+		<xsd:attribute name="referenceDocumentName" type="StringType" fixed="MultipleBuildingProjectSchedule" />
+
+	</xsd:complexType>
+
+</xsd:schema>

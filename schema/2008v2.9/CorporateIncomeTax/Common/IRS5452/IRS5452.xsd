@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 5452</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 5452 ========================= -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS5452">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5452</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5452Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5452">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="NoncashDistributionsTaxBasisAndFMVSchedule SupportingInformationAttachment ParentOfConsolidatingGroupSupportingInfoAttachment" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5452Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5452</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Calender Year -->
+			<xsd:element name="CalenderYear" type="YearType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For calendar year ending December 31,</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has Corporation Filed Form 5452 for Prior Year ? -->
+			<xsd:element name="HasCorpFiledForm5452ForPriorYr" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has the corporation filed a Form 5452 for a prior calendar year?</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prior Year Corporation Filed Form 5452 (repeats) -->
+			<xsd:element name="PriorYearCorpFiledForm5452" type="YearType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If "Yes", enter the applicable year(s)</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Any Distributions Part of a Partial or Complete Liquidation ? -->
+			<xsd:element name="DistriPartlOrCompLiquidation">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are any of the distributions part of a partial or complete liquidation?</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExplnOfNondividendDistriForPartlOrCompLiquidationOfCorpStmt" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Accumlated Earnings and Profits at the Beginning of the Tax Year -->
+			<xsd:element name="AccumEarningsAndProfitsAtBOY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Accumulated earnings and profits (since February 28, 1913) at the beginning of the tax year</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Actual Earnings and Profits for the Current Tax Year -->
+			<xsd:element name="ActlEarningsAndProfitsCurrTxYr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Actual earnings and profits for the current tax year</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Individuals -->
+			<xsd:element name="NumberOfIndividuals" type="NumberOfShareholdersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of individuals</Description>
+						<LineNumber>D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Partnerships -->
+			<xsd:element name="NumberOfPartnerships" type="NumberOfShareholdersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of partnerships</Description>
+						<LineNumber>D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Corporations and Other Shareholders -->
+			<xsd:element name="NumberOfCorpAndOtherShr" type="NumberOfShareholdersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of corporations and other shareholders</Description>
+						<LineNumber>D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Corporate Distributions table -->
+			<xsd:element name="CorporateDistributions" type="CorporateDistributionType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporate Distributions</Description>
+						<LineNumber>E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Total Amount Paid -->
+			<xsd:element name="TotalOfTotalAmountPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of Total Amount Paid</Description>
+						<LineNumber>E totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Earnings and Profits Paid from the Current Year -->
+			<xsd:element name="TotalEarningsAndProfitsPaidCY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of Earnings and Profits Paid from the Current Year</Description>
+						<LineNumber>E totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Accumulated Earnings and Profits Paid -->
+			<xsd:element name="TotAccumEarningsAndProfitsPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of Accumulated Earnings and Profits Paid</Description>
+						<LineNumber>E totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Total Earnings and Profits Paid -->
+			<xsd:element name="TotTotalEarningsAndProfitsPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of Total Earnings and Profits Paid</Description>
+						<LineNumber>E totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Other Than Earnings and Profits Paid -->
+			<xsd:element name="TotOtherThanEarningsProfitsPd" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of Other Than Earnings and Profits Paid</Description>
+						<LineNumber>E totals</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for repeating group CorporateDistribution (section E) -->
+	<xsd:complexType name="CorporateDistributionType">
+		<xsd:sequence>
+
+			<!-- Date Paid -->
+			<xsd:element name="DatePaid" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Paid</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amount Paid (and type) -->
+			<xsd:element name="TotalAmountPaid" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Amount Paid (Common (C), Preferred (P), Other (O))</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="type">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="C" />
+										<xsd:enumeration value="P" />
+										<xsd:enumeration value="O" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Choice of Data Type for Amount Per Share -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Amount Per Share -->
+				<xsd:element name="AmountPerShare" type="USAmountType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Amount Per Share</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Amount Per Share Decimal -->
+				<xsd:element name="AmountPerShareDecimal" type="DecimalType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Amount Per Share Decimal</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Earnings and Profits Paid from the Current Year -->
+			<xsd:element name="EarningsAndProfitsPaidFromCY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount Paid During Calendar Year From Earnings &amp; Profits Since February 28, 1913 - From the Current Year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Accumulated Earnings and Profits Paid -->
+			<xsd:element name="AccumEarningsAndProfitsPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount Paid During Calendar Year From Earnings &amp; Profits Since February 28, 1913 - Accumulated</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Earnings and Profits Paid -->
+			<xsd:element name="TotalEarningsAndProfitsPaid" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount Paid During Calendar Year From Earnings &amp; Profits Since February 28, 1913 - Total</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent Taxable -->
+			<xsd:element name="PercentTaxable" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent Taxable</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Than Earnings and Profits Paid -->
+			<xsd:element name="OtherThanEarningsAndProfitsPd" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount Paid During Calendar Year From Other Than Earnings &amp; Profits Since February 28, 1913</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percent Nontaxable -->
+			<xsd:element name="PercentNontaxable" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percent Nontaxable</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Number of Shareholders -->
+	<xsd:simpleType name="NumberOfShareholdersType">
+		<xsd:restriction base="IntegerType">
+			<xsd:totalDigits value="20" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

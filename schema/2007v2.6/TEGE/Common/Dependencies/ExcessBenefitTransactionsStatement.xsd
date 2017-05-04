@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Excess Benefit Transactions Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 21, 2008</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+		
+	<!-- ====================================================================== -->
+	<!-- =============  Excess Benefit Transactions Statement ================= -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="ExcessBenefitTransactionsStmt">
+		<xsd:annotation>
+			<xsd:documentation>Excess benefit transactions statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ExBenefitTransactionsStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ExcessBenefitTransactionsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="ExBenefitTransactionsStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for excess benefit transactions statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<xsd:element name="Statement" type="ExplanationType" minOccurs="0" />
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

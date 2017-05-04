@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 970</Description>
+			<TaxYear>2004</TaxYear>
+			<MaturityLevel>Initial Draft</MaturityLevel>
+			<ReleaseDate>August 30, 2004</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 970 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS970">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 970</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS970Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS970">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CostSystemUsedStatement"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS970Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 970</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+			<xsd:choice> 
+				<!-- First Election -->
+				<xsd:element name="FirstElection" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>First election</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<!-- Subsequent Election -->
+				<xsd:element name="SubsequentElection" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Subsequent election</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- ==================== Part I: Statement of Election ================ -->
+			
+			<!-- Elects LIFO Method For First Tax Year Ending -->
+			<xsd:element name="ElectsLIFOMthdForFirstTYEnding" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Elects LIFO method for first tax year ending</Description>
+							<LineNumber>Part I Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- LIFO Method Goods For First Tax Year -->
+			<xsd:element name="LIFOMthdGoodsForFirstTY" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>LIFO method goods for first tax year</Description>
+							<LineNumber>Part I Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ShortExplanationType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DetailedAnalysisOfAllInventoriesStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>	
+			</xsd:element>
+
+			<!-- Beginning Inventory Valued At Cost For First Tax Year -->
+			<xsd:element name="BegngInventoryValuedForFirstTY" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beginning inventory valued at cost for first tax year</Description>
+							<LineNumber>Part I Line C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BeginningInventoryNotValuedAtCostExplnStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>	
+			</xsd:element>
+
+			<!-- Inventory Taken At Actual Cost -->
+			<xsd:element name="InventoryNotTakenAtActualCost" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Will inventory be taken at actual cost regardless of market value? If No, attach an explanation</Description>
+							<LineNumber>Part I Line (D)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="InventoryNotTakenAtActualCostExplnStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>	
+			</xsd:element>
+
+			<!-- ==================== Part II: Other Information ================ -->
+
+			<!-- Nature Of Business -->
+			<xsd:element name="NatureOfBusiness" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nature of business</Description>
+							<LineNumber>Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inventory Method Used Until Now -->
+			<xsd:element name="InventoryMethodUsedUntilNow" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inventory method used until now</Description>
+							<LineNumber>Part II Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjustment Included In Income Over 3 Years -->
+			<xsd:element name="AdjIncludedInIncomeOver3Years" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Will any adjustment that resulted from the change to the LIFO method be included in income over a 3-year period? If No, attach an explanation</Description>
+							<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdjNotIncludedInIncomeOverThreeYearsExplnStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>	
+			</xsd:element>
+
+			<!-- Goods Not Inventoried Under LIFO Method -->
+			<xsd:element name="GoodsNotInventoriedUndLIFOMthd" type="ShortDescriptionType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List goods subject to inventory that will not be inventoried under the LIFO method</Description>
+							<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Pt.I Item A Goods Treated As Acquired -->
+			<xsd:element name="ItemAGoodsTreatedAsAcquired" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Were the goods specified in Part I, Item A treated as acquired at the same time and at a unit cost equal to the actual cost of the total divided</Description>
+							<LineNumber>Part II Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GoodsNotTreatedAsAcquiredExplnStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>	
+			</xsd:element>
+
+			<!-- Credit Statements Or Reports Issued -->
+			<xsd:element name="CrStatementsOrReportsIssued" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you issue credit statements or reports to shareholders, partners, other proprietors, or beneficiaries covering the first tax year to which this application relates?</Description>
+							<LineNumber>Part II Line 6(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit Statements Issued To Whom And Dates -->
+			<xsd:element name="CrStmtIssuedToWhomAndDates" type="LineExplanationType" minOccurs="0"  maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If Yes, state to whom and on what dates</Description>
+							<LineNumber>Part II Line 6(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inventory Method Used To Determine Income -->
+			<xsd:element name="InventoryMthdUsedToDetermIncm" type="ShortDescriptionType" minOccurs="0"   maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Show the inventory method used to determine income, profit, or loss in those statements</Description>
+							<LineNumber>Part II Line 6(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:choice>
+				<!-- Most Recent Purchases -->
+				<xsd:element name="MostRecentPurchases" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Most recent purchases</Description>
+								<LineNumber>Part II Line 7(a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<!-- Average Cost Of Purchases During The Year -->
+				<xsd:element name="AvgCostOfPrchsDuringTheYear" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Average cost of purchases during the year</Description>
+								<LineNumber>Part II Line 7(a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<!-- Earliest Acquisitions During The Year -->
+				<xsd:element name="EarliestAcquisDuringTheYear" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Earliest acquisitions during the year</Description>
+								<LineNumber>Part II Line 7(a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<!-- Other Method Used -->
+				<xsd:element name="OtherMethodUsed">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other method used</Description>
+								<LineNumber>Part II Line 7(a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherMethodUsedExplnStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Representative Month Used In Selecting Index -->
+			<xsd:element name="RepMonthUsedInSelectingIndex" type="MonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Representative month used in selecting index</Description>
+							<LineNumber>Part II Line 7(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:choice>
+				<!-- Unit Method -->
+				<xsd:element name="UnitMethod" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Method used in valuing LIFO inventories: Unit method</Description>
+								<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<!-- Dollar-value Method -->
+				<xsd:element name="DollarValueMethod" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Method used in valuing LIFO inventories: Dollar-value method</Description>
+								<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<xsd:choice minOccurs="0">
+				<!-- Line, Type, Or Class Of Sec 1.472-8(c) Goods Pooling Method -->
+				<xsd:element name="LineTypeOrClassGoods">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>By line, type, or class of goods authorized by Regulations section 1.472-8(c) (retailer, wholesaler, jobber, or distributor)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Sec 1.472-8(e)(3)(iv) Pooling Method -->
+				<xsd:element name="AuthorizedPoolingMethod">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Pooling method authorized by Regulations section 1.472-8(e)(3)(iv) (retailer, wholesaler, jobber, or distributor)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Sec 1.472-8(b)(1) Natural Business Unit -->
+				<xsd:element name="NaturalBusinessUnit">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Natural business unit authorized by Regulations section 1.472-8(b)(1) (manufacturer or processor)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Sec 1.472-8(b)(3)(i) Multiple Pools -->
+				<xsd:element name="MultiplePools">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Multiple pools authorized by Regulations section 1.472-8(b)(3)(i) (manufacturer or processor)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Sec 1.472-8(b)(3)(ii) Raw Material-content -->
+				<xsd:element name="RawMaterial-content">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Raw material-content authorized by Regulations section 1.472-8(b)(3)(ii) (manufacturer or processor)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Sec 474 Simplified Dollar-value Method -->
+				<xsd:element name="SimplifiedDollarValueMethod">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Simplified dollar-value method under section 474 (see instructions)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Other Pooling Method (describe And Justify) -->
+				<xsd:element name="OtherPoolingMethod">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other pooling method (describe and justify)</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PoolingMethodStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+			</xsd:choice>
+			
+			<xsd:choice minOccurs="0">
+				<!-- Double-extension (describe) -->
+				<xsd:element name="DoubleExtension">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Double-extension (describe)</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Link-chain (describe And Justify) -->
+				<xsd:element name="LinkChain">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Link-chain (describe and justify)</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Published Price Index (describe) -->
+				<xsd:element name="PublishedPriceIndex">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Published price index (describe)</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- New Vehicle Alternative LIFO -->
+				<xsd:element name="NewVehicleAlternativeLIFO">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>New vehicle alternative LIFO</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Used Vehicle Alternative LIFO -->
+				<xsd:element name="UsedVehicleAlternativeLIFO">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Used vehicle alternative LIFO</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Index (describe And Justify) -->
+				<xsd:element name="Index">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Index (describe and justify)</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+	
+				<!-- Other Method (describe And Justify) -->
+				<xsd:element name="OtherdescribeAndJustify">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other method (describe and justify)</Description>
+								<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType" />
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOCmptMthdForDollarValuePoolingAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>	
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- IRS Consent To Change Valuing Inventories Method -->
+			<xsd:element name="CnsntChgValuingInventoriesMthd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you receive IRS consent to change your method of valuing inventories for this tax year?</Description>
+							<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- LIFO Inventory Method Used Before -->
+			<xsd:element name="LIFOInventoryMethodUsedBefore" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you ever use the LIFO inventory method before?</Description>
+							<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="LIFOInventoryMethodUsedBeforeStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>	
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

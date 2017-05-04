@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Exchange Gain Recognized Under Sec 987 Transfer Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ========================================================================= -->
+	<!-- =====  Exchange Gain Recognized Under Sec 987 Transfer Statement   ====== -->
+	<!-- ========================================================================= -->
+
+
+	<xsd:element name="ExchGainRcgnzSect987TrnsfrStmt">
+		<xsd:annotation>
+			<xsd:documentation>Exchange gain recognized under sec 987 transfer statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ExchGainRcgnzSect987TrnsfrStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ExchangeGainRecognizedUnderSection987TransferStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="ExchGainRcgnzSect987TrnsfrStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for exchange gain recognized under Sec 987 transfer statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Exchange Gain Recognized under Sec 987 Transfer Info -->
+			<xsd:element name="ExchGainRcgnzSect987TrnsfrInfo" type="ExchGainRcgnzSect987TrnsfrInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exchange gain recognized under Sec 987 transfer info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Exchange Gain Recognized under Sec 987 Transfer -->
+	<xsd:complexType name="ExchGainRcgnzSect987TrnsfrInfoType">
+		<xsd:sequence>
+
+			<!-- Description of Property Transferred -->
+			<xsd:element name="DescPropTransferred" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property transferred</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount of Exchange Gain Recognized -->
+			<xsd:element name="AmountOfExchangeGainRcgnz" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of exchange gain recognized</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

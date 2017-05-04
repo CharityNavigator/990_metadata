@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Reduced User Fee Statement</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ==================================================== -->
+	<!-- ============ Reduced User Fee Statement ============ -->
+	<!-- ==================================================== -->
+
+
+	<xsd:element name="ReducedUserFeeStatement">
+		<xsd:annotation>
+			<xsd:documentation>Reduced User Fee Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ReducedUserFeeStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="ReducedUserFeeStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="ReducedUserFeeStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Reduced User Fee Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Reduced User Fee Info -->
+			<xsd:element name="ReducedUserFeeInfo" type="ReducedUserFeeInfoType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduced User Fee Info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Reduced User Fee Info -->
+	<xsd:complexType name="ReducedUserFeeInfoType">
+		<xsd:sequence>
+
+			<!-- Under Section 15.07 of Rev. Proc. 99-1? -->
+			<xsd:element name="Section1507RevProc991Ind" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Under Section 15.07 of Rev. Proc. 99-1?</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxpayer -->
+			<xsd:element name="Taxpayer" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name: choice between Business Name or Person Name -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Business Name -->
+							<xsd:element name="BusinessName" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Business Name</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Person Name -->
+							<xsd:element name="PersonNm" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Person Name</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Identification Number: choice between SSN(s) or EIN or "APPLD FOR" or "FOREIGNUS" -->
+						<xsd:choice minOccurs="0">
+
+							<!-- SSN  -->
+							<xsd:element name="SSN" type="SSNType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Identification number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- EIN -->
+							<xsd:element name="EIN" type="EINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Identification number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Missing SSN/EIN Reason -->
+							<xsd:element name="MissingSSNEINReasonCd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Missing identification number reason</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="APPLD FOR"/>
+										<xsd:enumeration value="FOREIGNUS"/>						
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- User Fee Submitted -->
+			<xsd:element name="UserFeeSubmittedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of User Fee Submitted</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Member of Consolidated Group -->
+			<xsd:element name="MemberOfConsolidatedGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name: choice between Business Name or Person Name -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Business Name -->
+							<xsd:element name="BusinessName" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Business Name</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Person Name -->
+							<xsd:element name="PersonNm" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Person Name</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Identification Number: choice between SSN(s) or EIN or "APPLD FOR" or "FOREIGNUS" -->
+						<xsd:choice minOccurs="0">
+
+							<!-- SSN  -->
+							<xsd:element name="SSN" type="SSNType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Identification number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- EIN -->
+							<xsd:element name="EIN" type="EINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Identification number</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Missing SSN/EIN Reason -->
+							<xsd:element name="MissingSSNEINReasonCd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Missing identification number reason</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="APPLD FOR"/>
+										<xsd:enumeration value="FOREIGNUS"/>						
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section 481(a) Adjustment -->
+			<xsd:element name="Section481aAdjustmentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 481(a) adjustment</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Years Present Method Used -->
+			<xsd:element name="PresentMethodUsedYearCnt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of Years Present Method Used</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+						<xsd:totalDigits value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+						
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

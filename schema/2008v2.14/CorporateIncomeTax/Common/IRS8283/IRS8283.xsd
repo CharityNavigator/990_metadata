@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8283</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 8283 ============================ -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS8283">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8283</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8283Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8283">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>Dependency document IDs attachment for this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentName" fixed="BinaryAttachment DeductionsTakenUnderSection170Stmt DoneesSignatureUnavailableStmt">
+						<xsd:annotation>
+							<xsd:documentation>Dependency document names attachment for this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8283Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8283</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Section A -->
+			<!-- Part I : Information on Donated Property (Part II inside) -->
+
+			<!-- Information on Donated Property -->
+			<xsd:element name="InformationOnDonatedProperty" type="DonatedPropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Information on donated property</Description>
+						<LineNumber>Section A Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section B: Appraisal Summary -->
+
+			<!-- Part I: Information on Donated Property -->
+
+			<!-- Property Type - Art $20,000 or More -->
+			<xsd:element name="ArtWorthAtLeast20000Dollars" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - art $20,000 or more</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Art Less Than $20,000 -->
+			<xsd:element name="ArtWorthLessThan20000Dollars" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - art less than $20,000</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Collectibles -->
+			<xsd:element name="Collectibles" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - collectibles</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Qualified Conservation Contribution -->
+			<xsd:element name="QualifiedConservationContri" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - qualified conservation contribution</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Other Real Estate -->
+			<xsd:element name="OtherRealEstate" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - other real estate</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Intellectual Property -->
+			<xsd:element name="IntellectualProperty" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - intellectual property</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Equipment -->
+			<xsd:element name="Equipment" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - equipment</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Securities -->
+			<xsd:element name="Securities" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - securities</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Type - Other -->
+			<xsd:element name="OtherProperty" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property type - other</Description>
+						<LineNumber>Section B Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Information -->
+			<xsd:element name="PropertyInformation" type="PropertyInformationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property information</Description>
+						<LineNumber>Section B Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II: Taxpayer (Donor) Statement -->
+
+			<!-- Property Identifying Letter and Description -->
+			<xsd:element name="PropertyIdLetterAndDescription" type="PropIdLetterAndDescriptionType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property identifying letter and description</Description>
+						<LineNumber>Section B Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV:  Donee Acknowledgment -->
+
+			<!-- Date Received -->
+			<xsd:element name="DateReceived" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date received</Description>
+						<LineNumber>Section B Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Use Property For Unrelated Use -->
+			<xsd:element name="UsePropertyForUnrelatedUse" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Use property for unrelated use</Description>
+						<LineNumber>Section B Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donee Name -->
+			<xsd:element name="DoneeName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donee name</Description>
+						<LineNumber>Section B Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donee EIN -->
+			<xsd:element name="DoneeEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donee EIN</Description>
+						<LineNumber>Section B Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Donee - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of Donee -->
+				<xsd:element name="USAddressOfDonee" type="OtherUSAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of donee</Description>
+							<LineNumber>Section B Part IV</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Donee -->
+				<xsd:element name="ForeignAddressOfDonee" type="OtherForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of donee</Description>
+							<LineNumber>Section B Part IV</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Donated Property Recurring Type -->
+	<xsd:complexType name="DonatedPropertyType">
+		<xsd:sequence>
+
+			<!-- Letter(s) (leftmost table column) that Identifies the Property -->
+			<xsd:element name="PropertyIdentifier" type="PropertyIdentifierType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Letter(s) (leftmost table column) that identifies the property</Description>
+						<LineNumber>Section A Part I identifier column</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Donee Organization -->
+			<xsd:element name="NameOfDoneeOrganization" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of donee organization</Description>
+						<LineNumber>Section A Part I Line 1 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Donee Organization - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of Donee Organization -->
+				<xsd:element name="USAddressOfDoneeOrganization" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of donee organization</Description>
+							<LineNumber>Section A Part I Line 1 Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Donee Organization -->
+				<xsd:element name="FrgnAddressOfDoneeOrganization" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of donee organization</Description>
+							<LineNumber>Section A Part I Line 1 Column (a)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Description of Donated Property -->
+			<xsd:element name="DescriptionOfDonatedProperty" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of donated property</Description>
+						<LineNumber>Section A Part I Line 1 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donor Line Detail -->
+			<xsd:element name="DonorLineDetail" minOccurs="0" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donor line detail</Description>
+						<LineNumber>Section A Part I Line 1 Columns (c) - (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="DonorLineDetailType">
+							<xsd:attribute name="scheduleK-1Indicator">
+								<xsd:simpleType>
+									<xsd:restriction base="StringType">
+										<xsd:enumeration value="From Schedule K-1 (Form 1065 or 1120S)"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Fair Market Value -->
+			<xsd:element name="FairMarketValue" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value</Description>
+						<LineNumber>Section A Part I Line 1 Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="FairMarketValueStatement QualifiedConservationContributionStmt"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Method Used to Determine the Fair Market Value -->
+			<xsd:element name="FairMarketValueMethod" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method used to determine the fair market value</Description>
+						<LineNumber>Section A Part I Line 1 Column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="25"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Part II Other Information -->
+
+			<!-- Total Amount Claimed as a Deduction for the Property Listed in Part I for this Tax Year -->
+			<xsd:element name="TotalDeductionClaimedThisTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amount claimed as a deduction for the property listed in Part I for this tax year</Description>
+						<LineNumber>Section A Part II Line 2b(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amount Claimed as a Deduction for the Property Listed in Part I for Any Prior Tax Year -->
+			<xsd:element name="TotDeductionClaimedAnyPriorTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amount claimed as a deduction for the property listed in Part I for any prior tax year</Description>
+						<LineNumber>Section A Part II Line 2b(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Each Organization to which Any Such Contribution was Made in a Prior Year -->
+			<xsd:element name="NameOfOrganization" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of each organization to which any such contribution was made in a prior year</Description>
+						<LineNumber>Section A Part II Line 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Organization - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of Each Organization to which Any Such Contribution was Made in a Prior Year -->
+				<xsd:element name="USAddressOfOrganization" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of each organization to which any such contribution was made in a prior year</Description>
+							<LineNumber>Section A Part II Line 2c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Each Organization to which Any Such Contribution was Made in a Prior Year -->
+				<xsd:element name="ForeignAddressOfOrganization" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of each organization to which any such contribution was made in a prior year</Description>
+							<LineNumber>Section A Part II Line 2c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- For Tangible Property, Enter the Place where the Property is Located -->
+			<xsd:element name="TangiblePropertyLocation" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For tangible property, enter the place where the property is located</Description>
+						<LineNumber>Section A Part II Line 2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Name of Person - choice between Business Name or Person Name -->
+			<xsd:choice minOccurs="0">
+
+
+				<!-- Business Name of Any Person, Other than the Donee Organization, Having Actual Possession of the Property -->
+				<xsd:element name="BusNameOfPersonPossessingProp" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business Name of any person, other than the donee organization, having actual possession of the property</Description>
+							<LineNumber>Section A Part II Line 2e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Name of Any Person, Other than the Donee Organization, Having Actual Possession of the Property -->
+				<xsd:element name="NameOfPersonPossessingProperty" type="NameLine1Type">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of any person, other than the donee organization, having actual possession of the property</Description>
+							<LineNumber>Section A Part II Line 2e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Is there a Restriction, Temporary or Permanent, on the Donee's Right to Use or Dispose of the Donated Property -->
+			<xsd:element name="RestrictionOnDonatedProperty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Is there a restriction, temporary or permanent, on the donee's right to use or dispose of the donated property</Description>
+						<LineNumber>Section A Part II Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="RestrictedUseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Did You Give Anyone the Right to the Income from the Donated Property -->
+			<xsd:element name="RightsGivenToDonatedProperty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you give anyone the right to the income from the donated property</Description>
+						<LineNumber>Section A Part II Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="RestrictedUseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Is there a Restriction Limiting the Donated Property for a Particular Use? -->
+			<xsd:element name="RstrLimitingDonatedProperty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is there a restriction limiting the donated property for a particular use</Description>
+						<LineNumber>Section A Part II Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="RestrictedUseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyInformationType">
+		<xsd:sequence>
+
+			<!-- Letter(s) (leftmost table column) that Identifies the Property -->
+			<xsd:element name="PropertyIdentifier" type="PropertyIdentifierType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Letter(s) (leftmost table column) that identifies the property</Description>
+						<LineNumber>Section B Part I identifier column</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Donated Property -->
+			<xsd:element name="DescriptionOfDonatedProperty" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Donated Property</Description>
+						<LineNumber>Section B Part I Line 5 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Tangible Property was Donated, Give a Brief Summary of the Overall Phyisical Condition at the Time of the Gift -->
+			<xsd:element name="PhysicalConditionOfDonatedProp" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>If tangible property was donated, give a brief summary of the overall phyisical condition at the time of the gift</Description>
+						<LineNumber>Section B Part I Line 5 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Appraised Fair Market Value -->
+			<xsd:element name="AppraisedFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Appraised fair market value</Description>
+						<LineNumber>Section B Part I Line 5 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Acquired by Donor -->
+			<xsd:element name="DateAcquiredByDonor" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date acquired by donor</Description>
+						<LineNumber>Section B Part I Line 5 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="DateAcquiredByDonorType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="ReasonableCauseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- How Acquired by Donor -->
+			<xsd:element name="HowAcquiredByDonor" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How acquired by donor</Description>
+						<LineNumber>Section B Part I Line 5 Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="ShortDescriptionType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="ReasonableCauseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Donor's Cost or Adjusted Basis -->
+			<xsd:element name="DonorsCostOrAdjustedBasis" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donor's Cost or Adjusted Basis</Description>
+						<LineNumber>Section B Part I Line 5 Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="ReasonableCauseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- For Bargain Sales, Enter Amount Received -->
+			<xsd:element name="BargainSalesAmountReceived" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>For bargain sales, enter amount received</Description>
+						<LineNumber>Section B Part I Line 5 Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Claimed as a Deduction -->
+			<xsd:element name="AmountClaimedAsADeduction" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount claimed as a deduction</Description>
+						<LineNumber>Section B Part I Line 5 Column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Average Trading Price of Securities -->
+			<xsd:element name="AvgTradingPriceOfSecurities" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Average trading price of securities</Description>
+						<LineNumber>Section B Part I Line 5 Column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Donated Property Identifying Letter and Description Type -->
+	<xsd:complexType name="PropIdLetterAndDescriptionType">
+		<xsd:sequence>
+
+			<!-- Letter(s) (leftmost table column) from Part I that Identifies the Property -->
+			<xsd:element name="PropertyIdentifier" type="PropertyIdentifierType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Letter(s) (leftmost table column) that identifies the property</Description>
+						<LineNumber>Section B Part II identifier column</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property Item Description -->
+			<xsd:element name="PropertyItemDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property item description</Description>
+						<LineNumber>Section B Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="25"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Property Identifier Type (for table row identification in Section A & B) -->
+	<xsd:simpleType name="PropertyIdentifierType">
+		<xsd:restriction base="StringType">
+			<xsd:maxLength value="3"/>
+			<xsd:pattern value="[A-Z]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Date Acquired By Donor Type - YearMonthType or "VARIOUS" (for DateAcquiredByDonor in Section A & B) -->
+	<xsd:simpleType name="DateAcquiredByDonorType">
+		<xsd:union memberTypes="YearMonthType">
+			<xsd:simpleType>
+				<xsd:restriction base="StringType">
+					<xsd:enumeration value="VARIOUS"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:union>
+	</xsd:simpleType>
+
+	<!-- Donor Line Detail Type -->
+	<xsd:complexType name="DonorLineDetailType">
+		<xsd:sequence>
+
+			<!-- Date of the Contribution -->
+			<xsd:element name="DateOfTheContribution" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of the contribution</Description>
+						<LineNumber>Section A Part I Line 1 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Acquired by Donor -->
+			<xsd:element name="DateAcquiredByDonor" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date acquired by donor</Description>
+						<LineNumber>Section A Part I Line 1 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="DateAcquiredByDonorType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="ReasonableCauseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- How Acquired by Donor -->
+			<xsd:element name="HowAcquiredByDonor" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>How acquired by donor</Description>
+						<LineNumber>Section A Part I Line 1 Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donor's Cost or Adjusted Basis -->
+			<xsd:element name="DonorsCostOrAdjustedBasis" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Donors cost or adjusted basis</Description>
+						<LineNumber>Section A Part I Line 1 Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" fixed="ReasonableCauseStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

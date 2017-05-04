@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Officer Compensation Schedule</Description>
+			<TaxYear>2005</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>November 8, 2006</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ================================================= -->
+	<!-- ========= Officer Compensation Schedule ========= -->
+	<!-- ================================================= -->
+	
+	<xsd:element name="OfficerCompensationSchedule">
+		<xsd:annotation>
+			<xsd:documentation>Officer Compensation Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="OfficerCompensationScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="OfficerCompensationSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="OfficerCompensationScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Officer Compensation Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+			<!-- Officer Compensation -->
+			<xsd:element name="OfficerCompensation" type="OfficerCompensationType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Officer Compensation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>	
+
+	<!-- Type for Repeating Group - Officer Compensation -->
+	<xsd:complexType name="OfficerCompensationType">
+		<xsd:sequence>	
+		
+			<!-- Choice between a business name or a personal name -->
+      			<xsd:choice minOccurs="0">
+				<!-- Officer Business Name -->
+				<xsd:element name="OfficerBusinessName" type="BusinessNameType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Officer business name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+
+				<!-- Officer Person Name -->
+				<xsd:element name="OfficerPersonName" type="PersonNameType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Officer person name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+ 			</xsd:choice>
+ 			
+			<!-- Program Services Compensation -->
+			<xsd:element name="ProgramServicesCompensation" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Program services compensation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Program Services Contribution To Employee Benefit Plans Etc -->
+			<xsd:element name="ProgSrvcContriToEmplBnftPlan" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Program services contribution to employee benefit plans etc</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Program Services Expense Account Other Allowances -->
+			<xsd:element name="ProgramServicesExpenseAccount" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Program services expense account other allowances</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Management And Genera1 Compensation -->
+			<xsd:element name="MgmtAndGenera1Compensation" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Management and genera1 compensation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Management And Genera1 Contribution To Employee Benefit Plans Etc -->
+			<xsd:element name="MgmtAndGenContriToEmplBnftPlan" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Management and genera1 contribution to employee benefit plans etc</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Management And Genera1 Expense Account Other Allowances -->
+			<xsd:element name="MgmtAndGenera1ExpenseAccount" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Management and genera1 expense account other allowances</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fundraising Compensation -->
+			<xsd:element name="FundraisingCompensation" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fundraising compensation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fundraising Contribution To Employee Benefit Plans Etc -->
+			<xsd:element name="FndrsngContriToEmplBnftPlan" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fundraising contribution to employee benefit plans etc</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fundraising Expense Account Other Allowances -->
+			<xsd:element name="FundraisingExpenseAccount" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fundraising expense account other allowances</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

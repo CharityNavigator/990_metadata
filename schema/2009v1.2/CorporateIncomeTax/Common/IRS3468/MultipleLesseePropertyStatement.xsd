@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Multiple Lessee Property Statement</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 8, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================ -->
+	<!-- ============== Multiple Lessee Property Statement ============== -->
+	<!-- ================================================================ -->
+
+	<xsd:element name="MultiLesseePropStmt">
+		<xsd:annotation>
+				<xsd:documentation>Multiple Lessee Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="MultiLesseePropStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="MultipleLesseePropertyStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="MultiLesseePropStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Multiple Lessee Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Multiple Lessee Property -->
+			<xsd:element name="MultipleLesseeProperty" type="MultipleLesseePropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiple Lessee Property Statement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Multiple Lessee Property -->
+	<xsd:complexType name="MultipleLesseePropertyType">
+		<xsd:annotation>
+			<xsd:documentation>Multiple Lessee Property Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Name Of Lessor -->
+			<xsd:element name="NameOfLessor" type="NameLine1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name Of Lessor</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address Of Lessor -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address Of Lessor -->
+				<xsd:element name="USAddressOfLessor" type="USAddressType" >
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of lessor</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address Of Lessor -->
+				<xsd:element name="ForeignAddressOfLessor" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of lessor</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Description Of Property -->
+			<xsd:element name="DescriptionOfProperty" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Treated As Acquired Property -->
+			<xsd:element name="AmountTreatedAsAcquiredProp" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount treated as acquired property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

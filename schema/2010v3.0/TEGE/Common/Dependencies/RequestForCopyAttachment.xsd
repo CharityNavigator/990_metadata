@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Request For Copy Attachment</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 29, 2010</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ================================================================ -->
+	<!-- =================  Request For Copy Attachment ================= -->
+	<!-- ================================================================ -->
+	
+	<xsd:element name="RequestForCopyAttachment">
+		<xsd:annotation>
+			<xsd:documentation>Request For Copy Attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="RequestForCopyAttachmentType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="RequestForCopyAttachment">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="RequestForCopyAttachmentType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Request For Copy Attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Copy Receiver Government Code (repeatable, at least one required) -->
+			<xsd:element name="CopyReceiverGovtCode" type="GovernmentCodeType" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Copy Receiver Government Code</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of person making the consent (required) -->
+			<xsd:element name="Name" type="PersonNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of person making the consent</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Title of person making the consent (required) -->
+			<xsd:element name="Title" type="PersonTitleType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Title of person making the consent</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- PIN (required) -->
+			<xsd:element name="PIN" type="PINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>PIN</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date (required) -->
+			<xsd:element name="Date" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form1040 Schedule F</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 19, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =============================================================== -->
+	<!-- =================  IRS Form 1040 Schedule F =================== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS1040ScheduleF">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1040 Schedule F</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1040ScheduleFType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1040ScheduleF">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1040ScheduleFType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1040 Schedule F</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of Proprietor -->
+			<xsd:element name="NameOfProprietor" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of proprietor</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Principal Product -->
+			<xsd:element name="PrincipalProduct" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Principal product.  Describe in one or two words your principal crop or activity for the current tax year</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agricultural Activity Code -->
+			<xsd:element name="AgriculturalActivityCode" type="AgriculturalActivityCodeType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter code from Part IV</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Accounting Method: choice between Cash and Accrual -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Accounting Method - Cash -->
+				<xsd:element name="AccountingMethodCash" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Accounting Method - Cash</Description>
+							<LineNumber>C (1)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Accounting Method - Accrual -->
+				<xsd:element name="AccountingMethodAccrual" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Accounting Method - Accrual</Description>
+							<LineNumber>C (2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Choice between EIN, or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Employer ID Number (EIN) -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer ID number (EIN), if any</Description>
+							<LineNumber>D</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+							<LineNumber>D</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>							
+
+			<!-- Materially Participate Indicator -->
+			<xsd:element name="MateriallyParticipateIndicator" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you "materially participate" in the operation of this business during the tax year?  If "No", see page F-2 for limit on passive losses</Description>
+						<LineNumber>E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part I - Farm Income - Cash Method ===== -->
+
+			<xsd:element name="FarmIncomeCashMethod" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Sales of Livestock Bought for Resale -->
+						<xsd:element name="SalesOfLivestockBghtForResale" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sales of livestock and other items you bought for resale</Description>
+									<LineNumber>Part I Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cost or Other Basis of Livestock Bought for Resale -->
+						<xsd:element name="CostOfLivestockBoughtForResale" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cost or other basis of livestock and other items reported on line 1</Description>
+									<LineNumber>Part I Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Purchased Profit -->
+						<xsd:element name="PurchasedProfit" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subtract line 2 from line 1</Description>
+									<LineNumber>Part I Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Sales of Products (Livestock, Produce, Grains, ...) Raised -->
+						<xsd:element name="SalesOfProductsRaised" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sales of livestock, produce, grains, and other products you raised</Description>
+									<LineNumber>Part I Line 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cooperative Distributions -->
+						<xsd:element name="CooperativeDistributions" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cooperative distributions (Form(s) 1099-PATR)</Description>
+									<LineNumber>Part I Line 5a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cooperative Distributions - Taxable Amount-->
+						<xsd:element name="CooperativeDistriTxblAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cooperative distributions - Taxable amount</Description>
+									<LineNumber>Part I Line 5b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Agricultural Program Payments -->
+						<xsd:element name="AgriculturalProgramPayments" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Agricultural program payments (see page F-2)</Description>
+									<LineNumber>Part I Line 6a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Agricultural Program Payments - Taxable Amount-->
+						<xsd:element name="AgriculturalProgramPymtTxblAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Agricultural program payments - Taxable amount</Description>
+									<LineNumber>Part I Line 6b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- CCC Loans Reported Under Election -->
+						<xsd:element name="CCCLoansReportedUnderElection" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>CCC loans reported under election</Description>
+									<LineNumber>Part I Line 7a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType" />
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CCCLoanDetailCashMethodStatement" />
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- CCC Loans Foreited -->
+						<xsd:element name="CCCLoansForfeited" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>CCC loans forfeited</Description>
+									<LineNumber>Part I Line 7b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- CCC Loans Foreited - Taxable Amount -->
+						<xsd:element name="CCCLoansForfeitedTaxableAmount" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>CCC loans forfeited - Taxable amount</Description>
+									<LineNumber>Part I Line 7c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Crop Insurance Proceeds and Federal Crop Disaster Payments Received in Tax Year -->
+						<xsd:element name="CropInsProceedsAndDisasterPymt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Crop insurance proceeds and Federal crop disaster payments received in the tax year</Description>
+									<LineNumber>Part I Line 8a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Crop Insurance Proceeds and Federal Crop Disaster Payments Received in Tax Year - Taxable Amount -->
+						<xsd:element name="CropInsProcAndDsstrPymtTxblAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Crop insurance proceeds and Federal crop disaster payments received in the tax year - Taxable amount</Description>
+									<LineNumber>Part I Line 8b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Election to Defer Crop Insurance Proceeds and Certain Disaster Payments Received -->
+						<xsd:element name="ElectionToDeferCropInsProc" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If election to defer is attached, check here</Description>
+									<LineNumber>Part I Line 8c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="CheckboxType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType" />
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PostponementOfCropInsuranceAndDisasterPaymentsStatement" />
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Crop Insurance Proceeds and Certain Disaster Payments Deferred from Previous Tax Year -->
+						<xsd:element name="CropInsProcDeferredFromPrevTY" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Crop insurance proceeds and certain disaster payments deferred from previous tax year</Description>
+									<LineNumber>Part I Line 8d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Custom Hire (Machine Work) Income -->
+						<xsd:element name="CustomHireIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Custom hire (machine work) income</Description>
+									<LineNumber>Part I Line 9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Income, Including Gas and Fuel Tax Credit or Refund -->
+						<xsd:element name="OtherIncmIncludingGasFuelTaxCr" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other income, including Federal and state gasoline or fuel tax credit or refund</Description>
+									<LineNumber>Part I Line 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Income -->
+						<xsd:element name="GrossIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add amounts in the right column for lines 3 through 10.</Description>
+									<LineNumber>Part I Line 11</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part II - Farm Expenses - Cash and Accrual Method ===== -->
+
+			<xsd:element name="FarmExpenses" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Car and Truck Expenses -->
+						<xsd:element name="CarAndTruckExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Car and truck expenses (see page F-4 - also attach Form 4562)</Description>
+									<LineNumber>Part II Line 12</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Chemicals Expenses -->
+						<xsd:element name="ChemicalsExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Chemicals</Description>
+									<LineNumber>Part II Line 13</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Conservation Expenses -->
+						<xsd:element name="ConservationExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Conservation expenses (see page F-4)</Description>
+									<LineNumber>Part II Line 14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Custom Hire (Machine Work) Expenses -->
+						<xsd:element name="CustomHireExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Custom hire (machine work)</Description>
+									<LineNumber>Part II Line 15</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Depreciation and Section 179 Expense Deduction Not Claimed Elsewhere -->
+						<xsd:element name="DeprecAndSect179ExpnsDeduction" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Depreciation and section 179 expense deduction not claimed elsewhere (see page F-4)</Description>
+									<LineNumber>Part II Line 16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Employee Benefit Programs Expenses -->
+						<xsd:element name="EmployeeBenefitProgramExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Employee benefit programs other than on line 25</Description>
+									<LineNumber>Part II Line 17</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Feed Purchased Expenses -->
+						<xsd:element name="FeedPurchasedExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Feed purchased</Description>
+									<LineNumber>Part II Line 18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Fertilizer and Lime Expenses -->
+						<xsd:element name="FertilizerAndLimeExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Fertilizer and lime</Description>
+									<LineNumber>Part II Line 19</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Freight and Trucking Expenses -->
+						<xsd:element name="FreightAndTruckingExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Freight and trucking</Description>
+									<LineNumber>Part II Line 20</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gasoline, Fuel, and Oil Expenses -->
+						<xsd:element name="GasolineFuelAndOilExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gasoline, fuel, and oil</Description>
+									<LineNumber>Part II Line 21</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Insurance (Other Than Health) Expenses -->
+						<xsd:element name="InsuranceExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Insurance (other than health)</Description>
+									<LineNumber>Part II Line 22</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Mortgage Interest Expenses -->
+						<xsd:element name="MortgageInterestExpenses" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Mortgage (paid to banks, etc.)</Description>
+									<LineNumber>Part II Line 23a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="attachmentIndicator">
+											<xsd:simpleType>
+												<xsd:restriction base="StringType">
+													<xsd:enumeration value="SEE ATTACHED" />
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:attribute>
+										<xsd:attribute name="referenceDocumentId" type="IdListType" />
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExplanationOfAdditionalInterestDeductionStatement" />
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Other Interest Expenses -->
+						<xsd:element name="OtherInterestExpenses" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other</Description>
+									<LineNumber>Part II Line 23b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="attachmentIndicator">
+											<xsd:simpleType>
+												<xsd:restriction base="StringType">
+													<xsd:enumeration value="SEE ATTACHED" />
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:attribute>
+										<xsd:attribute name="referenceDocumentId" type="IdListType" />
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="Form1098RecipientsStatement" />
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Labor Hired (less employment credits) Expenses -->
+						<xsd:element name="LaborHiredExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Labor hired (less employment expenses)</Description>
+									<LineNumber>Part II Line 24</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Pension and Profit-Sharing Expenses -->
+						<xsd:element name="PensionAndPrftSharingExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Pension and profit-sharing plans</Description>
+									<LineNumber>Part II Line 25</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Rent or Lease Expenses - Vehicle, Machinery, and Equipment -->
+						<xsd:element name="VehMachAndEquipRentLeaseExpnss" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Rent or lease - Vehicles, machinery, and equipment</Description>
+									<LineNumber>Part II Line 26a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Rent or Lease Expenses - Other -->
+						<xsd:element name="OtherRentOrLeaseExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Rent or lease - Other (land, animals, etc.)</Description>
+									<LineNumber>Part II Line 26b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Repairs and Maintenance Expenses -->
+						<xsd:element name="RepairsAndMaintenanceExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Repairs and maintenance</Description>
+									<LineNumber>Part II Line 27</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Seeds and Plants Expenses -->
+						<xsd:element name="SeedsAndPlantsExpnss" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Seeds and plants</Description>
+									<LineNumber>Part II Line 28</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Storage and Warehousing Expenses -->
+						<xsd:element name="StorageAndWarehousingExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Storage and warehousing</Description>
+									<LineNumber>Part II Line 29</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Supplies Expenses -->
+						<xsd:element name="SuppliesExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supplies</Description>
+									<LineNumber>Part II Line 30</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Taxes Expense -->
+						<xsd:element name="TaxesExpense" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxes</Description>
+									<LineNumber>Part II Line 31</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Utilities Expenses -->
+						<xsd:element name="UtilitiesExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Utilities</Description>
+									<LineNumber>Part II Line 32</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Veterinary, Breeding, and Medicine Expenses -->
+						<xsd:element name="VtrnryBreedingMedicineExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Veterinary, breeding, and medicine</Description>
+									<LineNumber>Part II Line 33</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Expenses -->
+						<xsd:element name="OtherExpenses" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other expenses (specify)</Description>
+									<LineNumber>Part II Line 34</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+
+									<!-- Other Expense table (excluding total preproductive period expenses) -->
+									<xsd:element name="OtherExpense" type="OtherFarmExpensesType" minOccurs="0" maxOccurs="unbounded">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Other expense table</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Total Preproductive Period Expenses -->
+									<xsd:element name="TotalPreproductivePeriodExpnss" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Total preproductive period expenses</Description>
+												<LineNumber>Part II Line 34f</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:simpleContent>
+												<xsd:extension base="USAmountPosType">
+													<xsd:attribute name="section263AIndicator" type="StringType" fixed="263A" />
+												</xsd:extension>
+											</xsd:simpleContent>
+										</xsd:complexType>
+									</xsd:element>
+
+								</xsd:sequence>
+
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Total Expenses -->
+						<xsd:element name="TotalExpenses" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total expenses.  Add lines 12 through 34f</Description>
+									<LineNumber>Part II Line 35</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Net Farm Profit or Loss -->
+						<xsd:element name="NetFarmProfitOrLoss" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net farm profit or (loss).  Subtract line 35 from line 11</Description>
+									<LineNumber>Part II Line 36</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Choice between All Investment At Risk or Some Investment Not At Risk -->
+						<xsd:choice minOccurs="0">
+
+							<!-- All Investment Is At Risk -->
+							<xsd:element name="AllInvestmentIsAtRisk" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>All investment is at risk</Description>
+										<LineNumber>Part II Line 37a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Some Investment Is Not At Risk -->
+							<xsd:element name="SomeInvestmentIsNotAtRisk" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Some investment is not at risk</Description>
+										<LineNumber>Part II Line 37b</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- ===== Part III - Farm Income - Accrual Method ===== -->
+
+			<xsd:element name="FarmIncomeAccrualMethod" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Sales of Products (Livestock, Produce, Grains, ...) -->
+						<xsd:element name="SalesOfProducts" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sales of livestock, produce, grains, and other products</Description>
+									<LineNumber>Part III Line 38</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cooperative Distributions -->
+						<xsd:element name="CooperativeDistributions" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cooperative distributions (Form(s) 1099-PATR)</Description>
+									<LineNumber>Part III Line 39a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cooperative Distributions - Taxable Amount-->
+						<xsd:element name="CooperativeDistriTxblAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cooperative distributions - Taxable amount</Description>
+									<LineNumber>Part III Line 39b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Agricultural Program Payments -->
+						<xsd:element name="AgriculturalProgramPayments" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Agricultural program payments</Description>
+									<LineNumber>Part III Line 40a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Agricultural Program Payments - Taxable Amount-->
+						<xsd:element name="AgriculturalProgramPymtTxblAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Agricultural program payments - Taxable amount</Description>
+									<LineNumber>Part III Line 40b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- CCC Loans Reported Under Election -->
+						<xsd:element name="CCCLoansReportedUnderElection" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>CCC loans reported under election</Description>
+									<LineNumber>Part III Line 41a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType" />
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CCCLoanDetailAccrualMethodStatement" />
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- CCC Loans Foreited -->
+						<xsd:element name="CCCLoansForfeited" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>CCC loans forfeited</Description>
+									<LineNumber>Part III Line 41b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- CCC Loans Foreited - Taxable Amount -->
+						<xsd:element name="CCCLoansForfeitedTaxableAmount" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>CCC loans forfeited - Taxable amount</Description>
+									<LineNumber>Part III Line 41c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Crop Insurance Proceeds -->
+						<xsd:element name="CropInsuranceProceeds" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Crop insurance proceeds</Description>
+									<LineNumber>Part III Line 42</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Custom Hire (Machine Work) Income -->
+						<xsd:element name="CustomHireIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Custom hire (machine work) income</Description>
+									<LineNumber>Part III Line 43</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Income, Including Gas and Fuel Tax Credit or Refund -->
+						<xsd:element name="OtherIncmIncludingGasFuelTaxCr" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other income, including Federal and state gasoline or fuel tax credit or refund</Description>
+									<LineNumber>Part III Line 44</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Income -->
+						<xsd:element name="TotalIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add amounts in the right column for lines 38 through 44</Description>
+									<LineNumber>Part III Line 45</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Inventory of Products (Livestock, Produce, Grains, ...) at Beginning of the Year -->
+						<xsd:element name="InventoryOfProductsAtBOY" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Inventory of livestock, produce, grains, and other products at beginning of the year</Description>
+									<LineNumber>Part III Line 46</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cost of Products (Livestock, Produce, Grains, ...) Purchased During the Year -->
+						<xsd:element name="CostOfProductsPrchsDuringYear" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cost of livestock, produce, grains, and other products purchased during the year</Description>
+									<LineNumber>Part III Line 47</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Addition of Inventory at Beginning of the Year AND Cost of Products Purchased During the Year -->
+						<xsd:element name="InventoryAtBOYPlusCostOfPrchs" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add lines 46 and 47</Description>
+									<LineNumber>Part III Line 48</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Inventory of Products (Livestock, Produce, Grains, ...) at End of Year -->
+						<xsd:element name="InventoryOfProductsAtEOY" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Inventory of livestock, produce, grains, and other products at end of year</Description>
+									<LineNumber>Part III Line 49</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Cost of Products (Livestock, Produce, Grains, ...) Sold -->
+						<xsd:element name="CostOfProductsSold" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cost of livestock, produce, grains, and other products sold.  Subtract line 49 from line 48</Description>
+									<LineNumber>Part III Line 50</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Income -->
+						<xsd:element name="GrossIncome" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross income.</Description>
+									<LineNumber>Part III Line 51</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<!-- Type for repeating group 'OtherExpense' in Part II -->
+	<xsd:complexType name="OtherFarmExpensesType">
+		<xsd:sequence>
+			<!-- Description -->
+			<xsd:element name="Description" type="ShortDescriptionType" minOccurs="0" />
+
+			<!-- Amount -->
+			<xsd:element name="Amount" type="USAmountType" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Agricultural Activity Code Type -->
+	<xsd:simpleType name="AgriculturalActivityCodeType">
+		<xsd:restriction base="StringType">
+
+			<!-- Crop Production -->
+			<xsd:enumeration value="111100" />		<!-- Oilseed and grain farming -->
+			<xsd:enumeration value="111210" />		<!-- Vegetable and melon farming -->
+			<xsd:enumeration value="111300" />		<!-- Fruit and tree nut farming -->
+			<xsd:enumeration value="111400" />		<!-- Greenhouse, nursery, and floriculture -->
+			<xsd:enumeration value="111900" />		<!-- Other crop farming -->
+
+			<!-- Animal Production -->
+			<xsd:enumeration value="112111" />		<!-- Beef cattle ranching and farming -->
+			<xsd:enumeration value="112112" />		<!-- Cattle feedlots -->
+			<xsd:enumeration value="112120" />		<!-- Dairy cattle and milk production -->
+			<xsd:enumeration value="112210" />		<!-- Hog and pig farming -->
+			<xsd:enumeration value="112300" />		<!-- Poultry and egg production -->
+			<xsd:enumeration value="112400" />		<!-- Sheep and goat farming -->
+			<xsd:enumeration value="112510" />		<!-- Animal aquaculture -->
+			<xsd:enumeration value="112900" />		<!-- Other animal production -->
+
+			<!-- Forestry and Logging -->
+			<xsd:enumeration value="113000" />		<!-- Forestry and logging (including forest nurseries and timber tracts) -->
+
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

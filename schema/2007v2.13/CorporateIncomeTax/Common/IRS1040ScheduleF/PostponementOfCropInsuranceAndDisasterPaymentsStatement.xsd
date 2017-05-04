@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Postponement Of Crop Insurance and Disaster Payments Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>August 20, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ====================================================================== -->
+	<!-- === Postponement Of Crop Insurance and Disaster Payments Statement === -->
+	<!-- ====================================================================== -->
+
+
+	<xsd:element name="PostponementCropInsDsstrStmt">
+		<xsd:annotation>
+			<xsd:documentation>Postponement Of Crop Insurance and Disaster Payments Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PostponementCropInsDsstrStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PostponementOfCropInsuranceAndDisasterPaymentsStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="PostponementCropInsDsstrStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Postponement Of Crop Insurance and Disaster Payments Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address -->
+			<xsd:element name="Address" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 451(d) Choice Statement -->
+			<xsd:element name="Sect451dChoiceStatement" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>A statement that you are making a choice under section 451(d) of the Internal Revenue Code and section 1451-6 of the regulations</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Normal Business Practice Statement -->
+			<xsd:element name="NormalBusPracticeStatement" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>A statement that under your normal business practice you would have included income from the destroyed or damaged crops in gross income for a tax year following the year the crops were destroyed or damaged</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Destruction or Damage of Crop(s) Info -->
+			<xsd:element name="DestructionOrDamageOfCropsInfo" type="DestructionOrDamageInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Destruction or damage of crop(s) info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Insurance Payments for Crop Info -->
+			<xsd:element name="InsurancePaymentsForCropInfo" type="InsurancePaymentsForCropInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Insurance payments for crop info</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Destruction or Damage Info -->
+	<xsd:complexType name="DestructionOrDamageInfoType">
+		<xsd:sequence>		
+	
+			<!-- Date of Destruction or Damage -->
+			<xsd:element name="DateOfDestructionOrDamage" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of destruction or damage</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Cause of Destruction or Damage -->
+			<xsd:element name="CauseOfDestructionOrDamage" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cause of destruction or damage</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Description of Destroyed or Damaged Crop -->
+			<xsd:element name="DescOfDestroyedOrDamagedCrop" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of destroyed or damaged crop</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Destruction or Damage Info -->
+	<xsd:complexType name="InsurancePaymentsForCropInfoType">
+		<xsd:sequence>		
+	
+			<!-- Description of Destroyed or Damaged Crop -->
+			<xsd:element name="DescOfDestroyedOrDamagedCrop" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of destroyed or damaged crop</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Insurance Payment -->
+			<xsd:element name="InsurancePayment" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>		
+
+						<!-- Date -->
+						<xsd:element name="Date" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+				
+						<!-- Amount -->
+						<xsd:element name="Amount" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Insurance Carrier From Whom You Received Payments -->
+			<xsd:element name="InsuranceCarrierName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of insurance carrier from whom you received payments</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Section 59(e)(2) Expenditure Statement</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 21, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ===================================================== -->
+	<!-- ======= Section 59(e)(2) Expenditure Statement ====== -->
+	<!-- ===================================================== -->
+
+
+	<xsd:element name="Section59e2ExpenditureStmt">
+		<xsd:annotation>
+			<xsd:documentation>Section 59(e)(2) Expenditure Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Section59e2ExpenditureStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="Section59e2ExpenditureStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="Section59e2ExpenditureStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Section 59(e)(2) Expenditure Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>		
+				
+			<!-- Section 59(e)(2) Expenditure -->
+			<xsd:element name="Section59e2Expenditure" type="Section59e2ExpenditureType" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 59(e)(2) Expenditure</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>		
+
+	<!-- Type for Repeating Group - Section 59(e)(2) Expenditure -->
+	<xsd:complexType name="Section59e2ExpenditureType">
+		<xsd:sequence>
+
+			<!-- Type -->
+			<xsd:element name="Type" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of Expenditure</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Month -->
+			<xsd:element name="Month" type="MonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Month of the Expenditure Occurred or Incurred</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amount -->
+			<xsd:element name="Amount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

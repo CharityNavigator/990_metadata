@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Affiliate Listing</Description>
+
+			<TaxYear>2008</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>January 26, 2009</ReleaseDate>			
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+	
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	
+
+	<!-- ============================================================= -->
+
+	<!-- ==================  Affiliate Listing ======================= -->
+
+	<!-- ============================================================= -->
+
+	
+
+	<xsd:element name="AffiliateListing">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Affiliate listing</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="AffiliateListingType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AffiliateListing">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>
+
+	
+
+	<xsd:complexType name="AffiliateListingType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for affiliate listing</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<xsd:element name="Affiliate" type="AffiliateType" minOccurs="0" maxOccurs="unbounded"/>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="AffiliateType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for affiliate</xsd:documentation>
+
+		</xsd:annotation>
+
+		
+
+		<xsd:sequence>
+
+		
+
+			<!-- Name of an Affiliate -->
+
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name of an affiliate</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+			<!-- Address -->
+
+			<xsd:choice minOccurs="0">			
+
+				<xsd:element name="AddressUS" type="USAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Address - US</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+				<xsd:element name="AddressForeign" type="ForeignAddressType">
+
+					<xsd:annotation>
+
+						<xsd:documentation>
+
+							<Description>Address - Foreign</Description>
+
+						</xsd:documentation>
+
+					</xsd:annotation>
+
+				</xsd:element>
+
+			</xsd:choice>									
+
+			
+
+			<!-- EIN -->
+
+			<xsd:element name="EIN" type="EINType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>EIN</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>			
+
+			
+
+			<!-- Name Control -->
+
+			<xsd:element name="NameControl" type="BusinessNameControlType">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Name control</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>					
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+
+</xsd:schema>
+

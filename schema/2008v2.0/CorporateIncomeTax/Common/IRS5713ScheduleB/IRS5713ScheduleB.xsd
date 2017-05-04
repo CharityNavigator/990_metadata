@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 5713 Schedule B</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>July 7, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- ===============  IRS Form 5713 Schedule B ===================== -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS5713ScheduleB">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5713 Schedule B</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5713ScheduleBType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5713ScheduleB">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5713ScheduleBType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5713 Schedule B</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between Identifying Number (EIN), or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Identifying Number  -->
+				<xsd:element name="IdentifyingNumber" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>					
+
+			<!-- Name of Country Being Boycotted -->
+			<xsd:choice>
+
+				<!-- Boycotting Israel -->
+				<xsd:element name="IsraelBoycotted" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Boycotting Israel</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Boycotting Other -->
+				<xsd:element name="OtherCountryBoycotted" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Boycotting Other</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="nameOfOtherCountry" type="CountryType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Name of Other Country</Description>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			
+			</xsd:choice>
+
+			<!-- Specifically Attributable Taxes and Income by Operation table -->
+			<xsd:element name="OperationTaxesAndIncome" type="OperationTaxesAndIncomeType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Specifically Attributable Taxes and Income by Operation</Description>
+						<LineNumber>Schedule B table</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total - Foreign Tax Credit - Foreign Taxes attributable to Boycott Operations -->
+			<xsd:element name="TotBoycottOperationsForeignTxs" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - Foreign tax credit - Foreign taxes attributable to boycott operations</Description>
+						<LineNumber>Schedule B column(4) Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total - Subpart F Income - Prorated Share of International Boycott Income -->
+			<xsd:element name="TotIntntlBoycottIncmPrortShare" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - Subpart F income - Prorated share of international boycott income</Description>
+						<LineNumber>Schedule B column(5) Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total - IC-DISC Income - Taxable Income Attributable to Boycott Operations -->
+			<xsd:element name="TotICDISCTxblIncmAttrblByctOpr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - IC-DISC income - Taxable income attributable to boycott operations</Description>
+						<LineNumber>Schedule B column(6)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total - FSC Income - Taxable Income Attributable to Boycott Operations -->
+			<xsd:element name="TotFSCTxblIncmAttrblBoycottOpr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - FSC income - Taxable income attributable to boycott operations</Description>
+						<LineNumber>Schedule B column(7)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+	
+	<!-- ===== Type for Repeating Element "OperationTaxesAndIncome" ===== -->
+
+	<xsd:complexType name="OperationTaxesAndIncomeType">
+
+		<xsd:sequence>
+
+			<!-- Country Name -->
+			<xsd:element name="CountryName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of country</Description>
+						<LineNumber>Schedule B column(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="StringType">
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Principal Business Activity Code or Inactive -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Principal Business Activity - Code -->
+				<xsd:element name="PBACode" type="BusinessActivityCodeType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Principal business activity - code</Description>
+							<LineNumber>Schedule B column(2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Inactive Principal Business Activity - Code -->
+				<xsd:element name="InactivePBACode">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Inactive Principal business activity - code</Description>
+							<LineNumber>Schedule B column(2)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="Inactive"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			
+			</xsd:choice>
+
+			<!-- Principal Business Activity - Description -->
+			<xsd:element name="PBADescription" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Principal business activity - description</Description>
+						<LineNumber>Schedule B column(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit - Foreign Taxes attributable to Boycott Operations -->
+			<xsd:element name="BoycottOperationsForeignTaxes" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit - Foreign taxes attributable to boycott operations</Description>
+						<LineNumber>Schedule B column(4)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subpart F Income - Prorated Share of International Boycott Income -->
+			<xsd:element name="IntntlBoycottIncmProratedShare" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subpart F income - Prorated share of international boycott income</Description>
+						<LineNumber>Schedule B column(5)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- IC-DISC Income - Taxable Income Attributable to Boycott Operations -->
+			<xsd:element name="ICDISCTxblIncmAttrblBoycottOpr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IC-DISC income - Taxable income attributable to boycott operations</Description>
+						<LineNumber>Schedule B column(6)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FSC Income - Taxable Income Attributable to Boycott Operations -->
+			<xsd:element name="FSCTxblIncmAttrblBoycottOpr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FSC income - Taxable income attributable to boycott operations</Description>
+						<LineNumber>Schedule B column(7)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

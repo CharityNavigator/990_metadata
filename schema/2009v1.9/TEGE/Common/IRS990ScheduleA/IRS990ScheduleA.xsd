@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 or 990-EZ Schedule A</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 7, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 or 990-EZ Schedule A ================ -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleA">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleAType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleA">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS990ScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I : Reason for Non-Private Foundation Status -->
+
+			<!-- The Organization is not a Private Foundation Because It is: (Please check only ONE applicable box.) -->
+
+			<xsd:choice>
+				<!-- A Church, Convention of Churches, or Association of Churches. Section 170(b)(1)(A)(i) -->
+				<xsd:element name="Church170b1Ai" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>A church, convention of churches, or association of churches. Section 170(b)(1)(A)(i)</Description>
+							<LineNumber>Part I Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- A School. Section 170(b)(1)(A)(ii) -->
+				<xsd:element name="School170b1Aii" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>A school. Section 170(b)(1)(A)(ii)</Description>
+							<LineNumber>Part I Line 2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- A Hospital or a Cooperative Hospital Service Organization. Section 170(b)(1)(A)(iii) -->
+				<xsd:element name="Hospital170b1Aiii" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>A hospital or a cooperative hospital service organization. Section 170(b)(1)(A)(iii)</Description>
+							<LineNumber>Part I Line 3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- A Medical Research Organization Operated in Conjunction with a Hospital. Section 170(b)(1)(A)(iii) -->
+				<xsd:sequence>
+					<xsd:element name="MedicalResearchOrg170b1Aiii" type="CheckboxType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>A medical research organization operated in conjunction with a hospital. Section 170(b)(1)(A)(iii)</Description>
+								<LineNumber>Part I Line 4</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- Hospital's Name, and Address -->
+					<xsd:element name="HospitalNameAndAddress" type="HospitalNameAndAddressType" maxOccurs="50">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Hospital's name, city, state, or country</Description>
+								<LineNumber>Part I Line 4</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+
+				<!-- An Organization Operated for the Benefit of a College or University Owned or Operated by a Governmental Unit. Section 170(b)(1)(A)(iv) -->
+				<xsd:element name="CollegeSupportOrg170b1Aiv" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>An organization operated for the benefit of a college or university owned or operated by a governmental unit. Section 170(b)(1)(A)(iv).</Description>
+							<LineNumber>Part I Line 5</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+						<!-- A Federal, State, or Local Government or Governmental Unit. Section 170(b)(1)(A)(v) -->
+				<xsd:element name="GovernmentalUnit170b1Av" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>A Federal, state, or local government or governmental unit. Section 170(b)(1)(A)(v)</Description>
+							<LineNumber>Part I Line 6</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+
+				<!-- An Organization that Normally Receives a Substantial Part of its Support From a Governmental Unit or From the General Public. 			Section 170(b)(1)(A)(vi) -->
+				<xsd:element name="PubliclySupportedOrg170b1Avi" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>An organization that normally receives a substantial part of its support from a governmental unit or from the general public. 			Section 170(b)(1)(A)(vi)</Description>
+							<LineNumber>Part I Line 7</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- A Community Trust. Section 170(b)(1)(A)(vi) -->
+				<xsd:element name="CommunityTrust170b1Avi" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>A community trust. Section 170(b)(1)(A)(vi)</Description>
+							<LineNumber>Part I Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Publicly Supported Organization 509(a)(2) -->
+				<xsd:element name="PubliclySupportedOrg509a2" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Publicly supported organization 509(a)(2)</Description>
+							<LineNumber>Part I Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- An Organization Organized and Operated to Test for Public Safety. Section 509(a)(4) -->
+				<xsd:element name="TestingForPublicSafety509a4" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>An organization organized and operated to test for public safety. Section 509(a)(4)</Description>
+							<LineNumber>Part I Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:sequence>
+					<!-- Supporting Organization 509(a)(3) -->
+					<xsd:element name="SupportingOrganization509a3" type="CheckboxType"> 
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Supporting organization 509(a)(3)</Description>
+								<LineNumber>Part I Line 11</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:choice>
+						<xsd:element name="SupportingOrg509a3Type1" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supporting organization 509(a)(3) - Type 1</Description>
+									<LineNumber>Part I Line 11a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>					
+
+						<xsd:element name="SupportingOrg509a3Type2" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supporting organization 509(a)(3) - Type 2</Description>
+									<LineNumber>Part I Line 11b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+
+						<xsd:element name="SupportingOrg509a3Type3FuncInt" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supporting organization 509(a)(3) - Type 3 functionally integrated</Description>
+									<LineNumber>Part I Line 11c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+
+						<xsd:element name="SupportingOrg509a3Type3Other" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supporting organization 509(a)(3) - Type 3 Other</Description>
+									<LineNumber>Part I Line 11d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>							
+					</xsd:choice>	
+
+				</xsd:sequence>
+			</xsd:choice>				
+
+			<!-- Certification Checkbox -->
+			<xsd:element name="CertificationCheckbox" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>By checking this box, I certify that the organization is not controlled directly or indirectly by one or more disqualified persons other than foundation managers and other than one or more publicly supported organizations described in section 509(a)(1) or section 509(a)(2)</Description>
+						<LineNumber>Part I Line 11e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Written IRS Determination -->
+			<xsd:element name="WrittenIRSDetermination" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization have a written determination from the IRS that it is a Type I, Type II or Type III supporting organization?</Description>
+						<LineNumber>Part I Line 11f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Line 11g Since August 17,2006, has the organization accepted any gift or contribution from any of the following persons? -->
+			<!-- Contribution by Controlling Individual? -->
+			<xsd:element name="ContribByControllingIndividual" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>A person who controls, alone or together with persons in (ii) and (iii) below, the governing body of the supported organization? Y or N</Description>
+						<LineNumber>Part I Line 11g(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+
+			<!-- Contribution by Related Party? -->
+			<xsd:element name="ContributionByRelatedParty" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>A family member of a party described in (i) above? Y or N</Description>
+						<LineNumber>Part I Line 11g(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+
+			<!-- Contribution by 35% Controlled Entity? -->
+			<xsd:element name="ContribBy35ControlledEntity" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>A 35% controlled entity of a person described in (i) or (ii) above? Y or N</Description>
+						<LineNumber>Part I Line 11g(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+
+			<!-- Information About the Supported Organizations -->
+			<xsd:element name="SupportedOrgInformation" type="SupportedOrgInformationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Information About the supported organizations</Description>
+						<LineNumber>Part I Line 11h Table</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+
+			<!-- Total Number of Supported Organizations -->
+			<xsd:element name="TotalNumberOfSupportedOrgs" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total number of supported organizations</Description>
+						<LineNumber>Part I Line 11h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total -->
+			<xsd:element name="SumOfAmounts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of amounts of support</Description>
+						<LineNumber>Part I Line 11h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II : Support Schedule for Organizations described in IRC 170(b)(1)(A)(iv) and 170(b)(1)(A)(vi) -->
+			<!-- (Complete only if you checked the box on line 5, 7, or 8 of Part I.) -->
+			<!-- Public Support -->
+			
+			<!-- Gifts, Grants, and Contributions Received -->
+			<xsd:element name="GiftsGrantsContribReceived170" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gifts, grants and contributions received</Description>
+						<LineNumber>Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Revenues Levied for Organization's Benefit  -->
+			<xsd:element name="TaxRevLeviedForOrgBenefit170" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax revenues levied for organization's benefit</Description>
+						<LineNumber>Part II Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Value of Services, Facilities Furnished by Government -->
+			<xsd:element name="ValueSrvcFcltsFurnishedByGovt" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Value of services, facilities furnished by government</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total -->
+			<xsd:element name="Total170" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts from Substantial Contributors Total -->
+			<xsd:element name="AmountsSubstContributorsTotal" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts from substantial contributors total</Description>
+						<LineNumber>Part II Line 5(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Public Support -->
+			<xsd:element name="PublicSupportTotal170" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Public Support Total</Description>
+						<LineNumber>Part II Line 6(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Support -->
+			<!-- Amounts from Line 4 not Duplicated Here for Line 7 -->
+
+			<!-- Gross Investment Income -->
+			<xsd:element name="GrossInvestmentIncome170" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross income from interest, dividends, payments received on securities loans, rents, royalties and income from similar sources</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net UBI -->
+			<xsd:element name="NetUBI" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income from unrelated business activities, whether or not the business is regularly carried on</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income -->
+			<xsd:element name="OtherIncome170" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income</Description>
+						<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Support -->
+			<xsd:element name="TotalSupport" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total support</Description>
+						<LineNumber>Part II Line 11(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts from Admissions, Etc. -->
+			<xsd:element name="GrossReceiptsFromAdmissionsEtc" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts from admissions, merchandise sold or services performed, or furnishing of facilities in any activity that is related to the organization's tax-exempt purpose</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- First Five Years -->
+			<xsd:element name="First5Years170" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>First five years</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Computation of Public Support Percentage -->
+			<!-- Public Support Percentage -->
+			<xsd:element name="PublicSupportPertcentage170" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Public support percentage (line 6 column (f) divided by line 12 column (f)</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Public Support Percentage from Prior Year -->
+			<xsd:element name="PublicSupportPertcentPriorYear" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Public support percentage from prior year's Schedule A, Part II, line 14</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 33 1/3 % Test - Current Year -->
+			<xsd:element name="ThirtyThreePercntTestsCY170" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Thirty three and one third test for the current year</Description>
+						<LineNumber>Part II Line 16a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 33 1/3 % Test - Prior Year -->
+			<xsd:element name="ThirtyThreePercntTestsPY170" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Thirty three and one third test for the prior year</Description>
+						<LineNumber>Part II Line 16b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 10% Facts and Circumstances Test - Current Year -->
+			<xsd:element name="TenPercentTestCurrentYear" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ten percent facts and circumstances test for the current year</Description>
+						<LineNumber>Part II Line 17a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 10% Facts and Circumstances Test - Prior Year -->
+			<xsd:element name="TenPercentTestPriorYear" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ten percent facts and circumstances test for the prior year</Description>
+						<LineNumber>Part II Line 17b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Private Foundation -->
+			<xsd:element name="PrivateFoundation170" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If the organization did not check a box on line 13, 16a, 16b, 17a or 17b, check this box and see instructions</Description>
+						<LineNumber>Part II Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III : Support Schedule for Organizations described in IRC 509(a)(2) -->
+
+			<!-- Public Support -->
+			<!-- Gifts, Grants, and Contributions Received -->
+			<xsd:element name="GiftsGrantsContribReceived509" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gifts, grants,contributions and membership fees received</Description>
+						<LineNumber>Part III Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts from Admissions -->
+			<xsd:element name="GrossReceiptsFromAdmissions" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts from admissions, merchandise sold or services performed for tax-exempt purpose</Description>
+						<LineNumber>Part III Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts from Non-UBI -->
+			<xsd:element name="GrossReceiptsFromNonUBI" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts from activities that are not an unrelated trade or business order under section 513</Description>
+						<LineNumber>Part III Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Revenues Levied for Organization's Benefit -->
+			<xsd:element name="TaxRevLeviedForOrgBenefit509" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax revenues levied for the organization's benefit</Description>
+						<LineNumber>Part III Line 4</LineNumber>
+					</xsd:documentation>						
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Value of Services or Facilities Funished by Government -->
+			<xsd:element name="ValueOfSvcsFcltsFurnishdByGovt" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The value of services or facilities furnished by a governmental unit to the org without charge</Description>
+						<LineNumber>Part III Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total -->
+			<xsd:element name="Total509" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total</Description>
+						<LineNumber>Part III Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts Received from Disqualified Persons -->
+			<xsd:element name="AmtsRecdFromDisqualPersons" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included on lines 1, 2, and 3 received from disqualified persons</Description>
+						<LineNumber>Part III Line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts from Contributors -->
+			<xsd:element name="AmtsFromSubstContributors" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts included on lines 2 and 3 received from other than a disqualified person that exceed the greater of 1% of line 13 for the year or $5,000</Description>
+						<LineNumber>Part III Line 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Lines 7a and 7b -->
+			<xsd:element name="SupportFromDQPsEtc" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of lines 7a and 7b</Description>
+						<LineNumber>Part III Line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Public Support Total -->
+			<xsd:element name="PublicSupportTotal509" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Public support total</Description>
+						<LineNumber>Part III Line 8(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Support -->	
+			<!-- Amounts from Line 6 not Duplicated Here for Line 9 -->
+
+			<!-- Gross Investment Income -->
+			<xsd:element name="GrossInvestmentIncome509" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross income from interest, dividends, payments received on security loans, rents, royalities and income from  similar sources</Description>
+						<LineNumber>Part III Line 10a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Post 1975 UBTI -->
+			<xsd:element name="Post1975UBTI" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unrelated business taxable income (less section 511 taxes) from businesses acquired after 6-30-75</Description>
+						<LineNumber>Part III Line 10b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Lines 10a and 10b -->
+			<xsd:element name="InvestmentIncomeAndUBTI" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of lines 10a and 10b</Description>
+						<LineNumber>Part III Line 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income from Other UBI -->
+			<xsd:element name="NetIncomeFromOtherUBI" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income from unrelated business activities not included in line 10b</Description>
+						<LineNumber>Part III Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income -->
+			<xsd:element name="OtherIncome509" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income. (Attach a schedule per instructions)</Description>
+						<LineNumber>Part III Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Support Total -->
+			<xsd:element name="TotalSupportTotal" type="Form990SchAPartIIGroup1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total support total</Description>
+						<LineNumber>Part III Line 13(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- First 5 Years -->
+			<xsd:element name="First5Years509" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>First five years?</Description>
+						<LineNumber>Part III Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Computation of Public Support Percentage -->
+			<!-- Public Support Percentage -->
+			<xsd:element name="PublicSupportPercentage509" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Public support percentage (line 8 column(f) divided by line 13 column(f))</Description>
+						<LineNumber>Part III Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Public Support Percentage from Prior Year -->
+			<xsd:element name="PriorYearSupportPercentage" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Public support percentage from prior year's Schedule A, Part III, line 14a</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Computation of Investment Income Percentage -->
+			<!-- Investment Income Percentage -->
+			<xsd:element name="InvestmentIncomePercentage" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment income percentage (line 10c column (f) divided by line 13 column(f))</Description>
+						<LineNumber>Part III Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Investment Income Percentage from Prior Year -->
+			<xsd:element name="PriorYrInvestIncomePercentage" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment income percentage from prior year's Schedule A, Part III, line 15a</Description>
+						<LineNumber>Part III Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 33 1/3 % Tests Current Year-->
+			<xsd:element name="ThirtyThreePercntTestsCY509" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>33.33 % Tests - Current Year. If the organization did not check the box on line17, and line 14a is more than 33.33% and line 15a is less than 33.33%, check this box and stop here</Description>
+						<LineNumber>Part III Line 19a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 33 1/3 % Tests Prior Year -->
+			<xsd:element name="ThirtyThreePercntTestsPY509" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>33.33 % Tests - Prior Year. If the organization did not check the boxes on line 17 and line 18, and line 14b is more than 33.33% and line 15a is less than 33.33%, check this box and stop here</Description>
+						<LineNumber>Part III Line 19b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Private Foundation -->
+			<xsd:element name="PrivateFoundation509" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Private Foundation. If the organization did not check the box on either line 14, 19a or 19b, check this box and see instructions</Description>
+						<LineNumber>Part III Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV : Facts and Circumstances Test Explanation -->
+
+			<!-- Facts and Circumstances Test -->
+			<xsd:element name="FactsAndCircumstancesTest" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facts and circumstances test</Description>
+						<LineNumber>Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Additional Explanations -->
+			<xsd:element name="GeneralExplanation" type="ExplanationType" minOccurs="0" maxOccurs="4">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional explanations provided by the taxpayer</Description>
+						<LineNumber>Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+
+	<!-- Type for Repeating Group in Part I, Line 4 - Hospital's Name and Address -->
+	<xsd:complexType name="HospitalNameAndAddressType">
+		<xsd:sequence>
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--  City -->
+			<xsd:element name="City" type="CityType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>US city or foreign city</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between State and Country -->
+			<xsd:choice>
+				<!-- State -->
+				<xsd:element name="State" type="StateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address State</Description>
+							<LineNumber>Part I Line 4</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Country -->
+				<xsd:element name="Country" type="CountryType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address Country</Description>
+							<LineNumber>Part I Line 4</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+	
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for Repeating Group in Part I, Line 11h - Information About the Supported Organizations -->
+	<xsd:complexType name="SupportedOrgInformationType">
+		<xsd:sequence>
+			<!-- Name of Supported Organizations(s) -->
+			<xsd:element name="Name" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+						<LineNumber>Part I Line 11h Column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EIN -->
+			<xsd:element name="EIN" type="EINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>EIN of supported organization</Description>
+						<LineNumber>Part I Line 11h Column (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+			<!-- Type of Organization -->
+			<xsd:element name="TypeOfOrganization" type="ShortDescriptionType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of organization</Description>
+						<LineNumber>Part I Line 11h Column (iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Supported Organization Listed in Your Governing Documents -->
+			<xsd:element name="ListedInGoverningDoc" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the supported organization listed in your governing documents?</Description>
+						<LineNumber>Part I Line 11h Column (iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Supported Organization Notified? -->
+			<xsd:element name="SupportedOrganizationNotified" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you notify the organization in (i) of your support?</Description>
+						<LineNumber>Part I Line 11h Column (v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Organized in the United States? -->
+			<xsd:element name="OrganizedInUS" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Organized in the United States?</Description>
+						<LineNumber>Part I Line 11h Column (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount of Support -->
+			<xsd:element name="Amount" type="USAmountType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of support</Description>
+						<LineNumber>Part I Line 11h Column (vii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type for Part II and III, Columns (a) through (f) -->
+	<xsd:complexType name="Form990SchAPartIIGroup1Type">
+		<xsd:sequence>
+			<!-- Current Tax Year Minus Four Years -->
+			<xsd:element name="CurrentTaxYearMinus4Years" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current tax year minus four years</Description>
+						<LineNumber>Part II and III Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Current Tax Year Minus Three Years -->
+			<xsd:element name="CurrentTaxYearMinus3Years" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current tax year minus three years</Description>
+						<LineNumber>Part II and III Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Current Tax Year Minus Two Years -->
+			<xsd:element name="CurrentTaxYearMinus2Years" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current tax year minus two years</Description>
+						<LineNumber>Part II and III Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Current Tax Year Minus One Year -->
+			<xsd:element name="CurrentTaxYearMinus1Year" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current tax year minus one year</Description>
+						<LineNumber>Part II and III Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Current Tax Year -->
+			<xsd:element name="CurrentTaxYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current tax year</Description>
+						<LineNumber>Part II and III Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total -->
+			<xsd:element name="Total" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total</Description>
+						<LineNumber>Part II and III Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

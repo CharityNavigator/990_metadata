@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Section 168(f)(1) Property Explanation Statement</Description>
+			<Purpose>Use Form 2106 to report if you were an employee deducting ordinary and necessary expenses for your job</Purpose>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ================================================================ -->
+	<!-- ======  Section 168(f)(1) Property Explanation Statement ======= -->
+	<!-- ================================================================ -->
+
+
+	<xsd:element name="Section168f1PropertyStatement">
+		<xsd:annotation>
+			<xsd:documentation>Section 168(f)(1) property explanation statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Section168f1PropertyStatementType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="Section168f1PropertyExplanationStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Section 168(f)(1) property explanation statement -->
+	<xsd:complexType name="Section168f1PropertyStatementType">
+		<xsd:annotation>
+			<xsd:documentation>Section 168(f)(1) property explanation statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Section 168(f)(1) property explanation info -->
+			<xsd:element name="Section168f1PropertyInfo" type="Section168f1PropertyInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Section 168(f)(1) property explanation info</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Section 168(f)(1) property explanation info -->
+	<xsd:complexType name="Section168f1PropertyInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Section 168(f)(1) property explanation info</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis for Depreciation -->
+			<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis for depreciation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Method -->
+			<xsd:element name="Method" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Method</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

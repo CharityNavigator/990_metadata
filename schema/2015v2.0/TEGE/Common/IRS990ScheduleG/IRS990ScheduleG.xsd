@@ -1,0 +1,1353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule G</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule G ========================== -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleG">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule G</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleGType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleG">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule G (Form 990) Supplemental Information Regarding Fundraising or Gaming Activities -->
+
+	<xsd:complexType name="IRS990ScheduleGType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule G</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Part I Fundraising Activities -->
+			<!-- Indicate whether the organization raised funds through any of the following activities. (Check all that apply) -->
+			<!-- Mail Solicitations -->
+			<xsd:element name="MailSolicitationsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mail solicitations</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Email Solicitations -->
+			<xsd:element name="EmailSolicitationsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Email solicitations</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Phone Solicitations -->
+			<xsd:element name="PhoneSolicitationsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Phone solicitations</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- In-Person Solicitations -->
+			<xsd:element name="InPersonSolicitationsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>In-person solicitations</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solicitation of Non-Govt Grants -->
+			<xsd:element name="SolicitationOfNonGovtGrantsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solicitation of non-govt grants</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solicitation of Governmentt Grants -->
+			<xsd:element name="SolicitationOfGovtGrantsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solicitation of government grants</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Special Fundraising Events -->
+			<xsd:element name="SpecialFundraisingEventsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Special fundraising events</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Agreement Reference Fundraising? -->
+			<xsd:element name="AgrmtProfFundraisingActyInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the organization have a written or oral agreement with any individual (including officers, directors, trustees or key employees listed in Form 990, Part VII) or entity in connection with professional fundraising activities?</Description>
+						<LineNumber>Part I Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fundraiser Activity Information -->
+			<xsd:element name="FundraiserActivityInfoGrp" type="FundraiserActivityInfoGrpType" minOccurs="0" maxOccurs="10">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If Line 2a is "Yes," list the ten highest paid individuals or entities (fundraisers) pursuant to agreements under which the fundraiser is to be compensated at least $5,000 by the organization</Description>
+						<LineNumber>Part I Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Gross Receipts -->
+			<xsd:element name="TotalGrossReceiptsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total gross receipts</Description>
+						<LineNumber>Part I Line 2b(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Retained by Contractors -->
+			<xsd:element name="TotalRetainedByContractorsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total retained by contractors</Description>
+						<LineNumber>Part I Line 2b(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Net to Organization -->
+			<xsd:element name="TotalNetToOrganizationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total net to organization</Description>
+						<LineNumber>Part I Line 2b(vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Licensed States -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="LicensedStatesCd" type="StateType" maxOccurs="60">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>List all states in which the organization is registered or licensed to solicit funds or has been notified it is exempt from registration or licensing</Description>
+							<LineNumber>Part I Line 3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AllStatesCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Literal for all states</Description>
+							<LineNumber>Part I Line 3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="All States"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Part II Events -->
+			<!-- Events Information -->
+			<xsd:element name="FundraisingEventInformationGrp" type="FundraisingEventInformationGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Complete if the organization answered "Yes" to Form 990, Part IV, line 18, or reported more than $15,000 on Form 990-EZ, line 6a</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III  -->
+			<!-- Gaming Information -->
+			<xsd:element name="GamingInformationGrp" type="GamingInformationGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Complete this part if the organization reported more than $15,000 on Form 990, Part VIII, line 9a or on Form 990-EZ, line 6a</Description>
+						<LineNumber>Part III Lines 1-8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- States Where Gaming Conducted? -->
+			<xsd:element name="StatesWhereGamingConductedCd" type="StateType" minOccurs="0" maxOccurs="60">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter state where organization conducts gaming activities</Description>
+						<LineNumber>Part III Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Licensed? -->
+			<xsd:element name="LicensedInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is organization licensed in each state?</Description>
+						<LineNumber>Part III Line 9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Explanation If No (License) -->
+			<xsd:element name="ExplanationIfNoTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation if no license</Description>
+						<LineNumber>Part III Line 9b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- License Suspended, Etc.? -->
+			<xsd:element name="LicenseSuspendedEtcInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Were any gaming licenses revoked, suspended, or terminated during the tax year?</Description>
+						<LineNumber>Part III Line 10a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Explanation If Yes -->
+			<xsd:element name="ExplanationIfYesTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation if license revoked, suspended, or termination</Description>
+						<LineNumber>Part III Line 10b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gaming With Nonmembers? -->
+			<xsd:element name="GamingWithNonmembersInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does organization operate gaming activities with nonmembers?</Description>
+						<LineNumber>Part III Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Member Of Other Entity? -->
+			<xsd:element name="MemberOfOtherEntityInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is organization formed to administer charitable gaming?</Description>
+						<LineNumber>Part III Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage Of Gaming In Own Facility -->
+			<xsd:element name="GamingOwnFacilityPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percentage of gaming in own facility</Description>
+						<LineNumber>Part III Line 13a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage Of Gaming In Other Facility -->
+			<xsd:element name="GamingOtherFacilityPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percentage of gaming in other facility</Description>
+						<LineNumber>Part III Line 13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Gaming Records Keeper -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="IndividualWithBooksNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of gaming records keeper</Description>
+							<LineNumber>Part III Line 14</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonsWithBooksName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of gaming records keeper</Description>
+							<LineNumber>Part III Line 14</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address of Gaming Records Keeper -->
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="PersonsWithBooksUSAddress" type="USAddressType">			
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of gaming records keeper</Description>
+							<LineNumber>Part III Line 14</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="PersonsWithBooksForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of gaming records keeper</Description>
+							<LineNumber>Part III Line 14</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Contract With 3rd Party For Gaming Revenue? -->
+			<xsd:element name="CntrctWith3rdPrtyForGameRevInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is there a third party contract for gaming revenue?</Description>
+						<LineNumber>Part III Line 15a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Of Gaming Revenue Received By Organization -->
+			<xsd:element name="GamingRevenueReceivedByOrgAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of gaming revenue received by organization</Description>
+						<LineNumber>Part III Line 15b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Of Gaming Revenue Retained By 3rd Party -->
+			<xsd:element name="GamingRevenueRtnBy3PrtyAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of gaming revenue retained by 3rd party</Description>
+						<LineNumber>Part III Line 15b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Third Party -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="ThirdPartyPersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name of third party</Description>
+							<LineNumber>Part III Line 15c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ThirdPartyBusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Business name of third party</Description>
+							<LineNumber>Part III Line 15c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address of Third Party -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="ThirdPartyUSAddress" type="USAddressType">			
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of third party</Description>
+							<LineNumber>Part III Line 15c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ThirdPartyForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of third party</Description>
+							<LineNumber>Part III Line 15c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+	
+			<!-- Gaming Manager Name -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="GamingManagerPersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Gaming manager person name</Description>
+							<LineNumber>Part III Line 16</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="GamingManagerBusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Gaming manager business name</Description>
+							<LineNumber>Part III Line 16</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Gaming Manager Compensation -->
+			<xsd:element name="GamingManagerCompensationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gaming manager compensation</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gaming Manager Services Provided -->
+			<xsd:element name="GamingManagerServicesProvTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gamaing manager services provided</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gaming Manager Is A Director/Officer -->
+			<xsd:element name="GamingManagerIsDirectorOfcrInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gaming manager is a director or officer</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gaming Manager Is An Employee -->
+			<xsd:element name="GamingManagerIsEmployeeInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gaming manager is an employee</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gaming Manager Is An Independent Contractor -->
+			<xsd:element name="GamingManagerIsIndCntrctInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gaming manager is an independent contractor</Description>
+						<LineNumber>Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Charitable Distributions Required? -->
+			<xsd:element name="CharitableDistributionRqrInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable distributions required?</Description>
+						<LineNumber>Part III Line 17a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Distributed -->
+			<xsd:element name="DistributedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount distributed</Description>
+						<LineNumber>Part III Line 17b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV Supplemental Information -->
+			<xsd:element name="SupplementalInformationDetail" minOccurs="0" maxOccurs="10">		
+				<xsd:annotation>
+					<xsd:documentation>Part IV contents</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>		
+					<xsd:sequence>
+
+						<!-- Form, Part and Line Number Reference -->
+						<xsd:element name="FormAndLineReferenceDesc" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form, part and line number reference</Description>
+									<LineNumber>Part IV</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Form, Part and Line Number Reference Explanation -->
+						<xsd:element name="ExplanationTxt" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form, part and line number reference explanation</Description>
+									<LineNumber>Part IV</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>	
+				</xsd:complexType>		
+			</xsd:element>		
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+	<!-- Type for Part I, Line 1b, Columns (i) through (v) -->
+	<xsd:complexType name="FundraiserActivityInfoGrpType">
+		<xsd:sequence>
+
+			<!-- Name of Individual or Organization -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="PersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of individual</Description>
+							<LineNumber>Line 2b Column (i)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="OrganizationBusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of entity (fundraiser)</Description>
+							<LineNumber>Line 2b Column (i)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address of Individual or Organization -->
+			<xsd:choice minOccurs="0">
+
+				<xsd:element name="USAddress" type="USAddressType">			
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of individual or organization</Description>
+							<LineNumber>Line 2b Column (i)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of individual or organization</Description>
+							<LineNumber>Line 2b Column (i)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Activity -->
+			<xsd:element name="ActivityTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Activity</Description>
+						<LineNumber>Line 2b Column (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fundraiser Control of Funds? -->
+			<xsd:element name="FundraiserControlOfFundsInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fundraiser control of funds?</Description>
+						<LineNumber>Line 2b Column (iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts -->
+			<xsd:element name="GrossReceiptsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts from activity</Description>
+						<LineNumber>Part I Line 2b(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Retained By Contractor -->
+			<xsd:element name="RetainedByContractorAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid to (or retained by) fundraiser listed in (i)</Description>
+						<LineNumber>Part I Line 2b(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net to Organization -->
+			<xsd:element name="NetToOrganizationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid to (or retained by) organization</Description>
+						<LineNumber>Part I Line 2b(vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+			
+
+	<!-- Type for Part II, Lines 1 through 9, Columns (a) through (d) -->
+	<xsd:complexType name="FundraisingEventInformationGrpType">
+		<xsd:sequence>
+			
+			<!-- Name of Event # 1 -->
+			<xsd:element name="Event1Nm" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of event no.1</Description>
+						<LineNumber>Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Gross Receipts, Event #1 -->
+			<xsd:element name="GrossReceiptsEvent1Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts, event no.1</Description>
+						<LineNumber>Line 1 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Charitable Contributions, Event #1 -->
+			<xsd:element name="CharitableContriEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable contributions, event no.1</Description>
+						<LineNumber>Line 2 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Gross Revenue, Event #1 -->
+			<xsd:element name="GrossRevenueEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, event no.1</Description>
+						<LineNumber>Line 3 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Cash Prizes, Event #1 -->
+			<xsd:element name="CashPrizesEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, event no.1</Description>
+						<LineNumber>Line 4 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Event #1 -->
+			<xsd:element name="NonCashPrizesEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, event no.1</Description>
+						<LineNumber>Line 5 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rent or facility Costs, Event #1 -->
+			<xsd:element name="RentFacilityCostsEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, event no.1</Description>
+						<LineNumber>Line 6 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Food and Beverage Expenses, Event #1 -->
+			<xsd:element name="FoodAndBeverageEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Food and beverage expenses, event no.1</Description>
+						<LineNumber>Line 7 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Entertainment Expenses, Event #1 -->
+			<xsd:element name="EntertainmentEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Entertainment expenses, event no.1</Description>
+						<LineNumber>Line 8 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Event #1 -->
+			<xsd:element name="OtherDirectExpensesEvent1Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, event no.1</Description>
+						<LineNumber>Line 9 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Event # 2 -->
+			<xsd:element name="Event2Nm" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of event no.2</Description>
+						<LineNumber>Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Gross Receipts, Event #2 -->
+			<xsd:element name="GrossReceiptsEvent2Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts, event no.2</Description>
+						<LineNumber>Line 1 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Charitable Contributions, Event #2 -->
+			<xsd:element name="CharitableContriEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable contributions, event no.2</Description>
+						<LineNumber>Line 2 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Gross Revenue, Event #2 -->
+			<xsd:element name="GrossRevenueEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, event no.2</Description>
+						<LineNumber>Line 3 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Cash Prizes, Event #2 -->
+			<xsd:element name="CashPrizesEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, event no.2</Description>
+						<LineNumber>Line 4 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Event #2 -->
+			<xsd:element name="NonCashPrizesEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, event no.2</Description>
+						<LineNumber>Line 5 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rent or facility Costs, Event #2 -->
+			<xsd:element name="RentFacilityCostsEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, event no.2</Description>
+						<LineNumber>Line 6 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Food and Beverage Expenses, Event #2 -->
+			<xsd:element name="FoodAndBeverageEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Food and beverage expenses, event no.2</Description>
+						<LineNumber>Line 7 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Entertainment Expenses, Event #2 -->
+			<xsd:element name="EntertainmentEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Entertainment expenses, event no.2</Description>
+						<LineNumber>Line 8 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Event #2 -->
+			<xsd:element name="OtherDirectExpensesEvent2Amt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, event no.2</Description>
+						<LineNumber>Line 9 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Events: Total Number of Events -->
+			<xsd:element name="OtherEventsTotalCnt" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other events: total number</Description>
+						<LineNumber>Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Receipts, Other Events -->
+			<xsd:element name="GrossReceiptsOtherEventsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts, other events</Description>
+						<LineNumber>Line 1 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Charitable Contributions, Other Events -->
+			<xsd:element name="CharitableContriOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable contributions, other events</Description>
+						<LineNumber>Line 2 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Gross Revenue, Other Events -->
+			<xsd:element name="GrossRevenueOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, other events</Description>
+						<LineNumber>Line 3 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Cash Prizes, Other Events -->
+			<xsd:element name="CashPrizesOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, other events</Description>
+						<LineNumber>Line 4 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Other Events -->
+			<xsd:element name="NonCashPrizesOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, other events</Description>
+						<LineNumber>Line 5 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rent or facility Costs, Other Events -->
+			<xsd:element name="RentFcltyCostsOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, other events</Description>
+						<LineNumber>Line 6 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Food and Beverage Expenses, Other Events -->
+			<xsd:element name="FoodAndBeverageOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Food and beverage expenses, other events</Description>
+						<LineNumber>Line 7 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Entertainment Expenses, Other Events -->
+			<xsd:element name="EntertainmentOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Entertainment expenses, other events</Description>
+						<LineNumber>Line 8 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Other Events -->
+			<xsd:element name="OthDirectExpnssOtherEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, other events</Description>
+						<LineNumber>Line 9 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Receipts, Total -->
+			<xsd:element name="GrossReceiptsTotalAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross receipts, total</Description>
+						<LineNumber>Line 1 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Charitable Contributions, Total -->
+			<xsd:element name="CharitableContributionsTotAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable contributions, total</Description>
+						<LineNumber>Line 2 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				
+			<!-- Gross Revenue, Total -->
+			<xsd:element name="GrossRevenueTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, total</Description>
+						<LineNumber>Line 3 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Cash Prizes, Total -->
+			<xsd:element name="CashPrizesTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, total</Description>
+						<LineNumber>Line 4 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Total -->
+			<xsd:element name="NonCashPrizesTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, total</Description>
+						<LineNumber>Line 5 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rent or Facility Costs, Total -->
+			<xsd:element name="RentFcltyCostsTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, total</Description>
+						<LineNumber>Line 6 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Food and Beverage Costs, Total -->
+			<xsd:element name="FoodAndBeverageTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Food and beverage costs, total</Description>
+						<LineNumber>Line 7 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Entertainment Costs, Total -->
+			<xsd:element name="EntertainmentTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Entertainment costs, total</Description>
+						<LineNumber>Line 8 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Total -->
+			<xsd:element name="OthDirectExpnssTotalEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, total</Description>
+						<LineNumber>Line 9 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Direct Expense Summary -->
+			<xsd:element name="DirectExpenseSummaryEventsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct expense summary</Description>
+						<LineNumber>Line 10 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Income Summary -->
+			<xsd:element name="NetIncomeSummaryAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net income summary</Description>
+						<LineNumber>Line 11 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- Type for Part III, Lines 1 through 8, Columns (a) through (d) -->
+	<xsd:complexType name="GamingInformationGrpType">
+		<xsd:sequence>
+		
+			<!-- Gross Revenue, Bingo -->
+			<xsd:element name="GrossRevenueBingoAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, bingo</Description>
+						<LineNumber>Line 1 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Cash Prizes, Bingo -->
+			<xsd:element name="CashPrizesBingoAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, bingo</Description>
+						<LineNumber>Line 2 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Bingo -->
+			<xsd:element name="NonCashPrizesBingoAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, bingo</Description>
+						<LineNumber>Line 3 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Rent or facility Costs, Bingo -->
+			<xsd:element name="RentFacilityCostsBingoAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, bingo</Description>
+						<LineNumber>Line 4 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Bingo -->
+			<xsd:element name="OtherDirectExpensesBingoAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, bingo</Description>
+						<LineNumber>Line 5 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Volunteer Labor, Bingo -->
+			<xsd:element name="VolunteerLaborBingoInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>volunteer labor, bingo</Description>
+						<LineNumber>Line 6 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Volunteer Labor Percentage, Bingo -->
+			<xsd:element name="VolunteerLaborBingoPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>volunteer labor percentage, bingo</Description>
+						<LineNumber>Line 6 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Revenue, Pull Tabs -->
+			<xsd:element name="GrossRevenuePullTabsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, pull tabs</Description>
+						<LineNumber>Line 1 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Cash Prizes, Pull Tabs -->
+			<xsd:element name="CashPrizesPullTabsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, pull tabs</Description>
+						<LineNumber>Line 2 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Pull Tabs -->
+			<xsd:element name="NonCashPrizesPullTabsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, pull tabs</Description>
+						<LineNumber>Line 3 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Rent or facility Costs, Pull Tabs -->
+			<xsd:element name="RentFacilityCostsPullTabsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, pull tabs</Description>
+						<LineNumber>Line 4 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Pull Tabs -->
+			<xsd:element name="OtherDirectExpensesPullTabsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, pull tabs</Description>
+						<LineNumber>Line 5 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Volunteer Labor, Pull Tabs -->
+			<xsd:element name="VolunteerLaborPullTabsInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>volunteer labor, pull tabs</Description>
+						<LineNumber>Line 6 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Volunteer Labor Percentage, Pull Tabs -->
+			<xsd:element name="VolunteerLaborPullTabsPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>volunteer labor percentage, pull tabs</Description>
+						<LineNumber>Line 6 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Revenue, Other Gaming -->
+			<xsd:element name="GrossRevenueOtherGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, other gaming</Description>
+						<LineNumber>Line 1 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Cash Prizes, Other Gaming -->
+			<xsd:element name="CashPrizesOtherGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, other gaming</Description>
+						<LineNumber>Line 2 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Other Gaming -->
+			<xsd:element name="NonCashPrizesOtherGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, other gaming</Description>
+						<LineNumber>Line 3 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Rent or facility Costs, Other Gaming -->
+			<xsd:element name="RentFcltyCostsOtherGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, other gaming</Description>
+						<LineNumber>Line 4 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Other Gaming -->
+			<xsd:element name="OthDirectExpnssOtherGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, other gaming</Description>
+						<LineNumber>Line 5 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Volunteer Labor, Other Gaming -->
+			<xsd:element name="VolunteerLaborOtherGamingInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>volunteer labor, other gaming</Description>
+						<LineNumber>Line 6 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Volunteer Labor Percentage, Other Gaming -->
+			<xsd:element name="VolunteerLaborOtherGamingPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>volunteer labor percentage, other gaming</Description>
+						<LineNumber>Line 6 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Gross Revenue, Total -->
+			<xsd:element name="GrossRevenueTotalGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross revenue, total</Description>
+						<LineNumber>Line 1 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Cash Prizes, Total -->
+			<xsd:element name="CashPrizesTotalGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cash prizes, total</Description>
+						<LineNumber>Line 2 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-Cash Prizes, Total -->
+			<xsd:element name="NonCashPrizesTotalGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-cash prizes, total</Description>
+						<LineNumber>Line 3 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Rent or facility Costs, Total -->
+			<xsd:element name="RentFcltyCostsTotalGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rent or facility costs, total</Description>
+						<LineNumber>Line 4 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Direct Expenses, Total -->
+			<xsd:element name="OthDirectExpnssTotalGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other direct expenses, total</Description>
+						<LineNumber>Line 5 Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Direct Expense Summary -->
+			<xsd:element name="DirectExpenseSummaryGamingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct expense summary</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Gaming Income Summary -->
+			<xsd:element name="NetGamingIncomeSummaryAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net gaming income summary</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

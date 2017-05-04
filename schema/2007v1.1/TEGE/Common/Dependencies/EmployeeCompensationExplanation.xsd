@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Employee Compensation Explanation</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================================== -->
+	<!-- ========== Employee Compensation Explanation ================= -->
+	<!-- ============================================================== -->
+	
+	<xsd:element name="EmployeeCompensationExpln">
+		<xsd:annotation>
+			<xsd:documentation>Employee compensation explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="EmployeeCompensationExplnType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="EmployeeCompensationExplanation">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="EmployeeCompensationExplnType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for employee compensation explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence >
+		
+			<xsd:element name="EmployeeCompExplanation" minOccurs="0" maxOccurs="5">
+				<xsd:complexType>
+					<xsd:sequence>
+					
+						<!-- Employee Name -->
+						<xsd:element name="EmployeeName" type="PersonNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Employee name</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>			
+						
+						<!-- Explanation -->
+						<xsd:element name="Explanation" type="ExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Explanation</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						
+					</xsd:sequence>
+				</xsd:complexType>				
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

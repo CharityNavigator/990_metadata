@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>October 19, 2007</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ===================================================================================== -->
+	<!-- ==Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule=== -->
+	<!-- ===================================================================================== -->
+
+	<xsd:element name="AltMinTxblIncmAdjSimplifiedSch">
+		<xsd:annotation>
+			<xsd:documentation>Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="AltMinTxblIncmAdjSimplifiedSchType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="AltMinTxblIncomeAdjSimplifiedSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="AltMinTxblIncmAdjSimplifiedSchType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Schedule" type="AltMinTxblIncmAdjSimplifiedType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AltMinTxblIncmAdjSimplifiedType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- ====1.  Identify Completed Long-Term Contract === -->
+
+			<!-- Contract Number -->
+			<xsd:element name="ContractNumber" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>a. Contract number </Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Job Name   -->
+			<xsd:element name="JobName" type="LineExplanationType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>b. Job name </Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Other identifying information  -->
+			<xsd:element name="OtherIdentifyingInformation" type="LineExplanationType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>c. Other identifying information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  PYLTContractsSimplifiedType -->
+			<xsd:element name="PYLongTermContract" type="PYLTContractsSimplifiedType"  minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long-term contract income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PYLTContractsSimplifiedType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- ==== 2. Long-term contract income === -->
+
+			<!-- Year Identifier  -->
+			<xsd:element name="Year" type="YearType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year identifier</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Yearly Info  -->
+			<xsd:element name="YearlyInfo" type="PYLTContractsSimplifiedYearlyInfoType"  minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Yearly Info for long-term contract income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PYLTContractsSimplifiedYearlyInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Alternative Minimum Taxable Income Adjustments Under Simplified Marginal Impact Method Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- a. Income Previously Reported Based on Estimated Contract Price and Costs -->
+			<xsd:element name="PYIncmPrevRptBasedOnEstimated" type="USAmountType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>a. Income previously reported based on estimated contract price and costs</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- b. Income Allocable to Each Prior Year Based on Actual Contract Price and Costs -->
+			<xsd:element name="IncomeAllocablePYActual" type="USAmountType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>b. Income allocable to each prior year based on actual contract price and costs</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- c. Net Adjustment to Income from Long-Term Contracts  -->
+			<xsd:element name="PYNetAdjustmentToIncome" type="USAmountType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>c. Net adjustment to income from long-term contracts</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

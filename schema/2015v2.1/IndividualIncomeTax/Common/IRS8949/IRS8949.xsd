@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Individual Income Tax Schema - IRS Form 8949 Sales and Other Dispositions of Capital Assets</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 29, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ====================================================================== -->
+	<!-- ============================ IRS Form 8949 =========================== -->
+	<!-- ====================================================================== -->
+
+	<xsd:element name="IRS8949">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8949</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8949Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8949">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+				<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>					
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8949Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8949</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I Short-Term. Transactions involving capital assets you held one year or less are short term. -->
+
+			<xsd:element name="ShortTermCapitalGainAndLossGrp" minOccurs="0" maxOccurs="3">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:choice>
+
+							<!-- Transactions Reported On Form 1099B That Shows Basis Indicator -->
+							<xsd:element name="TransRptOn1099BThatShowBssInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Short-term transactions reported on Form(s) 1099-B showing basis was reported to the IRS</Description>
+										<LineNumber>Part I Box A</LineNumber>
+										<ELFFieldNumber>0010</ELFFieldNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Transactions Reported On Form 1099B That Does Not Show Basis Indicator -->
+							<xsd:element name="TransRptOn1099BNotShowBasisInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Short-term transactions reported on Form(s) 1099-B showing basis was not reported to the IRS</Description>
+										<LineNumber>Part I Box B</LineNumber>
+										<ELFFieldNumber>0020</ELFFieldNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Transactions Not Reported On Form 1099B Indicator -->
+							<xsd:element name="TransactionsNotRptedOn1099BInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Short-term transactions not reported to you on Form 1099-B</Description>
+										<LineNumber>Part I Box C</LineNumber>
+										<ELFFieldNumber>0030</ELFFieldNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+	
+						<xsd:element name="CapitalGainAndLossAssetGrp" type="CapitalGainAndLossAssetGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+						<!-- Total Proceeds (Sales Price) Amount -->
+						<xsd:element name="TotalProceedsSalesPriceAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total proceeds</Description>
+									<LineNumber>Part I Line 2(d)</LineNumber>
+							    	<ELFFieldNumber>0100</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Cost OR Other Basis Amount -->
+						<xsd:element name="TotalCostOrOtherBasisAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total cost or other basis</Description>
+									<LineNumber>Part I Line 2(e)</LineNumber>
+							    	<ELFFieldNumber>0110</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Adjustments To Gain Or Loss Amount -->
+						<xsd:element name="TotAdjustmentsToGainOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total amount of adjustment</Description>
+									<LineNumber>Part I Line 2(g)</LineNumber>
+								    <ELFFieldNumber>0120</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Gain Or Loss Amount -->
+						<xsd:element name="TotalGainOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total gain or loss</Description>
+									<LineNumber>Part I Line 2(h)</LineNumber>
+								    <ELFFieldNumber>NL</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II Long-Term. Transactions involving capital assets you held more than one year are long term. -->
+
+			<xsd:element name="LongTermCapitalGainAndLossGrp" minOccurs="0" maxOccurs="3">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:choice>
+
+							<!-- Transactions Reported On Form 1099B That Shows Basis Indicator -->
+							<xsd:element name="TransRptOn1099BThatShowBssInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Long-term transactions reported on Form(s) 1099-B showing basis was reported to the IRS</Description>
+										<LineNumber>Part II Box D</LineNumber>
+										<ELFFieldNumber>0130</ELFFieldNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Transactions Reported On Form 1099B That Does Not Show Basis Indicator -->
+							<xsd:element name="TransRptOn1099BNotShowBasisInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Long-term transactions reported on Form(s) 1099-B showing basis was not reported to the IRS</Description>
+										<LineNumber>Part II Box E</LineNumber>
+										<ELFFieldNumber>0140</ELFFieldNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Transactions Not Reported On Form 1099B Indicator -->
+							<xsd:element name="TransactionsNotRptedOn1099BInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Long-term transactions not reported to you on Form 1099-B</Description>
+										<LineNumber>Part II Box F</LineNumber>
+										<ELFFieldNumber>0150</ELFFieldNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<xsd:element name="CapitalGainAndLossAssetGrp" type="CapitalGainAndLossAssetGrpType" minOccurs="0" maxOccurs="unbounded"/>
+
+						<!-- Total Proceeds (Sales Price) Amount -->
+						<xsd:element name="TotalProceedsSalesPriceAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total proceeds</Description>
+									<LineNumber>Part II Line 2(d)</LineNumber>
+							    	<ELFFieldNumber>0220</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Cost OR Other Basis Amount -->
+						<xsd:element name="TotalCostOrOtherBasisAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total cost or other basis</Description>
+									<LineNumber>Part II Line 2(e)</LineNumber>
+							    	<ELFFieldNumber>0230</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Adjustments To Gain Or Loss Amount -->
+						<xsd:element name="TotAdjustmentsToGainOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total amount of adjustment</Description>
+									<LineNumber>Part II Line 2(g)</LineNumber>
+								    <ELFFieldNumber>0240</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Gain Or Loss Amount -->
+						<xsd:element name="TotalGainOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total gain or loss</Description>
+									<LineNumber>Part II Line 2(h)</LineNumber>
+								    <ELFFieldNumber>NL</ELFFieldNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part I Line 1 and Part II Line 1, Capital Gains and Losses Asset Group -->
+
+	<xsd:complexType name="CapitalGainAndLossAssetGrpType">
+		<xsd:sequence>
+
+			<!-- Property Description -->
+			<xsd:element name="PropertyDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of property</Description>
+						<LineNumber>Part I Line 1(a) or Part II Line 1(a)</LineNumber>
+						<ELFFieldNumber>0040 0160</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="LineExplanationType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BadDebtStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Acquired Date -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="AcquiredDt" type="DateType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date acquired</Description>
+							<LineNumber>Part I Line 1(b) or Part II Line 1(b)</LineNumber>
+							<ELFFieldNumber>0050 0170</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DateAcquiredInheritedCd" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date acquired text</Description>
+							<LineNumber>Part I Line 1(b) or Part II Line 1(b)</LineNumber>
+							<ELFFieldNumber>0050 0170</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="INHERITED"/>
+							<xsd:enumeration value="VARIOUS"/>
+							<xsd:enumeration value="INH-2010"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Sold Or Disposed Date -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="SoldOrDisposedDt" type="DateType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold or disposed</Description>
+							<LineNumber>Part I Line 1(c) or Part II Line 1(c)</LineNumber>
+							<ELFFieldNumber>0060 0190</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SoldOrDisposedCd" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Date sold or disposed text</Description>
+							<LineNumber>Part I Line 1(c) or Part II Line 1(c)</LineNumber>
+							<ELFFieldNumber>0060 0190</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="BANKRUPT"/>
+							<xsd:enumeration value="WORTHLESS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Proceeds (Sales Price) Amount -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="ProceedsSalesPriceAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Proceeds (sales price)</Description>
+							<LineNumber>Part I Line 1(d) or Part II Line 1(d)</LineNumber>
+					    	<ELFFieldNumber>0070 0190</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SalesPriceCd" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Proceeds (sales price) text</Description>
+							<LineNumber>Part I Line 1(d) or Part II Line 1(d)</LineNumber>
+					    	<ELFFieldNumber>0070 0190</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="EXPIRED"/>
+							<xsd:enumeration value="WORTHLESS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Cost OR Other Basis Amount -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="CostOrOtherBasisAmt" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Cost or other basis</Description>
+							<LineNumber>Part I Line 1(e) or Part II Line 1(e)</LineNumber>
+					    	<ELFFieldNumber>0080 0200</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="USAmountNNType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BasisOtherThanActualCostOfPropertyStatement"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="CostOrOtherBasisAmtCd" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Cost or other basis text</Description>
+							<LineNumber>Part I Line 1(e) or Part II Line 1(e)</LineNumber>
+					    	<ELFFieldNumber>0080 0200</ELFFieldNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="EXPIRED"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Adjustments To Gain Or Loss Code -->
+			<xsd:element name="AdjustmentsToGainOrLossCd" type="AdjustmentsToGainOrLossCdType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Code(s) from instructions</Description>
+						<LineNumber>Part I Line 1(f) or Part II Line 1(f)</LineNumber>
+						<ELFFieldNumber>NL NL</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjustments To Gain Or Loss Amount -->
+			<xsd:element name="AdjustmentsToGainOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of adjustment</Description>
+						<LineNumber>Part I Line 1(g) or Part II Line 1(g)</LineNumber>
+				    	<ELFFieldNumber>0090 0210</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain Or Loss Amount -->
+			<xsd:element name="GainOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or loss</Description>
+						<LineNumber>Part I Line 1(h) or Part II Line 1(h)</LineNumber>
+				    	<ELFFieldNumber>NL NL</ELFFieldNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part I Line 1(f) and Part II Line 1(f) -->
+
+	<xsd:simpleType name="AdjustmentsToGainOrLossCdType">
+		<xsd:restriction base="TextType">
+			<xsd:pattern value="[A-Z]{0,7}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

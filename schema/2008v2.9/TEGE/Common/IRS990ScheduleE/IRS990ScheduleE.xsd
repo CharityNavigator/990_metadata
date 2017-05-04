@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule E</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule E ================ -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleE">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule E</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleEType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleE">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule E (Form 990) Schools -->
+
+	<xsd:complexType name="IRS990ScheduleEType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule E</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Does the Organization have a Racially Nondiscriminatory Policy Statement? -->
+			<xsd:element name="NondiscriminatoryPolicyStmt" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization have a racially nondiscriminatory policy statement?</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization have Policy Statement in Brochures, etc? -->
+			<xsd:element name="PolicyStatementInBrochuresEtc" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization have policy statement in brochures, etc?</Description>
+						<LineNumber>Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has the Organization Publicized the Policy through Broadcast Media? -->
+			<xsd:element name="PolicyPublViaBroadcastMedia" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has the organization publicized the policy through broadcast media?</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Answered "Has the Organization Publicized the Policy through Broadcast Media?", Explain -->
+			<xsd:element name="PubViaBroadcastMediaExpln" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If answered "Has the Organization Publicized the Policy through Broadcast Media?", explain</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Maintain Racial Composition Records? -->
+			<xsd:element name="MaintRacialCompositionRecords" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization maintain racial composition records?</Description>
+						<LineNumber>Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Maintain Scholarships Records? -->
+			<xsd:element name="MaintScholarshipsRecords" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization maintain scholarships records?</Description>
+						<LineNumber>Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Maintain Copies of Brochures, etc? -->
+			<xsd:element name="MaintCopiesOfBrochuresEtc" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization maintain copies of brochures, etc?</Description>
+						<LineNumber>Line 4c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Maintain Copies of All Solicitations? -->
+			<xsd:element name="MaintCopiesOfAllSolicitations" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization maintain copies of all solicitations?</Description>
+						<LineNumber>Line 4d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Answered "No" to Any of 4a-4d, Explain -->
+			<xsd:element name="OrgDoesNotMaintainExplanation" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If answered "no" to any of 4a-4d, explain</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Students' Rights or Privileges? -->
+			<xsd:element name="DiscriminateRaceStudentsRights" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way students' rights or privileges?</Description>
+						<LineNumber>Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Admissions Policies? -->
+			<xsd:element name="DiscriminateRaceAdmissPolicies" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way admissions policies?</Description>
+						<LineNumber>Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Employment of Faculty or Administrative Staff? -->
+			<xsd:element name="DiscriminateRaceEmplmnFaculty" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way employment of faculty or administrative staff?</Description>
+						<LineNumber>Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Scholarships or Other Financial Assistance? -->
+			<xsd:element name="DiscriminateRaceScholarships" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way scholarships or other financial assistance?</Description>
+						<LineNumber>Line 5d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Educational Policies? -->
+			<xsd:element name="DiscriminateRaceEducPolicies" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way educational policies?</Description>
+						<LineNumber>Line 5e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Use of Facilities? -->
+			<xsd:element name="DiscriminateRaceUseOfFclts" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way use of facilities?</Description>
+						<LineNumber>Line 5f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Athletic Programs? -->
+			<xsd:element name="DiscriminateRaceAthleticProg" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way athletic programs?</Description>
+						<LineNumber>Line 5g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the Organization Discriminate by Race in Any Way Other Extracurricular Activities? -->
+			<xsd:element name="DiscriminateRaceOtherActy" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization discriminate by race in any way other extracurricular activities?</Description>
+						<LineNumber>Line 5h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Answered "Yes" to Any of 5a-5h, Explain -->
+			<xsd:element name="DiscriminateRaceExplanation" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If answered "yes" to any of 5a-5h, explain</Description>
+						<LineNumber>Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Financial Aid or Assistance from a Governmental Agency -->
+			<!-- Does the Organization Receive any Financial Aid or Assistance from a Governmental Agency? -->
+			<xsd:element name="GovernmentFinancialAidReceived" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the organization receive any financial aid or assistance from a governmental agency?</Description>
+						<LineNumber>Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Has the Organization's Right to Such Aid Ever Been Revoked or Suspended? -->
+			<xsd:element name="GovernmentFinancialAidRevoked" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Has the organization's right to such aid ever been revoked or suspended?</Description>
+						<LineNumber>Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Answered "Yes" to Any of 6a-6b, Explain -->
+			<xsd:element name="GovtFinancialAidExplanation" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If answered "yes" to any of 6a-6b, explain</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Compliance with Rev. Proc. 75-50, 1975-2 C.B. 587? -->
+			<xsd:element name="ComplianceWithRevProc7550" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compliance with Rev. Proc. 75-50, 1975-2 C.B. 587?</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Answered "No" to 7, Explain -->
+			<xsd:element name="ComplianceProc75_50Explanation" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If answered "no" to 7, explain</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

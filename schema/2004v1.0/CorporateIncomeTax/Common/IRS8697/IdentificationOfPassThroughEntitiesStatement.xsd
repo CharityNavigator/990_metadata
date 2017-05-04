@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - Identification of Pass-Through Entities Statement</Description>
+			<TaxYear>2004</TaxYear>
+			<MaturityLevel>Initial Draft</MaturityLevel>
+			<ReleaseDate>August 30, 2004</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ==================================================================================== -->
+	<!-- ========================== Identification of Pass-Through Entities Statement ================== -->
+	<!-- ==================================================================================== -->
+
+	<xsd:element name="IDOfPassThruEntitiesStmt">
+		<xsd:annotation>
+			<xsd:documentation>Identification of Pass-Through Entities Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IdentificationOfPassThruEntitiesStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IdentificationOfPassThroughEntitiesStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IdentificationOfPassThruEntitiesStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Identification of pass-through entities statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Statement" type="IdentificationOfPassThruEntitiesType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ============ Type of Repeating Group of IdentificationOfPassThruEntitiesType ==============-->
+
+	<xsd:complexType name="IdentificationOfPassThruEntitiesType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Identification of pass-through entities statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>	
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  Employer Identification Number  -->
+			<xsd:element name="EmployerIdentificationNumber" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer identification number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

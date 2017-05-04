@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 4466</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 14, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 4466 ========================= -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS4466">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 4466</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS4466Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS4466">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment" />
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS4466Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 4466</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Telephone Number -->
+			<xsd:element name="TelephoneNumber" type="PhoneNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Telephone Number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Check Type of Return to be Filed -->
+			<xsd:element name="TypeOfReturn">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Check Type of Return to be Filed</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:choice>
+
+						<!-- Form 1120 -->
+						<xsd:element name="Form1120" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form 1120</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Form 1120-C -->
+						<xsd:element name="Form1120C" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form 1120-C</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Form 1120-F -->
+						<xsd:element name="Form1120F" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form 1120-F</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Form 1120-L -->
+						<xsd:element name="Form1120L" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form 1120-L</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Form 1120-PC -->
+						<xsd:element name="Form1120PC" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Form 1120-PC</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Return Type -->
+						<xsd:element name="OtherReturnType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other return type</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="CheckboxType">
+										<xsd:attribute name="returnType" use="required">
+											<xsd:simpleType>
+												<xsd:restriction base="StringType">
+													<xsd:enumeration value="1120S"/>
+													<xsd:enumeration value="990PF"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Estimated Income Tax Paid During the Tax Year -->
+			<xsd:element name="EstimatedIncomeTaxPaidDuringTY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated Income Tax Paid During the Tax Year</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Overpayment of Income Tax from Prior Year Credited to This Year's Estimated Tax -->
+			<xsd:element name="PriorYearOverpaidIncomeTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Overpayment of Income Tax from Prior Year Credited to This Year's Estimated Tax</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total. Add Lines 1 and 2 -->
+			<xsd:element name="EstimatedPlusOverpaidIncomeTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total. Add Lines 1 and 2</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter Total Tax From Appropriate Line of Your Tax Return -->
+			<xsd:element name="TotalTax1120SchJOrOtherReturns" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter total tax from appropriate line of your tax return</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Personal Holding Company Tax, if Any, Included on Line 4 -->
+			<xsd:element name="PersonalHoldingCompanyTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal Holding Company Tax, if Any, Included on Line 4</Description>
+						<LineNumber>5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estimated Refundable Tax Credit for Federal Tax on Fuels -->
+			<xsd:element name="EstRefundableFederalFuelTaxCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated Refundable Tax Credit for Federal Tax on Fuels</Description>
+						<LineNumber>5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total. Add Lines 5a and 5b -->
+			<xsd:element name="PrsnlHoldingTaxPlusFuelTaxCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total. Add Lines 5a and 5b</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Expected Income Tax Liability for the Tax Year. Subtract Line 6 from Line 4 -->
+			<xsd:element name="ExpectedIncomeTaxLiability" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Expected Income Tax Liability for the Tax Year. Subtract Line 6 from Line 4.</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Overpayment of Estimated Tax. Subract Line 7 from Line 3 -->
+			<xsd:element name="OverpaymentOfEstimatedTax" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Overpayment of Estimated Tax. Subract Line 7 from Line 3</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Record of Estimated Tax Deposits -->
+			<xsd:element name="RecordOfEstimatedTaxDeposits" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Record of Estimated Tax Deposits</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Date of the Deposit -->
+						<xsd:element name="DateOfDeposit" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date of the Deposit</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of the Deposit -->
+						<xsd:element name="AmountOfDeposit" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+										<Description>Amount of the Deposit</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+
+				</xsd:complexType>
+
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

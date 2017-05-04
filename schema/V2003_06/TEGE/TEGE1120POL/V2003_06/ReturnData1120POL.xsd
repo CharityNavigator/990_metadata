@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Return Data Schema for 1120POL Return</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/V2003_06/efileTypes.xsd"/>
+	
+	<xsd:include schemaLocation="IRS1120POL/IRS1120POL.xsd"/>
+	
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Corp1120/V2003_06/IRS1120ScheduleD/IRS1120ScheduleD.xsd"/>	
+
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4562/IRS4562.xsd"/>				
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4797/IRS4797.xsd"/>
+			
+	<!-- Common Dependencies (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../../Common/V2003_06/Dependencies/GeneralExplanationAttachment.xsd"/>
+	<xsd:include schemaLocation="../../Common/V2003_06/Dependencies/ReasonableCauseExplanation.xsd"/>	
+	
+	<!-- Includes for 1120POL (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="IRS1120POL/PrincipalCommitteeDesignationAttachment.xsd"/>	
+	<xsd:include schemaLocation="IRS1120POL/DividendsSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS1120POL/OtherIncomeNonExemptExpendituresSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS1120POL/OtherDeductionsSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS1120POL/ExpendedForExemptFunctionSchedule.xsd"/>
+	
+	<!-- Includes for IRS Payment Authorization Record -->
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/Dependencies/IRSCorporatePayment.xsd" />			
+	
+	<!-- Includes for 1120 Schedule D (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/Dependencies/CostOtherThanActualCashCostStatement.xsd" />	
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Corp1120/V2003_06/IRS1120ScheduleD/SSBICElectionPostponedGainStatement.xsd" />
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Corp1120/V2003_06/IRS1120ScheduleD/UnusedCapitalLossCarryoverSchedule.xsd" />
+		
+	<!-- Includes for 4562 (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4562/50YearADSDeductionStatement.xsd" />
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4562/50YearGDSDeductionStatement.xsd" />
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4562/AmortizationElectionStatement.xsd" />
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4562/Section168f1PropertyExplanationStatement.xsd" />
+
+	<!-- Includes for 4797 (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../../../CorporateIncomeTax/Common/V2003_06/IRS4797/SecuritiesOrCommoditiesHeldByATraderMarkToMarket.xsd" />					
+
+	<!-- Return 1120 POL -->
+	<xsd:element name="ReturnData">
+		<xsd:annotation>
+			<xsd:documentation>1120 POL Return Contents</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:complexType>
+			<xsd:sequence>
+			
+				<!-- Form 1120POL -->
+				<xsd:element ref="IRS1120POL">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 1120POL - US Income Tax Return for Certain Political Organizations</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+								
+				<!-- Form 1120 Schedule D -->
+				<xsd:element ref="IRS1120ScheduleD" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 1120 Schedule D - Capital Gains and Losses</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 4562  -->
+				<xsd:element ref="IRS4562" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 4562 - Depreciation and Amortization (Including Information on Listed Property)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 4797 -->
+				<xsd:element ref="IRS4797" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 4797 - Sales of Business Property</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+								
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="DividendsSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Dividends schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="GeneralExplanationAttachment" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>General explanation attachment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="ReasonableCauseExplanation" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Reasonable cause explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>		
+				
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="PrinCommitteeDesgnAttachment" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Principal Committee Designation Attachment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>								
+			
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="OthIncomeNonExemptExpendSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other income/non exempt expenditures schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>						
+
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="OtherDeductionsSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other deductions schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+				
+				<!-- Form 1120 POL Attachment -->
+				<xsd:element ref="ExpendedForExemptFunctionSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Expended for exempt function schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>					
+
+				<!-- Return 1120 POL Payment -->
+				<xsd:element ref="IRSCorporatePayment" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>IRS corporate payment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+																								
+				<!-- Form 1120 Schedule D Attachment -->
+				<xsd:element ref="CostOthThanActualCashCostStmt" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Cost other than actual cash cost statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 1120 Schedule D Attachment -->
+				<xsd:element ref="SSBICElectionPostponedGainStmt" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Postponed gain statement for SSBIC election</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 1120 Schedule D Attachment -->
+				<xsd:element ref="UnusedCapLossCarryoverCmptn" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Unused Capital Loss Carryover Computation Schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+								
+				<!-- Form 4562 Attachment -->
+				<xsd:element ref="ADS50YearDeductionStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>50 year ADS deduction statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 4562 Attachment -->
+				<xsd:element ref="GDS50YearDeductionStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>50 year GDS deduction statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 4562 Attachment -->
+				<xsd:element ref="AmortizationElectionStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Amortization election statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 4562 Attachment -->
+				<xsd:element ref="Section168f1PropertyStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Section 168(f)(1) property explanation statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+				
+				<!-- Form 4797 Attachment -->
+				<xsd:element ref="SecOrCommoditiesHeldByTrader" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Securities or Commodities Held by a Trader - "Mark-To-Market" Election</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+				
+			</xsd:sequence>
+			
+			<xsd:attributeGroup ref="ReturnDataAttributes">
+				<xsd:annotation>
+					<xsd:documentation>Common return data attributes</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attributeGroup>
+			
+		</xsd:complexType>
+		
+	</xsd:element>
+	
+</xsd:schema>

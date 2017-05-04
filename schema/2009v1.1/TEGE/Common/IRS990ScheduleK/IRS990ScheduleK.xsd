@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - IRS Form 990 Schedule K</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ==================  IRS Form 990 Schedule K ========================== -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS990ScheduleK">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 990 Schedule K</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS990ScheduleKType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS990ScheduleK">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Schedule K (Form 990) Supplemental Information on Tax Exempt Bonds -->
+
+	<xsd:complexType name="IRS990ScheduleKType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 990 Schedule K</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Part I. Bond Issues Table -->
+			<xsd:element name="Form990ScheduleKPartI" type="Form990SchKPartIGroup1Type" minOccurs="0" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Bond Issues</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Part II.  Proceeds Table -->
+			<xsd:element name="Form990ScheduleKPartII" type="Form990SchKPartIIGroup1Type" minOccurs="0" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Proceeds</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III.  Private Use -->
+			<xsd:element name="Form990ScheduleKPartIII" type="Form990SchKPartIIIGroup1Type" minOccurs="0" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Private Use</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV.  Arbitrage -->
+			<xsd:element name="Form990ScheduleKPartIV" type="Form990SchKPartIVGroup1Type" minOccurs="0" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Arbitrage</Description>
+						<LineNumber>Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- =========================================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ================ -->
+	<!-- =========================================================================== -->
+	<!-- Type for Part I, Columns (a) through (h) -->
+	<xsd:complexType name="Form990SchKPartIGroup1Type">
+		<xsd:sequence>
+	
+			<!-- Issuer Name -->
+			<xsd:element name="IssuerName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Issuer name</Description>
+						<LineNumber>Part I Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Issuer EIN -->
+			<xsd:element name="IssuerEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Issuer EIN</Description>
+						<LineNumber>Part I Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- CUSIP Number -->
+			<xsd:element name="CUSIPNumber" type="CUSIPNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>CUSIP number</Description>
+						<LineNumber>Part I Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Issued -->
+			<xsd:element name="DateIssued" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date issued</Description>
+						<LineNumber>Part I Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Issue Price -->
+			<xsd:element name="IssuePrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Issue price</Description>
+						<LineNumber>Part I Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Purpose -->
+			<xsd:element name="DescriptionOfPurpose" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of purpose</Description>
+						<LineNumber>Part I Column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Defeased? -->
+			<xsd:element name="Defeased" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Defeased?</Description>
+						<LineNumber>Part I Column (g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- On Behalf of Issuer? -->
+			<xsd:element name="OnBehalfOfIssuer" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>On behalf of issuer?</Description>
+						<LineNumber>Part I Column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+			
+			
+	<!-- Type for Part II, Lines (1) through (12) -->
+	<xsd:complexType name="Form990SchKPartIIGroup1Type">
+		<xsd:sequence>
+			
+			<!-- Total Proceeds -->
+			<xsd:element name="TotalProceeds" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total proceeds</Description>
+							<LineNumber>Part II Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Amount in Reserve Fund -->
+				<xsd:element name="AmountInReserveFund" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Amount in reserve fund</Description>
+							<LineNumber>Part II Line 2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Amount Defeased -->
+				<xsd:element name="AmountDefeased" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Amount defeased</Description>
+							<LineNumber>Part II Line 3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Amount Unspent -->
+				<xsd:element name="AmountUnspent" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Amount unspent</Description>
+							<LineNumber>Part II Line 4</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Issuance Costs From Proceeds -->
+				<xsd:element name="IssuanceCostsFromProceeds" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Issuance costs from proceeds</Description>
+							<LineNumber>Part II Line 5</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Working Capital Expenditures -->
+				<xsd:element name="WorkingCapitalExpenditures" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Working capital expenditures</Description>
+							<LineNumber>Part II Line 6</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Capital Expenditures -->
+				<xsd:element name="CapitalExpenditures" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Capital expenditures</Description>
+							<LineNumber>Part II Line 7</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Year of Substantial Completion -->
+				<xsd:element name="YearOfSubstCompletion" type="YearType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Year of substantial completion</Description>
+							<LineNumber>Part II Line 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Current Refunding? -->
+				<xsd:element name="CurrentRefunding" type="BooleanType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Current refunding?</Description>
+							<LineNumber>Part II Line 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Advance Refunding? -->
+				<xsd:element name="AdvanceRefunding" type="BooleanType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Advance refunding?</Description>
+							<LineNumber>Part II Line 10</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Final Allocation Made? -->
+				<xsd:element name="FinalAllocationMade" type="BooleanType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Final allocation made?</Description>
+							<LineNumber>Part II Line 11</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Adequate Books and Records Maintained? -->
+				<xsd:element name="AdequateBooksAndRecdsMaintaind" type="BooleanType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Adequate books and records maintained?</Description>
+							<LineNumber>Part II Line 12</LineNumber>
+						</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- Type for Part III, Lines (1) through (7) -->
+	<xsd:complexType name="Form990SchKPartIIIGroup1Type">
+		<xsd:sequence>
+			
+			<!-- Partnership or LLC Owning Bond Financed Property? -->
+			<xsd:element name="OwningBondFinancedProperty" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnership or LLC owning bond financed property?</Description>
+						<LineNumber>Part III Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Any Lease Arrangements? -->
+			<xsd:element name="AnyLeaseArrangements" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Any lease arrangements?</Description>
+						<LineNumber>Part III Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Management Contract For Bond Financed Property? -->			
+			<xsd:element name="MngmentCntrctBondFinancdPrprty" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Management contract for bond financed property?</Description>
+						<LineNumber>Part III Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Any Research Agreements? -->
+			<xsd:element name="AnyResearchAgreements" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Any research agreements?</Description>
+						<LineNumber>Part III Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Bond Counsel Routinely Engaged? -->			
+			<xsd:element name="BondCounselRoutinelyEngaged" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Bond counsel routinely engaged?</Description>
+						<LineNumber>Part III Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Percentage of Private Business Use by Others -->
+			<xsd:element name="PrcntgePrvtBusinessUseByOthers" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percentage of private business use by others</Description>
+						<LineNumber>Part III Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Percentage of Private Business Concerning UBI -->
+			<xsd:element name="PercentageOfPrvtBusinessReUBI" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Percentage of private business concerning UBI</Description>
+						<LineNumber>Part III Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Total of Lines 4 and 5 -->
+			<xsd:element name="TotalPrivateBusinessUse" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of lines 4 and 5</Description>
+						<LineNumber>Part III Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Post-Issuance Compliance Procedures? -->
+			<xsd:element name="PostIssuanceComplianceProcdrs" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Post-issuance compliance procedures?</Description>
+						<LineNumber>Part III Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Part IV, Lines (1) through (6) -->
+	<xsd:complexType name="Form990SchKPartIVGroup1Type">
+		<xsd:sequence>
+			
+			<!-- Form 8038-T Filed? -->
+			<xsd:element name="Form8038TFiled" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 8038-T filed?</Description>
+						<LineNumber>Part IV Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Variable Rate Issue? -->
+			<xsd:element name="VariableRateIssue" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Variable rate issue?</Description>
+						<LineNumber>Part IV Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Hedge Identified in Books and Records? -->		
+			<xsd:element name="HedgeIdentifiedInBooksAndRecds" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Hedge identified in books and records?</Description>
+						<LineNumber>Part IV Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of Hedge Provider -->
+			<xsd:element name="NameOfHedgeProvider" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of provider</Description>
+						<LineNumber>Part IV Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Term of Hedge -->
+			<xsd:element name="TermOfHedge" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Term of hedge</Description>
+						<LineNumber>Part IV Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Proceeds Invested in GIC? -->
+			<xsd:element name="GrossProceedsInvestedInGIC" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross proceeds invested in GIC?</Description>
+						<LineNumber>Part IV Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Name of GIC Provider -->
+			<xsd:element name="NameOfGICProvider" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of provider</Description>
+						<LineNumber>Part IV Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Term of GIC -->
+			<xsd:element name="TermOfGIC" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Term of GIC</Description>
+						<LineNumber>Part IV Line 4c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Regulatory Safe Harbor Satisfied? -->
+			<xsd:element name="RegulatorySafeHarborSatisfied" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regulatory safe harbor satisfied?</Description>
+						<LineNumber>Part IV Line 4d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gross Proceeds Invested? -->
+			<xsd:element name="GrossProceedsInvested" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross proceeds invested?</Description>
+						<LineNumber>Part IV Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Exception to Rebate? -->
+			<xsd:element name="ExceptionToRebate" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exception to rebate?</Description>
+						<LineNumber>Part IV Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

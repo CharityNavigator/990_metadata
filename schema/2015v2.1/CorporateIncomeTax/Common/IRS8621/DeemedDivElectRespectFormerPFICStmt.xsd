@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Deemed Dividend Election with Respect to a Former PFIC</Description>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 29, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ======================================================================= -->
+	<!-- ======== Deemed Dividend Election with Respect to a Former PFIC ======= -->
+	<!-- ======================================================================= -->
+
+	<xsd:element name="DeemedDivElectFrmrPFICStmt">
+		<xsd:annotation>
+			<xsd:documentation>Deemed Dividend Election with Respect to a Former PFIC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="DeemedDivElectFrmrPFICStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="DeemedDivElectRespectFormerPFICStmt">
+						<xsd:annotation>    
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Deemed Dividend Election with Respect to a Former PFIC Type -->
+	<xsd:complexType name="DeemedDivElectFrmrPFICStmtType">
+		<xsd:sequence>
+
+			<!-- Name: choice between Name or Person Name -->
+			<xsd:choice minOccurs="0">
+				<!-- Name -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Person Name -->
+				<xsd:element name="PersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person name</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address -->
+				<xsd:element name="USAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US Address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address -->
+				<xsd:element name="ForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Identifying Number: Choice between Social Security Number, Employer Identification Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Social Security Number -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Social Security Number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Employer Identification Number -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Tax Year in  which the Amount was Previously Included in Income -->
+			<xsd:element name="IncludedIncomeForTaxYr" type="YearType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year in which the amount was previously included in income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The Law under which the Amount was Previously Included in Income -->
+			<xsd:element name="LawForIncludedIncomeTxt" type="LineExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The law under which the amount was previously included in income</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description of Transaction in which the Shareholder Acquired the Stock of the PFIC from the Other US Person -->
+			<xsd:element name="TransactionDesc" type="ExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of transaction in which the shareholder acquired the stock of the PFIC from the other US person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The Law under which the Shareholder's Holding Period Includes the Holding Period of the Other US Person -->
+			<xsd:element name="LawForShareholdersHoldPrdTxt" type="LineExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The law under which the shareholder's holding period includes the holding period of the other US person</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- The Termination Date as Defined in Regulations Section 1298-3(d) for the Former PFIC -->
+			<xsd:element name="TerminationDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The termination date as defined in Regulations section 1298-3(d) for the former PFIC</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- The Beginning Date of the Taxable Year of the Shareholding in Which the Termination Date Falls (i.e., the Election Year) -->
+			<xsd:element name="TaxYearBeginDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The beginning date of the taxable year of the shareholding in which the termination date falls (i.e., the election year)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- The Ending Date of the Taxable Year of the Shareholding in Which the Termination Date Falls (i.e., the Election Year) -->
+			<xsd:element name="TaxYearEndDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The ending date of the taxable year of the shareholding in which the termination date falls (i.e., the election year)</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Shareholders Pro Rata Share of Post-1986 Earnings and Profits of the Form PIFC Treated as Distributed to Share Holder on Termination Date Schedule -->
+			<xsd:element name="ShareholdersProRataShareInfo" type="ShareholdersProRataShareInfoType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholders pro rata share of post-1986 earnings and profits of the form PIFC treated as distributed to share holder on termination date schedule</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+		
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<xsd:complexType name="ShareholdersProRataShareInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Shareholders pro rata share information</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>			
+			
+			<!-- Tax Year for Each Tax Year the Taxpayer Held the Stock (i.e., The PFIC Stock the Taxpayer Held on the CFC Qualification Date). -->
+			<xsd:element name="TaxYr" type="YearType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year for each tax year the taxpayer held the stock (i.e., the PFIC stock the taxpayer held on the CFC qualification date).</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Post 1986 E&P Prorated to the Shareholder for the Tax Year Specified in TxYrTPHeldStock -->
+			<xsd:element name="PostProratedShareHolderTYAmt" type="USAmountType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Post 1986 E &amp; P Prorated to the Shareholder for the tax year specified in TxYrTPHeldStock</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+	  		<!-- Amount of Post-1986 E&P in Post1986EIProratedShrHldr That is Prorated to the Shareholder for the Tax Year Specified in TxYrTPHeldStock -->
+			<xsd:element name="PostProratedtoShareHolderAmt" type="USAmountType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of Post-1986 E &amp; P in Post1986EIProratedShrHldr that is prorated to the shareholder for the tax year specified in TxYrTPHeldStock</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Explanation That Shows the Calculation of This Amount as Required Under Section 1297(e) PFIC for the Election Year -->
+			<xsd:element name="CalculationDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation that shows the calculation of this amount as required under Section 1297(e) PFIC for the election year</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

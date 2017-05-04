@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 5471 Schedule M</Description>
+			<TaxYear>2014</TaxYear>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept.8, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- =============================================================== -->
+	<!-- ===============  IRS Form 5471 Schedule M ===================== -->
+	<!-- =============================================================== -->
+	
+	<xsd:element name="IRS5471ScheduleM">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5471 Schedule M</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5471ScheduleMType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5471ScheduleM">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS5471ScheduleMType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5471 Schedule M</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Choice between: Name of Person OR Business Filing Form 5471  -->
+			<xsd:choice minOccurs="0">
+				<!-- Name of Person Filing Form 5471  -->
+				<xsd:element name="PersonNm" type="PersonNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of person filing Form 5471</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Name of Business Filing Form 5471  -->
+				<xsd:element name="BusinessName" type="BusinessNameType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Name of business filing Form 5471</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Identifying Number: choice between SSN, EIN, or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Missing SSN/EIN Reason -->
+				<xsd:element name="MissingSSNEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing SSN/EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Name of the Foreign Corporation -->
+			<xsd:element name="ForeignCorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of the foreign corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Choice between Foreign Corporation EIN or "APPLD FOR" or "FOREIGNUS" -->
+			<xsd:choice minOccurs="0">
+				<!-- Foreign Corporation EIN -->
+				<xsd:element name="ForeignCorporationEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Missing Foreign Corporation EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN Reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Foreign Entity Identification Group -->
+			<xsd:element name="ForeignEntityIdentificationGrp" type="ForeignEntityIdentificationGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Entity Identification Group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Foreign Corporation's Functional Currency -->
+			<xsd:element name="FunctionalCurrencyDesc" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the relevant functional currency and the exchange rate used throughout this schedule</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Exchange Rate -->
+			<xsd:element name="ExchangeRt" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the relevant functional currency and the exchange rate used throughout this schedule</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Stock in Trade - US Person filing this return -->
+			<xsd:element name="StockSalesTradeUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 1(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sale of Tangible Property - US Person filing this return -->
+			<xsd:element name="TangiblePropertySalesUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of tangible property</Description>
+						<LineNumber>Schedule M Line 2(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Property Rights - US Person filing this return -->
+			<xsd:element name="PropertyRightsSalesUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 3(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Received - US Filer Amount  -->
+			<xsd:element name="PlatformTransPymtRcvdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments received - US filer amount </Description>
+						<LineNumber>Schedule M Line 4(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Received - US Filer Amount -->
+			<xsd:element name="CostShrTransPymtRcvdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments received - US filer amount</Description>
+						<LineNumber>Schedule M Line 5(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Received for Technical, Managerial, Engineering, Construction, or like Services - US Person filing this return -->
+			<xsd:element name="TechnicalSrvcCompRcvdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation received for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 6(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Received - US Person filing this return -->
+			<xsd:element name="CommissionsReceivedUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Schedule M Line 7(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Received - US Person filing this return -->
+			<xsd:element name="RntsRyltsFeesRcvdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees received</Description>
+						<LineNumber>Schedule M Line 8(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Received - US Person filing this return -->
+			<xsd:element name="DividendsReceivedUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends received</Description>
+						<LineNumber>Schedule M Line 9(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Received - US Person filing this return -->
+			<xsd:element name="InterestReceivedUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest received</Description>
+						<LineNumber>Schedule M Line 10(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Received for Insurance or Reinsurance - US Person filing this return -->
+			<xsd:element name="InsReinsPremRcvdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums received for insurance or reinsurance</Description>
+						<LineNumber>Schedule M Line 11(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Received - US Person filing this return -->
+			<xsd:element name="TotalReceivedUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 11</Description>
+						<LineNumber>Schedule M Line 12(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Stock in Trade - US Person filing this return -->
+			<xsd:element name="StockPurchasesTradeUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 13(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Tangible Property other than Stock in Trade - US Person filing this return -->
+			<xsd:element name="TangiblePropertyPrchsUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of tangible property other than stock in trade</Description>
+						<LineNumber>Schedule M Line 14(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Property Rights - US Person filing this return -->
+			<xsd:element name="PropertyRightsPrchsUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 15(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Paid - US Filer Amount -->
+			<xsd:element name="PlatformTransPymtPdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments paid - US filer amount</Description>
+						<LineNumber>Schedule M Line 16(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Paid - US Filer Amount -->
+			<xsd:element name="CostShrTransPymtPdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments paid - US filer amount</Description>
+						<LineNumber>Schedule M Line 17(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Paid for Technical, Managerial, Engineering, Construction, or like Services - US Person filing this return -->
+			<xsd:element name="TechnicalSrvcCompPdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation paid for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 18(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Paid - US Person filing this return -->
+			<xsd:element name="CommissionsPaidUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions paid</Description>
+						<LineNumber>Schedule M Line 19(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Paid - US Person filing this return -->
+			<xsd:element name="RntsRyltsFeesPdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees paid</Description>
+						<LineNumber>Schedule M Line 20(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Paid - US Person filing this return -->
+			<xsd:element name="DividendsPaidUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid</Description>
+						<LineNumber>Schedule M Line 21(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Paid - US Person filing this return -->
+			<xsd:element name="InterestPaidUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid</Description>
+						<LineNumber>Schedule M Line 22(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Paid - US Person filing this return -->
+			<xsd:element name="InsReinsPremPdUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums Paid</Description>
+						<LineNumber>Schedule M Line 23(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Paid - US Person filing this return -->
+			<xsd:element name="TotalPaidUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 13 through 23</Description>
+						<LineNumber>Schedule M Line 24(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Borrowed - US Person filing this return -->
+			<xsd:element name="AmountsBorrowedUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts borrowed (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 25(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Loaned - US Person filing this return -->
+			<xsd:element name="AmountsLoanedUSPrsnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts loaned (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 26(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Stock in Trade - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="StockSalesTradeDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 1(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sale of Tangible Property - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TangiblePropertySlsDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of tangible property</Description>
+						<LineNumber>Schedule M Line 2(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Property Rights - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="PropertyRightsSalesDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 3(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Received - Any Domestic Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="PltfrmTransPymtRcvdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments received - Any domestic corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 4(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Received - Any Domestic Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="CostShrTransPymtRcvdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments received - Any domestic corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 5(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Received for Technical, Managerial, Engineering, Construction, or like Services - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TechSrvcCompRcvdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation received for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 6(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Received - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="CommissionsReceivedDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Schedule M Line 7(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Received - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="RntsRyltsFeesRcvdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees received</Description>
+						<LineNumber>Schedule M Line 8(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Received - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="DividendsReceivedDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends received</Description>
+						<LineNumber>Schedule M Line 9(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Received - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InterestReceivedDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest received</Description>
+						<LineNumber>Schedule M Line 10(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Received for Insurance or Reinsurance - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InsReinsPremRcvdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums received for insurance or reinsurance</Description>
+						<LineNumber>Schedule M Line 11(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Received - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TotalReceivedDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 11</Description>
+						<LineNumber>Schedule M Line 12(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Stock in Trade - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="StockPurchasesTradeDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 13(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Tangible Property other than Stock in Trade - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TangiblePropPrchsDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of tangible property other than stock in trade</Description>
+						<LineNumber>Schedule M Line 14(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Property Rights - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="PropertyRightsPrchsDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 15(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Paid - Any Domestic Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="PlatformTransPymtPdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments paid - Any domestic corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 16(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Paid - Any Domestic Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="CostShrTransPymtPdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments paid - Any domestic corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 17(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Paid for Technical, Managerial, Engineering, Construction, or like Services - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TechnicalSrvcCompPdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation paid for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 18(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Paid - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="CommissionsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions paid</Description>
+						<LineNumber>Schedule M Line 19(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Paid - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="RntsRyltsFeesPdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees paid</Description>
+						<LineNumber>Schedule M Line 20(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Paid - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="DividendsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid</Description>
+						<LineNumber>Schedule M Line 21(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Paid - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InterestPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid</Description>
+						<LineNumber>Schedule M Line 22(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Paid - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InsReinsPremPdDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums Paid</Description>
+						<LineNumber>Schedule M Line 23(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Paid - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TotalPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 13 through 23</Description>
+						<LineNumber>Schedule M Line 24(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Borrowed - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="AmountsBorrowedDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts borrowed (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 25(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Loaned - Any Domestic Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="AmountsLoanedDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts loaned (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 26(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Stock in Trade - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="StockSalesTradeFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 1(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sale of Tangible Property - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TangiblePropertySlsFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of tangible property</Description>
+						<LineNumber>Schedule M Line 2(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Property Rights - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="PropertyRightsSalesFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 3(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Received - Other Foreign Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="PltfrmTransPymtRcvdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments received - Other foreign corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 4(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Received - Other Foreign Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="CostShrTransPymtRcvFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments received - Other foreign corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 5(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Received for Technical, Managerial, Engineering, Construction, or like Services - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TechSrvcCompRcvdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation received for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 6(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Received - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="CommissionsReceivedFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Schedule M Line 7(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Received - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="RntsRyltsFeesRcvdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees received</Description>
+						<LineNumber>Schedule M Line 8(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Received - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="DividendsReceivedFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends received</Description>
+						<LineNumber>Schedule M Line 9(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Received - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InterestReceivedFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest received</Description>
+						<LineNumber>Schedule M Line 10(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Received for Insurance or Reinsurance - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InsReinsPremRcvdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums received for insurance or reinsurance</Description>
+						<LineNumber>Schedule M Line 11(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Received - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TotalReceivedFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 11</Description>
+						<LineNumber>Schedule M Line 12(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Stock in Trade - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="StockPurchasesTradeFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 13(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Tangible Property other than Stock in Trade - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TangiblePropPrchsFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of tangible property other than stock in trade</Description>
+						<LineNumber>Schedule M Line 14(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Property Rights - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="PropertyRightsPrchsFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 15(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Paid - Other Foreign Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="PlatformTransPymtPdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments paid - Other foreign corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 16(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Paid - Other Foreign Corporation or Partnership Controlled by US Filer Amount -->
+			<xsd:element name="CostShrTransPymtPdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments paid - Other foreign corporation or partnership controlled by US filer amount</Description>
+						<LineNumber>Schedule M Line 17(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Paid for Technical, Managerial, Engineering, Construction, or like Services - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TechnicalSrvcCompPdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation paid for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 18(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Paid - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="CommissionsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions paid</Description>
+						<LineNumber>Schedule M Line 19(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Paid - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="RntsRyltsFeesPdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees paid</Description>
+						<LineNumber>Schedule M Line 20(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Paid - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="DividendsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid</Description>
+						<LineNumber>Schedule M Line 21(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Paid - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InterestPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid</Description>
+						<LineNumber>Schedule M Line 22(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Paid - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="InsReinsPremPdFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums Paid</Description>
+						<LineNumber>Schedule M Line 23(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Paid - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="TotalPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 13 through 23</Description>
+						<LineNumber>Schedule M Line 24(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Borrowed - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="AmountsBorrowedFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts borrowed (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 25(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Loaned - Any Other Foreign Corporation or Partnership Controlled by US Person filing this return -->
+			<xsd:element name="AmountsLoanedFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts loaned (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 26(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Stock in Trade - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="StockSalesTradeShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 1(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sale of Tangible Property - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="TangiblePropSlsShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of tangible property</Description>
+						<LineNumber>Schedule M Line 2(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Property Rights - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="PropertyRghtsSlsShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 3(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Received - Shareholder of Controlled Foreign Corporation Amount -->
+			<xsd:element name="PltfrmPymtRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments received - Shareholder of controlled foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 4(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Received - Shareholder of Controlled Foreign Corporation Amount -->
+			<xsd:element name="CostShrPymtRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments received - Shareholder of controlled foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 5(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Received for Technical, Managerial, Engineering, Construction, or like Services - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="TechSrvcCompRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation received for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 6(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Received - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="CommissionsRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Schedule M Line 7(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Received - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="RntsRyltsFeeRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees received</Description>
+						<LineNumber>Schedule M Line 8(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Received - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="DividendsRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends received</Description>
+						<LineNumber>Schedule M Line 9(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Received - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="InterestReceivedShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest received</Description>
+						<LineNumber>Schedule M Line 10(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Received for Insurance or Reinsurance - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="InsReinsPremRcvdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums received for insurance or reinsurance</Description>
+						<LineNumber>Schedule M Line 11(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Received - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="TotalReceivedShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 11</Description>
+						<LineNumber>Schedule M Line 12(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Stock in Trade - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="StockPrchsTrdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 13(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Tangible Property other than Stock in Trade - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="TngblPropPrchsShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of tangible property other than stock in trade</Description>
+						<LineNumber>Schedule M Line 14(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Property Rights - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="PropRghtsPrchsShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 15(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Paid - Shareholder of Controlled Foreign Corporation Amount -->
+			<xsd:element name="PltfrmPymtPdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments paid - Shareholder of controlled foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 16(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Paid - Shareholder of Controlled Foreign Corporation Amount -->
+			<xsd:element name="CostShrPymtPdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments paid - Shareholder of controlled foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 17(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Paid for Technical, Managerial, Engineering, Construction, or like Services - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="TechSrvcCompPdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation paid for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 18(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Paid - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="CommissionsPaidShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Schedule M Line 19(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Paid - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="RntsRyltsFeesPdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees paid</Description>
+						<LineNumber>Schedule M Line 20(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Paid - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="DividendsPaidShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid</Description>
+						<LineNumber>Schedule M Line 21(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Paid - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="InterestPaidShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid</Description>
+						<LineNumber>Schedule M Line 22(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Paid - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="InsReinsPremPdShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums Paid</Description>
+						<LineNumber>Schedule M Line 23(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Paid - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="TotalPaidShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 13 through 23</Description>
+						<LineNumber>Schedule M Line 24(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Borrowed - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="AmountsBorrowedShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts borrowed (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 25(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Loaned - 10% or more US Shareholder of Controlled Foreign Corporation -->
+			<xsd:element name="AmountsLoandedShrFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts loaned (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 26(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Stock in Trade - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="StockSalesTradeShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 1(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sale of Tangible Property - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="TangiblePropSlsShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of tangible property</Description>
+						<LineNumber>Schedule M Line 2(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Sales of Property Rights - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="PropertyRghtsSlsShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 3(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Received - Shareholder of Corporation Controlling Foreign Corporation Amount -->
+			<xsd:element name="PltfrmPymtRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments received - Shareholder of corporation controlling foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 4(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Received  - Shareholder of Corporation Controlling Foreign Corporation Amount -->
+			<xsd:element name="CostShrPymtRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments received - Shareholder of corporation controlling foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 5(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Received for Technical, Managerial, Engineering, Construction, or like Services - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="TechSrvcCompRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation received for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 6(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Received - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="CommissionsRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions received</Description>
+						<LineNumber>Schedule M Line 7(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Received - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="RntsRyltsFeeRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees received</Description>
+						<LineNumber>Schedule M Line 8(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Received - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="DividendsRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends received</Description>
+						<LineNumber>Schedule M Line 9(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Received - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="InterestReceivedShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest received</Description>
+						<LineNumber>Schedule M Line 10(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Received for Insurance or Reinsurance - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="InsReinsPremRcvdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums received for insurance or reinsurance</Description>
+						<LineNumber>Schedule M Line 11(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Received - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="TotalReceivedShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1 through 11</Description>
+						<LineNumber>Schedule M Line 12(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Stock in Trade - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="StockPrchsTrdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of stock in trade (inventory)</Description>
+						<LineNumber>Schedule M Line 13(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Tangible Property other than Stock in Trade - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="TngblPropPrchsShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of tangible property other than stock in trade</Description>
+						<LineNumber>Schedule M Line 14(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Purchases of Property Rights - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="PropRghtsPrchsShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases of property rights (patents, trademarks, etc.)</Description>
+						<LineNumber>Schedule M Line 15(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Platform Contribution Transaction Payments Paid - Shareholder of Corporation Controlling Foreign Corporation Amount -->
+			<xsd:element name="PltfrmPymtPdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platform contribution transaction payments paid - Shareholder of corporation controlling foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 16(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Cost Sharing Transaction Payments Paid - Shareholder of Corporation Controlling Foreign Corporation Amount -->
+			<xsd:element name="CostShrPymtPdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost sharing transaction payments paid - Shareholder of corporation controlling foreign corporation amount</Description>
+						<LineNumber>Schedule M Line 17(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Compensation Paid for Technical, Managerial, Engineering, Construction, or like Services - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="TechSrvcCompPdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Compensation paid for technical, managerial, engineering, construction, or like services</Description>
+						<LineNumber>Schedule M Line 18(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Commissions Paid - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="CommissionsPaidShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions paid</Description>
+						<LineNumber>Schedule M Line 19(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rents, Royalties, and Licensing Fees Paid - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="RntsRyltsFeesPdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rents, royalties, and licensing fees paid</Description>
+						<LineNumber>Schedule M Line 20(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Dividends Paid - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="DividendsPaidShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid</Description>
+						<LineNumber>Schedule M Line 21(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Paid - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="InterestPaidShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid</Description>
+						<LineNumber>Schedule M Line 22(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Premiums Paid - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="InsReinsPremPdShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Premiums Paid</Description>
+						<LineNumber>Schedule M Line 23(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total of Paid - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="TotalPaidShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 13 through 23</Description>
+						<LineNumber>Schedule M Line 24(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Borrowed - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="AmountsBorrowedShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts borrowed (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 25(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amounts Loaned - 10% or more US Shareholder of Any Corporation Controlling the Forgeign Corporation -->
+			<xsd:element name="AmountsLoanedShrCorpCtrlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts loaned (enter the maximum loan balance during the year)</Description>
+						<LineNumber>Schedule M Line 26(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

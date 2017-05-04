@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form4562-FY</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 22, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+	<xsd:include schemaLocation="../IRS4562/IRS4562.xsd" />
+
+	<!-- =============================================================== -->
+	<!-- =======================  IRS Form 4562-FY ======================== -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS4562FY">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 4562-FY</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS4562FYType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS4562FY">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<!-- Half-year Convention Election (optional label) -->
+					<xsd:attribute name="note">
+						<xsd:simpleType>
+							<xsd:restriction base="StringType">
+								<xsd:enumeration value="ELECTION PURSUANT TO NOTICE 2001-70" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<!-- Extension Under Announcement (optional label) -->
+					<xsd:attribute name="note2">
+						<xsd:simpleType>
+							<xsd:restriction base="StringType">
+								<xsd:enumeration value="EXTENSION UNDER ANNOUNCEMENT 2006-29" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS4562FYType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 4562-FY</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Business or Activity -->
+			<xsd:element name="BusinessOrActivity" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business or activity to which this form relates</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="40" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- ===== Part I - Election To Expense Certain Property Under Section 179 ===== -->
+
+			<!-- Maximum Dollar Limitation -->
+			<xsd:element name="MaximumDollarLimitation" default="250000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Maximum dollar limitation</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="USAmountType">
+						<xsd:maxInclusive value="250000" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Total Cost of Section 179 Property placed in service -->
+			<xsd:element name="TotalCostOfSection179Property" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total cost of section 179 property placed in service</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Threshold Cost of Section 179 Property -->
+			<xsd:element name="ThresholdCostOfSection179Prop" default="800000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Threshold cost of section 179 property</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="USAmountType">
+						<xsd:maxInclusive value="800000" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Reduction in Limitation -->
+			<xsd:element name="ReductionInLimitation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction in limitation</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Dollar Limitation for Tax Year -->
+			<xsd:element name="DollarLimitationForTaxYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dollar limitation for tax year</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Elected Property Table -->
+			<xsd:element name="ElectedProperty" type="ElectedPropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Elected property table</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Line 7 - Listed Property.  Copy of line 29 -->
+
+			<!-- Total Elected Cost of Section 179 Property placed in service -->
+			<xsd:element name="TotalElectedCostSect179Prop" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total elected cost of section 179 property placed in service</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative Deduction -->
+			<xsd:element name="TentativeDeduction" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative deduction</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prior Year Carryover of Disallowed Deduction -->
+			<xsd:element name="DisallowedDeductionCarryover" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prior year carryover of disallowed deduction</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Business Income Limitation -->
+			<xsd:element name="BusinessIncomeLimitation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business income limitation</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Expense Deduction -->
+			<xsd:element name="Section179ExpenseDeduction" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 expense deduction</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="note">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:enumeration value="SUMMARY (ERC030)" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Next Year Carryover Amount -->
+			<xsd:element name="NextYearCarryoverAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Next year carryover amount</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Special Depreciation Allowance and Other Depreciation ===== -->
+
+			<!-- Special Allowance -->
+			<xsd:element name="SpecialAllowance" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Special allowance</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property subject to section 168(f)(1) election -->
+			<xsd:element name="Section168f1ElectedProperty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property subject to section 168(f)(1) election</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="Section168f1PropertyExplanationStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Other depreciation  -->
+			<xsd:element name="OtherDepreciation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other depreciation</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part III - MACRS Depreciation ===== -->
+
+			<!-- MACRS Deductions for assets placed in service before CY -->
+			<xsd:element name="MACRSDedForAssetsInServicePY" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>MACRS Deductions for assets placed in service before CY</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- General Asset Account Election -->
+			<xsd:element name="GeneralAssetAccountElection" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General asset account election</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- General Depreciation System -->
+			<xsd:element name="GeneralDepreciationSystem" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General Depreciation System</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- General Depreciation System (GDS) for 3-year Property -->
+						<xsd:element name="GDS3YearProperty" type="GDS3To20YearPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 3-year property</Description>
+									<LineNumber>19a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for 5-year Property -->
+						<xsd:element name="GDS5YearProperty" type="GDS3To20YearPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 5-year property</Description>
+									<LineNumber>19b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for 7-year Property -->
+						<xsd:element name="GDS7YearProperty" type="GDS3To20YearPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 7-year property</Description>
+									<LineNumber>19c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for 10-year Property -->
+						<xsd:element name="GDS10YearProperty" type="GDS3To20YearPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 10-year property</Description>
+									<LineNumber>19d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for 15-year Property -->
+						<xsd:element name="GDS15YearProperty" type="GDS3To20YearPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 15-year property</Description>
+									<LineNumber>19e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for 20-year Property -->
+						<xsd:element name="GDS20YearProperty" type="GDS3To20YearPropertyType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 20-year property</Description>
+									<LineNumber>19f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for 25-year Property -->
+						<xsd:element name="GDS25YearProperty" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for 25-year property</Description>
+									<LineNumber>19g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>19g column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Convention -->
+									<xsd:element name="Convention" type="DepreciationConventionType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Convention</Description>
+												<LineNumber>19g column e</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>19g column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for Residential Rental Property -->
+						<xsd:element name="GDSResidentialRentalProperty" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for residential rental property</Description>
+									<LineNumber>19h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Month and Year Placed in Service -->
+									<xsd:element name="MonthAndYearPlacedInService" type="YearMonthType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Month and year placed in service</Description>
+												<LineNumber>19h column b</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>19h column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>19h column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for Non-Residential Real Property (type 1: 39 yr Recovery Period) -->
+						<xsd:element name="GDSNonResidentialRealProperty1" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for non-residential real property (type 1)</Description>
+									<LineNumber>19i(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Month and Year Placed in Service -->
+									<xsd:element name="MonthAndYearPlacedInService" type="YearMonthType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Month and year placed in service</Description>
+												<LineNumber>19i(1) column b</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>19i(1) column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>19i(1) column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- General Depreciation System (GDS) for Non-Residential Real Property (type 2: specify Recovery Period) -->
+						<xsd:element name="GDSNonResidentialRealProperty2" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GDS table for non-residential real property (type 2)</Description>
+									<LineNumber>19i(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Month and Year Placed in Service -->
+									<xsd:element name="MonthAndYearPlacedInService" type="YearMonthType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Month and year placed in service</Description>
+												<LineNumber>19i(2) column b</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>19i(2) column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Recovery Period -->
+									<xsd:element name="RecoveryPeriod" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Recovery period</Description>
+												<LineNumber>19i(2) column d</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="DecimalType">
+												<xsd:totalDigits value="3" />
+												<xsd:fractionDigits value="1" />
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>19i(2) column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+					</xsd:sequence>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="50YearGDSDeductionStatement" />
+
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Alternative Depreciation System -->
+			<xsd:element name="AlternativeDepreciationSystem" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative Depreciation System</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Alternative Depreciation System (ADS) for Class Life Property -->
+						<xsd:element name="ADSClassLifeProperty" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>ADS table for class life property</Description>
+									<LineNumber>20a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>20a column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Recovery Period -->
+									<xsd:element name="RecoveryPeriod" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Recovery period</Description>
+												<LineNumber>20a column d</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="DecimalType">
+												<xsd:totalDigits value="3" />
+												<xsd:fractionDigits value="1" />
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<!-- Convention -->
+									<xsd:element name="Convention" type="DepreciationConventionType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Convention</Description>
+												<LineNumber>20a column e</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>20a column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Alternative Depreciation System (ADS) for 12-year Property -->
+						<xsd:element name="ADS12YearProperty" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>ADS table for 12-year property</Description>
+									<LineNumber>20b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>20b column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Convention -->
+									<xsd:element name="Convention" type="DepreciationConventionType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Convention</Description>
+												<LineNumber>20b column e</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>20b column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Alternative Depreciation System (ADS) for 40-year Property -->
+						<xsd:element name="ADS40YearProperty" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>ADS table for 40-year property</Description>
+									<LineNumber>20c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Month and Year Placed in Service -->
+									<xsd:element name="MonthAndYearPlacedInService" type="YearMonthType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Month and year placed in service</Description>
+												<LineNumber>20c column b</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Basis for Depreciation -->
+									<xsd:element name="BasisForDepreciation" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Basis for depreciation</Description>
+												<LineNumber>20c column c</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Depreciation Deduction -->
+									<xsd:element name="DepreciationDeduction" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Depreciation deduction</Description>
+												<LineNumber>20c column g</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+					</xsd:sequence>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="50YearADSDeductionStatement" />
+
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<!-- ===== Part IV - Summary ===== -->
+
+			<!-- Line 21 - Listed Property.  Copy of line 28 -->
+
+			<!-- Total Depreciation -->
+			<xsd:element name="TotalDepreciation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total depreciation</Description>
+						<LineNumber>22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 263A Current Year Cost -->
+			<xsd:element name="Section263ACurrentYearCost" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 263A current year cost</Description>
+						<LineNumber>23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part V - Listed Property - Section A - Depreciation and Other Information ===== -->
+
+			<!-- Have Evidence to Support Claims? -->
+			<xsd:element name="HaveEvidenceToSupportClaims" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Do you have evidence to support the business/investment use claimed?</Description>
+						<LineNumber>24a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is Evidence Written? -->
+			<xsd:element name="IsEvidenceWritten" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>If "yes", is the evidence written?</Description>
+						<LineNumber>24b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Special allowance for property used over 50% and placed in service during tax year -->
+			<xsd:element name="SpecialAllwncOver50PCT" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Special allowance for property used over 50% and placed in service during tax year</Description>
+						<LineNumber>25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Table of Property used more than 50% in a Qualified Business Use -->
+			<xsd:element name="MoreThanHalfBusinessUseProp" type="MoreThanHalfBusinessUsePropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Table of property used more than 50% in a qualified business use</Description>
+						<LineNumber>26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Table of Property used 50% or less in a Qualified Business Use -->
+			<xsd:element name="LessThanHalfBusinessUseProp" type="LessThanHalfBusinessUsePropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Table of property used 50% or less in a qualified business use</Description>
+						<LineNumber>27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Listed Property Depreciation -->
+			<xsd:element name="TotalListedDepreciation" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total listed property depreciation.  Add amounts in column h</Description>
+						<LineNumber>28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Section 179 Expense -->
+			<xsd:element name="TotalSection179Expense" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total section 179 expense.  Add amounts in column i</Description>
+						<LineNumber>29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part V - Listed Property - Section B - Information on Use of Vehicles ===== -->
+
+			<!-- Vehicle Usage Table -->
+			<xsd:element name="VehicleUsage" type="VehicleUsageType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle usage table</Description>
+						<LineNumber>Section B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part V - Listed Property - Section C - Questions for Employers Who Provide Vehicles for Use by Their Employees ===== -->
+
+			<!-- Have Written Policy Prohibiting Personal Use Including Commuting? -->
+			<xsd:element name="PolicyNoPersonalOrCommuting" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you maintain a written policy statement that prohibits all personal use of vehicles, including commuting, by your employees?</Description>
+						<LineNumber>37</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Have Written Policy Prohibiting Personal Use Except Commuting? -->
+			<xsd:element name="PolicyNoPersonalButCommuting" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you maintain a written policy statement that prohibits personal use of vehicles, except commuting, by your employees?</Description>
+						<LineNumber>38</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Treat All Use As Personal Use? -->
+			<xsd:element name="TreatAllUseAsPersonalUse" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you treat all use of vehicles by employees as personal use?</Description>
+						<LineNumber>39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Provide More Than 5 Vehicles and Have Usage Records -->
+			<xsd:element name="ProvideMoreThan5AndHaveRecords" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you provide more than five vehicles to your employees, obtain information from your employees about the use of the vehicles, and retain the information received?</Description>
+						<LineNumber>40</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Meet Requirements Concerning Qualified Automobile Demonstration Use -->
+			<xsd:element name="MeetRequirementsForAutoDemoUse" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Do you meet the requirements concerning qualified automobile demonstration use?</Description>
+						<LineNumber>41</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part VI - Amortization ===== -->
+
+			<!-- Amortization Information -->
+			<xsd:element name="AmortizationInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amortization information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AmortizationInfoTable" type="AmortizationInfoTableFYType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amortization information table</Description>
+									<LineNumber>42</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType" />
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AmortizationElectionStatement" />
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Amortization of Costs Prior to this Year -->
+			<xsd:element name="AmortizationPrecurrentYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amortization of costs prior to this year</Description>
+						<LineNumber>43</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amortization -->
+			<xsd:element name="TotalAmortization" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Amortization.  Add amounts in column f</Description>
+						<LineNumber>44</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ===== Type for Repeating Element "AmortizationInfoFYTable" in Part VI ===== -->
+
+	<xsd:complexType name="AmortizationInfoTableFYType">
+
+		<xsd:sequence>
+
+			<!-- Description of Costs -->
+			<xsd:element name="CostsDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of costs</Description>
+						<LineNumber>42a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="20" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Date Amortization Begins -->
+			<xsd:element name="BeginDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date amortization begins</Description>
+						<LineNumber>42b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amortizable Amount -->
+			<xsd:element name="AmortizableAmount" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amortization amount</Description>
+						<LineNumber>42c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Code Section -->
+			<xsd:element name="CodeSection" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Code section</Description>
+						<LineNumber>42d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="25" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Amortization Period or Percentage -->
+			<xsd:element name="PeriodOrPercentage" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amortization period or percentage</Description>
+						<LineNumber>42e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="6" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Amortization for this Year -->
+			<xsd:element name="AmortizationThisYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amortization for this year</Description>
+						<LineNumber>42f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amortization Pre-Current Year -->
+			<xsd:element name="AmortizationPreCurrentYear" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amortization pre-current year</Description>
+						<LineNumber>43</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amortization -->
+			<xsd:element name="TotalAmortization" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total amortization</Description>
+						<LineNumber>44</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+</xsd:schema>

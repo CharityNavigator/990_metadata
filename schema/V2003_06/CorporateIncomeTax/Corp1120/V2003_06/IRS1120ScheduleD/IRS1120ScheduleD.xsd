@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 1120 Schedule D</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 29, 2004</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../../Common/V2003_06/efileTypes.xsd" />
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 1120 Schedule D ====================== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS1120ScheduleD">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1120 Schedule D</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1120ScheduleDType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1120ScheduleD">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1120ScheduleDType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1120 Schedule D</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- ===== Part I - Short-Term Capital Gains and Losses - Assets Held One Year or Less ===== -->
+
+			<!-- Short-Term Capital Gain and Loss from Sales of Asset -->
+			<xsd:element name="ShortTermCapitalGainAndLoss" type="AssetSaleType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short-Term Property</Description>
+						<LineNumber>Schedule D Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short-Term Capital Gain from Installment Sales -->
+			<xsd:element name="ShortTermCapGainInstalSales" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short-term capital gain from installment sales from Form 6252, line 26 or 37</Description>
+						<LineNumber>Schedule D Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Short Term Gain or Loss from Like-Kind Exchanges -->
+			<xsd:element name="ShortTermGainLossFromLikeKind" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Short-term capital gain or (loss) from like-kind exchanges from Form 8824</Description>
+						<LineNumber>Schedule D Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused Capital Loss Carryover -->
+			<xsd:element name="UnusedCapitalLossCarryover" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused capital loss carryover</Description>
+						<LineNumber>Schedule D Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="UnusedCapitalLossCarryoverSchedule" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Net Short Term Capital Gain or Loss -->
+			<xsd:element name="NetShortTermCapitalGainLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net short-term capital gain or (loss)</Description>
+						<LineNumber>Schedule D Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part II - Long-Term Capital Gains and Losses - Assets Held More Than One Year ===== -->
+
+			<!-- Long-Term Capital Gain and Loss from Sales of Asset -->
+			<xsd:element name="LongTermCapitalGainAndLoss" type="AssetSaleType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long-Term Property</Description>
+						<LineNumber>Schedule D Part II Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gain from Form 4797 -->
+			<xsd:element name="GainFromForm4797" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain from Form 4797, column (g), line 7 or 9</Description>
+						<LineNumber>Schedule D Part II Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long-Term Capital Gain from Installment Sales -->
+			<xsd:element name="LongTermCapGainInstalSales" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long-term capital gain from installment sales from Form 6252, line 26 or 37</Description>
+						<LineNumber>Schedule D Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Long-Term Gain or Loss from Like-Kind Exchanges -->
+			<xsd:element name="LongTermGainLossFromLikeKind" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Long-term capital gain or (loss) from like-kind exchanges from Form 8824</Description>
+						<LineNumber>Schedule D Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Capital Gain Distributions -->
+			<xsd:element name="CapitalGainDistributions" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital gain distributions</Description>
+						<LineNumber>Schedule D Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Long-Term Capital Gain or Loss -->
+			<xsd:element name="NetLongTermCapitalGainLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net long-term capital gain or (loss)</Description>
+						<LineNumber>Schedule D Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ===== Part III - Summary of Parts I and II ===== -->
+
+			<!-- Excess of Net Short-Term Capital Gain to Long-Term Capital Loss -->
+			<xsd:element name="ExcessNetSTGainOverNetLTLoss" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess of net short-term capital gain (line 5) over net long-term capital loss (line 11)</Description>
+						<LineNumber>Schedule D Part III Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Capital Gain (Excess of Net Long Term Gain to Short Term Loss) -->
+			<xsd:element name="NetCapitalGain" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net capital gain. Enter excess of net long-term capital gain (line 11) over net short-term capital loss (line 5)</Description>
+						<LineNumber>Schedule D Part III Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Capital Gain Net Income -->
+			<xsd:element name="CapitalGainNetIncome" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital gain net income - add lines 12 and 13</Description>
+						<LineNumber>Schedule D Part III Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+	<!-- ================================================================================ -->
+	<!-- ============= Type for Repeating Tables Rows in Part I and Part II ============= -->
+	<!-- ================================================================================ -->
+
+
+	<xsd:complexType name="AssetSaleType">
+
+		<xsd:sequence>
+
+			<!-- Description of Property -->
+			<xsd:element name="PropertyDescription" type="ShortDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of Property</Description>
+						<LineNumber>Schedule D Part I Line 1(a) and Part II Line 6(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+				<!-- Date Acquired -->
+				<xsd:element name="DateAcquired" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the date acquired. If there are various dates, enter VARIOUS in the DateAcquiredVarious field instead.</Description>
+							<LineNumber>Schedule D Part I Line 1(b) and Part II Line 6(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Acquired Various -->
+				<xsd:element name="DateAcquiredVarious">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Use only if there are various dates.</Description>
+							<LineNumber>Schedule D Part I Line 1(b) and Part II Line 6(b)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<xsd:choice minOccurs="0">
+				<!-- Date Sold -->
+				<xsd:element name="DateSold" type="DateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Enter the date sold. If there are various dates, enter VARIOUS in the DateSoldVarious field instead.</Description>
+							<LineNumber>Schedule D Part I Line 1(c) and Part II Line 6(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Date Sold Various -->
+				<xsd:element name="DateSoldVarious">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Use only if there are various dates.</Description>
+							<LineNumber>Schedule D Part I Line 1(c) and Part II Line 6(c)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="VARIOUS" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Sales Price -->
+			<xsd:element name="SalesPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales price</Description>
+						<LineNumber>Schedule D Part I Line 1(d) and Part II Line 6(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost or Other Basis -->
+			<xsd:element name="CostOrOtherBasis" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis</Description>
+						<LineNumber>Schedule D Part I Line 1(e) and Part II Line 6(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="CostOtherThanActualCashCostStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Gain or Loss -->
+			<xsd:element name="GainOrLoss" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain or loss</Description>
+						<LineNumber>Schedule D Part I Line 1(f) and Part II Line 6(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType" />
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="SSBICElectionPostponedGainStatement" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+
+</xsd:schema>

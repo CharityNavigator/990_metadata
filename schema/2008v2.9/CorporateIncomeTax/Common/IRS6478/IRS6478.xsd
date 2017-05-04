@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 6478</Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 22, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 6478 ============================ -->
+	<!-- ================================================================== -->
+
+	<xsd:element name="IRS6478">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 6478</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS6478Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS6478">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="SmallEthanolProducerCreditElection"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS6478Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 6478</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Qualified Ethanol Fuel Production (in gallons) -->
+			<xsd:element name="QualifiedEthanolFuelProduction" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified ethanol fuel production (in gallons)</Description>
+						<LineNumber>Line 1 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+						<xsd:totalDigits value="8"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Qualified ethanol fuel production rate ( Column (b)) -->
+			<xsd:element name="QualifiedEthanolFuelProdRate" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified ethanol fuel production rate</Description>
+						<LineNumber>Line 1 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Ethanol Fuel Credit (Column (a) x Column (b)) -->
+			<xsd:element name="QualifiedEthanolFuelCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified ethanol fuel credit (Column (a) x Column (b))</Description>
+						<LineNumber>Line 1 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- 190 Proof or Greater (in gallons) -->
+			<xsd:element name="Alcohol190ProofOrHigherPrf" type="Form6478NumGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>190 proof or greater (in gallons)</Description>
+						<LineNumber>Line 2 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol 190 Proof or Greater Rate -->
+			<xsd:element name="RateFor190OrHigherPrfAlcohol" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol 190 proof or greater rate</Description>
+						<LineNumber>Line 2 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total 190 Proof or Greater  -->
+			<xsd:element name="Alcohol190ProofOrGreaterCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total 190 Proof or Greater</Description>
+						<LineNumber>Line 2 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol 190 Proof or Greater Used After Tax Year (in gallons) -->
+			<xsd:element name="Alc190PrfOrHghrUsedAftrTY" type="Form6478NumGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol 190 proof or greater used after tax year (in gallons)</Description>
+						<LineNumber>Line 3 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol 190 Proof or Greater Used After TY - Rate  -->
+			<xsd:element name="Alc190PrfOrHghrUsedAftrTYRate" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol 190 proof or greater used after TY - rate </Description>
+						<LineNumber>Line 3 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol 190 Proof or Greater Used After TY - Credit  -->
+			<xsd:element name="Alc190PrfOrHghrUsedAftrTYCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol 190 proof or greater used after TY - credit</Description>
+						<LineNumber>Line 3 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Less Than 190 Proof Before 2009 - Gallons -->
+			<xsd:element name="GallonsOf150to189ProofAlcohol" type="Form6478NumGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol less than 190 proof before 2009 - gallons</Description>
+						<LineNumber>Line 4 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Less Than 190 Proof Before 2009 - Rate  -->
+			<xsd:element name="RateFor150To189ProofAlcohol" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol less than 190 proof before 2009 - rate</Description>
+						<LineNumber>Line 4 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Less Than 190 Proof Before 2009 - Credit -->
+			<xsd:element name="Alcohol150to189ProofCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol less than 190 proof before 2009 - credit</Description>
+						<LineNumber>Line 4 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Less Than 190 Proof After TY - Gallons -->
+			<xsd:element name="Alc150To189PrfUsedAftrTY" type="Form6478NumGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol less than 190 proof after TY - gallons</Description>
+						<LineNumber>Line 5 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Less Than 190 Proof After TY - Rate  -->
+			<xsd:element name="Alc150To189PrfUsedAftrTYRate" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol less than 190 proof after TY - rate</Description>
+						<LineNumber>Line 5 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Less Than 190 Proof After TY - Credit -->
+			<xsd:element name="Alc150To189PrfUsedAftrTYCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol less than 190 proof after TY - credit</Description>
+						<LineNumber>Line 5 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Cellulosic Biofuel Produced with Alcohol - Gallons -->
+			<xsd:element name="QualCellBiofuelProdWAlcGlln" type="Form6478NumGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified cellulosic biofuel produced with alcohol - Gallons</Description>
+						<LineNumber>Line 6 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Cellulosic Biofuel Produced with Alcohol - Credit -->
+			<xsd:element name="QualCellBiofuelProdWAlcCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified cellulosic biofuel produced with alcohol - Credit</Description>
+						<LineNumber>Line 6 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Cellulosic Biofuel Produced That is not Alcohol - Gallons -->
+			<xsd:element name="QualCellBiofuelNoAlcGallon" type="Form6478NumGallonsType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified cellulosic biofuel produced that is not alcohol - Gallons</Description>
+						<LineNumber>Line 7 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Cellulosic Biofuel Produced That is not Alcohol - Credit -->
+			<xsd:element name="QualCellBiofuelNoAlcCr" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified cellulosic biofuel produced that is not alcohol - Credit</Description>
+						<LineNumber>Line 7 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add The Amounts in Column C on Lines 1 Through 7 -->
+			<xsd:element name="OtherIncome" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add the amounts in column C on lines 1 through 7</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Fuel Credit -->
+			<xsd:element name="AlcoholFuelCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol fuel credit</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 8 and 9 -->
+			<xsd:element name="EthanolAlcoholOtherCredit" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 8 and 9</Description>
+						<LineNumber>Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol Fuel Credit Included From Passive Activities -->
+			<xsd:element name="AlcoholCreditFromPassiveActy" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alcohol fuel credit included from passive activities</Description>
+						<LineNumber>Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract Line 11 from Line 10 -->
+			<xsd:element name="NetAlcoholCredits" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 11 from line 10</Description>
+						<LineNumber>Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Alcohol and Cellulosic Fuels From Passive Activity -->
+			<xsd:element name="AlcoholPassiveCreditAllowed" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<Description>Alcohol and cellulosic fuels from passive activity</Description>
+						<LineNumber>Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryforward/Carryback Of Alcohol Fuel Credit -->
+			<xsd:element name="AlcoholFuelCreditCfwdCybk" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryforward/carryback of alcohol fuel credit</Description>
+						<LineNumber>Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add Lines 12 Through 14 -->
+			<xsd:element name="TotalCYCreditForAlcoholAsFuel" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 12 through 14</Description>
+						<LineNumber>Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount Allocated To Beneficiaries -->
+			<xsd:element name="AmtAllocatedToBeneficiaries" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries</Description>
+						<LineNumber>Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates And Trusts And Cooperatives -->
+			<xsd:element name="EstatesTrustsCooperatives" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates and trusts and cooperatives</Description>
+						<LineNumber>Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Number of Gallons Type Used Throughout Form 6478 -->
+	<xsd:simpleType name="Form6478NumGallonsType">
+		<xsd:restriction base="IntegerType">
+			<xsd:totalDigits value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

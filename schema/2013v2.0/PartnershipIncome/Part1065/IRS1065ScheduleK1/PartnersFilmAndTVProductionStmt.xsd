@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Partner’s Film and Television Production Statement</Description>
+			<TaxYear>2013</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 16, 2013</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =================================================================== -->
+	<!-- ======= Partner’s Film and Television Production Statement ======== -->
+	<!-- =================================================================== -->
+
+
+	<xsd:element name="PartnersFilmTVProductionStmt">
+		<xsd:annotation>
+			<xsd:documentation>Partner’s Film and Television Production Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="PartnersFilmAndTVProductionStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PartnersFilmAndTVProductionStmt">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="PartnersFilmAndTVProductionStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Partner’s Film and Television Production Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    			<!-- At-Risk Activities Information -->
+			<xsd:element name="PartnersFilmAndTVProductionGrp" type="PartnersFilmAndTVProductionGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner’s Film and Television Production Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Repeating Group - Partner’s Film and Television Production Information -->
+	<xsd:complexType name="PartnersFilmAndTVProductionGrpType">
+		<xsd:sequence>
+			<!-- Film/Television Production Description -->
+			<xsd:element name="FilmTelevisionProductionDesc" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Film/Television production description</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Distributive Share of Production -->
+			<xsd:element name="DistributiveShareOfProdAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distributive Share of Production</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

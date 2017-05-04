@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 5713 Schedule A</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>January 26, 2009</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- ======================================================================= -->
+	<!-- ======================  IRS Form 5713 Schedule A ====================== -->
+	<!-- ======================================================================= -->
+
+
+	<xsd:element name="IRS5713ScheduleA">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5713 Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5713ScheduleAType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5713ScheduleA">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS5713ScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 5713 Schedule A</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name -->
+			<xsd:element name="Name" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of business</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Choice between Identifying Number (EIN), or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- Identifying Number (EIN) -->
+				<xsd:element name="IdentifyingNumber" type="EINType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:choice>						
+
+			<!-- Name of Country Being Boycotted -->
+			<xsd:choice>
+
+				<!-- Boycotting Israel -->
+				<xsd:element name="IsraelBoycotted" type="CheckboxType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Boycotting Israel</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Boycotting Other -->
+				<xsd:element name="OtherCountryBoycotted" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Boycotting Other</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="nameOfOtherCountry" type="CountryType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Name of Other Country</Description>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			
+			</xsd:choice>
+
+			<!-- Boycott Information for Each Country -->
+			<xsd:element name="BoycottInfoForEachCountry" type="BoycottInfoForEachCountryType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Boycott information for each country.</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total - Boycott Purchases -->
+			<xsd:element name="TotalBoycottPurchases" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - Boycott Purchases</Description>
+						<LineNumber>Schedule A Column 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total - Boycott Sales -->
+			<xsd:element name="TotalBoycottSales" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - Boycott Sales</Description>
+						<LineNumber>Schedule A Column 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total - Boycott Payroll -->
+			<xsd:element name="TotalBoycottPayroll" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total - Boycott Payroll</Description>
+						<LineNumber>Schedule A Column 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Numerator of Boycott Factor -->
+			<xsd:element name="NumeratorOfBoycottFactor" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Numerator of Boycott Factor (add totals of columns (2), (3), and (4))</Description>
+						<LineNumber>Schedule A Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Purchases From Countries Other than United States -->
+			<xsd:element name="TotalPurchasesFromOtherThanUS" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total purchases from countries other than United States</Description>
+						<LineNumber>Schedule A Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Sales to or From Countries Other than United States -->
+			<xsd:element name="TotalSalesToFromOtherThanUS" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total sales to or from countries other than United States</Description>
+						<LineNumber>Schedule A Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Payroll Paid or Accrued for Services Performed in Countries Other than United States -->
+			<xsd:element name="TotalPayrollPaidInOtherThanUS" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total payroll paid or accrued for services performed in ccountries other than United States</Description>
+						<LineNumber>Schedule A Line 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total of Lines 2a, b, and c -->
+			<xsd:element name="TotDenominatorOfBoycottFactor" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of lines 2a, b, and c</Description>
+						<LineNumber>Schedule A Line 2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- International Boycott Factor -->
+			<xsd:element name="InternationalBoycottFactor" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>International boycott factor (divide line 1 by line 2d).</Description>
+						<LineNumber>Schedule A Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- Type for Repeating Table Rows in Boycott Info For Each Country -->
+	<xsd:complexType name="BoycottInfoForEachCountryType">
+
+		<xsd:sequence>
+
+			<!-- Name of Country -->
+			<xsd:element name="NameOfCountry" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of Country</Description>
+						<LineNumber>Schedule A Column 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Boycott Purchases -->
+			<xsd:element name="BoycottPurchases" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchases attributable to boycotting operations</Description>
+						<LineNumber>Schedule A Column 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Boycott Sales -->
+			<xsd:element name="BoycottSales" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales attributable to boycotting operations</Description>
+						<LineNumber>Schedule A Column 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Boycott Payroll -->
+			<xsd:element name="BoycottPayroll" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Payroll attributable to boycotting operations</Description>
+						<LineNumber>Schedule A Column 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+					
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

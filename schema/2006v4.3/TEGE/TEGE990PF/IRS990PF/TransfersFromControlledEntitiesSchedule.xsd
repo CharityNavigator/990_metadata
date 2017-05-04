@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Transfers From Controlled Entities Schedule</Description>
+			<TaxYear>2006</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>November 14, 2008</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ====================================================================== -->
+	<!-- ================ Transfers From Controlled Entities Schedule ====================== -->
+	<!-- ====================================================================== -->
+
+	<xsd:element name="TransfersFrmControlledEntities">
+		<xsd:annotation>
+			<xsd:documentation>Transfers From Controlled Entities Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="TransfersFromControlledEntitiesScheduleType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="TransfersFromControlledEntitiesSchedule">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="TransfersFromControlledEntitiesScheduleType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Transfers From Controlled Entities Schedule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FromControlledEntity" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+					<!-- Name of Controlled Entity -->
+					<xsd:element name="Name" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Name of Controlled Entity</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<!-- Address. Either US or Foreign Type -->
+					<xsd:choice>
+						<xsd:element name="AddressUS" type="USAddressType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Address - US</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+				
+						<xsd:element name="AddressForeign" type="ForeignAddressType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Address - Foreign</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:choice>
+			
+					<!-- EIN -->
+					<xsd:element name="EIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>EIN</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+			
+					<!-- Description of Transfer -->
+					<xsd:element name="Description" type="LineExplanationType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Description of transfer</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+			
+					<!-- Amount of Transfer -->
+					<xsd:element name="Amount" type="USAmountNNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Amount of transfer</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>		
+			
+			<!-- Total Transfer To Amount -->
+			<xsd:element name="Total" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total transfer from amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+			
+</xsd:schema>

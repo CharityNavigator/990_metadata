@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8883</Description>
+			<TaxYear>2009</TaxYear>
+			<MaturityLevel>Draft Release</MaturityLevel>
+			<ReleaseDate>September 29, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8883 =============================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8883">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8883</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8883Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8883">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8883Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8883</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- ==================Part I:  Filer’s Identifying Information ================= -->
+
+			<!-- Identifying Number or EIN Missing Reason -->
+			<xsd:choice minOccurs="0">
+				<xsd:element name="EmployerIdentificationNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying number</Description>
+							<LineNumber>Part I Line 1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SocialSecurityNumber" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Identifying Number</Description>
+							<LineNumber>Part I Line 1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="EINMissingReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN missing reason</Description>
+							<LineNumber>Part I Line 1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<xsd:choice  minOccurs="0">
+				<!-- Old Target -->
+				<xsd:element name="OldTarget" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Check applicable box (See instructions): old target</Description>
+								<LineNumber>Part I Line 1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- New Target -->
+				<xsd:element name="NewTarget" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Check applicable box (See instructions): new target</Description>
+								<LineNumber>Part I Line 1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Valid And Timely Form 8023 Filed (Yes/No Box) -->
+			<xsd:element name="ValidAndTimelyForm8023Filed" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Valid and timely form 8023 filed (yes/no box)</Description>
+							<LineNumber>Part I Line 1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If Yes, Enter Date Filed -->
+			<xsd:element name="DateFiled" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If yes, enter date filed</Description>
+							<LineNumber>Part I Line 1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ==================Part II:  Other Party’s Identifying Information ================= -->
+
+			<!-- Name Of Other Party to the Transaction -->
+			<xsd:element name="NameOfOtherParty" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of other party to the transaction</Description>
+							<LineNumber>Part II Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Party's Address: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- Other Party's US Address -->
+				<xsd:element name="USAddressOfOtherParty" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other party's US address</Description>
+							<LineNumber>Part II Line 2a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Other party's Foreign Address -->
+				<xsd:element name="ForeignAddressOfOtherParty" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other party's foreign address</Description>
+							<LineNumber>Part II Line 2a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Other Party's Identification Number or Missing EIN Reason -->
+			<xsd:choice  minOccurs="0">
+				<xsd:element name="OtherPartyIdentificationNumber" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other party's identifying number</Description>
+								<LineNumber>Part II Line 2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Other Party's Identification Number -->
+				<xsd:element name="OtherPartySocialSecurityNumber" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other party's identifying number</Description>
+								<LineNumber>Part II Line 2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Other Party's Missing EIN Reason -->
+				<xsd:element name="OtherPartysMissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other Party's Missing EIN reason</Description>
+								<LineNumber>Part II Line 2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- ==================Part III:  Target Identifying Information ================= -->
+
+			<!-- Name Of Target Corporation-->
+			<xsd:element name="NameOfTargetCorporation" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of target corporation</Description>
+							<LineNumber>Part III Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address Of Target Corporation: choice between U.S. or foreign address -->
+			<xsd:choice minOccurs="0">
+				<!-- US Address of Target Corporation -->
+				<xsd:element name="USAddressOfTargetCorporation" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of target corporation</Description>
+							<LineNumber>Part III Line 3a</LineNumber>
+							</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Target Corporation -->
+				<xsd:element name="FrgnAddressOfTargetCorporation" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of target corporation</Description>
+							<LineNumber>Part III Line 3a</LineNumber>
+							</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Employer Identification Number or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Employer Identification Number -->
+				<xsd:element name="EINOfTargetCorp" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+								<LineNumber>Part III Line 3b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReason">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+								<LineNumber>Part III Line 3b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+
+			<xsd:choice minOccurs="0">
+				<!-- State Code Of Incorporation -->
+				<xsd:element name="StateCodeOfIncorporation" type="StateType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>State code of incorporation</Description>
+								<LineNumber>Part III Line 3c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!--  Country Code Of Incorporation -->
+				<xsd:element name="CountryCodeOfIncorporation" type="CountryType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>country code of incorporation</Description>
+								<LineNumber>Part III Line 3c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- ==================Part IV:  General Information ================= -->
+
+			<!-- Acquisition Date -->
+			<xsd:element name="AcquisitionDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Acquisition date</Description>
+							<LineNumber>Part IV Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- What Percentage of Target Corporation Stock Was Purchased  During 12 Month acquisition period ? -->
+			<xsd:element name="PctStockPrchsDuring12Month" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>What percentage of target corporation stock was purchased during 12 month acquisition period?</Description>
+							<LineNumber>Part IV Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- What Percentage of Target Corporation Stock Was Purchased On Acquisition Date -->
+			<xsd:element name="PctStockPrchsOnAcquisitionDate" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>What percentage of target corporation stock was purchased on acquisition date?</Description>
+							<LineNumber>Part IV Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Price -->
+			<xsd:element name="StockPrice" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock price</Description>
+							<LineNumber>Part IV Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Acquisition Costs or Selling Costs -->
+			<xsd:element name="AcquisitionCostsOrSellingCosts" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Acquisition costs or selling costs</Description>
+							<LineNumber>Part IV Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Liabilities -->
+			<xsd:element name="TargetLiabilities" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target liabilities</Description>
+							<LineNumber>Part IV Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- AGUB or ADSP -->
+			<xsd:element name="AGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>AGUB or ADSP</Description>
+							<LineNumber>Part IV Line 5d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Was the Filer In Part I a Member Of Affiliated Group Of Corporations Before Acquisition Date ? -->
+			<xsd:element name="FilerMemOfAffltGrpBfrAcquisDt" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Was the Filer in part I a member of affiliated group of corporations before acquisition date ?</Description>
+							<LineNumber>Part IV Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Was the Target Corporation a Member Of Affiliated Group Before Acquisition Date ?-->
+			<xsd:element name="TrgtMemOfAffltGrpBfrAcquisDt" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Was the target corporation a member of affiliated group before acquisition date ?</Description>
+							<LineNumber>Part IV Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate-controlled Foreign Corporation ? -->
+			<xsd:element name="ControlledForeignCorporation" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate-controlled foreign corporation ?</Description>
+							<LineNumber>Part IV Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If "No", CFC Any Time During The Preceding 5 Years ? -->
+			<xsd:element name="IsCFCAnyTimeDuringPrev5Yrs" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If "no", CFC any time during the preceding 5 years checkbox</Description>
+							<LineNumber>Part IV Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate-foreign Corporation With Income, Gain Or Loss Connected With Trade Or Business Within US ?-->
+			<xsd:element name="FrgnCorpWithIncmGainOrLoss" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate-foreign corporation with income, gain or loss connected with trade or business within US ?</Description>
+							<LineNumber>Part IV Line 8b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate-qualifying Foreign Target Under Section 1.338-2(e)(1)(iii) ? -->
+			<xsd:element name="QualifyingForeignTarget" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate-qualifying foreign target under section 1.338-2(e)(1)(iii) ?</Description>
+							<LineNumber>Part IV Line 8c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate- Corporation Electing Under Section 1504(d) Or Section 953(d) ? -->
+			<xsd:element name="ElectingUndSect1504dOrSect953d" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate- corporation electing under section 1504(d) or section 953(d) ?</Description>
+							<LineNumber>Part IV Line 8d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate-domestic International Sales Corporation ?-->
+			<xsd:element name="DomesticInternationalSalesCorp" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate-domestic international sales corporation ?</Description>
+							<LineNumber>Part IV Line 8e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate-passive Foreign Investment Company ? -->
+			<xsd:element name="PassiveFrgnInvestmentCompany" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate-passive foreign investment company ?</Description>
+							<LineNumber>Part IV Line 8f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Target Corporation Or Any Target Affiliate-if 8g "Yes" - PFIC Pedigreed Qualified Fund ? -->
+			<xsd:element name="PFICPedigreedQualifiedFund" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Target corporation or any target affiliate-if 8g "yes"- PFIC pedigreed qualified fund ?</Description>
+							<LineNumber>Part IV Line 8g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ==================Part V:  Original Statement of Assets Transferred—All Filers Must Complete ================= -->
+
+			<!-- Class I Aggregate Fair Market Value -->
+			<xsd:element name="Class1AggregateFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class I aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class I Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class1AllocationOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class I allocation of  AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class II Aggregate Fair Market Value -->
+			<xsd:element name="Class2AggregateFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class II aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class II Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class2AllocationOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class II allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class III Aggregate Fair Market Value -->
+			<xsd:element name="Class3AggregateFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class III aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class III Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class3AllocationOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class III allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class IV Aggregate Fair Market Value -->
+			<xsd:element name="Class4AggregateFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class IV aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class IV Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class4AllocationOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class IV allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class V Aggregate Fair Market Value -->
+			<xsd:element name="Class5AggregateFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class V aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class V Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class5AllocationOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class V allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class VI And VII Aggregate Fair Market Value -->
+			<xsd:element name="Class6And7AggrgtFairMrktValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class VI and VII aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class VI Or VII Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class6And7AllocnOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class VI and VII allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Aggregate Fair Market Value -->
+			<xsd:element name="TotalAggregateFairMarketValue" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total aggregate fair market value</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Allocation Of AGUB Or ADSP -->
+			<xsd:element name="TotalAllocationOfAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part V Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ==================Part VI:  Supplemental Statement of Assets Transferred ================= -->
+
+			<!-- Tax Year With Which Original Form 8023 Or Form 8883 Were Filed -->
+			<xsd:element name="TYWhichOrigForm8023Or8883Filed" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distributions</Description>
+						<LineNumber>Part VI Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Tax Year -->
+						<xsd:element name="TaxYear" type="YearType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax year</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tax Return Form Number With Which Original Form 8023 Or Form 8883 Were Filed -->
+						<xsd:element name="TaxReturnFormNumberFiled" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax return Form number with which original Form 8023 or Form 8883 were filed</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="ShortDescriptionType">
+									<xsd:maxLength value="12"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Class I Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="Class1AllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class I allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class I Increase Or (decrease) -->
+			<xsd:element name="Class1IncreaseOrDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class I increase or (decrease)</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class I Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class1RedetermAllocnAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class I redetermined allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class II Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="Class2AllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class II allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class II Increase Or (decrease) -->
+			<xsd:element name="Class2IncreaseOrDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class II increase or (decrease)</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class II Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class2RedetermAllocnAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class II redetermined allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class III Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="Class3AllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class III allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class III Increase Or (decrease) -->
+			<xsd:element name="Class3IncreaseOrDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class III increase or (decrease)</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class III Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class3RedetermAllocnAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class III redetermined allocation of AGUB Or ADSP </Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class IV Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="Class4AllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class IV allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class IV Increase Or (decrease) -->
+			<xsd:element name="Class4IncreaseOrDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class IV increase or (decrease)</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class IV Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class4RedetermAllocnAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class IV redetermined allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class V Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="Class5AllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class V allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class V Increase Or (decrease) -->
+			<xsd:element name="Class5IncreaseOrDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class V increase or (decrease)</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class V Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Class5RedetermAllocnAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class V redetermined allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class VI And VII Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="Cl6And7AllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class VI and VII allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class VI And VII Increase Or (decrease) -->
+			<xsd:element name="Class6And7IncreaseOrDecrease" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class VI and VII increase or (decrease)</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Class VI And VII Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="Cl6And7RedetermAllocnAGUBADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Class VI and VII redetermined allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Allocation Of Sales Price Previously Reported -->
+			<xsd:element name="TotalAllocnOfSalesPrcPrevRpt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total allocation of sales price previously reported</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Redetermined Allocation Of AGUB Or ADSP -->
+			<xsd:element name="TotalRedetermAllocnAGUBOrADSP" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total redetermined allocation of AGUB Or ADSP</Description>
+							<LineNumber>Part VI Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reason(s) For Increase Or Decrease -->
+			<xsd:element name="ReasonsForIncreaseOrDecrease" type="ExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reason(s) for increase or decrease. Attach additional sheets if more space is needed</Description>
+							<LineNumber>Part VI Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8861</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>July 15, 2010</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8861 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8861">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8861</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8861Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8861">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8861Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8861</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+		<!-- Qualified First-Year Wages -->
+		<xsd:element name="QualifiedFirstYearWages" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Qualified first-year wages paid or incurred during the tax year</Description>
+					<LineNumber>Line 1a</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Qualified First-Year Wages -->
+		<xsd:element name="TotalQualifiedFirstYearWages" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total qualified first-year wages (35% of qualified first-year wages) paid or incurred during tax year</Description>
+					<LineNumber>Line 1a</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Qualified Second-Year Wages -->
+		<xsd:element name="QualifiedSecondYearWages" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Qualified second-year wages paid or incurred during the tax year</Description>
+					<LineNumber>Line 1b</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Total Qualified Second-Year Wages -->
+		<xsd:element name="TotalQualifiedSecondYearWages" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Total qualified second-year (50% of qualified second year) wages paid or incurred during tax year</Description>
+					<LineNumber>Line 1b</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Add lines 1a and 1b -->
+		<xsd:element name="TotalQualified1stAnd2ndYrWages" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Add lines 1a and 1b</Description>
+						<LineNumber>Line 2</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:complexType>
+				<xsd:simpleContent>
+					<xsd:extension base="USAmountType">
+						<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+						<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ControlledGroupMembersStatement" />
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+		</xsd:element>
+
+		<!-- Welfare-To-Work Credit(s) -->
+		<xsd:element name="WelfareToWorkCredits" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Welfare-to-work credit(s) from pass-through entities</Description>
+					<LineNumber>Line 3</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Current Year Credit -->
+		<xsd:element name="CurrentYearCredit" type="USAmountNNType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Current year credit.  Add lines 2 and 3</Description>
+					<LineNumber>Line 4</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Amount Allocated to Beneficiaries -->
+		<xsd:element name="BeneficiariesAllocatedAmount" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Amount allocated to beneficiaries</Description>
+					<LineNumber>Line 5</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+		<!-- Estates, Trusts and Cooperatives Credit -->
+		<xsd:element name="EstatesTrustsCoopCredit" type="USAmountType" minOccurs="0">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Estates, trusts and cooperatives credit</Description>
+					<LineNumber>Line 6</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+
+	</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

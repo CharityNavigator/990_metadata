@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Tax Exempt and Government Entities Schema - Return Data Schema for 990 Return</Description>
+			<TaxYear>2003</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>April 8, 2004</ReleaseDate>			
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+	
+	<xsd:include schemaLocation="IRS990/IRS990.xsd"/> 	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/IRS990ScheduleA.xsd"/>
+	<xsd:include schemaLocation="../Common/IRS990ScheduleB/IRS990ScheduleB.xsd"/>
+	
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS926/IRS926.xsd"/>
+	
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS4562/IRS4562.xsd"/>	
+	
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS8271/IRS8271.xsd"/>
+	
+	<!-- Common Dependencies (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../Common/Dependencies/ActivitiesNotPreviouslyReportedExplanation.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/CompensationExplanation.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/ExcessBenefitTransactionsStatement.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/GainLossFromSaleNonpublicSecuritiesSchedule.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/GainLossFromSaleOtherAssetsSchedule.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/GainLossFromSalePublicSecuritiesSchedule.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/GeneralExplanationAttachment.xsd"/>			
+	<xsd:include schemaLocation="../Common/Dependencies/OtherChangesInNetAssetsSchedule.xsd"/>	
+	<xsd:include schemaLocation="../Common/Dependencies/ReasonableCauseExplanation.xsd"/>		
+	<xsd:include schemaLocation="../Common/Dependencies/SpecialEventsSchedule.xsd"/>	
+	
+	<!-- Includes for 990 (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="IRS990/AffiliateListing.xsd"/>
+	<xsd:include schemaLocation="IRS990/CashGrantsPaidSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/CompensationSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/DepreciationAndDepletionSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/IndividualAssistanceSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/InvestmentsLandSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/InvestmentsOtherSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/InvestmentsSecuritiesSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/LandEtcSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/LoansFromOfficersSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/MemberBenefitsSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/MortgagesAndNotesPayableSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/NoncashGrantsPaidSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/OtherInvestmentIncomeSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/OtherNotesLoansReceivableLongSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/OtherNotesLoansReceivableShortSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/OtherReceivablesFromOfficersSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/PaymentToAffiliatesSchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/SalesOfInventorySchedule.xsd"/>
+	<xsd:include schemaLocation="IRS990/TaxExemptBondLiabilitiesSchedule.xsd"/>
+	
+	<!-- Includes for 990 Schedule A (supporting info, schedules, computations, and such) -->	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/AveragingAttachment.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/ComplianceWithRevProc75_50Explanation.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/ContractorCompensationExplanation.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/EmployeeCompensationExplanation.xsd"/> 
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/ExplnOfReceiptOrRevocationOfGovtFinancialAid.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/NonelectingPublicCharitiesStatement.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/ScholarshipAwardStatement.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/SelfDealingStatement.xsd"/>	
+	<xsd:include schemaLocation="../Common/IRS990ScheduleA/SupplementalSupportSchedule.xsd"/>								
+	
+	<!-- Includes for 926 (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS926/RecognizeIncomeUnderTempRegulationsStatement.xsd"/>
+	
+	<!-- Includes for 4562 (supporting info, schedules, computations, and such) -->
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS4562/50YearADSDeductionStatement.xsd"/>
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS4562/50YearGDSDeductionStatement.xsd"/>
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS4562/AmortizationElectionStatement.xsd"/>
+	<xsd:include schemaLocation="../../CorporateIncomeTax/Common/IRS4562/Section168f1PropertyExplanationStatement.xsd"/>	
+		
+	<!-- Return 990 -->		
+	<xsd:element name="ReturnData">
+		<xsd:annotation>
+			<xsd:documentation>990 Return Contents</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:complexType>
+			<xsd:sequence>
+			
+				<!-- Form 990 -->
+				<xsd:element ref="IRS990">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 990 - Return of Organization Exempt From Income Tax</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 990 Schedule A -->
+				<xsd:element ref="IRS990ScheduleA" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 990 Schedule A</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990 Schedule B -->
+				<xsd:element ref="IRS990ScheduleB" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 990 Schedule B</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- Form 926 -->
+				<xsd:element ref="IRS926" minOccurs="0" maxOccurs="1000">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 926 - Return by a U.S. Transferor of Property to a Foreign Corporation (under section 367)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 4562  -->
+				<xsd:element ref="IRS4562" minOccurs="0" maxOccurs="10000">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 4562 - Depreciation and Amortization (Including Information on Listed Property)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+													
+				<!-- Form 8271 -->
+				<xsd:element ref="IRS8271" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>IRS Form 8271 - Investor Reporting of Tax Shelter Registration Number</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+		
+				<!-- Form 990 attachment -->
+				<xsd:element ref="ActyNotPreviouslyRptExpln" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Activities not previously reported explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 990 attachment -->
+				<xsd:element ref="CompensationExplanation" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Compensation explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="ExcessBenefitTransactionsStmt" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Excess benefit transactions statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="GainLossSaleNonpublicSecSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Gain/loss from sale of nonpublic securities schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="GainLossSaleOtherAssetsSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Gain/loss from sale of other assets schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="GainLossSalePublicSecSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Gain/loss from sale of public securities schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>			
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="GeneralExplanationAttachment" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>General explanation attachment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>					
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="OtherChangesInNetAssetsSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other changes in net assets schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+								
+				<!-- Form 990 attachment -->
+				<xsd:element ref="ReasonableCauseExplanation" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Reasonable cause explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+								
+				<!-- Form 990 attachment -->
+				<xsd:element ref="SpecialEventsSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Special events schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																							
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="AffiliateListing" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Affiliate listing</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="CashGrantsPaidSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Cash grants paid schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="CompensationSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Compensation schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="DepreciationAndDepletionSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Depreciation and depletion schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																
+
+				<!-- Form 990 attachment -->
+				<xsd:element ref="IndividualAssistanceSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Individual assistance schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="InvestmentsLandSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Investments - land schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="InvestmentsOtherSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Investments - other schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="InvestmentsSecuritiesSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Investments - securities schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="LandEtcSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Land etc. schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="LoansFromOfficersSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Loans from officers schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>														
+
+				<!-- Form 990 attachment -->
+				<xsd:element ref="MemberBenefitsSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Member benefits schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+
+				<!-- Form 990 attachment -->
+				<xsd:element ref="MortgagesAndNotesPayableSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Mortgages and notes payable schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="NoncashGrantsPaidSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Noncash grants paid schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="OtherInvestmentIncomeSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other investment income schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>										
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="OtherNotesLoansRcvblLongSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other notes/Loans receivable long schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>							
+								
+				<!-- Form 990 attachment -->
+				<xsd:element ref="OtherNotesLoansRcvblShortSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other notes/Loans receivable short schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																							
+								
+				<!-- Form 990 attachment -->
+				<xsd:element ref="OtherReceivablesOfficersSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Other receivables from officers schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																							
+								
+				<!-- Form 990 attachment -->
+				<xsd:element ref="PaymentToAffiliatesList" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Payment to affiliates list</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																							
+				
+				<!-- Form 990 attachment -->
+				<xsd:element ref="SalesOfInventoryList" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Sales of inventory list</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																							
+
+				<!-- Form 990 attachment -->
+				<xsd:element ref="TaxExemptBondLiabilitiesSch" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Tax-exempt bond liabilities schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																																		
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="AveragingAttachment" minOccurs="0" >
+					<xsd:annotation>
+						<xsd:documentation>Averaging attachment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="ComplianceWithRevProc75_50Expl" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Compliance with Rev. Proc. 75-50 explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>	
+					
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="ContractorCompensationExpln" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Contractor compensation explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>		
+
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="EmployeeCompensationExpln" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Compensation explanation</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>		
+							
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="ReceiptOrRvkOfGovtFinancialAid" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Explanation of receipt or revocation of government financial aid</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>		
+				
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="NonelectingPublicCharitiesStmt" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Nonelecting public charities statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>		
+				
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="ScholarshipAwardStatement" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Scholarship award statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>		
+				
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="SelfDealingStatement" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Self dealing statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>														
+					
+				<!-- Form 990 Schedule A attachment -->
+				<xsd:element ref="SupplementalSupportSchedule" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Supplemental support schedule</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>																		
+				
+				<!-- Form 926 attachment -->
+				<xsd:element ref="RecognizeIncmUnderTempRegs" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Recognize income under temporary regulations</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 4562 attachment -->
+				<xsd:element ref="ADS50YearDeductionStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>50 year ADS deduction statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 4562 attachment -->
+				<xsd:element ref="GDS50YearDeductionStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>50 year GDS deduction statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<!-- Form 4562 attachment -->
+				<xsd:element ref="AmortizationElectionStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Amortization election statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Form 4562 attachment -->
+				<xsd:element ref="Section168f1PropertyStatement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Section 168(f)(1) property explanation statement</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+					
+			</xsd:sequence>
+			
+			<xsd:attributeGroup ref="ReturnDataAttributes">
+				<xsd:annotation>
+					<xsd:documentation>Common return data attributes</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attributeGroup>
+			
+		</xsd:complexType>
+		
+	</xsd:element>
+	
+</xsd:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Individual Income Tax Schema - Special Depreciation Allowance Election Out Statement</Description>
+			<Purpose>Election out. To make an election, attach a statement to your timely filed return (including extensions) indicating the class of property for which you are making the election and that, for such class you are not to claim any special depreciation allowance</Purpose>
+			<TaxYear>2015</TaxYear>
+			<MaturityLevel>Drop 3 Release</MaturityLevel>
+			<ReleaseDate>Sept. 8, 2015</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+ 
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =================================================================== -->
+	<!-- ====== Special Depreciation Allowance Election Out Statement ====== -->
+	<!-- =================================================================== -->
+	
+
+	<xsd:element name="SpclDeprecAllwncElectOutStmt"> 
+		<xsd:annotation>
+			<xsd:documentation>Special Depreciation Allowance Election Out Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="SpclDeprecAllwncElectOutStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="SpecialDepreciationAllowanceElectionOutStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="SpclDeprecAllwncElectOutStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Special Depreciation Allowance Election Out Statement </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ElectionExplanationTxt" type="ExplanationType" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+</xsd:schema>

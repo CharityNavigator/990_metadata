@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+				<Description>IRS e-file Schema - Name Change Explanation</Description>
+			<TaxYear>2007</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>August 22, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ========================================================= -->
+	<!-- ============== Name Change Explanation =============== -->
+	<!-- ========================================================= -->
+
+	<xsd:element name="NameChangeExplanation">
+		<xsd:annotation>
+				<xsd:documentation>Name Change Explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="NameChangeExplanationType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="NameChangeExplanation">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Name Change Explanation -->
+	<xsd:complexType name="NameChangeExplanationType">
+		<xsd:annotation>
+			<xsd:documentation>Name Change Explanation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Explanation of Name Change -->
+			<xsd:element name="Explanation" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Explanation of Name Change</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prior Name -->
+			<xsd:element name="PriorName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Prior Name</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

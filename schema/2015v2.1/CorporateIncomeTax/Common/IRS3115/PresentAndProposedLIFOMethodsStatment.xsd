@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+
+
+	<xsd:annotation>
+
+		<xsd:documentation>
+
+			<Description>IRS e-file Schema - Present and Proposed LIFO Methods Statement</Description>
+
+			<TaxYear>2015</TaxYear>
+
+			<MaturityLevel>Final Release</MaturityLevel>
+
+			<ReleaseDate>October 29, 2015</ReleaseDate>
+
+		</xsd:documentation>
+
+	</xsd:annotation>
+
+
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+
+
+
+	<!-- ================================================================= -->
+
+	<!-- ========= Present and Proposed LIFO Methods Statement =========== -->
+
+	<!-- ================================================================= -->
+
+
+
+
+
+	<xsd:element name="PresentAndProposedLIFOMthdStmt">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Present and Proposed LIFO Methods Statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:complexType>
+
+			<xsd:complexContent>
+
+				<xsd:extension base="PresentAndProposedLIFOMthdStmtType">
+
+					<xsd:attributeGroup ref="DocumentAttributes">
+
+						<xsd:annotation>
+
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attributeGroup>
+
+					<xsd:attribute name="documentName" type="xsd:string" fixed="PresentAndProposedLIFOMethodsStatment">
+
+						<xsd:annotation>
+
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+
+						</xsd:annotation>
+
+					</xsd:attribute>
+
+				</xsd:extension>
+
+			</xsd:complexContent>
+
+		</xsd:complexType>
+
+	</xsd:element>	
+
+	
+
+	<xsd:complexType name="PresentAndProposedLIFOMthdStmtType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for Present and Proposed LIFO Methods Statement</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<xsd:element name="PresentAndProposedLIFOMthdInfo" type="PresentAndProposedLIFOMthdInfoType" minOccurs="0" maxOccurs="unbounded">
+
+				<xsd:annotation>
+
+					<xsd:documentation>Content model for Present and Proposed LIFO Methods Info</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+		</xsd:sequence>
+
+	</xsd:complexType>		
+
+
+
+	<xsd:complexType name="PresentAndProposedLIFOMthdInfoType">
+
+		<xsd:annotation>
+
+			<xsd:documentation>Content model for Present and Proposed LIFO Methods Info</xsd:documentation>
+
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+
+
+			<!-- Present Valuing Inventory Method -->
+
+			<xsd:element name="PresentValuingInvntryMthdDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Present Valuing Inventory Method</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Proposed Valuing Inventory Method -->
+
+			<xsd:element name="ProposedValuingInvntryMthdDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Proposed Valuing Inventory Method</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Present Pooling Method -->
+
+			<xsd:element name="PresentPoolingMethodDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Present Pooling Method</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Proposed Pooling Method -->
+
+			<xsd:element name="ProposedPoolingMethodDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Proposed Pooling Method</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Present Price-Dollar-Value Pools Method -->
+
+			<xsd:element name="PresentPriceDolVlPoolMthdDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Present Price-Dollar-Value Pools Method</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Proposed Price-Dollar-Value Pools Method -->
+
+			<xsd:element name="ProposedPriceDolVlPoolMthdDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Proposed Price-Dollar-Value Pools Method</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Present Determining the Current Year Costs of Goods in the Ending Inventory -->
+
+			<xsd:element name="PresDetermCostEndInvntryDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Present Determining the Current Year Costs of Goods in the Ending Inventory</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+
+
+			<!-- Proposed Determining the Current Year Costs of Goods in the Ending Inventory -->
+
+			<xsd:element name="PrpsdDetermCostEndInvntryDesc" type="LineExplanationType" minOccurs="0">
+
+				<xsd:annotation>
+
+					<xsd:documentation>
+
+						<Description>Proposed Determining the Current Year Costs of Goods in the Ending Inventory</Description>
+
+					</xsd:documentation>
+
+				</xsd:annotation>
+
+			</xsd:element>
+
+			
+
+		</xsd:sequence>
+
+	</xsd:complexType>		
+
+
+
+</xsd:schema>

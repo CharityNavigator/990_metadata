@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Contributions of Motor Vehicles, Boats, and Airplanes Statement</Description>
+			<TaxYear>2010</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>October 25, 2011</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================================ -->
+	<!-- ======== Contributions of Motor Vehicles, Boats, and Airplanes Statement ======= -->
+	<!-- ================================================================================ -->
+
+	<xsd:element name="ContriVehicleBoatAirplaneStmt">
+		<xsd:annotation>
+			<xsd:documentation>Contributions of Motor Vehicles, Boats, and Airplanes Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="ContriVehicleBoatAirplaneStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Transfer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="ContributionsOfMotorVehiclesBoatsAndAirplanesStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Contributions Vehicle Boat Airplane Statement Type -->
+	<xsd:complexType name="ContriVehicleBoatAirplaneStmtType">
+		<xsd:sequence>
+
+			<!-- Corrected Box Indicator -->
+			<xsd:element name="CorrectedBoxInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Corrected box indicator</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donee Name -->
+			<xsd:element name="DoneeName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Donee name</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address Of Donee - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- US Address of Donee -->
+				<xsd:element name="USAddressOfDonee" type="OtherUSAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of donee</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Foreign Address of Donee -->
+				<xsd:element name="ForeignAddressOfDonee" type="OtherForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of donee</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Donee Telephone Number -->
+			<xsd:element name="DoneeTelephoneNumber" type="PhoneNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Donee telephone number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donee EIN -->
+			<xsd:element name="DoneeEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Donee EIN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Donor Identification Number - choice between EIN or SSN -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Donor EIN -->
+				<xsd:element name="DonorEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Donor EIN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Donor SSN -->
+				<xsd:element name="DonorSSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Donor SSN</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Donor Name -->
+			<xsd:element name="DonorName" type="PersonFullNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Donor name</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of Donor - choice between US Address or Foreign Address -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Donor US Address  -->
+				<xsd:element name="DonorUSAddress" type="OtherUSAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>US address of donor</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Donor Foreign Address -->
+				<xsd:element name="DonorForeignAddress" type="OtherForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign address of donor</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Date of the Contribution -->
+			<xsd:element name="DateOfTheContribution" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of the contribution</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Vehicle Description - Year, Make, and Model of Vehicle -->
+			<xsd:element name="VehicleDescription" type="VehicleDescriptionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle description - Year, Make, and Model of Vehicle</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Vehicle Identification Number -->
+			<xsd:element name="VehicleIdentificationNumber" type="VINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle identification number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Certifies Vehicle Sold To Unrelated Party Indicator -->
+			<xsd:element name="CertifiesVehSoldToUnrltPrtyInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certifies vehicle sold to unrelated party indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Of Sale -->
+			<xsd:element name="DateOfSale" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of sale</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross Proceeds From Sale Of Vehicle Amount -->
+			<xsd:element name="GrossProceedsFromSaleOfVehAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross proceeds from sale of vehicle amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+ 			<!-- Certifies Vehicle Not Transferred Indicator -->
+			<xsd:element name="CertifiesVehicleNotTrnsfrInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certifies vehicle not transferred indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Certifies Vehicle Transferred To Needy Indicator -->
+			<xsd:element name="CertifiesVehTrnsfrToNeedyInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certifies vehicle transferred to needy indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Certifies Detailed Description Of Improvement -->
+			<xsd:element name="CertifiesDetailedDescOfImprv" type="MediumExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certifies detailed description of improvement</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Goods And Services Indicator -->
+			<xsd:element name="GoodsAndServicesInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Goods and services indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Value Of Goods And Services For Vehicle Amount -->
+			<xsd:element name="ValueOfGoodsAndSrvcForVehAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Value of goods and services for vehicle amount</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Intangible Religious Benefits Indicator -->
+			<xsd:element name="IntangibleReligiousBenefitsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Intangible religious benefits indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description Of Goods And Services -->
+			<xsd:element name="DescriptionOfGoodsAndServices" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Description of goods and services</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Vehicle Claim Deduction Under Specifed Amount Indicator -->
+			<xsd:element name="VehClaimDedUnderSpcfdAmtInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vehicle claim deduction under specifed amount indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - Basis of Energy Property Statement </Description>
+			<TaxYear>2008</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>September 25, 2008</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd" />
+
+
+	<!-- =================================================== -->
+	<!-- ====== Basis of Energy Property Statement ========= -->
+	<!-- =================================================== -->
+
+	<xsd:element name="BasisOfEnergyPropertyStatement">
+		<xsd:annotation>
+			<xsd:documentation>Basis of Energy Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="BasisOfEnergyPropertyStmtType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="BasisOfEnergyPropertyStatement">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>	
+
+	<xsd:complexType name="BasisOfEnergyPropertyStmtType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Basis of Energy Property Statement</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+    		<!-- 2005 Solar/geothermal Energy Property Basis -->
+			<xsd:element name="SolarGthrmlEnergyPropBasis2005" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>2005 Solar/geothermal energy property basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>						
+    		<!-- 2006 Solar/geothermal Energy Property Basis -->
+			<xsd:element name="SolarGthrmlEnergyPropBasis2006" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>2006 Solar/geothermal energy property basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+    		<!-- 2006 Qualified Fuel Cell Property Basis -->
+			<xsd:element name="QualifiedFuelCellPropBasis2006" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>2006 Qualified fuel cell property basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+    		<!-- Kilowatt Capacity of Qualified Fuel Cell Property -->
+			<xsd:element name="CapacityQualifiedFuelCellProp" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt capacity of qualified fuel cell property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>					
+    		<!-- 2006 Qualified Microturbine Property Basis -->
+			<xsd:element name="QlfyMicroturbinePropBasis2006" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>2006 Qualified microturbine property basis</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>								
+    		<!-- Killowatt Capacity of Qualified Microturbine Property -->
+			<xsd:element name="CapacityQlfyMicroturbineProp" type="IntegerType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Killowatt capacity of qualified microturbine property</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>								
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>
