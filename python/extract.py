@@ -10,18 +10,20 @@ NAMESPACE = {'xsd':'http://www.w3.org/2001/XMLSchema'}
 class UnhandledElementException(Exception):
     pass
 
+
 class Node:
-    def __init__(self, elem, version, xpref):
+    def __init__(self, elem, source, version, xpref):
         # Raw fields
         self.elem      = elem
+        self.source    = source
         self.version   = version 
         self.xpref     = xpref
         self.apath     = self.ascend(elem)
         self.namespace = self.getNamespace(self.apath[-1])
         self.process()
 
-    def compose(self, prefix, namespace):
-        composite = Node(self.elem, self.version, self.xpref)
+    def compose(self, source, prefix, namespace, xpref):
+        composite = Node(self.elem, source, self.version, xpref)
         composite.xpath = "/".join([prefix, self.xpath])
         composite.namespace = namespace
         return composite
@@ -48,7 +50,7 @@ class Node:
             if (not self.namespace == None) and (":" in token) and\
                     (token.endswith(self.namespace)):
                 continue
-            if token in ["sequence", "choice", "complexType"]:
+            if token in ["sequence", "choice", "complexType", "group"]:
                 continue
 
             token = token.split(":")[-1]
@@ -135,17 +137,32 @@ class Node:
         # By the time this code is called, the Xpath should reflect the prefix
         # that was stripped for processing earlier.
         pubXpath = "/".join([self.xpref, self.xpath])
-
-        ret = [self.version, pubXpath, self.eType, self.desc, self.lineNum,
+        pubXpath = re.sub("/+", "/", pubXpath)
+        ret = [self.version, self.source, pubXpath, self.eType, self.desc, self.lineNum,
                 self.minOccur, self.maxOccur]
 
         return [strip(x) for x in ret]
+
+class Group(Node):
+    def getType(self):
+        # In-line type specifications
+        if "ref" in self.elem.attrib:
+            return self.elem.attrib["ref"]
+       
+        raise UnhandledElementException("/".join(self.ascend(self.elem)))
+
+    def compose(self, source, prefix, namespace, xpref):
+        composite = Group(self.elem, source, self.version, xpref)
+        composite.xpath = "/".join([prefix, self.xpath])
+        composite.namespace = namespace
+        return composite
 
 def strip(s):
     if s == None:
         return None
 
     return s.encode("ascii", "ignore")
+
 # Returns root of etree for which default namespaces have been removed.
 # Adapted from Stack Overflow 34009992.
 def getRoot(fn):
@@ -209,7 +226,7 @@ def remap(nodes, namespaces):
                 namespaces[ns].remove(node)
 
                 for child in namespaces[t]:
-                    composite = child.compose(prefix, ns)
+                    composite = child.compose(node.source, prefix, ns, node.xpref)
                     assert composite != None
                     namespaces[ns].add(composite)
                     local.add(composite)
@@ -222,15 +239,39 @@ def remap(nodes, namespaces):
 
     return local 
 
+def getBaseNamespaces(fn):
+    version = fn.split("/")[2]
 
-def process(xpref, fn):
+    namespaces = {}
+    path = "%s/Common/efileTypes.xsd" % fn 
+
+    if not os.path.exists(path):
+        return namespaces
+
+    root = getRoot(path)
+
+    xp = "//xsd:element[@name]"
+    elems = getByXpath(root, xp)
+
+    for elem in elems:
+        try:
+            node = Node(elem, None, version, None)
+        except UnhandledElementException, e:
+            print "!SKIPPED: %s" % str(e)
+            continue
+
+        ns = node.namespace 
+
+        assert node != None
+
+        nsAdd(namespaces, ns, node)
+    return namespaces
+
+def process(namespaces, xpref, fn):
     # Set of all element nodes.
     nodes = set()
 
-    # Elements that exist as part of a type definition. This information will
-    # be used in constructing composite xpaths and side tables.
-    namespaces = {}
-
+    source = fn.split("/")[-1].split(".")[0]
     version = fn.split("/")[2]
     root = getRoot(fn)
     xp = "//xsd:element[@name]"
@@ -238,7 +279,7 @@ def process(xpref, fn):
 
     for elem in elems:
         try:
-            node = Node(elem, version, xpref)
+            node = Node(elem, source, version, xpref)
         except UnhandledElementException, e:
             print "!SKIPPED: %s" % str(e)
             continue
@@ -250,6 +291,24 @@ def process(xpref, fn):
         nsAdd(namespaces, ns, node)
         nodes.add(node)
 
+    # Find "group" nodes with "ref" tags
+    xp = "//xsd:group[@ref]"
+    elems = getByXpath(root, xp)
+
+    for elem in elems:
+        try:
+            group = Group(elem, source, version, xpref)
+        except UnhandledElementException, e:
+            print "!SKIPPED: %s" % str(e)
+            continue
+
+        ns = group.namespace 
+
+        assert group != None
+
+        nsAdd(namespaces, ns, group)
+        nodes.add(group)
+
     nodes = remap(nodes, namespaces)
 
     lines = [n.report() for n in namespaces[None]]
@@ -258,6 +317,15 @@ def process(xpref, fn):
 lines = []
 files = {"TEGE/TEGE990/IRS990/IRS990.xsd" : "Return/ReturnData",
          "TEGE/TEGE990EZ/IRS990EZ/IRS990EZ.xsd" : "Return/ReturnData",
+         "TEGE/TEGE990EZ/IRS990EZ/TransfersPersonalBenefitsContractsDeclaration.xsd" : "Return/ReturnData",
+         "TEGE/Common/Dependencies/EmployeeCompensationExplanation.xsd" : "Return/ReturnData",
+         "TEGE/Common/Dependencies/ReasonableCauseExplanation.xsd" : "Return/ReturnData",
+         "TEGE/Common/Dependencies/CompensationExplanation.xsd" : "Return/ReturnData",
+         "TEGE/Common/Dependencies/AffiliateListing.xsd" : "Return/ReturnData",
+         "TEGE/Common/IRS990ScheduleA/AffiliatedGroupSchedule.xsd" : "Return/ReturnData",
+         "TEGE/Common/IRS990ScheduleC/AffiliatedGroupSchedule.xsd" : "Return/ReturnData",
+         "TEGE/Common/IRS990ScheduleA/AveragingAttachment.xsd" : "Return/ReturnData",
+         "TEGE/Common/IRS990ScheduleC/AveragingAttachment.xsd" : "Return/ReturnData",
          "TEGE/Common/ReturnHeader990x.xsd" : "Return",
          "TEGE/Common/IRS990ScheduleA/IRS990ScheduleA.xsd" : "Return/ReturnData",
          "TEGE/Common/IRS990ScheduleB/IRS990ScheduleB.xsd" : "Return/ReturnData",
@@ -280,16 +348,17 @@ files = {"TEGE/TEGE990/IRS990/IRS990.xsd" : "Return/ReturnData",
 
 versions = glob.glob("../schema/*")
 for version in versions:
+    namespaces = getBaseNamespaces(version)
     for fn in files:
         path = "%s/%s" % (version, fn)
         if os.path.exists(path):
             xpref = files[fn]
-            local = process(xpref, path)
+            local = process(namespaces, xpref, path)
             lines.extend(local)
 
 with open("../output/xpath_all.csv", "wb") as outfile:
     out = csv.writer(outfile)
-    out.writerow(["Version","Xpath","Type","Description","Line","MinOccur","MaxOccur"])
+    out.writerow(["Version","Source","Xpath","Type","Description","Line","MinOccur","MaxOccur"])
     out.writerows(lines)
 
 print "\nDone"
